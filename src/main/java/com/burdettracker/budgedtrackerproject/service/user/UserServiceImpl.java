@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.service.user;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Address;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
+import com.burdettracker.budgedtrackerproject.repository.AddressRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,17 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    private final AddressRepository addressRepository;
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, AddressRepository addressRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.addressRepository = addressRepository;
     }
 
     @Override
     public void registerUser(RegisterUserDTO registerUserDTO) {
         User user = new User();
-        user.setMembershipType(registerUserDTO.getMembershipType());
+        user.setMembershipType(registerUserDTO.getMembership());
         user.setFirstName(registerUserDTO.getFirstName());
         user.setLastName(registerUserDTO.getLastName());
         user.setEmail(registerUserDTO.getEmail());
@@ -38,16 +40,16 @@ public class UserServiceImpl implements UserService {
         user.setExpenses(new ArrayList<>());
 
         Address address = new Address();
-        address.setCity("registerUserDTO.getAddress().getCity()");
-        address.setCountry("registerUserDTO.getAddress().getCountry()");
-        address.setStreetName("registerUserDTO.getAddress().getStreetName()");
-        address.setStreetNumber("registerUserDTO.getAddress().getStreetNumber()");
+        address.setCity(registerUserDTO.getCity());
+        address.setCountry(registerUserDTO.getCountry());
+        address.setStreetName(registerUserDTO.getAddressStreet());
+        address.setStreetNumber(registerUserDTO.getStreetNumber());
         List<User> userList = new ArrayList<>();
         userList.add(user);
         address.setUser(userList);
 
         user.setAddress(address);
-
+        addressRepository.saveAndFlush(address);
         userRepository.saveAndFlush(user);
 
         User user1 = modelMapper.map(registerUserDTO, User.class);

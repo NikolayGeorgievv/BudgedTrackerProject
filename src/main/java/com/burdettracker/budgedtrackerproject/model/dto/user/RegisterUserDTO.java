@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
-import com.burdettracker.budgedtrackerproject.model.dto.address.AddressDto;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 
 public class RegisterUserDTO {
@@ -11,8 +10,51 @@ public class RegisterUserDTO {
     private String phoneNumber;
     private String password;
     private String confirmPassword;
-    private MembershipType membershipType;
-    private String address;
+    private String addressStreet;
+    private String streetNumber;
+    private String city;
+    private String country;
+    private MembershipType membership;
+
+    public String getAddressStreet() {
+        return addressStreet;
+    }
+
+    public void setAddressStreet(String addressStreet) {
+        this.addressStreet = addressStreet;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public MembershipType getMembership() {
+        return membership;
+    }
+
+    public void setMembership(MembershipType membership) {
+        this.membership = membership;
+    }
 
     public RegisterUserDTO() {
     }
@@ -65,19 +107,11 @@ public class RegisterUserDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    public MembershipType getMembershipType() {
-        return membershipType;
-    }
-
-    public void setMembershipType(MembershipType membershipType) {
-        this.membershipType = membershipType;
-    }
-
     public String getAddress() {
-        return address;
+        return addressStreet;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.addressStreet = address;
     }
 }

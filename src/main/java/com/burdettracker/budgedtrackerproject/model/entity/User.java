@@ -28,7 +28,7 @@ public class User extends BaseEntity{
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "address")
     private Address address;
     @OneToMany
     @JoinColumn(name = "accounts_id")

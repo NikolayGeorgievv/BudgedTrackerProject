@@ -48,7 +48,7 @@
         <form id="registration-form"
               th:action="@{/users/register}"
               th:method="post"
-
+              th:object="${RegisterUserDTO}"
               class="col-10 col-sm-8 col-lg-6">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -79,22 +79,22 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" name="address" placeholder="1234 Main St">
+                <label for="inputAddress">Street Name</label>
+                <input type="text" class="form-control" id="inputAddress" name="addressStreet" placeholder="1234 Main St">
             </div>
             <div class="form-group col-md-6">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2"
+                <label for="inputAddress2">Street Number</label>
+                <input type="text" class="form-control" id="inputAddress2" name="streetNumber"
                        placeholder="Apartment, studio, or floor">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <input type="text" class="form-control" id="inputCity" name="city">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country">
+                    <input type="text" class="form-control" id="country" name="country">
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip">Tel. number</label>
@@ -103,10 +103,14 @@
 
                 <div class="form-group">
                     <label for="sel1">Membership</label>
-                    <select class="form-control" id="sel1">
-                        <option>Free</option>
-                        <option>Gold</option>
-                        <option>Premium</option>
+                    <select class="form-control" id="sel1" name="membership">
+                        <option th:each="m : ${memberships}"
+                            th:text="${m}"
+                            th:value="${m}">
+                        </option>
+<!--                        <option>Free</option>-->
+<!--                        <option>Gold</option>-->
+<!--                        <option>Premium</option>-->
                     </select>
 
                 </div>
