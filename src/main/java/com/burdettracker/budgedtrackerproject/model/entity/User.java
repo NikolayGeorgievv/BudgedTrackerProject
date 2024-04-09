@@ -11,6 +11,8 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity{
 
+    //TODO: MAKE USER_ID UUID
+
     @Column(name = "user_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
