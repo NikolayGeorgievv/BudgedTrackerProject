@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUserToDb(RegisterUserDTO registerUserDTO) {
+    public void registerUser(RegisterUserDTO registerUserDTO) {
         User user = new User();
         user.setMembershipType(registerUserDTO.getMembershipType());
         user.setFirstName(registerUserDTO.getFirstName());
@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserService {
         user.setExpenses(new ArrayList<>());
 
         Address address = new Address();
-        address.setCity(registerUserDTO.getAddress().getCity());
-        address.setCountry(registerUserDTO.getAddress().getCountry());
-        address.setStreetName(registerUserDTO.getAddress().getStreetName());
-        address.setStreetNumber(registerUserDTO.getAddress().getStreetNumber());
+        address.setCity("registerUserDTO.getAddress().getCity()");
+        address.setCountry("registerUserDTO.getAddress().getCountry()");
+        address.setStreetName("registerUserDTO.getAddress().getStreetName()");
+        address.setStreetNumber("registerUserDTO.getAddress().getStreetNumber()");
         List<User> userList = new ArrayList<>();
         userList.add(user);
         address.setUser(userList);
@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
 
         User user1 = modelMapper.map(registerUserDTO, User.class);
-        //TODO: CHECK IF USER SHOULD BE RETURNED OR VOID
-        return user;
+
     }
 }

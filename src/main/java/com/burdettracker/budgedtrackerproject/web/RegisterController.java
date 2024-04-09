@@ -1,6 +1,8 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 
+import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
+import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,10 +10,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegisterController {
 
-    @PostMapping("/users/register")
-    public String registerUser(){
+    private  final UserService userService;
 
-        return "login";
+    public RegisterController(UserService userService) {
+        this.userService = userService;
+    }
+
+//    @PostMapping("/users/register")
+//    public String registerUser(){
+//
+//        return "login";
+//    }
+
+
+    @PostMapping("users/register")
+    public String register(RegisterUserDTO registerUserDTO) {
+
+
+        userService.registerUser(registerUserDTO);
+
+        return "index";
     }
 
     @GetMapping("registerForm.html")

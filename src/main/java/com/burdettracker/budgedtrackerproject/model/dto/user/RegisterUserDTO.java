@@ -12,7 +12,7 @@ public class RegisterUserDTO {
     private String password;
     private String confirmPassword;
     private MembershipType membershipType;
-    private AddressDto address;
+    private String address;
 
     public RegisterUserDTO() {
     }
@@ -73,11 +73,11 @@ public class RegisterUserDTO {
         this.membershipType = membershipType;
     }
 
-    public AddressDto getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(AddressDto address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }
