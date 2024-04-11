@@ -37,17 +37,16 @@
 
             <div class="text-end">
 
-                <a href="#">
-                    <button type="button" class="btn btn-warning">Logout</button>
-                </a>
+                <form th:method="post"
+                      th:action="@{/logout}">
+                    <input type="submit" class="btn btn-warning" value="Logout"/>
+
+                </form>
             </div>
 
         </div>
     </div>
 </header>
-
-<!--  SIDEBAR-->
-
 
 <!--  main div that holds sidebar and table-->
 <div class="d-flex">
@@ -160,88 +159,132 @@
     <!--    main div for table-->
     <div class="flex-grow-1">
 
-        <!--        div for table-->
+        <!--    div for top bar-->
+        <div class="container" style="border: black 2px solid; height: 15vh; margin-left: 0">
 
-        <div>
+        </div>
+
+        <div class="flex-grow-1">
+            <!--        div for table-->
+
+            <div>
 
 
-            <div class="mb-2 d-flex justify-content-between align-items-center">
+                <div class="mb-2 d-flex justify-content-between align-items-center">
 
-                <div class="px-2">
+                    <div class="px-2">
 
-                    <i class="fa fa-ellipsis-h ms-3"></i>
+                        <i class="fa fa-ellipsis-h ms-3"></i>
+                    </div>
+
                 </div>
+                <div class="table-responsive d-flex">
+                    <table class="table table-responsive table-borderless">
 
-            </div>
-            <div class="table-responsive">
-                <table class="table table-responsive table-borderless" id="collapsable">
+                        <thead>
+                        <tr class="bg-light">
+                            <th scope="col">BILL</th>
+                            <th scope="col">AMOUNT</th>
+                            <th scope="col">DATE DUE</th>
+                            <th scope="col" class="text-end" width="20%"><span>ASSIGNED</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--          //TODO: ADD SMALL PICS-->
 
-                    <thead>
-                    <tr class="bg-light">
-                        <th scope="col" >Date</th>
-                        <th scope="col" >Status</th>
-                        <th scope="col" >Customer</th>
-                        <th scope="col" >Purchased</th>
-                        <th scope="col" class="text-end" width="20%"><span>Revenue</span></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="border-top border-bottom">
-                        <td>1 Oct, 21</td>
-                        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
-                        <td>Wirecard for figma</td>
-                        <td class="text-end"><span class="fw-bolder">$0.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-                    </tr>
+                        <tr class="border-top border-bottom">
+                            <td>Electricity</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
 
-                    <tr class="border-bottom">
-                        <td>12 Oct, 21</td>
-                        <td><i class="fa fa-dot-circle-o text-danger"></i><span class="ms-1">Failed</span></td>
-                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Tomo arvis</td>
-                        <td>Altroz furry</td>
-                        <td class="text-end"><span class="fw-bolder">$0.19</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-                    </tr>
+                        <tr class="border-bottom">
+                            <td>Water</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
 
 
-                    <tr class="border-bottom">
-                        <td>1 Nov, 21</td>
-                        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Althan Travis</td>
-                        <td>Apple Macbook air</td>
-                        <td class="text-end"><span class="fw-bolder">$1.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-                    </tr>
+                        <tr class="border-bottom">
+                            <td>Phone</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
 
 
-                    <tr class="border-bottom">
-                        <td>19 Oct, 21</td>
-                        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-                        <td><img src="https://i.imgur.com/VKOeFyS.png" width="25"> Travis head</td>
-                        <td>Apple Macbook Pro</td>
-                        <td class="text-end"><span class="fw-bolder">$9.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-                    </tr>
+                        <tr class="border-bottom">
+                            <td>Internet</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
 
 
-                    <tr class="border-bottom">
-                        <td>1 Oct, 21</td>
-                        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">Paid</span></td>
-                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> Althan Travis</td>
-                        <td>Wirecard for figma</td>
-                        <td class="text-end"><span class="fw-bolder">$0.99</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tr class="border-bottom">
+                            <td>Car</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Fitness</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Groceries</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Train/Bus fee</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Home maintenance</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Investments</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+
+                        <tr class="border-bottom">
+                            <td>Entertainment</td>
+                            <td>Amount</td>
+                            <td>Date Due</td>
+                            <td class="text-end">Amount</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--    div for filling space-->
+                    <div class="block" style="background: white; width: 50vh"></div>
+                </div>
 
             </div>
 
         </div>
+
     </div>
-
-    <!--    div for filling space-->
-    <div class="block" style="background: white; width: 50vh"></div>
 </div>
 
-
 </div>
-
 </body>
 </html>
