@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 
 
 @Configuration
-public class ApplicationBeanConfiguration {
+public class ApplicationBeanConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {

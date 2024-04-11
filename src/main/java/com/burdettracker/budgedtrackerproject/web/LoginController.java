@@ -15,20 +15,17 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping("login.html")
-    public String login(LoginUserDTO loginUserDTO){
-
-        if (userService.login(loginUserDTO)) {
-
-            return "index";
-        }
-
+    @GetMapping("/users/login")
+    public String login(){
         return "login";
     }
 
     @PostMapping("/users/login")
-    public String loggedIn(){
+    public String loggedIn(LoginUserDTO loginUserDTO){
+        if (userService.login(loginUserDTO)) {
 
-        return "index";
+            return "index";
+        }
+        return "login";
     }
 }

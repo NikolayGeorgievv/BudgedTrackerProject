@@ -22,8 +22,19 @@ public class Account extends BaseEntity{
     private List<IncomeTransaction> incomeTransactionHistory;
     @OneToMany
     private List<ExpenseTransaction> expenseTransactionHistory;
+    @ManyToOne
+    private User user;
+
 
     public Account() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getCreatedOn() {

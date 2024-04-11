@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -12,17 +11,24 @@ public class Expense extends BaseEntity{
 
     @Column(nullable = false)
     private String name;
-    @Column(name = "expense_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ExpenseType expenseType;
     @Column(name = "date_due")
     private LocalDate dateDue;
     @Column(nullable = false)
     private BigDecimal amount;
     @Column
     private String description;
+    @ManyToOne
+    private User user;
 
     public Expense() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -31,14 +37,6 @@ public class Expense extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ExpenseType getExpenseType() {
-        return expenseType;
-    }
-
-    public void setExpenseType(ExpenseType expenseType) {
-        this.expenseType = expenseType;
     }
 
     public LocalDate getDateDue() {

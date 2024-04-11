@@ -1,8 +1,6 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user_documents")
@@ -14,8 +12,17 @@ public class UserDocument extends BaseEntity{
     private String description;
     @Column(nullable = false)
     private String url;
-
+    @ManyToOne
+    private User user;
     public UserDocument() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

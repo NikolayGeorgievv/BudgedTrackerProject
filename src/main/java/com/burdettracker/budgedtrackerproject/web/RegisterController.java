@@ -20,11 +20,6 @@ public class RegisterController {
         this.userService = userService;
     }
 
-//    @PostMapping("/users/register")
-//    public String registerUser(){
-//
-//        return "login";
-//    }
 @ModelAttribute("memberships")
 public MembershipType[] memberships() {
     return MembershipType.values();
@@ -33,14 +28,12 @@ public MembershipType[] memberships() {
 
     @PostMapping("users/register")
     public String register(RegisterUserDTO registerUserDTO) {
-
-
         userService.registerUser(registerUserDTO);
 
         return "index";
     }
 
-    @GetMapping("registerForm.html")
+    @GetMapping("/users/register")
     public String register(){
 
         return "registerForm";

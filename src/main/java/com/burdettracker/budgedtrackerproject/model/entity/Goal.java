@@ -1,8 +1,6 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -16,8 +14,18 @@ public class Goal extends BaseEntity{
     private BigDecimal amountToBeSaved;
     @Column
     private String description;
+    @ManyToOne
+    private User user;
 
     public Goal() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

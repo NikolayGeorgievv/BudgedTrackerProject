@@ -33,16 +33,16 @@ public class User extends BaseEntity{
     @JoinColumn(name = "address")
     private Address address;
     @OneToMany
-    @JoinColumn(name = "accounts_id")
+    @JoinColumn(name = "user_id")
     private List<Account> accounts;
     @OneToMany
-    @JoinColumn(name = "user_documents_id")
+    @JoinColumn(name = "user_id")
     private List<UserDocument> userDocuments;
     @OneToMany
-    @JoinColumn(name = "goals_id")
+    @JoinColumn(name = "user_id")
     private List<Goal> goals;
     @OneToMany
-    @JoinColumn(name = "expenses_id")
+    @JoinColumn(name = "user_id")
     private List<Expense> expenses;
 
     public User() {
