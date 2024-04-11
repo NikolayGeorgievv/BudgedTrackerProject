@@ -19,13 +19,9 @@ public class LoginController {
     public String login(){
         return "login";
     }
-
     @PostMapping("/users/login")
-    public String loggedIn(LoginUserDTO loginUserDTO){
-        if (userService.login(loginUserDTO)) {
+    public String loggedIn(){
 
-            return "index";
-        }
-        return "login";
+        return "index";
     }
 }

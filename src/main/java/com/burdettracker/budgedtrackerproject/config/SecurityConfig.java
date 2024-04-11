@@ -32,23 +32,23 @@ public class SecurityConfig {
                     formLogin
                             // redirect here when we access something which is not allowed.
                             // also this is the page where we perform login.
-                            .loginPage("/homePage")
+                            .loginPage("/users/login")
                             // The names of the input fields (in our case in login.html)
                             .usernameParameter("email")
                             .passwordParameter("password")
                             .defaultSuccessUrl("/index")
                             .failureForwardUrl("/homePage");
                 }
-//        ).logout(
-//                logout -> {
-//                    logout
-//                            // the URL where we should POST something in order to perform the logout
-//                            .logoutUrl("/users/logout")
-//                            // where to go when logged out?
-//                            .logoutSuccessUrl("/")
-//                            // invalidate the HTTP session
-//                            .invalidateHttpSession(true);
-//                }
+        ).logout(
+                logout -> {
+                    logout
+                            // the URL where we should POST something in order to perform the logout
+                            .logoutUrl("/users/logout")
+                            // where to go when logged out?
+                            .logoutSuccessUrl("/")
+                            // invalidate the HTTP session
+                            .invalidateHttpSession(true);
+                }
 //        ).rememberMe(
 //                rememberMe ->
 //                        rememberMe
