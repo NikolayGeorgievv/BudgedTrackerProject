@@ -8,6 +8,5 @@ import com.burdettracker.budgedtrackerproject.model.entity.User;
 public interface UserService {
     void registerUser(RegisterUserDTO registerUserDTO);
 
-    boolean login(LoginUserDTO loginUserDTO);
 
 }

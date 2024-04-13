@@ -1,7 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.dto.address;
 
-import com.burdettracker.budgedtrackerproject.model.entity.Address;
-
 public class AddressDto {
 
     private String streetName;
@@ -12,15 +10,6 @@ public class AddressDto {
     public AddressDto() {
     }
 
-//    public Address getAddress(){
-//        Address address = new Address();
-//        address.setStreetName(this.streetName);
-//        address.setCity(this.city);
-//        address.setCountry(this.country);
-//        address.setStreetNumber(this.streetNumber);
-//
-//    }
-//
     public String getStreetName() {
         return streetName;
     }

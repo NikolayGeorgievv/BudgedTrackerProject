@@ -3,16 +3,25 @@ package com.burdettracker.budgedtrackerproject.model.entity;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
+import java.sql.Types;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User{
 
-    //TODO: MAKE USER_ID UUID
-
+    @NotNull
+    @Id
+    @UuidGenerator
+    private UUID id;
     @Column(name = "user_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
@@ -25,7 +34,7 @@ public class User extends BaseEntity{
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
     @Column(name = "total_balance", nullable = false)
-    private BigDecimal totalBalance;
+    private BigDecimal totalBalance = BigDecimal.ZERO;
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -34,18 +43,26 @@ public class User extends BaseEntity{
     private Address address;
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<UserDocument> userDocuments;
+    private List<UserDocument> userDocuments = new ArrayList<>();
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Goal> goals;
+    private List<Goal> goals = new ArrayList<>();
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Expense> expenses;
+    private List<Expense> expenses = new ArrayList<>();
 
     public User() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -108,8 +125,8 @@ public class User extends BaseEntity{
         return totalBalance;
     }
 
-    public void setTotalBalance(BigDecimal totalBalance) {
-        this.totalBalance = totalBalance;
+    public void setTotalBalance() {
+        this.totalBalance = BigDecimal.ZERO;
     }
 
     public List<Account> getAccounts() {
@@ -117,12 +134,15 @@ public class User extends BaseEntity{
     }
 
     public void setAccounts(List<Account> accounts) {
+        Account BASIC_USER_ACCOUNT = new Account();
+        accounts.add(BASIC_USER_ACCOUNT);
         this.accounts = accounts;
     }
 
     public List<UserDocument> getUserDocuments() {
         return userDocuments;
     }
+
 
     public void setUserDocuments(List<UserDocument> userDocuments) {
         this.userDocuments = userDocuments;
@@ -141,6 +161,9 @@ public class User extends BaseEntity{
     }
 
     public void setExpenses(List<Expense> expenses) {
+        expenses.add(new Expense("Electricity", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO));
         this.expenses = expenses;
     }
+
+
 }

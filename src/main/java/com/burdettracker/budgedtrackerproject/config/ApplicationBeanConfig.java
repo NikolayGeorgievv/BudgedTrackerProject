@@ -1,5 +1,7 @@
 package com.burdettracker.budgedtrackerproject.config;
 
+import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.google.gson.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 
 @Configuration
@@ -77,7 +80,9 @@ public class ApplicationBeanConfig {
             }
         });
 
-
+        modelMapper.typeMap(RegisterUserDTO.class, User.class).addMappings(mp -> {
+            mp.skip(User::setPassword);
+        });
         return modelMapper;
     }
   }

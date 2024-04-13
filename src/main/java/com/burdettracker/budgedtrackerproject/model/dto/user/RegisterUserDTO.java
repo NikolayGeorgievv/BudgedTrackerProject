@@ -10,18 +10,18 @@ public class RegisterUserDTO {
     private String phoneNumber;
     private String password;
     private String confirmPassword;
-    private String addressStreet;
+    private String streetName;
     private String streetNumber;
     private String city;
     private String country;
     private MembershipType membership;
 
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getStreetName() {
+        return streetName;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
     public String getStreetNumber() {
@@ -107,11 +107,4 @@ public class RegisterUserDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getAddress() {
-        return addressStreet;
-    }
-
-    public void setAddress(String address) {
-        this.addressStreet = address;
-    }
 }

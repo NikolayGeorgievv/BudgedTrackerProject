@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
 import jakarta.persistence.*;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,11 +15,18 @@ public class Expense extends BaseEntity{
     @Column(name = "date_due")
     private LocalDate dateDue;
     @Column(nullable = false)
-    private BigDecimal amount;
-    @Column
-    private String description;
+    private BigDecimal assigned;
+    @Column(nullable = false)
+    private BigDecimal available;
     @ManyToOne
     private User user;
+
+    public Expense(String name, LocalDate dateDue, BigDecimal assigned, BigDecimal available) {
+        this.name = name;
+        this.dateDue = dateDue;
+        this.assigned = assigned;
+        this.available = available;
+    }
 
     public Expense() {
     }
@@ -47,19 +55,19 @@ public class Expense extends BaseEntity{
         this.dateDue = dateDue;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getAssigned() {
+        return assigned;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setAssigned(BigDecimal assigned) {
+        this.assigned = assigned;
     }
 
-    public String getDescription() {
-        return description;
+    public BigDecimal getAvailable() {
+        return available;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAvailable(BigDecimal available) {
+        this.available = available;
     }
 }
