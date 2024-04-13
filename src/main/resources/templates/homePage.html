@@ -14,37 +14,9 @@
 </head>
 <body data-spy="scroll">
 
-<header class="p-3 text-bg-dark fixed-top">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/homePage"><img src="/images/PineConeLogo - BG.png"
-                                                 class="d-block mx-lg-auto img-fluid" alt="#" width="45" height="30"
-                                                 loading="lazy"></a></li>
-                <li><a href="/homePage" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-
-
-            <div class="text-end">
-                <a href="/users/login">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                </a>
-
-                <a href="/users/register">
-                    <button type="button" class="btn btn-warning">Sign-up</button>
-                </a>
-
-            </div>
-        </div>
-    </div>
-</header>
+<div>
+    <nav th:replace="~{fragments/navbar-guest}"></nav>
+</div>
 <!--  HEADER END -->
 
 <div class="container col-xxl-8 px-4 py-5" style="background-image: url('/images/maybe a bg for 1st div.png');">

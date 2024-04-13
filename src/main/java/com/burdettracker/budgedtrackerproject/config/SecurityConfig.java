@@ -20,7 +20,6 @@ public class SecurityConfig {
                                 // Allow all static resources to be available.
                                 .requestMatchers(String.valueOf(PathRequest.toStaticResources().atCommonLocations())).permitAll()
                                 .requestMatchers("/images/**").permitAll()
-                                .requestMatchers("/fragments/**").permitAll()
 //                                // Allow anyone to see the home page, the registration page and the login form.
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/").permitAll()
                                 //Allowing all, just for testing!!
