@@ -133,16 +133,17 @@ public class User{
         return accounts;
     }
 
+    public void setTotalBalance(BigDecimal totalBalance) {
+        this.totalBalance = totalBalance;
+    }
+
     public void setAccounts(List<Account> accounts) {
-        Account BASIC_USER_ACCOUNT = new Account();
-        accounts.add(BASIC_USER_ACCOUNT);
         this.accounts = accounts;
     }
 
     public List<UserDocument> getUserDocuments() {
         return userDocuments;
     }
-
 
     public void setUserDocuments(List<UserDocument> userDocuments) {
         this.userDocuments = userDocuments;
@@ -161,9 +162,6 @@ public class User{
     }
 
     public void setExpenses(List<Expense> expenses) {
-        expenses.add(new Expense("Electricity", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO));
         this.expenses = expenses;
     }
-
-
 }

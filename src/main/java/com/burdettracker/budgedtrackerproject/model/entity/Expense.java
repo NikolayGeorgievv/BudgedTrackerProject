@@ -21,11 +21,12 @@ public class Expense extends BaseEntity{
     @ManyToOne
     private User user;
 
-    public Expense(String name, LocalDate dateDue, BigDecimal assigned, BigDecimal available) {
+    public Expense(String name, LocalDate dateDue, BigDecimal assigned, BigDecimal available, User user) {
         this.name = name;
         this.dateDue = dateDue;
         this.assigned = assigned;
         this.available = available;
+        this.user = user;
     }
 
     public Expense() {
