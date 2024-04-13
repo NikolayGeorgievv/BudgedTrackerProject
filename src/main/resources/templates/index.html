@@ -40,9 +40,11 @@
 
             <div class="text-end">
 
-                <a href="homePage.html">
-                    <button type="button" class="btn btn-warning">Logout</button>
-                </a>
+                <form th:method="post"
+                      th:action="@{/logout}">
+                    <input type="submit" class="btn btn-warning" value="Logout"/>
+
+                </form>
             </div>
 
         </div>
