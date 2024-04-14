@@ -8,6 +8,10 @@ import com.burdettracker.budgedtrackerproject.repository.AddressRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +28,14 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final ExpenseRepository expenseRepository;
-    public UserServiceImpl(UserRepository userRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository) {
+    private final UserDetailImpl userDetail;
+    public UserServiceImpl(UserRepository userRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail) {
         this.userRepository = userRepository;
         this.addressRepository = addressRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.expenseRepository = expenseRepository;
+        this.userDetail = userDetail;
     }
 
     @Override
@@ -43,6 +49,26 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         expenseRepository.saveAllAndFlush(user.getExpenses());
 
+    }
+
+    @Override
+    public Authentication login(String email) {
+        UserDetails userDetails = userDetail.loadUserByUsername(email);
+
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        return auth;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return this.userRepository.getByEmail(email);
     }
 
     private User mapUser(RegisterUserDTO registerUserDTO){

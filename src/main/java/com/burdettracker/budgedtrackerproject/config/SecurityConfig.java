@@ -1,5 +1,7 @@
 package com.burdettracker.budgedtrackerproject.config;
 
+import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.service.user.UserDetailImpl;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,19 +25,19 @@ public class SecurityConfig {
 //                                // Allow anyone to see the home page, the registration page and the login form.
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/").permitAll()
                                 //Allowing all, just for testing!!
-                                .requestMatchers("/**").permitAll()
+//                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(
                         formLogin -> {
                             formLogin
                                     // redirect here when we access something which is not allowed.
                                     // also this is the page where we perform login.
-                                    .loginPage("/homePage")
+                                    .loginPage("/users/login")
                                     // The names of the input fields (in our case in login.html)
                                     .usernameParameter("email")
                                     .passwordParameter("password")
                                     .defaultSuccessUrl("/index")
-                                    .failureForwardUrl("/homePage");
+                                    .failureForwardUrl("/users/login");
                         }
                 ).logout(
                         logout -> {
@@ -56,6 +58,11 @@ public class SecurityConfig {
                 .build();
 
 
+    }
+
+    @Bean
+    public UserDetailImpl userDetailsService(UserRepository userRepository) {
+        return new UserDetailImpl(userRepository);
     }
 
 }

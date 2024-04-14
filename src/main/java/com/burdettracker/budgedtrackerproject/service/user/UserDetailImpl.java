@@ -5,9 +5,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
+
 public class UserDetailImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -28,6 +29,7 @@ public class UserDetailImpl implements UserDetailsService {
     private static UserDetails map(com.burdettracker.budgedtrackerproject.model.entity.User user) {
         return User.withUsername(user.getEmail())
                 .password(user.getPassword())
+                .authorities(List.of())
                 .build();
 
     }

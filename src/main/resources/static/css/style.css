@@ -1,9 +1,0 @@
-@media only screen and (max-width: 600px){
-    #phone-pic{
-        display: none;
-    }
-}
-
-.body{
-    background: red;
-}

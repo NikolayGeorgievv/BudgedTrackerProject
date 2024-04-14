@@ -4,6 +4,7 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +28,7 @@ public MembershipType[] memberships() {
 
 
     @PostMapping("users/register")
-    public String register(RegisterUserDTO registerUserDTO) {
+    public String register(@Valid RegisterUserDTO registerUserDTO) {
         userService.registerUser(registerUserDTO);
 
         return "index";

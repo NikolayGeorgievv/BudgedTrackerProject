@@ -1,11 +1,15 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
+import jakarta.validation.constraints.NotEmpty;
 
 public class RegisterUserDTO {
 
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
+    @NotEmpty
     private String email;
     private String phoneNumber;
     private String password;

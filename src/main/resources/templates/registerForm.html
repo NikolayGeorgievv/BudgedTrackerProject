@@ -104,7 +104,8 @@
                 <div class="form-group">
                     <label for="sel1">Membership</label>
                     <select class="form-control" id="sel1" name="membership">
-                        <option th:each="m : ${memberships}"
+                        <option
+                            th:each="m : ${memberships}"
                             th:text="${m}"
                             th:value="${m}">
                         </option>
