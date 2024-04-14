@@ -20,7 +20,7 @@
     <div class="row form-group">
       <div class="col-sm-4">
         <div class="input-group date" id="datepicker" style="width: 150%">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" th:id="'datepicker-' + ${randomNumber}">
           <span class="input-group-append">
                             <span class="input-group-text bg-white d-block">
                                 <i class="fa fa-calendar"></i>
@@ -33,12 +33,14 @@
 
 <script type="text/javascript">
   $(function() {
-    $('#datepicker').datepicker({
-            format: 'dd-MM-yyyy', // Customize the date format if needed
-            autoclose: true, // Close the datepicker when a date is selected
-            todayHighlight: true // Highlight today's date
+    $('.form-control').each(function (){
+      $(this).datepicker({
+        format: 'dd-MM-yyyy', // Customize the date format if needed
+        autoclose: true, // Close the datepicker when a date is selected
+        todayHighlight: true // Highlight today's date
 
-    });
+      });
+    })
   });
 </script>
 

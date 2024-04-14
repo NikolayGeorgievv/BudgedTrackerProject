@@ -183,41 +183,53 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="border-top border-bottom">
+                        <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
                             <td
-                                    th:each="e : ${userExpenses}"
+
                                     th:text="${e.getName()}"
                                     th:value="${e.getName()}">
                             ></td>
                             <td
-                                    th:each="e : ${userExpenses}"
+
                                     th:text="${e.assigned}"
                                     th:value="${e.assigned}">
                                 ></td>
 
+                            <td>
+
+                                <th:input th:replace="~{fragments/datepicker}"></th:input>
+<!--                                    th:text="${e.dateDue}"-->
+<!--                                    th:value="${e.dateDue}">-->
+                                </td>
                             <td
-                                    th:each="e : ${userExpenses}"
-                                    th:text="${e.dateDue}"
-                                    th:value="${e.dateDue}">
-                                ></td>
-                            <td
-                                    th:each="e : ${userExpenses}"
+
                                     th:text="${e.available}"
                                     th:value="${e.available}">
                                 ></td>
-
-
-
-                            <td><i class="fa-sharp fa-solid fa-bolt-lightning"></i> Electricity</td>
-                            <td>Amount</td>
-                            <td><input th:replace="~{fragments/datepicker}"></td>
-                            <td>Amount</td>
                             <td  class="text-end">
                                 <form>
-                                    <button title="Add funds" type="submit" class="btn btn-warning" value="Assign"><i class="fa-sharp fa-solid fa-plus"></i></button>
-                                    <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button title="Add funds" type="submit" class="btn btn-warning" value="Assign"><i
+                                            class="fa-sharp fa-solid fa-plus"></i></button>
+                                    <button title="Edit date" type="submit" class="btn btn-warning" value="Edit date"><i
+                                            class="fa-regular fa-calendar"></i></button>
+                                    <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+
                                 </form>
                             </td>
+
+
+
+<!--                            <td><i class="fa-sharp fa-solid fa-bolt-lightning"></i> Electricity</td>-->
+<!--                            <td>Amount</td>-->
+<!--                            <td><input th:replace="~{fragments/datepicker}"></td>-->
+<!--                            <td>Amount</td>-->
+<!--                            <td  class="text-end">-->
+<!--                                <form>-->
+<!--                                    <button title="Add funds" type="submit" class="btn btn-warning" value="Assign"><i class="fa-sharp fa-solid fa-plus"></i></button>-->
+<!--                                    <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i class="fa-solid fa-trash-can"></i></button>-->
+<!--                                </form>-->
+<!--                            </td>-->
                         </tr>
 
 

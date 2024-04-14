@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class MainPageController {
@@ -43,6 +44,8 @@ public class MainPageController {
         List<Expense> expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);
 
+        int random = new Random().nextInt();
+        model.addAttribute("randomNumber", random);
 
         return "index";
     }
