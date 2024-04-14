@@ -41,14 +41,14 @@
                    class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom"
                    th:action="@{/index}"
                    th:method="get"
-                   th:object="${userFullName}">
+                   th:object="${userFullNameDTO}">
 
 
                     <svg class="bi pe-none me-2" width="30" height="24">
                         <use xlink:href="#bootstrap"></use>
                     </svg>
                     <span class="fs-5 fw-semibold">
-<!--                        <th:block th:text="${userFullName.toString()}">UserName</th:block>-->
+                        <th:block th:text="${userFullNameDTO.toString()}">UserName</th:block>
                     </span>
                 </a>
                 <ul class="list-unstyled ps-0">

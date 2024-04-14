@@ -31,6 +31,6 @@ public class UserFullNameDTO {
 
     @Override
     public String toString() {
-        return firstName + lastName;
+        return firstName + " "+ lastName;
     }
 }
