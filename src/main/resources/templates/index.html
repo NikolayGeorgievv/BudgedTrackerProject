@@ -10,8 +10,7 @@
             crossorigin="anonymous"></script>
     <!--    FONTAWESOME KIT-->
     <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/datepicker.material.css">
-    <script src="/js/datepicker.js"></script>
+    <script src="/js/input-event-handlers.js"></script>
     <link rel="stylesheet" href="/static/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
@@ -192,29 +191,92 @@
                                 >
                             </td>
                             <td>
-                                <input style="border: none; width: 10vh"
+                                <input id="assign-input-id" style="border: none; width: 10vh"
                                         th:value="${e.assigned}"></td>
 
                             <td>
 
-                                <input th:replace="~{fragments/datepicker}" style="width: 10vh"></input>
+                                <input id="dateDue-input-id" th:replace="~{fragments/datepicker}" style="width: 10vh"></input>
                                 <!--                                    th:text="${e.dateDue}"-->
                                 <!--                                    th:value="${e.dateDue}">-->
                             </td>
                             <td>
-                                <input style="border: none; width: 10vh"
+                                <input id="available-input-id" style="border: none; width: 10vh"
                                         th:value="${e.available}"/>
 
                             </td>
                             <td class="text-end">
-                                <form>
-                                    <button title="Add funds" type="submit" class="btn btn-warning" value="Assign"><i
+                                <form
+                                th:method="post"
+                                th:action="@{/save-data}"
+                                >
+                                    <button id="update-status" title="Add funds" type="submit" class="btn btn-warning" value="Assign"><i
                                             class="fa-sharp fa-solid fa-plus"></i></button>
                                     <button id="datepicker-btn" title="Edit date" type="submit" class="btn btn-warning"
                                             value="Edit date"><i
                                             class="fa-regular fa-calendar"></i></button>
                                     <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i
                                             class="fa-solid fa-trash-can"></i></button>
+
+                                    <script th:inline="javascript">
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            let assignInputField = document.getElementById("assign-input-id");
+                                            let dateDueInputField = document.getElementById("dateDue-input-id");
+                                            let availableInputField = document.getElementById("available-input-id");
+
+                                            let assignValue = assignInputField.textContent;
+                                            let dateDueValue = dateDueInputField.textContent;
+                                            let availableValue = availableInputField.textContent;
+
+                                            let data = {
+                                                assignValue: assignValue,
+                                                dateDueValue: dateDueValue,
+                                                availableValue: availableValue
+                                            };
+
+                                            let updateStatusBtn = document.getElementById("update-status");
+                                            updateStatusBtn.addEventListener("click",function (){
+
+                                                fetch('/save-data', {
+                                                    method: 'POST',
+                                                    body: JSON.stringify({
+                                                        assignValue : data.assignValue,
+                                                        dateDueValue : data.dateDueValue,
+                                                        availableValue : data.availableValue
+                                                    }),
+                                                    headers: {
+                                                        'Content-Type': 'application/json'
+                                                    }
+                                                });
+                                            });
+
+
+
+
+                                            // assignValue.addEventListener("input", function() {
+                                            //     sendDataToController(assignValue.value);
+                                            // })
+                                            //
+                                            // dateDueValue.addEventListener("input", function() {
+                                            //     sendDataToController(dateDueValue.value);
+                                            // });
+                                            //
+                                            // availableValue.addEventListener("input", function() {
+                                            //     sendDataToController(availableValue.value);
+                                            // });
+
+                                        });
+                                        // function sendDataToController(dataArr) {
+                                        //
+                                        //     fetch('/save-data', {
+                                        //         method: 'POST',
+                                        //         body: JSON.stringify({ data: data }),
+                                        //         headers: {
+                                        //             'Content-Type': 'application/json'
+                                        //         }
+                                        //     });
+                                        // }
+                                    </script>
 
                                 </form>
                             </td>

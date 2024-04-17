@@ -72,7 +72,7 @@ public class ApplicationBeanConfig {
                 if(mappingContext.getSource() != null) {
                     LocalDate parse = LocalDate
                             .parse(mappingContext.getSource(),
-                                    DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
                     return parse;
                 }

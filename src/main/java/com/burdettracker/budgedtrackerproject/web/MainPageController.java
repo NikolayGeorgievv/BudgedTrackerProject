@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
+import com.burdettracker.budgedtrackerproject.model.dto.UpdateInfoDto;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -48,5 +50,13 @@ public class MainPageController {
         model.addAttribute("randomNumber", random);
 
         return "index";
+    }
+
+
+    @PostMapping("/save-data")
+    public UpdateInfoDto updateData(@RequestBody String data){
+
+        String userData = data;
+        return null;
     }
 }
