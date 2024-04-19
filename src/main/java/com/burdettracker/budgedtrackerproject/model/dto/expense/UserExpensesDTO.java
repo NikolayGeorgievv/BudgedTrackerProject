@@ -1,15 +1,13 @@
 package com.burdettracker.budgedtrackerproject.model.dto.expense;
 
-import com.burdettracker.budgedtrackerproject.model.entity.User;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class ExpenseDTO {
+public class UserExpensesDTO {
 
     private String name;
-    private LocalDate dateDue;
     private BigDecimal assigned;
+    private LocalDate dateDue;
     private BigDecimal available;
 
     public String getName() {
@@ -20,20 +18,20 @@ public class ExpenseDTO {
         this.name = name;
     }
 
-    public LocalDate getDateDue() {
-        return dateDue;
-    }
-
-    public void setDateDue(LocalDate dateDue) {
-        this.dateDue = dateDue;
-    }
-
     public BigDecimal getAssigned() {
         return assigned;
     }
 
     public void setAssigned(BigDecimal assigned) {
         this.assigned = assigned;
+    }
+
+    public LocalDate getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(LocalDate dateDue) {
+        this.dateDue = dateDue;
     }
 
     public BigDecimal getAvailable() {
@@ -43,6 +41,4 @@ public class ExpenseDTO {
     public void setAvailable(BigDecimal available) {
         this.available = available;
     }
-
-
 }

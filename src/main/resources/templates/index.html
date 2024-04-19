@@ -182,103 +182,60 @@
                             <th scope="col" width="20%"><span></span></th>
                         </tr>
                         </thead>
+
                         <tbody>
-                        <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
 
-                            <td
+                            <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
 
-                                    th:text="${e.getName()}"
-                                    th:value="${e.getName()}">
-                                >
-                            </td>
-                            <td>
-                                <input id="assign-input-id" style="border: none; width: 10vh"
-                                       th:value="${e.assigned}" name="${assignInput}"></td>
+                                <td
 
-                            <td>
-
-                                <input id="dateDue-input-id" th:replace="~{fragments/datepicker}" style="width: 10vh"
-                                       name="${dateInput}"></input>
-                                <!--                                    th:text="${e.dateDue}"-->
-                                <!--                                    th:value="${e.dateDue}">-->
-                            </td>
-                            <td>
-                                <input id="available-input-id" style="border: none; width: 10vh"
-                                       th:value="${e.available}" name="${availableInput}"/>
-
-                            </td>
-                            <td class="text-end">
-                                <button id="update-status" title="Add funds" type="submit" class="btn btn-warning"
-                                        value="Assign"><i
-                                        class="fa-sharp fa-solid fa-plus"></i></button>
-                                <button id="datepicker-btn" title="Edit date" type="submit" class="btn btn-warning"
-                                        value="Edit date"><i
-                                        class="fa-regular fa-calendar"></i></button>
-                                <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i
-                                        class="fa-solid fa-trash-can"></i></button>
-
-                                <!--                                    <script th:inline="javascript">-->
-                                <!--                                        document.addEventListener("DOMContentLoaded", function() {-->
-                                <!--                                            let assignInputField = document.getElementById("assign-input-id");-->
-                                <!--                                            let dateDueInputField = document.getElementById("dateDue-input-id");-->
-                                <!--                                            let availableInputField = document.getElementById("available-input-id");-->
-
-                                <!--                                            let assignValue = assignInputField.textContent;-->
-                                <!--                                            let dateDueValue = dateDueInputField.textContent;-->
-                                <!--                                            let availableValue = availableInputField.textContent;-->
-
-                                <!--                                            let data = {-->
-                                <!--                                                assignValue: assignValue,-->
-                                <!--                                                dateDueValue: dateDueValue,-->
-                                <!--                                                availableValue: availableValue-->
-                                <!--                                            };-->
-
-                                <!--                                            let updateStatusBtn = document.getElementById("update-status");-->
-                                <!--                                            updateStatusBtn.addEventListener("click",function (){-->
-
-                                <!--                                                fetch('/save-data', {-->
-                                <!--                                                    method: 'POST',-->
-                                <!--                                                    body: JSON.stringify({-->
-                                <!--                                                        assignValue : data.assignValue,-->
-                                <!--                                                        dateDueValue : data.dateDueValue,-->
-                                <!--                                                        availableValue : data.availableValue-->
-                                <!--                                                    }),-->
-                                <!--                                                    headers: {-->
-                                <!--                                                        'Content-Type': 'application/json'-->
-                                <!--                                                    }-->
-                                <!--                                                });-->
-                                <!--                                            });-->
+                                        th:text="${e.getName()}"
+                                        th:value="${e.getName()}">
 
 
-                                <!--                                            assignValue.addEventListener("input", function() {-->
-                                <!--                                                sendDataToController(assignValue.value);-->
-                                <!--                                            })-->
+                                </td>
+                                <td>
+                                    <input id="assign-input-id" style="border: none; width: 10vh"
+                                           th:value="${e.assigned}" name="assigned">
+                                </td>
 
-                                <!--                                            dateDueValue.addEventListener("input", function() {-->
-                                <!--                                                sendDataToController(dateDueValue.value);-->
-                                <!--                                            });-->
+                                <td>
 
-                                <!--                                            availableValue.addEventListener("input", function() {-->
-                                <!--                                                sendDataToController(availableValue.value);-->
-                                <!--                                            });-->
+                                    <input id="dateDue-input-id" th:replace="~{fragments/datepicker}"
+                                           style="width: 10vh"
+                                           th:value="${e.dateDue}" name="dateDue"/>
+                                </td>
+                                <td>
+                                    <input id="available-input-id" style="border: none; width: 10vh"
+                                           th:value="${e.available}" name="available"/>
 
-                                <!--                                        });-->
-                                <!--                                        function sendDataToController(dataArr) {-->
+                                </td>
 
-                                <!--                                            fetch('/save-data', {-->
-                                <!--                                                method: 'POST',-->
-                                <!--                                                body: JSON.stringify({ data: data }),-->
-                                <!--                                                headers: {-->
-                                <!--                                                    'Content-Type': 'application/json'-->
-                                <!--                                                }-->
-                                <!--                                            });-->
-                                <!--                                        }-->
-                                <!--                                    </script>-->
+<!--                                TODO: Separate the buttons, each for its purpose-->
+                                <form
+                                        th:action="@{/update-data}"
+                                        th:method="post"
+                                        th:object="${UserExpensesDTO}">
+                                <td class="text-end">
+                                    <input type="hidden" name="name" th:value="${e.getName()}" />
+                                    <input type="hidden" name="assigned" th:value="${e.assigned}" />
+                                    <input type="hidden" name="dateDue" th:value="${e.dateDue}" />
+                                    <input type="hidden" name="available" th:value="${e.available}" />
+                                    <button id="update-status" title="Add funds" type="submit" class="btn btn-warning"
+                                            value="Assign"><i
+                                            class="fa-sharp fa-solid fa-plus"></i></button>
+                                    <button id="datepicker-btn" title="Edit date" type="submit" class="btn btn-warning"
+                                            value="Edit date"><i
+                                            class="fa-regular fa-calendar"></i></button>
+                                    <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                                </form>
 
-                            </td>
-                        </tr>
 
+                            </tr>
                         </tbody>
+
                     </table>
 
                     <!--    div for filling space-->
