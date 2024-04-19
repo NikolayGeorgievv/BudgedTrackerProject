@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
+import com.burdettracker.budgedtrackerproject.model.dto.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Address;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
@@ -67,8 +68,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        return this.userRepository.getByEmail(email);
+    public UserExpensesDetailsDTO getUserByEmail(String email) {
+        User userByEmail = userRepository.getByEmail(email);
+       return modelMapper.map(userByEmail, UserExpensesDetailsDTO.class);
     }
 
     private User mapUser(RegisterUserDTO registerUserDTO){

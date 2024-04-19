@@ -1,21 +1,18 @@
 package com.burdettracker.budgedtrackerproject.web;
 
-import com.burdettracker.budgedtrackerproject.model.dto.UpdateInfoDto;
+import com.burdettracker.budgedtrackerproject.model.dto.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.service.user.UserDetailImpl;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +34,7 @@ public class MainPageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
-        User userByEmail = userService.getUserByEmail(currentUserName);
+        UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
         UserFullNameDTO userFullNameDTO = new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName());
         model.addAttribute("userFullNameDTO", userFullNameDTO);
 
@@ -46,6 +43,7 @@ public class MainPageController {
         List<Expense> expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);
 
+        //Use this random number to initialize date-pickers for each row.
         int random = new Random().nextInt();
         model.addAttribute("randomNumber", random);
 
@@ -53,10 +51,10 @@ public class MainPageController {
     }
 
 
-    @PostMapping("/save-data")
-    public UpdateInfoDto updateData(@RequestBody String data){
-
-        String userData = data;
-        return null;
-    }
+//    @PostMapping("/index")
+//    public String updateData(UpdateInfoDto updateInfoDto){
+//
+//        UpdateInfoDto asd = updateInfoDto;
+//        return null;
+//    }
 }
