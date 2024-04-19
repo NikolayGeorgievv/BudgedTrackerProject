@@ -1,9 +1,9 @@
 package com.burdettracker.budgedtrackerproject.web;
 
-import com.burdettracker.budgedtrackerproject.model.dto.UserExpensesDetailsDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
-import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.service.user.UserDetailImpl;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
@@ -40,7 +40,7 @@ public class MainPageController {
 
         //TODO: Implement UserExpenseDTO
 
-        List<Expense> expenses = userByEmail.getExpenses();
+        List<ExpenseDTO> expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);
 
         //Use this random number to initialize date-pickers for each row.

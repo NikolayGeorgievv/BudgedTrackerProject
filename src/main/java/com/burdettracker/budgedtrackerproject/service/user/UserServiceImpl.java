@@ -1,6 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
-import com.burdettracker.budgedtrackerproject.model.dto.UserExpensesDetailsDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Address;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;

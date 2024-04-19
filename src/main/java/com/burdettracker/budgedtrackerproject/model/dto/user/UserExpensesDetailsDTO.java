@@ -1,5 +1,6 @@
-package com.burdettracker.budgedtrackerproject.model.dto;
+package com.burdettracker.budgedtrackerproject.model.dto.user;
 
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 
@@ -19,7 +20,7 @@ public class UserExpensesDetailsDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Expense> expenses;
+    private List<ExpenseDTO> expenses;
     private Address address;
 
 
@@ -56,11 +57,11 @@ public class UserExpensesDetailsDTO {
         this.email = email;
     }
 
-    public List<Expense> getExpenses() {
+    public List<ExpenseDTO> getExpenses() {
         return expenses;
     }
 
-    public void setExpenses(List<Expense> expenses) {
+    public void setExpenses(List<ExpenseDTO> expenses) {
         this.expenses = expenses;
     }
 
