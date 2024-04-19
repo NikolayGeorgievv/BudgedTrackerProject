@@ -2,10 +2,8 @@ package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
-import com.burdettracker.budgedtrackerproject.model.entity.Address;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
-import com.burdettracker.budgedtrackerproject.repository.AddressRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -18,21 +16,18 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final ExpenseRepository expenseRepository;
     private final UserDetailImpl userDetail;
-    public UserServiceImpl(UserRepository userRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail) {
         this.userRepository = userRepository;
-        this.addressRepository = addressRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.expenseRepository = expenseRepository;
@@ -43,10 +38,8 @@ public class UserServiceImpl implements UserService {
     public void registerUser(RegisterUserDTO registerUserDTO) {
 
         User user = mapUser(registerUserDTO);
-        Address address = mapAddress(registerUserDTO, user);
-        user.setAddress(address);
+
         user.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
-        addressRepository.saveAndFlush(address);
         userRepository.saveAndFlush(user);
         expenseRepository.saveAllAndFlush(user.getExpenses());
 
@@ -80,17 +73,6 @@ public class UserServiceImpl implements UserService {
         user.setExpenses(assignBasicExpenses(user));
         return user;
 
-    }
-
-    private Address mapAddress(RegisterUserDTO registerUserDTO, User user){
-
-        Address address = modelMapper.map(registerUserDTO, Address.class);
-
-        List<User> userList = new ArrayList<>();
-        userList.add(user);
-        address.setUser(userList);
-
-        return address;
     }
 
     public List<Expense> assignBasicExpenses(User user){

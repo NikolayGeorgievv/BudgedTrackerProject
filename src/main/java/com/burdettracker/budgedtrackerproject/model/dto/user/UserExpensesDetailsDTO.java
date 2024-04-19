@@ -21,16 +21,7 @@ public class UserExpensesDetailsDTO {
     private String lastName;
     private String email;
     private List<ExpenseDTO> expenses;
-    private Address address;
 
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public String getFirstName() {
         return firstName;

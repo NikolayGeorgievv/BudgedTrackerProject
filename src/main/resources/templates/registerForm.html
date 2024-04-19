@@ -28,8 +28,8 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/homePage"><img src="/images/PineConeLogo - BG.png"
-                                                 class="d-block mx-lg-auto img-fluid"
-                                                 alt="#" width="45" height="30" loading="lazy"></a></li>
+                                             class="d-block mx-lg-auto img-fluid"
+                                             alt="#" width="45" height="30" loading="lazy"></a></li>
                 <li><a href="/homePage" class="nav-link px-2 text-secondary">Home</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
@@ -55,64 +55,61 @@
                     <label for="firstName">First Name</label>
                     <input class="form-control" id="firstName" name="firstName" placeholder="First Name">
 
-<!--                    TODO: IMPLEMENT ERRORS FOR ALL FIELDS-->
-<!--                    <p class="errors alert alert-danger">-->
-<!--                        First name is required.-->
-<!--                    </p>-->
+                    <!--                    TODO: IMPLEMENT ERRORS FOR ALL FIELDS-->
+                    <p th:if="${firstNameError}" class="errors alert alert-danger">
+                        First name is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="lastName">Last Name</label>
                     <input class="form-control" id="lastName" name="lastName" placeholder="Last Name">
+                    <p th:if="${lastNameError}" class="errors alert alert-danger">
+                        Last name is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email">
+                    <p th:if="${emailError}" class="errors alert alert-danger">
+                        Email is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="inputPassword4" name="password"
+                           placeholder="Password">
+                    <p th:if="${passwordError}" class="errors alert alert-danger">
+                        Password is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                            placeholder="Confirm Password">
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputAddress">Street Name</label>
-                <input type="text" class="form-control" id="inputAddress" name="streetName" placeholder="1234 Main St">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputAddress2">Street Number</label>
-                <input type="text" class="form-control" id="inputAddress2" name="streetNumber"
-                       placeholder="Apartment, studio, or floor">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity" name="city">
+                    <p th:if="${confirmPasswordError}" class="errors alert alert-danger">
+                        Confirm password is required.
+                    </p>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country" name="country">
-                </div>
-                <div class="form-group col-md-2">
                     <label for="inputZip">Tel. number</label>
                     <input type="text" class="form-control" id="inputZip" name="phoneNumber">
+                    <p th:if="${phoneNumberError}" class="errors alert alert-danger">
+                        Phone number is required.
+                    </p>
                 </div>
 
                 <div class="form-group">
                     <label for="sel1">Membership</label>
                     <select class="form-control" id="sel1" name="membership">
                         <option
-                            th:each="m : ${memberships}"
-                            th:text="${m}"
-                            th:value="${m}">
+                                th:each="m : ${memberships}"
+                                th:text="${m}"
+                                th:value="${m}">
                         </option>
-<!--                        <option>Free</option>-->
-<!--                        <option>Gold</option>-->
-<!--                        <option>Premium</option>-->
                     </select>
+                    <p th:if="${membershipError}" class="errors alert alert-danger">
+                        Please choose a membership.
+                    </p>
 
                 </div>
             </div>

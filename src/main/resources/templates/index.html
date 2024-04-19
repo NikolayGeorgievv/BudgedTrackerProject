@@ -61,13 +61,13 @@
                         <div class="collapse" id="home-collapse" style="">
                             <ul class="btn-toggle-nav  fw-normal pb-1 small">
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                             </ul>
                         </div>
@@ -80,16 +80,16 @@
                         <div class="collapse" id="dashboard-collapse" style="">
                             <ul class="btn-toggle-nav  fw-normal pb-1 small">
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Weekly</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                             </ul>
                         </div>
@@ -102,16 +102,16 @@
                         <div class="collapse" id="orders-collapse" style="">
                             <ul class="btn-toggle-nav  fw-normal pb-1 small">
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                                 <li><a href="#"
-                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a>
+                                       class="link-body-emphasis d-inline-flex text-decoration-none rounded">TEST</a>
                                 </li>
                             </ul>
                         </div>
@@ -147,16 +147,15 @@
     <!--    main div for table-->
     <div class="flex-grow-1">
 
-        <!--    div for top bar-->
+        <!--    div for top bar, yet to be implemented-->
+
         <div class="container" style="border: black 2px solid; height: 15vh; margin-left: 0">
 
         </div>
 
         <div class="flex-grow-1">
             <!--        div for table-->
-
             <div>
-
 
                 <div class="mb-2 d-flex justify-content-between align-items-center">
 
@@ -172,7 +171,6 @@
                            th:method="get"
                            th:object="${userExpenses}">
 
-
                         <thead>
                         <tr class="bg-light">
                             <th scope="col">BILL</th>
@@ -185,55 +183,49 @@
 
                         <tbody>
 
-                            <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
+                        <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
 
-                                <td
+                            <td
 
-                                        th:text="${e.getName()}"
-                                        th:value="${e.getName()}">
+                                    th:text="${e.getName()}"
+                                    th:value="${e.getName()}">
 
 
-                                </td>
-                                <td>
-                                    <input id="assign-input-id" style="border: none; width: 10vh"
-                                           th:value="${e.assigned}" name="assigned">
-                                </td>
+                            </td>
+                            <td>
+                                <input id="assign-input-id" style="border: none; width: 10vh"
+                                       th:value="${e.assigned}" name="assigned">
+                            </td>
 
-                                <td>
+                            <td>
 
-                                    <input id="dateDue-input-id" th:replace="~{fragments/datepicker}"
-                                           style="width: 10vh"
-                                           th:value="${e.dateDue}" name="dateDue"/>
-                                </td>
-                                <td>
-                                    <input id="available-input-id" style="border: none; width: 10vh"
-                                           th:value="${e.available}" name="available"/>
+                                <input id="dateDue-input-id" th:replace="~{fragments/datepicker}"
+                                       style="width: 10vh"
+                                       th:value="${e.dateDue}" name="dateDue"/>
+                            </td>
+                            <td>
+                                <input id="available-input-id" style="border: none; width: 10vh"
+                                       th:value="${e.available}" name="available"/>
 
-                                </td>
+                            </td>
 
-<!--                                TODO: Separate the buttons, each for its purpose-->
-                                <form
-                                        th:action="@{/update-data}"
-                                        th:method="post"
-                                        th:object="${UserExpensesDTO}">
+
+                            <form
+                                    th:action="@{/update-data}"
+                                    th:method="post"
+                                    th:object="${UserExpensesDTO}">
                                 <td class="text-end">
-                                    <input type="hidden" name="name" th:value="${e.getName()}" />
-                                    <input type="hidden" name="assigned" th:value="${e.assigned}" />
-                                    <input type="hidden" name="dateDue" th:value="${e.dateDue}" />
-                                    <input type="hidden" name="available" th:value="${e.available}" />
-                                    <button id="update-status" title="Add funds" type="submit" class="btn btn-warning"
-                                            value="Assign"><i
-                                            class="fa-sharp fa-solid fa-plus"></i></button>
-                                    <button id="datepicker-btn" title="Edit date" type="submit" class="btn btn-warning"
-                                            value="Edit date"><i
-                                            class="fa-regular fa-calendar"></i></button>
-                                    <button title="Remove bill" type="submit" class="btn btn-warning" value="Delete"><i
-                                            class="fa-solid fa-trash-can"></i></button>
+                                    <input type="hidden" name="name" th:value="${e.getName()}"/>
+                                    <input type="hidden" name="assigned" th:value="${e.assigned}"/>
+                                    <input type="hidden" name="dateDue" th:value="${e.dateDue}"/>
+                                    <input type="hidden" name="available" th:value="${e.available}"/>
+                                    <button id="update-status" title="Update information" type="submit" class="btn btn-warning"
+                                            value="Update information"><i class="fa-solid fa-repeat"></i></button>
                                 </td>
-                                </form>
+                            </form>
 
 
-                            </tr>
+                        </tr>
                         </tbody>
 
                     </table>

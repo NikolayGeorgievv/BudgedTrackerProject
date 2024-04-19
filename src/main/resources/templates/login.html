@@ -53,15 +53,21 @@
                 <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
                        placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">Please enter your email</small>
+
             </div>
             <br>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
                 <small id="passHelp" class="form-text text-muted">Please enter your password</small>
+                <p class="errors alert alert-danger"
+                   th:if="${error}">
+                    Wrong email or password.
+                </p>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Log in</button>
+
         </form>
 
     </div>

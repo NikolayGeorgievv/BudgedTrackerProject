@@ -38,9 +38,6 @@ public class User{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "address")
-    private Address address;
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Account> accounts = new ArrayList<>();
@@ -71,14 +68,6 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public MembershipType getMembershipType() {
