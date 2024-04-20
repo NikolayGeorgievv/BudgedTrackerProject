@@ -23,7 +23,8 @@ public class SecurityConfig {
                                 .requestMatchers(String.valueOf(PathRequest.toStaticResources().atCommonLocations())).permitAll()
                                 .requestMatchers("/images/**").permitAll()
 //                                // Allow anyone to see the home page, the registration page and the login form.
-                                .requestMatchers("/homePage", "/users/login", "/users/register", "/").permitAll()
+                                .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 //Allowing all, just for testing!!
 //                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
@@ -33,11 +34,13 @@ public class SecurityConfig {
                                     // redirect here when we access something which is not allowed.
                                     // also this is the page where we perform login.
                                     .loginPage("/users/login")
-                                    // The names of the input fields (in our case in login.html)
+                                    // The names of the input fields
                                     .usernameParameter("email")
                                     .passwordParameter("password")
                                     .defaultSuccessUrl("/index")
-                                    .failureForwardUrl("/users/login-fail");
+//                                    .failureForwardUrl("/users/login-error");
+                                    .failureUrl("/users/login-error");
+
                         }
                 ).logout(
                         logout -> {

@@ -30,7 +30,7 @@ public class RegisterController {
     }
 
 
-    @PostMapping("users/register")
+    @PostMapping("/users/register")
     public String register(@Valid RegisterUserDTO registerUserDTO, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -50,6 +50,9 @@ public class RegisterController {
                     break;
                 case "password":
                     model.addAttribute("passwordError", true);
+                    break;
+                case "termsaccepted":
+                    model.addAttribute("termsAccepted", true);
                     break;
             }
             if (!registerUserDTO.getPassword().equals(registerUserDTO.getConfirmPassword())) {

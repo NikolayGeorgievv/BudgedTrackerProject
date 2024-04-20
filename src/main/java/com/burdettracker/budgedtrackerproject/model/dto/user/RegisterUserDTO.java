@@ -1,7 +1,9 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.annotations.Check;
 
 public class RegisterUserDTO {
 
@@ -17,7 +19,16 @@ public class RegisterUserDTO {
     private String password;
     private String confirmPassword;
     private MembershipType membership;
+    @AssertTrue
+    private boolean termsAccepted;
 
+    public boolean isTermsAccepted() {
+        return termsAccepted;
+    }
+
+    public void setTermsAccepted(boolean termsAccepted) {
+        this.termsAccepted = termsAccepted;
+    }
 
     public MembershipType getMembership() {
         return membership;
