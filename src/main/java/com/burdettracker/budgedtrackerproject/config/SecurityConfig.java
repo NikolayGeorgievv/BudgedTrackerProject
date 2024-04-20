@@ -21,10 +21,10 @@ public class SecurityConfig {
                         authorizeRequests -> authorizeRequests
                                 // Allow all static resources to be available.
                                 .requestMatchers(String.valueOf(PathRequest.toStaticResources().atCommonLocations())).permitAll()
-                                .requestMatchers("/images/**").permitAll()
+                                .requestMatchers("/images/**", "/js/**", "/css/**").permitAll()
 //                                // Allow anyone to see the home page, the registration page and the login form.
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
-                                .requestMatchers("/error").permitAll()
+                                .requestMatchers("/error", "/fragments/**", "/users/termsAndConditions.html").permitAll()
                                 //Allowing all, just for testing!!
 //                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()

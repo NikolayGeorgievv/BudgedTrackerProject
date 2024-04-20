@@ -72,4 +72,9 @@ public class RegisterController {
 
         return "registerForm";
     }
+
+    @GetMapping("/users/termsAndConditions.html")
+    public String termsAndConditions(){
+        return "termsAndConditions.html";
+    }
 }

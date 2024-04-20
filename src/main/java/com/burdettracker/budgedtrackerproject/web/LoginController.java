@@ -14,11 +14,6 @@ public class LoginController {
     public String login(){
         return "login";
     }
-//    @PostMapping("/users/login")
-//    public String loggedIn(){
-//
-//        return "login";
-//    }
 
     @GetMapping("/users/login-error")
     public String loginerr(Model model){
