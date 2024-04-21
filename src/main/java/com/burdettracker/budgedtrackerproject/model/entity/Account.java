@@ -11,6 +11,8 @@ import java.util.List;
 @Table(name = "accounts")
 public class Account extends BaseEntity{
 
+    @Column
+    private String name;
     @Column(name = "created_on", nullable = false)
     private LocalDate createdOn;
     @Column(name = "currency_type", nullable = false)
@@ -27,12 +29,29 @@ public class Account extends BaseEntity{
     public Account() {
     }
 
-    public Account(LocalDate createdOn, CurrencyType currencyType, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
+    public Account(String name,LocalDate createdOn, CurrencyType currencyType, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
+        this.name = name;
         this.createdOn = createdOn;
         this.currencyType = currencyType;
         this.currentAmount = currentAmount;
         this.transactionHistory = transactionHistory;
         this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Transaction> getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    public void setTransactionHistory(List<Transaction> transactionHistory) {
+        this.transactionHistory = transactionHistory;
     }
 
     public User getUser() {

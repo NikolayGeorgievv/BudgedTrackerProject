@@ -45,20 +45,29 @@
                     <span class="fs-5 fw-semibold" style="color: white">
                         <th:block th:text="${userFullNameDTO.toString()}">UserName</th:block>
                     </span>
-                    <p style="color: white"><th:block th:text="${userEmail}">Email</th:block></p>
+                    <p style="color: white">
+                        <th:block th:text="${userEmail}">Email</th:block>
+                    </p>
 
                 </a>
-                <ul class="list-unstyled ps-0" >
+                <ul class="list-unstyled ps-0">
                     <li class="mb-1">
-                        <div class="d-inline-flex align-items-center rounded border-0" style="color: white">
-                            My Accounts
+                        <div class="d-flex justify-content-around">
+                            <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
+                                My Accounts
+                            </div>
+                            <button class="btn btn-warning btn-sm" th:if="${usersAccountCeil}"
+                                    title="Add account" value="Add account"
+                            ><i class="fa-solid fa-plus"></i></button>
                         </div>
+                        <ul class="fw-normal pb-1 small list-unstyled">
+                            <li class="" style="color: white" th:each="a : ${userAccounts}"
+                                th:text="${a.getName()}"
+                                th:value="${a.getName()}">
 
-                            <ul class="fw-normal pb-1 small list-unstyled">
-                                <li style="color: white">TEST</li>
-                                <li style="color: white">TEST</li>
-                                <li style="color: white">TEST</li>
-                            </ul>
+                            </li>
+
+                        </ul>
 
                     </li>
                     <li class="mb-1">
@@ -177,7 +186,8 @@
                                     <input type="hidden" name="assigned" th:value="${e.assigned}"/>
                                     <input type="hidden" name="dateDue" th:value="${e.dateDue}"/>
                                     <input type="hidden" name="available" th:value="${e.available}"/>
-                                    <button id="update-status" title="Update information" type="submit" class="btn btn-warning"
+                                    <button id="update-status" title="Update information" type="submit"
+                                            class="btn btn-warning"
                                             value="Update information"><i class="fa-solid fa-repeat"></i></button>
                                 </td>
                             </form>

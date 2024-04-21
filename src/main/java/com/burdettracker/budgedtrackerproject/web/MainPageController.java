@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.UserExpensesDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
@@ -21,10 +22,12 @@ public class MainPageController {
 
     private final UserService userService;
     private List<ExpenseDTO> expenses;
+    private List<AccountDTO> accounts;
 
-    public MainPageController(UserService userService, List<ExpenseDTO> expenses) {
+    public MainPageController(UserService userService, List<ExpenseDTO> expenses, List<AccountDTO> accounts) {
         this.userService = userService;
         this.expenses = expenses;
+        this.accounts = accounts;
     }
 
 
@@ -45,6 +48,13 @@ public class MainPageController {
 
         expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);
+
+        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
+            model.addAttribute("usersAccountCeil", true);
+        }
+
+        accounts = userByEmail.getAccounts();
+        model.addAttribute("userAccounts", accounts);
 
         //Use this random number to initialize date-pickers for each row.
         int random = new Random().nextInt();

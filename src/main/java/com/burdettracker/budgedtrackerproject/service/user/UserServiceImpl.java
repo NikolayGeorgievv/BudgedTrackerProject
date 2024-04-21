@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         }
         //Set basic account for the user
         List<Transaction> transactions = new ArrayList<>();
-        Account baseAccount = new Account(LocalDate.now(), CurrencyType.LV,BigDecimal.ZERO,transactions, user);
+        Account baseAccount = new Account("MyAccount",LocalDate.now(), CurrencyType.LV,BigDecimal.ZERO,transactions, user);
         user.getAccounts().add(baseAccount);
         return user;
     }

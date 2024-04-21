@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
@@ -14,13 +15,14 @@ public class UserExpensesDetailsDTO {
     private MembershipType membershipType;
     private String phoneNumber;
     private BigDecimal totalBalance;
-    private List<Account> accounts;
+    private List<AccountDTO> accounts;
     private List<UserDocument> userDocuments;
     private List<Goal> goals;
     private String firstName;
     private String lastName;
     private String email;
     private List<ExpenseDTO> expenses;
+    private int userAccountsAllowed;
 
 
     public String getFirstName() {
@@ -64,6 +66,14 @@ public class UserExpensesDetailsDTO {
         this.id = id;
     }
 
+    public int getUserAccountsAllowed() {
+        return userAccountsAllowed;
+    }
+
+    public void setUserAccountsAllowed(int userAccountsAllowed) {
+        this.userAccountsAllowed = userAccountsAllowed;
+    }
+
     public MembershipType getMembershipType() {
         return membershipType;
     }
@@ -88,11 +98,11 @@ public class UserExpensesDetailsDTO {
         this.totalBalance = totalBalance;
     }
 
-    public List<Account> getAccounts() {
+    public List<AccountDTO> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
+    public void setAccounts(List<AccountDTO> accounts) {
         this.accounts = accounts;
     }
 
