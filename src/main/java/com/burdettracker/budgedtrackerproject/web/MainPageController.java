@@ -36,7 +36,9 @@ public class MainPageController {
 
         UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
         UserFullNameDTO userFullNameDTO = new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName());
+        String email = userByEmail.getEmail();
         model.addAttribute("userFullNameDTO", userFullNameDTO);
+        model.addAttribute("userEmail", email);
 
 
         expenses = userByEmail.getExpenses();
