@@ -64,7 +64,7 @@ public class RegisterController {
 
         userService.registerUser(registerUserDTO);
 
-        return "index";
+        return "login";
     }
 
     @GetMapping("/users/register")

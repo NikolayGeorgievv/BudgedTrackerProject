@@ -35,9 +35,11 @@ public class MainPageController {
         String currentUserName = authentication.getName();
 
         UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
+
         UserFullNameDTO userFullNameDTO = new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName());
-        String email = userByEmail.getEmail();
         model.addAttribute("userFullNameDTO", userFullNameDTO);
+
+        String email = userByEmail.getEmail();
         model.addAttribute("userEmail", email);
 
 

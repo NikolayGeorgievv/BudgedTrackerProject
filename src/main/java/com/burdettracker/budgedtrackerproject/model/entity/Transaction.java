@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "expense_transactions")
-public class ExpenseTransaction extends BaseEntity{
+public class Transaction extends BaseEntity{
 
     @Column(name = "currency_type",nullable = false)
     @Enumerated(EnumType.STRING)
@@ -22,7 +22,7 @@ public class ExpenseTransaction extends BaseEntity{
     @Column(nullable = false)
     private String paidTo;
 
-    public ExpenseTransaction() {
+    public Transaction() {
     }
 
     public CurrencyType getCurrencyType() {

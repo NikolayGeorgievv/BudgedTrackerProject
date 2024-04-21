@@ -37,6 +37,7 @@ public class User{
     private BigDecimal totalBalance = BigDecimal.ZERO;
     @Column(name = "password", nullable = false)
     private String password;
+    private int userAccountsAllowed;
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -116,6 +117,14 @@ public class User{
 
     public void setTotalBalance() {
         this.totalBalance = BigDecimal.ZERO;
+    }
+
+    public int getUserAccountsAllowed() {
+        return userAccountsAllowed;
+    }
+
+    public void setUserAccountsAllowed(int userAccountsAllowed) {
+        this.userAccountsAllowed = userAccountsAllowed;
     }
 
     public List<Account> getAccounts() {

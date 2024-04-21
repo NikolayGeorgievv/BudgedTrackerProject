@@ -19,14 +19,20 @@ public class Account extends BaseEntity{
     @Column(name = "current_amount", nullable = false)
     private BigDecimal currentAmount;
     @OneToMany
-    private List<IncomeTransaction> incomeTransactionHistory;
-    @OneToMany
-    private List<ExpenseTransaction> expenseTransactionHistory;
+    private List<Transaction> transactionHistory;
     @ManyToOne
     private User user;
 
 
     public Account() {
+    }
+
+    public Account(LocalDate createdOn, CurrencyType currencyType, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
+        this.createdOn = createdOn;
+        this.currencyType = currencyType;
+        this.currentAmount = currentAmount;
+        this.transactionHistory = transactionHistory;
+        this.user = user;
     }
 
     public User getUser() {
@@ -61,19 +67,12 @@ public class Account extends BaseEntity{
         this.currentAmount = currentAmount;
     }
 
-    public List<IncomeTransaction> getIncomeTransactionHistory() {
-        return incomeTransactionHistory;
+
+    public List<Transaction> getExpenseTransactionHistory() {
+        return transactionHistory;
     }
 
-    public void setIncomeTransactionHistory(List<IncomeTransaction> incomeTransactionHistory) {
-        this.incomeTransactionHistory = incomeTransactionHistory;
-    }
-
-    public List<ExpenseTransaction> getExpenseTransactionHistory() {
-        return expenseTransactionHistory;
-    }
-
-    public void setExpenseTransactionHistory(List<ExpenseTransaction> expenseTransactionHistory) {
-        this.expenseTransactionHistory = expenseTransactionHistory;
+    public void setExpenseTransactionHistory(List<Transaction> transactionHistory) {
+        this.transactionHistory = transactionHistory;
     }
 }
