@@ -64,11 +64,11 @@ public class MainPageController {
     }
 
     @PostMapping("/update-data")
-    public String updateData(UserExpensesDTO userExpensesDTO){
+    public String updateData(UserExpensesDTO userExpensesDTO, Model model){
 
-        ExpenseDTO expenseDTO = expenses.get(0);
+        model.addAttribute("UserExpensesDTO", userExpensesDTO);
 
         System.out.println("test");
-        return null;
+        return "index";
     }
 }
