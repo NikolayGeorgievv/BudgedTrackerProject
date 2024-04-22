@@ -69,6 +69,7 @@ public class MainPageController {
         model.addAttribute("UserExpensesDTO", userExpensesDTO);
 
         System.out.println("test");
+        System.out.println("test");
         return "index";
     }
 }
