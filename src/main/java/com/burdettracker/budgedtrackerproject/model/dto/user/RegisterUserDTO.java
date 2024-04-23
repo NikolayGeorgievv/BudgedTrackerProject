@@ -2,21 +2,29 @@ package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.Check;
 
 public class RegisterUserDTO {
 
     @NotEmpty(message = "Please enter a first name.")
+    @Size(min = 3, max = 20)
     private String firstName;
     @NotEmpty(message = "Please enter a last name.")
+    @Size(min = 3, max = 20)
     private String lastName;
     @NotEmpty(message = "Please enter an email.")
+    @Email
     private String email;
     @NotEmpty(message = "Please enter a phone number.")
+    @Size(max = 20)
     private String phoneNumber;
     @NotEmpty(message = "Please enter a password.")
+    @Size(min = 8, max = 40)
     private String password;
+    @NotEmpty
     private String confirmPassword;
     private MembershipType membership;
     @AssertTrue
