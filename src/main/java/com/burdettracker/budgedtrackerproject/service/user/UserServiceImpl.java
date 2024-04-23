@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
         User user = mapUser(registerUserDTO);
 
-        user.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
+
         userRepository.saveAndFlush(user);
         expenseRepository.saveAllAndFlush(user.getExpenses());
         transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
     private User mapUser(RegisterUserDTO registerUserDTO){
 
         User user = modelMapper.map(registerUserDTO, User.class);
+        user.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
         //Set basic expenses for the newly registered user
         user.setExpenses(assignBasicExpenses(user));
 

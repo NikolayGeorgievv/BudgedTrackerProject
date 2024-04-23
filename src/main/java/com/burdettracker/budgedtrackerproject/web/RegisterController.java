@@ -12,6 +12,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.lang.reflect.Member;
 
@@ -31,44 +32,21 @@ public class RegisterController {
 
 
     @PostMapping("/users/register")
-    public String register(@Valid RegisterUserDTO registerUserDTO, BindingResult bindingResult, Model model) {
+    public String register(@Valid @ModelAttribute("registerUserDTO") RegisterUserDTO registerUserDTO, BindingResult bindingResult, RedirectAttributes rAtt) {
 
-        if (bindingResult.hasErrors()) {
-            String fieldError = bindingResult.getFieldError().getField().toLowerCase();
-            switch (fieldError) {
-                case "firstname":
-                    model.addAttribute("firstNameError", true);
-                    break;
-                case "lastname":
-                    model.addAttribute("lastNameError", true);
-                    break;
-                case "email":
-                    model.addAttribute("emailError", true);
-                    break;
-                case "phonenumber":
-                    model.addAttribute("phoneNumberError", true);
-                    break;
-                case "password":
-                    model.addAttribute("passwordError", true);
-                    break;
-                case "termsaccepted":
-                    model.addAttribute("termsAccepted", true);
-                    break;
-            }
-            if (!registerUserDTO.getPassword().equals(registerUserDTO.getConfirmPassword())) {
-                model.addAttribute("confirmPasswordError", true);
-            }
+        if (bindingResult.hasErrors()){
+            rAtt.addFlashAttribute("registerUserDTO", registerUserDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.RegisterUserDTO", bindingResult);
 
             return "registerForm";
         }
-
         userService.registerUser(registerUserDTO);
 
         return "login";
     }
 
     @GetMapping("/users/register")
-    public String register() {
+    public String register(RegisterUserDTO registerUserDTO) {
 
         return "registerForm";
     }

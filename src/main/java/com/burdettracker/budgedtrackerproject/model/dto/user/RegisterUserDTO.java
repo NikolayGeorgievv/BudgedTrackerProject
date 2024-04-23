@@ -7,15 +7,15 @@ import org.hibernate.annotations.Check;
 
 public class RegisterUserDTO {
 
-    @NotEmpty
+    @NotEmpty(message = "Please enter a first name.")
     private String firstName;
-    @NotEmpty
+    @NotEmpty(message = "Please enter a last name.")
     private String lastName;
-    @NotEmpty
+    @NotEmpty(message = "Please enter an email.")
     private String email;
-    @NotEmpty
+    @NotEmpty(message = "Please enter a phone number.")
     private String phoneNumber;
-    @NotEmpty
+    @NotEmpty(message = "Please enter a password.")
     private String password;
     private String confirmPassword;
     private MembershipType membership;

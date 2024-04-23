@@ -48,54 +48,41 @@
         <form id="registration-form"
               th:action="@{/users/register}"
               th:method="post"
-              th:object="${RegisterUserDTO}"
+              th:object="${registerUserDTO}"
               class="col-10 col-sm-8 col-lg-6">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="firstName">First Name</label>
                     <input class="form-control" id="firstName" name="firstName" placeholder="First Name">
 
-                    <!--                    TODO: IMPLEMENT ERRORS FOR ALL FIELDS-->
-                    <p th:if="${firstNameError}" class="errors alert alert-danger">
-                        First name is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('firstName')}" class="errors alert alert-danger" >Please enter a first name.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="lastName">Last Name</label>
                     <input class="form-control" id="lastName" name="lastName" placeholder="Last Name">
-                    <p th:if="${lastNameError}" class="errors alert alert-danger">
-                        Last name is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('lastName')}" class="errors alert alert-danger">Please enter a last name.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email">
-                    <p th:if="${emailError}" class="errors alert alert-danger">
-                        Email is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('email')}" class="errors alert alert-danger">Please enter an email.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Password</label>
                     <input type="password" class="form-control" id="inputPassword4" name="password"
                            placeholder="Password">
-                    <p th:if="${passwordError}" class="errors alert alert-danger">
-                        Password is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('password')}" class="errors alert alert-danger">Please enter a password.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                            placeholder="Confirm Password">
-                    <p th:if="${confirmPasswordError}" class="errors alert alert-danger">
-                        Confirm password is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('confirmPassword')}" class="errors alert alert-danger">Passwords should match.</p>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="inputZip">Tel. number</label>
                     <input type="text" class="form-control" id="inputZip" name="phoneNumber">
-                    <p th:if="${phoneNumberError}" class="errors alert alert-danger">
-                        Phone number is required.
-                    </p>
+                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="errors alert alert-danger">Please enter a phone number.</p>
                 </div>
 
                 <div class="form-group">
@@ -112,13 +99,12 @@
             </div>
             <div class="form-group">
                 <div class="form-check">
+                    <p th:if="${#fields.hasErrors('termsAccepted')}" class="errors alert alert-danger">Please accept our terms and conditions.</p>
+
                     <input class="form-check-input" type="checkbox" name="termsAccepted" id="gridCheck">
                     <label class="form-check-label" for="gridCheck">
-                        I have read <a th:href="@{termsAndConditions.html}">Terms and conditions</a>.
+                        I have read <a th:href="@{termsAndConditions.html}" >Terms and conditions</a>.
                     </label>
-                    <p th:if="${termsAccepted}" class="errors alert alert-danger">
-                        Please agree to our terms and conditions.
-                    </p>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Sign in</button>
