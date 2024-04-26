@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import org.springframework.security.core.Authentication;
@@ -13,5 +14,5 @@ public interface UserService {
     UserExpensesDetailsDTO getUserByEmail(String email);
 
 
-
+    void addAccount(String currentUserName, AccountDTO accountDTO);
 }

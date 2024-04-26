@@ -4,6 +4,9 @@ import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,9 +14,12 @@ import java.util.List;
 
 public class AccountDTO {
 
+    @NotEmpty()
     private String name;
     private LocalDate createdOn;
+    @NotEmpty
     private CurrencyType currencyType;
+    @Min(0)
     private BigDecimal currentAmount;
     private List<Transaction> transactionHistory;
 

@@ -62,14 +62,4 @@ public class MainPageController {
 
         return "index";
     }
-
-    @PostMapping("/update-data")
-    public String updateData(UserExpensesDTO userExpensesDTO, Model model){
-
-        model.addAttribute("UserExpensesDTO", userExpensesDTO);
-
-        System.out.println("test");
-        System.out.println("test");
-        return "index";
-    }
 }

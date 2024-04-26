@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
@@ -84,6 +85,8 @@ public class UserServiceImpl implements UserService {
        return modelMapper.map(userByEmail, UserExpensesDetailsDTO.class);
     }
 
+
+
     private User mapUser(RegisterUserDTO registerUserDTO){
 
         User user = modelMapper.map(registerUserDTO, User.class);
@@ -119,5 +122,19 @@ public class UserServiceImpl implements UserService {
         expenses.add(new Expense("Entertainment", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
 
         return expenses;
+    }
+
+    @Override
+    public void addAccount(String email, AccountDTO accountDTO) {
+        User user = this.userRepository.getByEmail(email);
+        Account account = new Account(
+                accountDTO.getName(),
+                LocalDate.now(),
+                accountDTO.getCurrencyType(),
+                accountDTO.getCurrentAmount(),
+                new ArrayList<>(),
+                user
+        );
+        user.getAccounts().add(account);
     }
 }

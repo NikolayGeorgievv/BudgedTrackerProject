@@ -56,17 +56,17 @@
                             <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
                                 My Accounts
                             </div>
-                            <button class="btn btn-warning btn-sm" th:if="${usersAccountCeil}"
-                                    title="Add account" value="Add account"
-                            ><i class="fa-solid fa-plus"></i></button>
+                            <form>
+                                <button th:replace="~{fragments/addAccountForm}"></button>
+                            </form>
+
+
                         </div>
                         <ul class="fw-normal pb-1 small list-unstyled">
                             <li class="" style="color: white" th:each="a : ${userAccounts}"
                                 th:text="${a.getName()}"
                                 th:value="${a.getName()}">
-
                             </li>
-
                         </ul>
 
                     </li>
