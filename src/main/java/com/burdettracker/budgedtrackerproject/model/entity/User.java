@@ -2,6 +2,7 @@ package com.burdettracker.budgedtrackerproject.model.entity;
 
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -38,6 +39,7 @@ public class User{
     @Column(name = "password", nullable = false)
     private String password;
     private int userAccountsAllowed;
+    private UserRole role;
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -53,6 +55,14 @@ public class User{
     private List<Expense> expenses = new ArrayList<>();
 
     public User() {
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public UUID getId() {

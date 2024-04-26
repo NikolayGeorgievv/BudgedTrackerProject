@@ -7,6 +7,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
@@ -49,12 +50,17 @@ public class UserServiceImpl implements UserService {
 
         User user = mapUser(registerUserDTO);
 
+        //First registered user will be Admin
+        if (this.userRepository.count() == 0){
+            user.setRole(UserRole.ADMIN);
+        }else{
+            user.setRole(UserRole.USER);
+        }
 
         userRepository.saveAndFlush(user);
         expenseRepository.saveAllAndFlush(user.getExpenses());
         transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
         accountRepository.saveAllAndFlush(user.getAccounts());
-
     }
 
     @Override
