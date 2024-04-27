@@ -9,11 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
+
 @Controller
+//@RequestMapping("/index")
 public class AccountsController {
 
     private final UserService userService;
@@ -26,13 +28,15 @@ public class AccountsController {
     public CurrencyType[] currencyTypes() {
         return CurrencyType.values();
     }
-    @PostMapping("/index/add-account")
-    public String addAccount(@Valid @ModelAttribute("accountDTO") AccountDTO accountDTO, BindingResult bindingResult, RedirectAttributes rAtt){
+
+    @PostMapping("/addAccount")
+    public String addAccount(
+             @ModelAttribute("accountDTO") AccountDTO accountDTO, BindingResult bindingResult, RedirectAttributes rAtt){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         this.userService.addAccount(currentUserName, accountDTO);
 
-        return null;
+        return "redirect:/index";
     }
 }

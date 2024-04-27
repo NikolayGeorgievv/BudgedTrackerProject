@@ -136,5 +136,7 @@ public class UserServiceImpl implements UserService {
                 user
         );
         user.getAccounts().add(account);
+        userRepository.saveAndFlush(user);
+        accountRepository.saveAndFlush(account);
     }
 }

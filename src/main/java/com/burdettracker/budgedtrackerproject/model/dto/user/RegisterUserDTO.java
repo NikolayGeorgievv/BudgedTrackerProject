@@ -22,7 +22,7 @@ public class RegisterUserDTO {
     @Size(max = 20)
     private String phoneNumber;
     @NotEmpty(message = "Please enter a password.")
-    @Size(min = 8, max = 40)
+    @Size(min = 4, max = 40)
     private String password;
     @NotEmpty
     private String confirmPassword;
