@@ -30,6 +30,10 @@ public class MainPageController {
         this.accounts = accounts;
     }
 
+    @ModelAttribute("accountDTO")
+    public AccountDTO accountDTO(){
+        return new AccountDTO();
+    }
 
     @ModelAttribute
     @GetMapping("/index")
