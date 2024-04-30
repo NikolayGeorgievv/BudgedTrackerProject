@@ -2,7 +2,6 @@ package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.expense.UserExpensesDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Random;
@@ -35,6 +33,16 @@ public class MainPageController {
         return new AccountDTO();
     }
 
+    @ModelAttribute("userFullNameDTO")
+    public UserFullNameDTO userFullNameDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
+
+        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), currentUserName);
+    }
+
     @ModelAttribute
     @GetMapping("/index")
     public String loggedIn(Model model) {
@@ -42,13 +50,6 @@ public class MainPageController {
         String currentUserName = authentication.getName();
 
         UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
-
-        UserFullNameDTO userFullNameDTO = new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName());
-        model.addAttribute("userFullNameDTO", userFullNameDTO);
-
-        String email = userByEmail.getEmail();
-        model.addAttribute("userEmail", email);
-
 
         expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);

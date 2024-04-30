@@ -32,7 +32,7 @@
                         <th:block th:text="${userFullNameDTO.toString()}">UserName</th:block>
                     </span>
         <p style="color: white">
-          <th:block th:text="${userEmail}">Email</th:block>
+          <th:block th:text="${userFullNameDTO.getEmail()}">Email</th:block>
         </p>
 
       </a>
@@ -40,7 +40,7 @@
         <li class="mb-1">
           <div class="d-flex justify-content-around">
             <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
-              My Accounts
+              <a th:href="@{/allAccountsPage}">My Accounts </a>
             </div>
             <form
                     th:action="@{/addAccount}"
