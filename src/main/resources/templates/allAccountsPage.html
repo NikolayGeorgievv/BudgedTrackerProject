@@ -25,19 +25,23 @@
 
     <!--    main div for the sidebar-->
     <div>
-        <div th:replace="~{fragments/sideBar}"></div>
+        <div th:replace="~{fragments/sideBar}" style="margin-right: 0"></div>
     </div>
 
 
     <!--    main div for table-->
-    <div class="flex-grow-1">
-
-        <!--    div for top bar, yet to be implemented-->
-
-        <div class="container" style="border: black 2px solid; height: 15vh; margin-left: 0">
-
+    <div class="flex-grow-1" style="margin-right: 0">
+        <h3 style="margin: 10px">All Accounts</h3>
+        <br>
+        <div class="d-flex" style="height: 5vh; border: 1px solid gray">
+<!--            all accounts balance-->
+            <div>
+                <p
+                    th:action="@{/allAccountsPage}"
+                    th:method="get"
+                    th:text="${allAccountsInfoDTO.getTotalBalance()}"></p>
+            </div>
         </div>
-
         <div class="flex-grow-1">
             <!--        div for table-->
             <div>
