@@ -42,6 +42,8 @@ public class RegisterController {
         }
         userService.registerUser(registerUserDTO);
 
+        //TODO: Add confirm pass validation
+
         return "login";
     }
 

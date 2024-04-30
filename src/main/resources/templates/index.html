@@ -31,88 +31,10 @@
 <div class="d-flex">
 
     <!--    main div for the sidebar-->
-    <div class="d-flex">
-
-        <!--    div that holds sidebar-->
-        <div class="flex-grow-1 ">
-            <div class="p-3" style="width: 280px; margin-right: 100px; height: 91vh; background-color: #2c396a;">
-                <a href="#"
-                   class="d-flex flex-column align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom"
-                   th:action="@{/index}"
-                   th:method="get"
-                   th:object="${userFullNameDTO}">
-
-                    <span class="fs-5 fw-semibold" style="color: white">
-                        <th:block th:text="${userFullNameDTO.toString()}">UserName</th:block>
-                    </span>
-                    <p style="color: white">
-                        <th:block th:text="${userEmail}">Email</th:block>
-                    </p>
-
-                </a>
-                <ul class="list-unstyled ps-0">
-                    <li class="mb-1">
-                        <div class="d-flex justify-content-around">
-                            <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
-                                My Accounts
-                            </div>
-                            <form
-                            th:action="@{/addAccount}"
-                            th:method="post"
-                            >
-                                <button th:replace="~{fragments/addAccountForm}"></button>
-                            </form>
-
-
-                        </div>
-                        <ul class="fw-normal pb-1 small list-unstyled">
-                            <li class="" style="color: white" th:each="a : ${userAccounts}"
-                                th:text="${a.getName()}"
-                                th:value="${a.getName()}">
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li class="mb-1">
-                        <div class="d-inline-flex align-items-left rounded border-0" style="color: white">
-                            My Account
-                        </div>
-                        <ul class="fw-normal pb-1 small list-unstyled">
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                        </ul>
-
-                    </li>
-                    <li class="mb-1">
-                        <div class="d-inline-flex align-items-center rounded border-0" style="color: white">
-                            My Account
-                        </div>
-                        <ul class="fw-normal pb-1 small list-unstyled">
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                        </ul>
-
-                    </li>
-                    <li class="border-top my-3"></li>
-                    <li class="mb-1">
-                        <div class="d-inline-flex align-items-center rounded border-0" style="color: white">
-                            My Account
-                        </div>
-                        <ul class="fw-normal pb-1 small list-unstyled">
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                            <li style="color: white">TEST</li>
-                        </ul>
-
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
+    <div>
+        <div th:replace="~{fragments/sideBar}"></div>
     </div>
+
 
     <!--    main div for table-->
     <div class="flex-grow-1">
