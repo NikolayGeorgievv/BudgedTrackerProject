@@ -2,9 +2,9 @@ package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
-import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
@@ -15,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @Controller
 public class AccountsController {
@@ -29,13 +27,15 @@ public class AccountsController {
         this.accountService = accountService;
     }
 
-    @ModelAttribute("currencyTypes")
-    public CurrencyType[] currencyTypes() {
-        return CurrencyType.values();
+    @ModelAttribute("allAccountsInfoDTO")
+    public AllAccountsInfoDTO allAccountsInfoDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return this.accountService.getAllAccounts(currentUserName);
     }
 
     @ModelAttribute("userFullNameDTO")
-    public UserFullNameDTO userFullNameDTO(){
+    public UserFullNameDTO userFullNameDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
@@ -44,10 +44,19 @@ public class AccountsController {
         return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), currentUserName);
     }
 
+    @PostMapping("/editAccount")
+    public String editAccount(
+            @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO,
+            @ModelAttribute("allAccountsInfoDTO") AllAccountsInfoDTO allAccountsInfoDTO){
+
+
+
+        return "redirect:/allAccountsPage";
+    }
 
     @PostMapping("/addAccount")
     public String addAccount(
-            @ModelAttribute("accountDTO") AccountDTO accountDTO){
+            @ModelAttribute("accountDTO") AccountDTO accountDTO) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
@@ -56,12 +65,10 @@ public class AccountsController {
         return "redirect:/index";
     }
 
+
+
     @GetMapping("/allAccountsPage")
-    public String allAccountPage(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        AllAccountsInfoDTO allAccountsInfoDTO = this.accountService.getAllAccounts(currentUserName);
-        model.addAttribute("allAccountsInfoDTO", allAccountsInfoDTO);
+    public String allAccountPage() {
 
         return "/allAccountsPage";
     }

@@ -10,12 +10,21 @@ import java.util.List;
 
 public class AccountDTO {
 
+    private Long id;
     private String name;
     private LocalDate createdOn;
     private CurrencyType currencyType;
     private BigDecimal currentAmount;
     private List<Transaction> transactionHistory;
     private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -64,4 +73,5 @@ public class AccountDTO {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

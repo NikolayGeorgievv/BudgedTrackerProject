@@ -11,44 +11,31 @@
             crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Add account form</title>
+    <title>Edit account form</title>
 </head>
 <body>
 
 
-<button type="button" class="btn btn-warning btn-sm open-button" th:if="${usersAccountCeil}"
-        title="Add account" value="Add account" onclick="openForm()"
-><i class="fa-solid fa-plus"></i></button>
-<div class="form-popup" id="myForm">
+<button  id="open-btn"
+></button>
+<div class="form-popup" id="myForm1">
     <form
-            th:action="@{${#strings.isEmpty(name) ? '/index' : '/addAccount'}}"
+            th:action="@{${#strings.isEmpty(name) ? '/allAccountsPage' : '/editAccount'}}"
             th:method="post"
-            th:object="${accountDTO}"
+            th:object="${editAccountInfoDTO}"
             class="form-container">
         <div class="d-flex justify-content-between" style="margin: 5px" id="form">
             <label>Account name</label>
-            <input type="text" placeholder="Account name" name="name" id="name">
-        </div>
-
-        <div class="form-group">
-            <div class="d-flex justify-content-between" style="margin: 5px">
-                <label for="currencyType">Currency type</label>
-                <select class="form-control" id="currencyType" name="currencyType">
-                    <option>LV</option>
-                    <option>USD</option>
-                    <option>EUR</option>
-                    <option>GPB</option>
-                </select>
-            </div>
+            <input type="text" placeholder="Account name" name="newAccountName" id="name">
         </div>
 
         <div class="d-flex justify-content-between" style="margin: 5px">
             <label>Add funds</label>
-            <input type="text" placeholder="1000$" name="currentAmount" id="currentAmount">
+            <input type="text" placeholder="1000$" name="addedAmount" id="amount">
         </div>
 
         <button type="submit" class="button" id="submitButton" disabled>Add Account</button>
-        <button type="button" class="button" onclick="closeForm()">Close</button>
+        <button type="button" class="button" onclick="closeEditForm()">Close</button>
     </form>
 </div>
 <style>
@@ -62,17 +49,13 @@
         color: #ffc107;
     }
 
-    .form-popup {
+    #myForm1 {
         display: none;
         position: absolute;
         border: 3px solid #f1f1f1;
         z-index: 9;
         background-color: #2c396a;
         width: 20%;
-    }
-
-    .form-control {
-        width: 50%;
     }
 
     .form-container {
@@ -122,8 +105,8 @@
 </style>
 <script>
 
-    const name = document.getElementById('name');
-    const currentAmount = document.getElementById('currentAmount');
+    const name = document.getElementById('newAccountName');
+    const currentAmount = document.getElementById('addedAmount');
     const submitButton = document.getElementById('submitButton');
 
     // Function to check if all required fields are filled
@@ -134,16 +117,21 @@
         submitButton.disabled = !(isNameValid && isAmountValid);
     }
 
-    // Listen for input changes
     name.addEventListener('input', checkFormValidity);
     currentAmount.addEventListener('input', checkFormValidity);
-    function openForm() {
-        document.getElementById("myForm").style.display = "block";
+
+    function openEditForm1() {
+        document.getElementById("myForm1").style.display = "block";
     }
 
-    function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+    function closeEditForm() {
+        document.getElementById("myForm1").style.display = "none";
     }
+
+    const openBtn = document.getElementById("open-btn");
+    openBtn.addEventListener("click", function () {
+        document.getElementById("myForm1").style.display = "block";
+    });
 </script>
 </body>
 </html>

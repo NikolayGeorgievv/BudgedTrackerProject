@@ -32,16 +32,19 @@
     <!--    main div for table-->
     <div class="flex-grow-1" style="margin-right: 0">
         <h3 style="margin: 10px">All Accounts</h3>
-        <br>
-        <div class="d-flex" style="height: 5vh; border: 1px solid gray">
-<!--            all accounts balance-->
+
+        <div class="d-flex" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
+            <!--            all accounts balance-->
             <div>
                 <p
-                    th:action="@{/allAccountsPage}"
-                    th:method="get"
-                    th:text="${allAccountsInfoDTO.getTotalBalance()}"></p>
+                        th:action="@{/allAccountsPage}"
+                        th:method="get"
+                        th:text="${allAccountsInfoDTO.getTotalBalance()} + '$'"
+                        style="color: green; font-weight: bold"
+                ></p>
             </div>
         </div>
+        <br>
         <div class="flex-grow-1">
             <!--        div for table-->
             <div>
@@ -56,59 +59,65 @@
                 </div>
                 <div class="table-responsive d-flex">
                     <table class="table table-responsive table-borderless"
-                           th:action="@{/getAllAccounts}"
+                           th:action="@{/allAccountsPage}"
                            th:method="get"
-                           th:object="${allAccounts}">
+                           th:object="${allAccountsInfoDTO}">
 
                         <thead>
                         <tr class="bg-light">
-                            <th scope="col">BILL</th>
-                            <th scope="col">ASSIGNED</th>
-                            <th scope="col">DATE DUE</th>
-                            <th scope="col"><span>AVAILABLE</span></th>
-                            <th scope="col" width="20%"><span></span></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Funds</th>
+                            <th scope="col">Transaction history</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
-                        <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
+                        <tr class="border-top border-bottom" th:each="a : ${allAccountsInfoDTO.getAllAccounts()}">
 
                             <td
-                                    th:text="${e.getName()}"
-                                    th:value="${e.getName()}">
+                                    th:text="${a.getName()}"
+                                    th:value="${a.getName()}">
                             </td>
                             <td
                                     style="border: none"
-                                    th:text="${e.assigned}"
-                                    th:value="${e.assigned}">
-                            </td>
+                                    th:text="${a.getCreatedOn()}"
+                                    th:value="${a.getCreatedOn()}">
 
-                            <td
-                                    style="border: none"
-                                    th:text="${e.dateDue}"
-                                    th:value="${e.dateDue}">
+
                             </td>
                             <td
                                     style="border: none"
-                                    th:text="${e.available}"
-                                    th:value="${e.available}">
+                                    th:text="${a.getCurrentAmount()}"
+                                    th:value="${a.getCurrentAmount()}">
+
+                            </td>
+                            <td>
+                                <a th:href="@{#}">
+                                    <p style="font-size: small">View transaction history</p>
+                                </a>
                             </td>
 
+                            <td>
+                                <div>
+                                    <form
+                                            th:action="@{/editAccount}"
+                                            th:method="post">
 
-                            <form
-                                    th:action="@{/update-data}"
-                                    th:method="post"
-                                    th:object="${UserExpensesDTO}">
-                                <td class="text-end">
-                                    <button id="update-status" title="Update information" type="submit"
-                                            class="btn btn-warning"
-                                            value="Update information"><i class="fa-solid fa-repeat"></i></button>
-                                </td>
-                            </form>
+                                        <button th:id="${a.getId()}"
+                                                type="button" class="btn btn-warning btn-sm open-button"
+                                                id="accountId"
+                                                title="Edit account" value="Edit account"
+                                                data-bs-toggle="modal" data-bs-target="#editModal"
+                                                onclick="newValue()">
+                                            <i class="fa-solid fa-plus-minus"></i></button>
+
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
-
                     </table>
 
                     <!--    div for filling space-->
@@ -121,5 +130,49 @@
 
     </div>
 </div>
+<!-- Modal -->
+<!--TODO: FIX ID-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="flex-grow-1">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Account</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/editAccount}"
+                          th:method="post"
+                          th:object="${editAccountInfoDTO}">
+                        <div class="d-flex flex-column justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="newAccountName">New Name:</label>
+                                <input type="text" id="newAccountName" name="newAccountName">
+                            </div>
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="addedAmount">Additional Funds:</label>
+                                <input type="number" id="addedAmount" name="addedAmount">
+                            </div>
+                            <br>
+                            <div class="d-flex flex-column justify-content-between">
+                                <button type="submit" class="button" id="submitButton">Update</button>
+                            </div>
+                            <input type="hidden" id="currentAccountId" name="accountId" th:value="${a.getId()}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    let idField = document.getElementById("currentAccountId");
+    idField.addEventListener('input', newValue);
+    function newValue() {
+        document.getElementById("currentAccountId").value = document.getElementById("accountId");
+    }
+
+
+</script>
 </body>
 </html>
