@@ -74,7 +74,8 @@
 
                         <tbody>
 
-                        <tr class="border-top border-bottom" th:each="a : ${allAccountsInfoDTO.getAllAccounts()}">
+                        <tr class="border-top border-bottom" th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                            th:id="'accountRow-' + ${a.getId()}">
 
                             <td
                                     th:text="${a.getName()}"
@@ -104,17 +105,12 @@
                                     <form
                                             th:action="@{/editAccount}"
                                             th:method="post">
-<!--                                            th:object="${currentAccountInfo}"-->
-
-<!--                                        <input type="hidden" id="accountId" name="id" th:value="${a.getId()}"/>-->
-<!--                                        <input type="hidden" id="newAccountName" name="accountName" th:value="${a.getName()}"/>-->
-<!--                                        <input type="hidden" id="addedAmount" name="amount" th:value="${a.getCurrentAmount()}"/>-->
                                         <button
                                                 type="button" class="btn btn-warning btn-sm open-button"
-                                                id="id" name="accountId"
+                                                th:id="'updateButton-' + ${a.getId}" name="accountId"
                                                 title="Edit account" th:value="${a.getId()}"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
-                                                onclick="newValue()">
+                                                th:onclick="newValue(/*[[${a.getId()}]]*/)">
                                             <i class="fa-solid fa-plus-minus"></i></button>
 
                                     </form>
@@ -168,12 +164,19 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
+    // let nameField = document.getElementById("newAccountName");
+    // let amountField = document.getElementById("addedAmount");
+    // nameField.addEventListener('input', newValue);
+    // amountField.addEventListener('input', newValue);
+    function newValue(accountId) {
 
-    let nameField = document.getElementById("newAccountName");
-    nameField.addEventListener('input', newValue);
-    function newValue() {
-        document.getElementById("accountId1").value = document.getElementById("id").value;
+        console.log("Id is :" + accountId)
+        document.getElementById("accountId1").value = accountId;
+
+        console.log(document.getElementById("id").value)
+        // document.getElementById("id").value
+
     }
 
 
