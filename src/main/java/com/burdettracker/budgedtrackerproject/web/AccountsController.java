@@ -47,7 +47,7 @@ public class AccountsController {
             @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO,
             @ModelAttribute("allAccountsInfoDTO") AllAccountsInfoDTO allAccountsInfoDTO){
 
-
+        accountService.updateAccountById(editAccountInfoDTO);
 
         return "redirect:/allAccountsPage";
     }
