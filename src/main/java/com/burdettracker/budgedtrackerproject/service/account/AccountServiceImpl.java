@@ -48,6 +48,11 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.saveAndFlush(account);
     }
 
+    @Override
+    public void deleteAccountById(String accountId) {
+        this.accountRepository.deleteById(Long.parseLong(accountId));
+    }
+
     public double getTotalBalance(List<AccountDTO> accList){
         double totalBalance = accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();
 

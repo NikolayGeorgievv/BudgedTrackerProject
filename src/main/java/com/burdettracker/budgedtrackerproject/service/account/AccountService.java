@@ -7,4 +7,6 @@ public interface AccountService {
     AllAccountsInfoDTO getAllAccounts(String email);
 
     void updateAccountById(EditAccountInfoDTO editAccountInfoDTO);
+
+    void deleteAccountById(String accountId);
 }

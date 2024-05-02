@@ -10,9 +10,7 @@ import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AccountsController {
@@ -48,6 +46,13 @@ public class AccountsController {
             @ModelAttribute("allAccountsInfoDTO") AllAccountsInfoDTO allAccountsInfoDTO){
 
         accountService.updateAccountById(editAccountInfoDTO);
+
+        return "redirect:/allAccountsPage";
+    }
+    @GetMapping("/deleteAccount/{accountId}")
+    public String deleteAccount (@PathVariable String accountId){
+
+        accountService.deleteAccountById(accountId);
 
         return "redirect:/allAccountsPage";
     }
