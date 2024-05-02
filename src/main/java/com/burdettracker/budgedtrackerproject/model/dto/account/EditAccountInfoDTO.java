@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public class EditAccountInfoDTO {
 
-    private Long accountId;
+    private String id;
     private String newAccountName;
     private BigDecimal addedAmount;
 
-    public Long getAccountId() {
-        return accountId;
+    public String getId() {
+        return id;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNewAccountName() {

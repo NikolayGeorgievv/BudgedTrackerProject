@@ -104,11 +104,15 @@
                                     <form
                                             th:action="@{/editAccount}"
                                             th:method="post">
+<!--                                            th:object="${currentAccountInfo}"-->
 
-                                        <button th:id="${a.getId()}"
+<!--                                        <input type="hidden" id="accountId" name="id" th:value="${a.getId()}"/>-->
+<!--                                        <input type="hidden" id="newAccountName" name="accountName" th:value="${a.getName()}"/>-->
+<!--                                        <input type="hidden" id="addedAmount" name="amount" th:value="${a.getCurrentAmount()}"/>-->
+                                        <button
                                                 type="button" class="btn btn-warning btn-sm open-button"
-                                                id="accountId"
-                                                title="Edit account" value="Edit account"
+                                                id="id" name="accountId"
+                                                title="Edit account" th:value="${a.getId()}"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
                                                 onclick="newValue()">
                                             <i class="fa-solid fa-plus-minus"></i></button>
@@ -156,7 +160,7 @@
                             <div class="d-flex flex-column justify-content-between">
                                 <button type="submit" class="button" id="submitButton">Update</button>
                             </div>
-                            <input type="hidden" id="currentAccountId" name="accountId" th:value="${a.getId()}"/>
+                            <input type="hidden" id="accountId1" name="id"/>
                         </div>
                     </form>
                 </div>
@@ -166,10 +170,10 @@
 </div>
 <script>
 
-    let idField = document.getElementById("currentAccountId");
-    idField.addEventListener('input', newValue);
+    let nameField = document.getElementById("newAccountName");
+    nameField.addEventListener('input', newValue);
     function newValue() {
-        document.getElementById("currentAccountId").value = document.getElementById("accountId");
+        document.getElementById("accountId1").value = document.getElementById("id").value;
     }
 
 
