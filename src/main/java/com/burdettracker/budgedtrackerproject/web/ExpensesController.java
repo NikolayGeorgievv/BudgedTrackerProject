@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.web;
 
-import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
@@ -15,23 +14,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.List;
 
 @Controller
-public class MainPageController {
+public class ExpensesController {
 
-    private final UserService userService;
     private List<ExpenseDTO> expenses;
-    private List<AccountDTO> accounts;
+    private final UserService userService;
 
-    public MainPageController(UserService userService, List<ExpenseDTO> expenses, List<AccountDTO> accounts) {
-        this.userService = userService;
+    public ExpensesController(List<ExpenseDTO> expenses, UserService userService) {
         this.expenses = expenses;
-        this.accounts = accounts;
+        this.userService = userService;
     }
 
-    @ModelAttribute("accountDTO")
-    public AccountDTO accountDTO(){
-        return new AccountDTO();
+    @ModelAttribute("userExpenses")
+    public Model userExpenses(Model model){
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
+        expenses = userByEmail.getExpenses();
+        model.addAttribute("userExpenses", expenses);
+        return model;
     }
-
     @ModelAttribute("userFullNameDTO")
     public UserFullNameDTO userFullNameDTO(){
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
@@ -39,22 +38,12 @@ public class MainPageController {
         return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail());
     }
 
-    @ModelAttribute
-    @GetMapping("/index")
-    public String loggedIn(Model model) {
-        UserExpensesDetailsDTO userByEmail = getUserByEmail();
+    @GetMapping("/allBillsPage")
+    public String allBillsPage(){
 
-        expenses = userByEmail.getExpenses();
-        model.addAttribute("userExpenses", expenses);
 
-        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
-            model.addAttribute("usersAccountCeil", true);
-        }
 
-        accounts = userByEmail.getAccounts();
-        model.addAttribute("userAccounts", accounts);
-
-        return "index";
+        return "allExpensesPage";
     }
 
     public UserExpensesDetailsDTO getUserByEmail(){
@@ -64,4 +53,11 @@ public class MainPageController {
         return userService.getUserByEmail(currentUserName);
 
     }
+
+    @GetMapping("/addExpense")
+    public String addExpense(){
+        return "allExpensesPage";
+    }
+
+    //TODO: total funds assigned to expenses, today's date,
 }

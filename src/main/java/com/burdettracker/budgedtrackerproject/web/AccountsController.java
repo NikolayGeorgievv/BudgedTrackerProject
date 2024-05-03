@@ -13,15 +13,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class AccountsController {
 
     private final UserService userService;
     private final AccountService accountService;
+    private List<AccountDTO> accounts;
 
-    public AccountsController(UserService userService, AccountService accountService) {
+    public AccountsController(UserService userService, AccountService accountService, List<AccountDTO> accounts) {
         this.userService = userService;
         this.accountService = accountService;
+        this.accounts = accounts;
     }
 
     @ModelAttribute("allAccountsInfoDTO")
@@ -33,22 +37,26 @@ public class AccountsController {
 
     @ModelAttribute("userFullNameDTO")
     public UserFullNameDTO userFullNameDTO() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
-        UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
-
-        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), currentUserName);
+        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(),userByEmail.getEmail());
     }
     @ModelAttribute("usersAccountCeil")
-    public Model model(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-
-        UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
+    public Model accountCeilModel(Model model){
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
         if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
             model.addAttribute("usersAccountCeil", true);
         }
+        return model;
+    }
+
+
+    @ModelAttribute("userAccounts")
+    public Model userAccountsModel(Model model){
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
+
+        accounts = userByEmail.getAccounts();
+        model.addAttribute("userAccounts", accounts);
         return model;
     }
 
@@ -80,11 +88,19 @@ public class AccountsController {
         return "redirect:/index";
     }
 
-
+    //TODO: ADD TH:EACH ALL ACC ON SIDEBAR
 
     @GetMapping("/allAccountsPage")
     public String allAccountPage() {
 
         return "/allAccountsPage";
+    }
+
+    public UserExpensesDetailsDTO getUserByEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        return userService.getUserByEmail(currentUserName);
+
     }
 }
