@@ -15,7 +15,7 @@
     <title>All accounts page</title>
 </head>
 <!--//TODO: ADD BG-IMG-->
-<body style="height: 100vh; margin: 0; background-image: url(#); ">
+<body style="height: 100vh; margin: 0; background-image: url(#);">
 
 <div>
     <nav th:replace="~{fragments/navbar-logged}"></nav>
@@ -43,6 +43,9 @@
                         style="color: green; font-weight: bold"
                 ></p>
             </div>
+            <div>
+
+            </div>
         </div>
         <br>
         <div class="flex-grow-1">
@@ -69,6 +72,7 @@
                             <th scope="col">Created On</th>
                             <th scope="col">Funds</th>
                             <th scope="col">Transaction history</th>
+
                         </tr>
                         </thead>
 
@@ -142,8 +146,6 @@
 
     </div>
 </div>
-<!-- Modal -->
-<!--TODO: FIX ID-->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

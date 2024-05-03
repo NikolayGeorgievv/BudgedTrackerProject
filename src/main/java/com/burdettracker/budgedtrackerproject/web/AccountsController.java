@@ -10,6 +10,7 @@ import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -38,6 +39,17 @@ public class AccountsController {
         UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
 
         return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), currentUserName);
+    }
+    @ModelAttribute("usersAccountCeil")
+    public Model model(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        UserExpensesDetailsDTO userByEmail = userService.getUserByEmail(currentUserName);
+        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
+            model.addAttribute("usersAccountCeil", true);
+        }
+        return model;
     }
 
     @PostMapping("/editAccount")
