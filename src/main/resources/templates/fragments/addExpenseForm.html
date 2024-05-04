@@ -100,6 +100,7 @@
     #dateInputField{
         pointer-events: none;
         background-color: white;
+        opacity: 0.9;
     }
 
     .form-popup1 {
@@ -137,13 +138,6 @@
         background-color: #00aacc;
     }
 
-    button:disabled, button[disabled] {
-        border: 1px solid #999999;
-        background-color: #cccccc;
-        color: #666666;
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
 
     .form-container .btn:hover, .open-button:hover {
         opacity: 1;
@@ -173,7 +167,7 @@
         buttonsBgColourClear()
         weeklyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
-        dateInputField.value = "";
+        dateInputField.value = "Sunday";
         dateInputField.type = "text";
         datePicker.style.display = "none";
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -183,9 +177,6 @@
             contentDiv.appendChild(option);
 
         });
-        // contentDiv.addEventListener("click", function () {
-        //     dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
-        // })
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
         console.log(dateInputField.value)
@@ -198,7 +189,7 @@
         buttonsBgColourClear()
         monthlyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
-        dateInputField.value = "";
+        dateInputField.value = "Last day of month";
         dateInputField.type = "text";
         datePicker.style.display = "none";
         const datesOfMonth = ['Last day of month', '31th', '30th', '29th', '28th', '27th', '26th', '25th', '24th', '23th', '22nd'
@@ -211,9 +202,6 @@
             contentDiv.appendChild(option);
 
         });
-        // contentDiv.addEventListener("click", function () {
-        //     dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
-        // })
 
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
