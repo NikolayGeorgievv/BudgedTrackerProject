@@ -44,9 +44,9 @@
                 <div class="d-flex flex-column">
                     <p id="every">Every</p>
                     <div id="datepicker">
-                    <input type="text" id="datepickerInput" th:replace="~{fragments/datepicker}">
+                        <input type="text" id="datepickerInput" th:replace="~{fragments/datepicker}">
                     </div>
-                    <input type="text" id="dateInputField">
+                    <input type="text" id="dateInputField" disabled>
                 </div>
             </div>
         </div>
@@ -90,9 +90,14 @@
         color: white;
         margin-bottom: 5px;
     }
-#datepickerInput{
-    width: 100%;
-}
+
+    #datepickerInput {
+        width: 100%;
+    }
+    #dateInputField{
+        background-color: white;
+    }
+
     .form-popup1 {
         display: none;
         position: absolute;
@@ -157,6 +162,7 @@
     let contentDiv = document.getElementById("content");
     let dateInputField = document.getElementById("dateInputField");
     let datePicker = document.getElementById("datepicker");
+    let datepickerInput = document.getElementById("datepickerInput");
 
     weeklyBtn.addEventListener("click", function () {
         contentDiv.innerHTML = "";
@@ -171,6 +177,10 @@
         });
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
+        contentDiv.addEventListener("click", function () {
+            dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+        });
+
 
     });
 
@@ -190,6 +200,9 @@
         });
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
+        contentDiv.addEventListener("click", function () {
+            dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+        });
     });
 
     yearlyBtn.addEventListener("click", function () {
