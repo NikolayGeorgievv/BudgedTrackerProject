@@ -19,10 +19,10 @@
 ><i class="fa-solid fa-plus"></i></button>
 <div class="form-popup1" id="myExpenseForm">
     <form>
-<!--            th:action="@{${#strings.isEmpty(name) ? '/index' : '/addExpense'}}"-->
-<!--            th:method="post"-->
-<!--            th:object="${expenseDTO}"-->
-<!--            class="form-container">-->
+        <!--            th:action="@{${#strings.isEmpty(name) ? '/index' : '/addExpense'}}"-->
+        <!--            th:method="post"-->
+        <!--            th:object="${expenseDTO}"-->
+        <!--            class="form-container">-->
         <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
             <label id="billLabel">Bill</label>
             <!--      TODO: ADD SUGGESTIONS-->
@@ -42,8 +42,11 @@
                     <select id="content" class="dropdown-content"></select>
                 </div>
                 <div class="d-flex flex-column">
-                <p id="every">Every</p>
-                <input type="text" id="dateInputField">
+                    <p id="every">Every</p>
+                    <div id="datepicker">
+                    <input type="text" id="datepickerInput" th:replace="~{fragments/datepicker}">
+                    </div>
+                    <input type="text" id="dateInputField">
                 </div>
             </div>
         </div>
@@ -66,7 +69,7 @@
         box-sizing: border-box
     ;
     }
-    #billLabel{
+    #billLabel {
         display: block;
         text-align: center;
     }
@@ -74,10 +77,12 @@
     label {
         color: #ffc107;
     }
-    .btn1{
+
+    .btn1 {
         width: 25%;
     }
-    #content{
+
+    #content {
         display: none;
         width: 100%;
         font-size: 14px;
@@ -85,7 +90,9 @@
         color: white;
         margin-bottom: 5px;
     }
-
+    /*#datepicker{*/
+    /*    display: none;*/
+    /*}*/
     .form-popup1 {
         display: none;
         position: absolute;
@@ -133,7 +140,8 @@
     .form-container .btn:hover, .open-button:hover {
         opacity: 1;
     }
-    #every{
+
+    #every {
         color: white;
         font-weight: 400;
         margin-bottom: 0px;
@@ -147,8 +155,13 @@
     let customBtn = document.getElementById("custom");
 
     let contentDiv = document.getElementById("content");
+    let dateInputField = document.getElementById("dateInputField");
+    let datePicker = document.getElementById("datepicker");
+
     weeklyBtn.addEventListener("click", function () {
         contentDiv.innerHTML = "";
+        dateInputField.type = "text";
+        datePicker.style.display = "none";
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         daysOfWeek.forEach(day => {
             const option = document.createElement('option');
@@ -160,9 +173,12 @@
         contentDiv.classList.toggle("show");
 
     });
-    monthlyBtn.addEventListener("click",function () {
+
+    monthlyBtn.addEventListener("click", function () {
         contentDiv.innerHTML = "";
-        const datesOfMonth = ['Last day of month', '31th' , '30th', '29th', '28th', '27th', '26th', '25th', '24th', '23th', '22nd'
+        dateInputField.type = "text";
+        datePicker.style.display = "none";
+        const datesOfMonth = ['Last day of month', '31th', '30th', '29th', '28th', '27th', '26th', '25th', '24th', '23th', '22nd'
             , '21st', '20th', '19th', '18th', '17th', '16th', '15th', '14th', '13th', '12th', '11th', '10th', '9th', '8th', '7th'
             , '6th', '5th', '4th', '3th', '2th', '1th'];
 
@@ -175,14 +191,24 @@
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
     });
-    yearlyBtn.addEventListener("click",function (){
 
+    yearlyBtn.addEventListener("click", function () {
+        contentDiv.innerHTML = "";
+        contentDiv.style.display = "none";
+        dateInputField.type = "hidden";
+        datePicker.style.display = "block";
     });
-    customBtn.addEventListener("click",function (){
+
+    customBtn.addEventListener("click", function () {
+        contentDiv.innerHTML = "";
+        contentDiv.style.display = "none";
+        dateInputField.type = "hidden";
+        datePicker.style.display = "block";
     });
 
 
     function openExpenseForm() {
+        datePicker.style.display = "none";
         document.getElementById("myExpenseForm").style.display = "block";
     }
 
