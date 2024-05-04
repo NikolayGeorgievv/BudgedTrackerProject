@@ -18,18 +18,17 @@
         title="Add expense" value="Add expense" onclick="openExpenseForm()"
 ><i class="fa-solid fa-plus"></i></button>
 <div class="form-popup1" id="myExpenseForm">
-    <form>
-        <!--            th:action="@{${#strings.isEmpty(name) ? '/index' : '/addExpense'}}"-->
-        <!--            th:method="post"-->
-        <!--            th:object="${expenseDTO}"-->
-        <!--            class="form-container">-->
+    <form
+                    th:action="@{${#strings.isEmpty(name) ? '/index' : '/addExpense'}}"
+                    th:method="post"
+                    th:object="${expenseDTO}"
+                    class="form-container">
         <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
             <label id="billLabel">Bill</label>
             <!--      TODO: ADD SUGGESTIONS-->
             <input type="text" placeholder="Bill name" name="name" id="name">
         </div>
 
-        <!--    TODO:DATE DUE-->
         <div class="form-group">
             <div class="d-flex flex-column justify-content-between" style="margin: 5px">
                 <div class="d-flex">
@@ -44,26 +43,28 @@
                 <div class="d-flex flex-column">
                     <p id="every">Every</p>
                     <div id="datepicker">
-                        <input type="text" id="datepickerInput" th:replace="~{fragments/datepicker}">
+                        <input type="text" id="datepickerInput" name="dateDue" th:replace="~{fragments/datepicker}">
                     </div>
-                    <input type="text" id="dateInputField" disabled>
+                    <input type="text" id="dateInputField" name="periodDate">
+                    <input type="hidden" id="period" name="period">
                 </div>
             </div>
         </div>
 
         <div class="d-flex justify-content-between" style="margin: 5px">
             <label>Amount needed</label>
-            <input type="text" placeholder="1000$" name="amountNeeded" id="amountNeeded">
+            <input type="text" placeholder="1000$" name="assigned" id="amountNeeded">
         </div>
         <div class="d-flex justify-content-between" style="margin: 5px">
             <label>Account to use</label>
             <input type="text" placeholder="My Account" name="accountToUse" id="accountToUse">
         </div>
 
-        <button type="submit" class="button" id="submitButton" disabled>Add</button>
+        <button type="submit" class="button" id="submitButton">Add</button>
         <button type="button" class="button" onclick="closeExpenseForm()">Close</button>
     </form>
 </div>
+<!--TODO: FIX BUTTONS WHEN HOVERING!!!!!!!!!!!!!!!!!!!!!!!!!-->
 <style>
     {
         box-sizing: border-box
@@ -97,6 +98,7 @@
         width: 100%;
     }
     #dateInputField{
+        pointer-events: none;
         background-color: white;
     }
 
@@ -163,11 +165,15 @@
     let contentDiv = document.getElementById("content");
     let dateInputField = document.getElementById("dateInputField");
     let datePicker = document.getElementById("datepicker");
+    let period = document.getElementById("period");
+    let datepickerInput = document.getElementById("datepickerInput");
 
     weeklyBtn.addEventListener("click", function () {
+        period.value = 'weekly';
         buttonsBgColourClear()
         weeklyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
+        dateInputField.value = "";
         dateInputField.type = "text";
         datePicker.style.display = "none";
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -177,24 +183,27 @@
             contentDiv.appendChild(option);
 
         });
+        // contentDiv.addEventListener("click", function () {
+        //     dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+        // })
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
-        contentDiv.addEventListener("click", function () {
-            dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
-        });
+        console.log(dateInputField.value)
 
 
     });
 
     monthlyBtn.addEventListener("click", function () {
+        period.value = 'monthly';
         buttonsBgColourClear()
         monthlyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
+        dateInputField.value = "";
         dateInputField.type = "text";
         datePicker.style.display = "none";
         const datesOfMonth = ['Last day of month', '31th', '30th', '29th', '28th', '27th', '26th', '25th', '24th', '23th', '22nd'
             , '21st', '20th', '19th', '18th', '17th', '16th', '15th', '14th', '13th', '12th', '11th', '10th', '9th', '8th', '7th'
-            , '6th', '5th', '4th', '3th', '2th', '1th'];
+            , '6th', '5th', '4th', '3th', '2nd', '1st'];
 
         datesOfMonth.forEach(day => {
             const option = document.createElement('option');
@@ -202,14 +211,21 @@
             contentDiv.appendChild(option);
 
         });
+        // contentDiv.addEventListener("click", function () {
+        //     dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+        // })
+
         contentDiv.style.display = "block"
         contentDiv.classList.toggle("show");
-        contentDiv.addEventListener("click", function () {
-            dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
-        });
+        console.log(dateInputField.value)
+
     });
 
+    contentDiv.addEventListener("change", function () {
+        dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+    })
     yearlyBtn.addEventListener("click", function () {
+        period.value = 'yearly';
         buttonsBgColourClear()
         yearlyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
@@ -219,6 +235,7 @@
     });
 
     customBtn.addEventListener("click", function () {
+        period.value = 'custom';
         buttonsBgColourClear()
         customBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
