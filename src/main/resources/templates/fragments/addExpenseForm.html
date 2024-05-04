@@ -80,6 +80,8 @@
 
     .btn1 {
         width: 25%;
+        border-radius: 10px;
+        border: none;
     }
 
     #content {
@@ -131,7 +133,6 @@
     button:hover {
         border: 1px solid #0099cc;
         background-color: #00aacc;
-        color: #ffffff;
     }
 
     button:disabled, button[disabled] {
@@ -162,9 +163,10 @@
     let contentDiv = document.getElementById("content");
     let dateInputField = document.getElementById("dateInputField");
     let datePicker = document.getElementById("datepicker");
-    let datepickerInput = document.getElementById("datepickerInput");
 
     weeklyBtn.addEventListener("click", function () {
+        buttonsBgColourClear()
+        weeklyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
         dateInputField.type = "text";
         datePicker.style.display = "none";
@@ -185,6 +187,8 @@
     });
 
     monthlyBtn.addEventListener("click", function () {
+        buttonsBgColourClear()
+        monthlyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
         dateInputField.type = "text";
         datePicker.style.display = "none";
@@ -206,6 +210,8 @@
     });
 
     yearlyBtn.addEventListener("click", function () {
+        buttonsBgColourClear()
+        yearlyBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
         contentDiv.style.display = "none";
         dateInputField.type = "hidden";
@@ -213,6 +219,8 @@
     });
 
     customBtn.addEventListener("click", function () {
+        buttonsBgColourClear()
+        customBtn.style.backgroundColor = '#0099cc';
         contentDiv.innerHTML = "";
         contentDiv.style.display = "none";
         dateInputField.type = "hidden";
@@ -227,6 +235,13 @@
 
     function closeExpenseForm() {
         document.getElementById("myExpenseForm").style.display = "none";
+    }
+
+    function buttonsBgColourClear() {
+        weeklyBtn.style.backgroundColor = 'white';
+        monthlyBtn.style.backgroundColor = 'white';
+        yearlyBtn.style.backgroundColor = 'white';
+        customBtn.style.backgroundColor = 'white';
     }
 
 </script>
