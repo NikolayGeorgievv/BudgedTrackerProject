@@ -26,10 +26,9 @@
             <thead>
             <tr class="bg-light">
                 <th scope="col">BILL</th>
-                <th scope="col">FUNDS ASSIGNED</th>
-                <th scope="col">DATE DUE</th>
+                <th scope="col">TARGET</th>
                 <th scope="col"><span>ACCOUNT ASSIGNED</span></th>
-                <th scope="col" width="20%"><span></span></th>
+                <th scope="col"></th>
             </tr>
             </thead>
 
@@ -43,31 +42,14 @@
                 </td>
                 <td
                         style="border: none"
-                        th:text="${e.assigned}"
-                        th:value="${e.assigned}">
+                        th:text="${e.assigned} + ' by ' + ${e.periodDate}"
+                        th:value="${e.assigned} + ' by ' + ${e.periodDate}">
                 </td>
 
-                <td
-                        style="border: none"
-                >
-                    <p>test</p>
-                </td>
                 <td
                         th:text="${e.getAccount().getName()}"
                         th:value="${e.getAccount().getName()}">
                 </td>
-
-
-                <form
-                        th:action="@{/update-data}"
-                        th:method="post"
-                        th:object="${UserExpensesDTO}">
-                    <td class="text-end">
-                        <button id="update-status" title="Update information" type="submit"
-                                class="btn btn-warning"
-                                value="Update information"><i class="fa-solid fa-repeat"></i></button>
-                    </td>
-                </form>
             </tr>
             </tbody>
 

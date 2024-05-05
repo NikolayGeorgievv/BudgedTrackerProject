@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,7 +81,14 @@ public class ExpensesController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
-        userService.addExpense(currentUserName,expenseDTO);
+        try {
+            userService.addExpense(currentUserName,expenseDTO);
+        }catch (RuntimeException e){
+            bindingResult.addError(new FieldError("expenseDTO","periodDate","Please choose a correct date."));
+            return "allExpensesPageWithErrors";
+        }
+
+
 
         return "redirect:/allExpensesPage";
     }

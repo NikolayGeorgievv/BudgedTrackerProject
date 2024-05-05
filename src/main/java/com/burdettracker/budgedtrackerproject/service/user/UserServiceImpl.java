@@ -137,14 +137,15 @@ public class UserServiceImpl implements UserService {
             //dateDue will be used
             String[] dateData = expenseDTO.getDateDue().split("-");
             int year = Integer.parseInt(dateData[0]);
-            String month = dateData[1].toUpperCase();
+            String month = dateData[1];
             int day = Integer.parseInt(dateData[2]);
 
             //check if the given date is in the future
             if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now())){
-                expense.setDateDue(LocalDate.of(year, Month.valueOf(month), day));
+                expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
+                expense.setPeriodDate(String.format("%d-%s-%d", year,month,day));
             }else {
-                //TODO: throw error or bind an error to the binding result
+                throw new RuntimeException("Date should be in the future!");
             }
         } else if (expenseDTO.getDateDue().equals("")) {
             //period = weekly or monthly

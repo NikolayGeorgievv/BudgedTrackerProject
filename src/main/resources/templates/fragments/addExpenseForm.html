@@ -52,6 +52,7 @@
                         <input type="text" id="datepickerInput" name="dateDue" th:replace="~{fragments/datepicker}">
                     </div>
                     <input type="text" id="dateInputField" name="periodDate">
+                    <div th:if="${#fields.hasErrors('periodDate')}" th:errors="*{periodDate}" class="errors"></div>
                     <input type="hidden" id="period" name="period">
                 </div>
             </div>
@@ -80,7 +81,6 @@
 
                         </option>
                     </select>
-<!--                    <input type="text" placeholder="My Account" name="accountToUse" id="accountToUse">-->
                 </div>
                 <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
             </div>
