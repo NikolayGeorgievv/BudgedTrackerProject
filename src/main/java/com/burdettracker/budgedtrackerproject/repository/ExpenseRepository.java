@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
 
+    void deleteByAccountId(Long accountId);
 }

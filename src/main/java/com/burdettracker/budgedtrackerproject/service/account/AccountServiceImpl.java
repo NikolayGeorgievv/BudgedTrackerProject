@@ -4,24 +4,26 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
-import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
+import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
-    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper) {
+    private final ExpenseRepository expenseRepository;
+    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
+        this.expenseRepository = expenseRepository;
     }
 
     @Override
@@ -50,7 +52,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void deleteAccountById(String accountId) {
+        this.expenseRepository.deleteByAccountId(Long.parseLong(accountId));
         this.accountRepository.deleteById(Long.parseLong(accountId));
     }
 
