@@ -32,6 +32,11 @@ public class MainPageController {
         return new AccountDTO();
     }
 
+    @ModelAttribute("expenseDTO")
+    public ExpenseDTO expenseDTO(){
+        return new ExpenseDTO();
+    }
+
     @ModelAttribute("userFullNameDTO")
     public UserFullNameDTO userFullNameDTO(){
         UserExpensesDetailsDTO userByEmail = getUserByEmail();

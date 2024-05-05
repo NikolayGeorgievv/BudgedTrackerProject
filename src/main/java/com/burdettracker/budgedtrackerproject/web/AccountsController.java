@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
@@ -49,7 +50,10 @@ public class AccountsController {
         }
         return model;
     }
-
+    @ModelAttribute("expenseDTO")
+    public ExpenseDTO expenseDTO(){
+        return new ExpenseDTO();
+    }
 
     @ModelAttribute("userAccounts")
     public Model userAccountsModel(Model model){
@@ -85,7 +89,7 @@ public class AccountsController {
         String currentUserName = authentication.getName();
         this.userService.addAccount(currentUserName, accountDTO);
 
-        return "redirect:/index";
+        return "redirect:/allAccountsPage";
     }
 
     //TODO: ADD TH:EACH ALL ACC ON SIDEBAR

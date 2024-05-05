@@ -38,7 +38,7 @@
       </a>
       <ul class="list-unstyled ps-0">
         <li class="mb-1">
-          <div class="d-flex justify-content-around">
+          <div class="d-flex justify-content-between">
             <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
               <a th:href="@{/allAccountsPage}">My Accounts </a>
             </div>
@@ -49,19 +49,13 @@
               <button th:replace="~{fragments/addAccountForm}"></button>
             </form>
 
-
           </div>
-          <ul class="fw-normal pb-1 small list-unstyled">
-            <li class="" style="color: white" th:each="a : ${userAccounts}"
-                th:text="${a.getName()}"
-                th:value="${a.getName()}">
-            </li>
-          </ul>
 
         </li>
         <li class="mb-1">
+          <div class="d-flex justify-content-between">
           <div class="d-inline-flex align-items-left rounded border-0" style="color: white">
-            <a th:href="@{/allBillsPage}">My Bills</a>
+            <a th:href="@{/allExpensesPage}">My Bills</a>
           </div>
           <form
                   th:action="@{/addExpense}"
@@ -69,7 +63,7 @@
           >
             <button th:replace="~{fragments/addExpenseForm}"></button>
           </form>
-
+          </div>
         </li>
         <li class="mb-1">
           <div class="d-inline-flex align-items-center rounded border-0" style="color: white">
@@ -96,6 +90,5 @@
   </div>
 
 </div>
-
 </body>
 </html>

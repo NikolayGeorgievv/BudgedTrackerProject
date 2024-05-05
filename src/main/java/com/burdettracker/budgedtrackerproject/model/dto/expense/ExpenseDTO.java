@@ -1,15 +1,23 @@
 package com.burdettracker.budgedtrackerproject.model.dto.expense;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class ExpenseDTO {
 
+    @NotEmpty(message = "Please enter a name.")
     private String name;
+    @NotEmpty(message = "Please choose a period.")
     private String period;
     private String dateDue;
+    @Positive(message = "Please enter the funds needed.")
+    @NotNull(message = "Please enter the funds needed.")
     private BigDecimal assigned;
     private BigDecimal available;
+    @NotEmpty(message = "Please choose an account.")
     private String accountToUse;
     private String periodDate;
 
