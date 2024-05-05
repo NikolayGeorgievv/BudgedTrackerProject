@@ -1,8 +1,10 @@
 package com.burdettracker.budgedtrackerproject.web;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
@@ -23,13 +25,20 @@ public class ExpensesController {
     private List<ExpenseDTO> expenses;
     private final UserService userService;
     private final ExpenseService expenseService;
+    private final AccountService accountService;
 
-    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService) {
+    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService) {
         this.expenses = expenses;
         this.userService = userService;
         this.expenseService = expenseService;
+        this.accountService = accountService;
     }
-
+    @ModelAttribute("allAccountsInfoDTO")
+    public AllAccountsInfoDTO allAccountsInfoDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return this.accountService.getAllAccounts(currentUserName);
+    }
     @ModelAttribute("userExpenses")
     public Model userExpenses(Model model){
         UserExpensesDetailsDTO userByEmail = getUserByEmail();

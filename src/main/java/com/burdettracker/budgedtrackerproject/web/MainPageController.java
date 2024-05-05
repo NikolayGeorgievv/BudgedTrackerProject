@@ -1,9 +1,11 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +22,13 @@ public class MainPageController {
     private final UserService userService;
     private List<ExpenseDTO> expenses;
     private List<AccountDTO> accounts;
+    private final AccountService accountService;
 
-    public MainPageController(UserService userService, List<ExpenseDTO> expenses, List<AccountDTO> accounts) {
+    public MainPageController(UserService userService, List<ExpenseDTO> expenses, List<AccountDTO> accounts, AccountService accountService) {
         this.userService = userService;
         this.expenses = expenses;
         this.accounts = accounts;
+        this.accountService = accountService;
     }
 
     @ModelAttribute("accountDTO")
@@ -43,7 +47,12 @@ public class MainPageController {
 
         return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail());
     }
-
+    @ModelAttribute("allAccountsInfoDTO")
+    public AllAccountsInfoDTO allAccountsInfoDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return this.accountService.getAllAccounts(currentUserName);
+    }
     @ModelAttribute
     @GetMapping("/index")
     public String loggedIn(Model model) {

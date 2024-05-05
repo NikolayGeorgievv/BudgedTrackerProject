@@ -66,9 +66,9 @@
                         <thead>
                         <tr class="bg-light">
                             <th scope="col">BILL</th>
-                            <th scope="col">ASSIGNED</th>
+                            <th scope="col">FUNDS ASSIGNED</th>
                             <th scope="col">DATE DUE</th>
-                            <th scope="col"><span>AVAILABLE</span></th>
+                            <th scope="col"><span>ACCOUNT ASSIGNED</span></th>
                             <th scope="col" width="20%"><span></span></th>
                         </tr>
                         </thead>
@@ -93,9 +93,8 @@
                                 <p>test</p>
                             </td>
                             <td
-                                    style="border: none"
-                                    >
-                                <p>test</p>
+                                    th:text="${e.getAccount().getName()}"
+                                    th:value="${e.getAccount().getName()}">
                             </td>
 
 

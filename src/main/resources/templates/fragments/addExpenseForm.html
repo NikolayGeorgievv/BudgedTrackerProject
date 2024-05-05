@@ -71,7 +71,16 @@
                 <div>
 <!--                    TODO: ADD LIST WITH ACCOUNTS-->
                     <label>Account to use</label>
-                    <input type="text" placeholder="My Account" name="accountToUse" id="accountToUse">
+                    <select name="accountToUse">
+                        <option
+                        th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                        th:text="${a.getName()}"
+                        th:value="${a.getName()}"
+                        >
+
+                        </option>
+                    </select>
+<!--                    <input type="text" placeholder="My Account" name="accountToUse" id="accountToUse">-->
                 </div>
                 <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
             </div>

@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.model.dto.expense;
 
+import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ public class ExpenseDTO {
     private String accountToUse;
     private String periodDate;
     private User user;
+    private Account account;
 
     public String getName() {
         return name;
@@ -76,5 +78,13 @@ public class ExpenseDTO {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

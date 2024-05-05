@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
         Expense expense = modelMapper.map(expenseDTO, Expense.class);
         //TODO: manually set dateDue
         Account accountToUse = accountRepository.getByName(expenseDTO.getAccountToUse());
-        expense.setAccountToUse(accountToUse);
+        expense.setAccount(accountToUse);
         expense.setUser(user);
 
         if (expenseDTO.getPeriodDate().equals("")){
