@@ -20,25 +20,17 @@ public class Expense extends BaseEntity{
     private BigDecimal assigned;
     @Column
     private String period;
-    @Column(name = "account_to_use", nullable = false)
-    private String accountToUse;
+
     @Column(name = "period_date")
     private String periodDate;
 
     @ManyToOne
-    private User user;
+    private Account accountToUse;
 
 
     public Expense() {
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getName() {
         return name;
@@ -72,11 +64,11 @@ public class Expense extends BaseEntity{
         this.period = period;
     }
 
-    public String getAccountToUse() {
+    public Account getAccountToUse() {
         return accountToUse;
     }
 
-    public void setAccountToUse(String accountToUse) {
+    public void setAccountToUse(Account accountToUse) {
         this.accountToUse = accountToUse;
     }
 

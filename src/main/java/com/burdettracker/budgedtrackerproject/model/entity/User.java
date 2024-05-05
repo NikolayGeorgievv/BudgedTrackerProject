@@ -50,9 +50,7 @@ public class User{
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Goal> goals = new ArrayList<>();
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Expense> expenses = new ArrayList<>();
+
 
     public User() {
     }
@@ -165,11 +163,4 @@ public class User{
         this.goals = goals;
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
-    }
 }

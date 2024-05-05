@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.saveAndFlush(user);
-        expenseRepository.saveAllAndFlush(user.getExpenses());
         transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
         accountRepository.saveAllAndFlush(user.getAccounts());
     }

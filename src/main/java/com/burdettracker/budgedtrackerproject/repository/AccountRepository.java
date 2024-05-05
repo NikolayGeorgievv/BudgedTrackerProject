@@ -15,4 +15,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     List<Account> getAllByUser_Email(String email);
 
     Account findFirstById(Long accountId);
+
+    Account getByName(String name);
 }

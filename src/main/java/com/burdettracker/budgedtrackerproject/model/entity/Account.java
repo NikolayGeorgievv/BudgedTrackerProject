@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,9 @@ public class Account extends BaseEntity{
     private List<Transaction> transactionHistory;
     @ManyToOne
     private User user;
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<Expense> expenses = new ArrayList<>();
 
 
     public Account() {
@@ -93,5 +97,13 @@ public class Account extends BaseEntity{
 
     public void setExpenseTransactionHistory(List<Transaction> transactionHistory) {
         this.transactionHistory = transactionHistory;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
     }
 }

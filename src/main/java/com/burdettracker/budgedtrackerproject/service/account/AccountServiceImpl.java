@@ -4,6 +4,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
+import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,17 @@ public class AccountServiceImpl implements AccountService {
     public void deleteAccountById(String accountId) {
         this.accountRepository.deleteById(Long.parseLong(accountId));
     }
+
+    @Override
+    public Account getByName(String name) {
+      return this.accountRepository.getByName(name);
+    }
+
+    @Override
+    public void updateAccountExpenses(Account account) {
+        this.accountRepository.saveAndFlush(account);
+    }
+
 
     public double getTotalBalance(List<AccountDTO> accList){
         double totalBalance = accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();
