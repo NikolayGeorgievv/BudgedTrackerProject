@@ -1,7 +1,9 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import jakarta.persistence.*;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,18 +18,16 @@ public class Expense extends BaseEntity{
     private LocalDate dateDue;
     @Column(nullable = false)
     private BigDecimal assigned;
-    @Column(nullable = false)
-    private BigDecimal available;
+    @Column
+    private String period;
+    @Column(name = "account_to_use", nullable = false)
+    private String accountToUse;
+    @Column(name = "period_date")
+    private String periodDate;
+
     @ManyToOne
     private User user;
 
-    public Expense(String name, LocalDate dateDue, BigDecimal assigned, BigDecimal available, User user) {
-        this.name = name;
-        this.dateDue = dateDue;
-        this.assigned = assigned;
-        this.available = available;
-        this.user = user;
-    }
 
     public Expense() {
     }
@@ -64,11 +64,27 @@ public class Expense extends BaseEntity{
         this.assigned = assigned;
     }
 
-    public BigDecimal getAvailable() {
-        return available;
+    public String getPeriod() {
+        return period;
     }
 
-    public void setAvailable(BigDecimal available) {
-        this.available = available;
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
+    public String getAccountToUse() {
+        return accountToUse;
+    }
+
+    public void setAccountToUse(String accountToUse) {
+        this.accountToUse = accountToUse;
+    }
+
+    public String getPeriodDate() {
+        return periodDate;
+    }
+
+    public void setPeriodDate(String periodDate) {
+        this.periodDate = periodDate;
     }
 }

@@ -1,9 +1,9 @@
 package com.burdettracker.budgedtrackerproject.web;
 
-import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -23,10 +22,12 @@ public class ExpensesController {
 
     private List<ExpenseDTO> expenses;
     private final UserService userService;
+    private final ExpenseService expenseService;
 
-    public ExpensesController(List<ExpenseDTO> expenses, UserService userService) {
+    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService) {
         this.expenses = expenses;
         this.userService = userService;
+        this.expenseService = expenseService;
     }
 
     @ModelAttribute("userExpenses")
@@ -69,6 +70,8 @@ public class ExpensesController {
 
             return "allExpensesPageWithErrors";
         }
+
+//        expenseService.addExpense(expenseDTO);
 
         return "allExpensesPage";
     }

@@ -91,8 +91,6 @@ public class UserServiceImpl implements UserService {
 
         User user = modelMapper.map(registerUserDTO, User.class);
         user.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
-        //Set basic expenses for the newly registered user
-        user.setExpenses(assignBasicExpenses(user));
 
         //Set users account limit based on his membership
         switch (user.getMembershipType()){
@@ -107,22 +105,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public List<Expense> assignBasicExpenses(User user){
-        List<Expense> expenses = user.getExpenses();
-        expenses.add(new Expense("Electricity", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Water", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Phone", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Internet", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Car", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Fitness", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Groceries", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Train/Bus fee", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Home maintenance", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Investments", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-        expenses.add(new Expense("Entertainment", LocalDate.now() , BigDecimal.ZERO, BigDecimal.ZERO, user));
-
-        return expenses;
-    }
 
     @Override
     public void addAccount(String email, AccountDTO accountDTO) {

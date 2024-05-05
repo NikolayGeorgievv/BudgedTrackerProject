@@ -16,7 +16,6 @@ public class ExpenseDTO {
     @Positive(message = "Please enter the funds needed.")
     @NotNull(message = "Please enter the funds needed.")
     private BigDecimal assigned;
-    private BigDecimal available;
     @NotEmpty(message = "Please choose an account.")
     private String accountToUse;
     private String periodDate;
@@ -51,14 +50,6 @@ public class ExpenseDTO {
 
     public void setAssigned(BigDecimal assigned) {
         this.assigned = assigned;
-    }
-
-    public BigDecimal getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(BigDecimal available) {
-        this.available = available;
     }
 
     public String getPeriod() {
