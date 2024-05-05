@@ -59,10 +59,6 @@ public class AccountServiceImpl implements AccountService {
       return this.accountRepository.getByName(name);
     }
 
-    @Override
-    public void updateAccountExpenses(Account account) {
-        this.accountRepository.saveAndFlush(account);
-    }
 
 
     public double getTotalBalance(List<AccountDTO> accList){

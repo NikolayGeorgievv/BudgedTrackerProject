@@ -14,5 +14,4 @@ public interface AccountService {
 
     Account getByName(String name);
 
-    void updateAccountExpenses(Account account);
 }

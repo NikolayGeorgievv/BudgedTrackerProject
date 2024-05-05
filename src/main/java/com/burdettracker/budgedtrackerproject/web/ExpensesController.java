@@ -63,15 +63,16 @@ public class ExpensesController {
     @PostMapping("/addExpense")
     public String addExpense(
             //TODO: ADD VALIDATION
-           @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO,
-            BindingResult bindingResult){
+           @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO,BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
 
             return "allExpensesPageWithErrors";
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
 
-        expenseService.addExpense(expenseDTO);
+        userService.addExpense(currentUserName,expenseDTO);
 
         return "allExpensesPage";
     }

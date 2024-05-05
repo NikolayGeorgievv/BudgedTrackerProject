@@ -5,19 +5,16 @@ import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
-import java.sql.Types;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User{
+public class User {
 
     @NotNull
     @Id
@@ -50,6 +47,9 @@ public class User{
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Goal> goals = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Expense> expenses = new ArrayList<>();
 
 
     public User() {
@@ -163,4 +163,11 @@ public class User{
         this.goals = goals;
     }
 
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+    }
 }

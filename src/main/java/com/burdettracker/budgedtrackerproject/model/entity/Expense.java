@@ -26,6 +26,8 @@ public class Expense extends BaseEntity{
 
     @ManyToOne
     private Account accountToUse;
+    @ManyToOne
+    private User user;
 
 
     public Expense() {
@@ -78,5 +80,13 @@ public class Expense extends BaseEntity{
 
     public void setPeriodDate(String periodDate) {
         this.periodDate = periodDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

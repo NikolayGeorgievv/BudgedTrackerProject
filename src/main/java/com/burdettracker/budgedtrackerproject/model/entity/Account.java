@@ -26,7 +26,7 @@ public class Account extends BaseEntity{
     @ManyToOne
     private User user;
     @OneToMany
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "account_to_use_id")
     private List<Expense> expenses = new ArrayList<>();
 
 

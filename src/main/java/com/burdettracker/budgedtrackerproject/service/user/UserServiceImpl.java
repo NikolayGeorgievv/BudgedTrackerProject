@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,5 +121,43 @@ public class UserServiceImpl implements UserService {
         user.getAccounts().add(account);
         userRepository.saveAndFlush(user);
         accountRepository.saveAndFlush(account);
+    }
+
+    @Override
+    public void addExpense(String email, ExpenseDTO expenseDTO) {
+        User user = this.userRepository.getByEmail(email);
+        Expense expense = modelMapper.map(expenseDTO, Expense.class);
+        //TODO: manually set dateDue
+        Account accountToUse = accountRepository.getByName(expenseDTO.getAccountToUse());
+        expense.setAccountToUse(accountToUse);
+        expense.setUser(user);
+
+        if (expenseDTO.getPeriodDate().equals("")){
+            //period = yearly or custom
+            //dateDue will be used
+            String[] dateData = expenseDTO.getDateDue().split("-");
+            int year = Integer.parseInt(dateData[0]);
+            String month = dateData[1].toUpperCase();
+            int day = Integer.parseInt(dateData[2]);
+
+            //check if the given date is in the future
+            if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now())){
+                expense.setDateDue(LocalDate.of(year, Month.valueOf(month), day));
+            }else {
+                //TODO: throw error or bind an error to the binding result
+            }
+        } else if (expenseDTO.getDateDue().equals("")) {
+            //period = weekly or monthly
+            //period date will be used
+            //day from period date, month = this month + 1, year = this year except if it is december
+
+        }
+
+        System.out.println("TEST");
+        accountToUse.getExpenses().add(expense);
+        accountRepository.saveAndFlush(accountToUse);
+        user.getExpenses().add(expense);
+        userRepository.saveAndFlush(user);
+        expenseRepository.saveAndFlush(expense);
     }
 }
