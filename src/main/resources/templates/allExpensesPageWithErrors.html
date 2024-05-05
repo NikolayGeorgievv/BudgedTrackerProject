@@ -28,7 +28,7 @@
   </div>
 
     <!--    main div for table-->
-    <div class="flex-grow-1" style="margin-left: 100px">
+    <div class="flex-grow-1">
 
         <h3 style="margin: 10px">All Bills</h3>
 
@@ -41,83 +41,7 @@
 
         </div>
 
-        <div class="flex-grow-1">
-            <!--        div for table-->
-            <div>
-
-                <div class="mb-2 d-flex justify-content-between align-items-center">
-
-                    <div class="px-2">
-
-                        <i class="fa fa-ellipsis-h ms-3"></i>
-                    </div>
-
-                </div>
-                <div class="table-responsive d-flex">
-                    <table class="table table-responsive table-borderless"
-                           th:action="@{/allBillsPage}"
-                           th:method="get"
-                           th:object="${userExpenses}">
-
-                        <thead>
-                        <tr class="bg-light">
-                            <th scope="col">BILL</th>
-                            <th scope="col">ASSIGNED</th>
-                            <th scope="col">DATE DUE</th>
-                            <th scope="col"><span>AVAILABLE</span></th>
-                            <th scope="col" width="20%"><span></span></th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
-
-                            <td
-                                    th:text="${e.getName()}"
-                                    th:value="${e.getName()}">
-                            </td>
-                            <td
-                                    style="border: none"
-                                    th:text="${e.assigned}"
-                                    th:value="${e.assigned}">
-                            </td>
-
-                            <td
-                                    style="border: none"
-                            >
-                                <p>test</p>
-                            </td>
-                            <td
-                                    th:text="${e.getAccount().getName()}"
-                                    th:value="${e.getAccount().getName()}"
-                            >
-
-                            </td>
-
-
-                            <form
-                                    th:action="@{/update-data}"
-                                    th:method="post"
-                                    th:object="${UserExpensesDTO}">
-                                <td class="text-end">
-                                    <button id="update-status" title="Update information" type="submit"
-                                            class="btn btn-warning"
-                                            value="Update information"><i class="fa-solid fa-repeat"></i></button>
-                                </td>
-                            </form>
-                        </tr>
-                        </tbody>
-
-                    </table>
-
-                    <!--    div for filling space-->
-                    <div class="block" style="background: white; width: 50vh"></div>
-                </div>
-
-            </div>
-
-        </div>
+        <div th:replace="~{fragments/expensesTableFragment}"></div>
 
     </div>
 
