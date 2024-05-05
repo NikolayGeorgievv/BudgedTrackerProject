@@ -74,7 +74,7 @@ public class ExpensesController {
 
         userService.addExpense(currentUserName,expenseDTO);
 
-        return "allExpensesPage";
+        return "redirect:/allExpensesPage";
     }
     @GetMapping("/addExpense")
     public String getExpense(Model model){

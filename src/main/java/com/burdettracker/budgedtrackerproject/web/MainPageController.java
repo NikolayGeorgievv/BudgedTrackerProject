@@ -59,7 +59,7 @@ public class MainPageController {
         accounts = userByEmail.getAccounts();
         model.addAttribute("userAccounts", accounts);
 
-        return "index";
+        return "redirect:/index";
     }
 
     public UserExpensesDetailsDTO getUserByEmail(){
