@@ -71,7 +71,6 @@ public class ExpensesController {
     }
     @PostMapping("/addExpense")
     public String addExpense(
-            //TODO: ADD VALIDATION
            @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO,BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
@@ -89,7 +88,7 @@ public class ExpensesController {
     public String getExpense(Model model){
         ExpenseDTO expenseDTO = new ExpenseDTO();
         model.addAttribute("expenseDTO",expenseDTO);
-        return "allExpensesPage";
+        return "allExpensesPageWithErrors";
     }
 
     //TODO: total funds assigned to expenses, today's date,

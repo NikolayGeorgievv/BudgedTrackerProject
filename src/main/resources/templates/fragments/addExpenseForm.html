@@ -39,7 +39,7 @@
                         <button class="btn1" type="button" id="weekly">Weekly</button>
                         <button class="btn1" type="button" id="monthly">Monthly</button>
                         <button class="btn1" type="button" id="yearly">Yearly</button>
-                        <button class="btn1" type="button" id="custom">Custom</button>
+                        <button class="btn1" type="button" id="custom">One time buy</button>
                     </div>
                     <div th:if="${#fields.hasErrors('period')}" th:errors="*{period}" class="errors"></div>
                 </div>
@@ -95,6 +95,9 @@
     {
         box-sizing: border-box
     ;
+    }
+    #myExpenseForm{
+        width: 450px;
     }
     #billLabel {
         display: block;
