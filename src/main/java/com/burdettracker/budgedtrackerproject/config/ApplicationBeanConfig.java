@@ -1,6 +1,8 @@
 package com.burdettracker.budgedtrackerproject.config;
 
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.google.gson.*;
 import org.modelmapper.Converter;
@@ -82,6 +84,9 @@ public class ApplicationBeanConfig {
 
         modelMapper.typeMap(RegisterUserDTO.class, User.class).addMappings(mp -> {
             mp.skip(User::setPassword);
+        });
+        modelMapper.typeMap(ExpenseDTO.class, Expense.class).addMappings(mp -> {
+            mp.skip(Expense::setDateDue);
         });
         return modelMapper;
     }

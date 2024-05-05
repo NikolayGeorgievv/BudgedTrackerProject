@@ -71,7 +71,7 @@ public class ExpensesController {
             return "allExpensesPageWithErrors";
         }
 
-//        expenseService.addExpense(expenseDTO);
+        expenseService.addExpense(expenseDTO);
 
         return "allExpensesPage";
     }
