@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -63,13 +64,6 @@ public class ExpensesController {
         return "allExpensesPage";
     }
 
-    public UserExpensesDetailsDTO getUserByEmail(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-
-        return userService.getUserByEmail(currentUserName);
-
-    }
     @PostMapping("/addExpense")
     public String addExpense(
            @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO,BindingResult bindingResult){
@@ -100,4 +94,23 @@ public class ExpensesController {
     }
 
     //TODO: total funds assigned to expenses, today's date,
+
+
+    @GetMapping("/deleteExpense/{expenseId}")
+    public String deleteExpense (@PathVariable String expenseId){
+
+        expenseService.deleteById(expenseId);
+
+        return "redirect:/allExpensesPage";
+    }
+
+
+
+    public UserExpensesDetailsDTO getUserByEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        return userService.getUserByEmail(currentUserName);
+
+    }
 }

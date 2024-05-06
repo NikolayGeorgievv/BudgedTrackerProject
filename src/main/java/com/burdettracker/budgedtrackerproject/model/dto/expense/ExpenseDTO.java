@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 public class ExpenseDTO {
 
+    private String id;
     @NotEmpty(message = "Please enter a name.")
     private String name;
     @NotEmpty(message = "Please choose a period.")
@@ -23,6 +24,14 @@ public class ExpenseDTO {
     private String periodDate;
     private User user;
     private Account account;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

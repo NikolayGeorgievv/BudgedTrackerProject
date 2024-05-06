@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         accountRepository.saveAndFlush(account);
     }
-
+    //TODO: MOVE THIS TO EXPENSE SERVICE
     @Override
     public void addExpense(String email, ExpenseDTO expenseDTO) {
         User user = this.userRepository.getByEmail(email);
@@ -137,13 +137,14 @@ public class UserServiceImpl implements UserService {
             //dateDue will be used
             String[] dateData = expenseDTO.getDateDue().split("-");
             int year = Integer.parseInt(dateData[0]);
-            String month = dateData[1];
+            String monthNormalCasing = dateData[1];
+            String month = dateData[1].toUpperCase();
             int day = Integer.parseInt(dateData[2]);
 
             //check if the given date is in the future
             if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now())){
                 expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
-                expense.setPeriodDate(String.format("%d-%s-%d", year,month,day));
+                expense.setPeriodDate(String.format("%d-%s-%d", year,monthNormalCasing,day));
             }else {
                 throw new RuntimeException("Date should be in the future!");
             }
