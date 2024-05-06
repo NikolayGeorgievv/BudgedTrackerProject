@@ -36,6 +36,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
     private int userAccountsAllowed;
+    @Column
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @OneToMany

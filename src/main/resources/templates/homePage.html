@@ -12,163 +12,149 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
-<body data-spy="scroll">
+<body data-spy="scroll" style="background-image: url('/images/indexPageBG-IMG.png')">
 
 <div>
     <nav th:replace="~{fragments/navbar-guest}"></nav>
 </div>
 <!--  HEADER END -->
 
-<div class="container col-xxl-8 px-4 py-5" style="background-image: url('/images/maybe a bg for 1st div.png');">
+<div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
             <img src="/images/phone-image.png" class="d-block mx-lg-auto img-fluid" id="phone-pic" alt="#"
                  width="700" height="500" loading="lazy">
         </div>
         <div class="col-lg-6">
-            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Care for your money, but let us do the work!</h1>
-            <p class="lead fw-bold text-body-emphasis lh-1 mb-3 fst-italic">Combine effortless saving, free to use and
+            <h2 class="display-5 fw-bold">Care for your money, but let us do the work!</h2>
+            <p class="lead fw-bold fst-italic" id="firstParagraphOfIndexPage">Combine effortless saving, free to use and
                 flexible methods for managing finances app with your dreams! </p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <a href="registerForm.html">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Sign up</button>
+                    <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" id="signUpBtn">Sign up</button>
                 </a>
             </div>
         </div>
     </div>
 </div>
 
-<main>
-    <!-- CARDS-->
-    <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Change your relationship with money.</h2>
-
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-            <div class="col">
-                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                     style="background-image: url('/images/rsz_saving4.jpg');">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Be one of the many that trusted us!</h3>
-                    </div>
-                </div>
+<!--MIDHERO-->
+<div class="text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+        <h2 class="display-5 fw-bold">Don't waste another second!</h2>
+        <div class="col-lg-6 mx-auto">
+            <p class="fs-5 mb-4 fw-bold fst-italic" id="midParagraph">Lets find that financial independence together! The average PineConer saves up to
+                6,000$ their first year!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="registerForm.html">
+                    <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for
+                        free
+                    </button>
+                </a>
             </div>
-
-            <div class="col">
-                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                     style="background-image: url('/images/saving6.jpg');">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-dark">Grow your savings while doing nothing!</h3>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-                     style="background-image: url('/images/rsz_saving2.png');">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                        <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Save for a dream come true!</h3>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
+</div>
 
-    <!--    MIDHERO-->
-
-    <div class="bg-dark text-secondary px-4 py-5 text-center">
-        <div class="py-5">
-            <h1 class="display-5 fw-bold text-white">Don't waste another second!</h1>
-            <div class="col-lg-6 mx-auto">
-                <p class="fs-5 mb-4">Let us find that financial independence for you! The average PineConer saves up to
-                    6,000$ their first year</p>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+<div class="d-flex flex-wrap align-items-center justify-content-center">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center w-75">
+        <div class="col">
+            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard1">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">FREE</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$0<small
+                            class="fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-5">
+                        <li>1 Account</li>
+                        <li>Email support</li>
+                        <li>Help center access</li>
+                        <li></li>
+                    </ul>
                     <a href="registerForm.html">
-                        <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for
-                            free
-                        </button>
+                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for free</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard2">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">GOLD</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$15<small
+                            class="fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>2 Accounts</li>
+                        <li>1 GB of documents storage</li>
+                        <li>Priority email support</li>
+                        <li>Help center access</li>
+                    </ul>
+                    <a href="registerForm.html">
+                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Get started</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard3">
+                <div class="card-header py-3 ">
+                    <h4 class="my-0 fw-normal">PREMIUM</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$29<small
+                            class="fw-light">/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>Unlimited Accounts</li>
+                        <li>10 GB of documents storage</li>
+                        <li>Phone and email support</li>
+                        <li>Help center access</li>
+                    </ul>
+                    <a href="registerForm.html">
+                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Get started</button>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <br>
+<!--    FOOTER-->
 
-    <!--    PRICING-->
-    <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center w-75">
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">FREE</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0<small
-                                class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-5">
-                            <li>1 Account</li>
-                            <li>Email support</li>
-                            <li>Help center access</li>
-                            <li></li>
-                        </ul>
-                        <a href="registerForm.html">
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">GOLD</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$15<small
-                                class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>2 Accounts</li>
-                            <li>1 GB of documents storage</li>
-                            <li>Priority email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <a href="registerForm.html">
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3 ">
-                        <h4 class="my-0 fw-normal">PREMIUM</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29<small
-                                class="text-body-secondary fw-light">/mo</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>Unlimited Accounts</li>
-                            <li>10 GB of documents storage</li>
-                            <li>Phone and email support</li>
-                            <li>Help center access</li>
-                        </ul>
-                        <a href="registerForm.html">
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div>
+    <nav th:replace="~{fragments/footer}"></nav>
+</div>
+<style>
+    h2 {
+        color: silver;
+    }
 
-    <!--    FOOTER-->
-
-    <div>
-        <nav th:replace="~{fragments/footer}"></nav>
-    </div>
-</main>
+    #firstParagraphOfIndexPage {
+        color: white;
+    }
+    header{
+        border-bottom: black 2px solid;
+        padding-top: 1rem;
+        padding-bottom: 5px;
+    }
+    #midParagraph{
+        color: white;
+    }
+    #pricingCard1{
+        background-image: url('/images/bg-img-1.png');
+    }
+    #pricingCard2{
+        background-image: url('/images/bg-img-card2.png');
+    }
+    #pricingCard3{
+        background-image: url('/images/bg-img-card3.png');
+    }
+    .pricingCard>*{
+        color: white;
+    }
+</style>
 
 </body>
 </html>

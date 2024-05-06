@@ -15,7 +15,7 @@
 <body>
 
 <nav th:fragment="navbar-guest">
-    <header class="p-3 text-bg-dark fixed-top">
+    <header class="text fixed-top">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
@@ -35,11 +35,11 @@
 
                 <div class="text-end">
                     <a th:href="@{/users/login}">
-                        <button type="button" class="btn btn-outline-light me-2">Login</button>
+                        <button type="button" class="btn btn-outline-light btn-md me-2">Login</button>
                     </a>
 
                     <a th:href="@{/users/register}">
-                        <button type="button" class="btn btn-warning">Sign-up</button>
+                        <button type="button" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold">Sign-up</button>
                     </a>
 
                 </div>
