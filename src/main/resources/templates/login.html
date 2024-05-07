@@ -12,34 +12,11 @@
     <meta charset="UTF-8">
     <title>LogIn Page</title>
 </head>
-<body style="background-image: url('/images/reg.png');">
+<body data-spy="scroll" style="background-image: url('/images/indexPageBG-IMG.png')">
 
-<!--th:style="|background:url(@{'/static/pics/reg.png'});|"-->
-<!--style="background-image: url('/static/pics/reg.png');"-->
-
-
-<!--HEADER -->
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/homePage" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/homePage"><img src="/images/PineConeLogo - BG.png"
-                                                 class="d-block mx-lg-auto img-fluid"
-                                                 alt="#" width="45" height="30" loading="lazy"></a></li>
-                <li><a href="/homePage" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-        </div>
-    </div>
-</header>
-
+<div>
+    <nav th:replace="~{fragments/navbar-guest}"></nav>
+</div>
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-2 py-5">
 
@@ -48,18 +25,18 @@
                 th:action="@{/users/login}"
                 th:method="post"
                 class="col-10 col-sm-8 col-lg-6">
-            <div class="form-group">
+            <div class="form-group login">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
                        placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">Please enter your email</small>
+                <p id="emailHelp" class="form-text text-muted">Please enter your email</p>
 
             </div>
             <br>
-            <div class="form-group">
+            <div class="form-group login">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-                <small id="passHelp" class="form-text text-muted">Please enter your password</small>
+                <p id="passHelp" class="form-text text-muted">Please enter your password</p>
                 <p class="errors alert alert-danger"
                    th:if="${error}">
                     Wrong email or password.
@@ -72,5 +49,13 @@
 
     </div>
 </div>
+<style>
+    .login{
+        color: white;
+    }
+    #emailHelp, #passHelp{
+        color: white !important;
+    }
+</style>
 </body>
 </html>
