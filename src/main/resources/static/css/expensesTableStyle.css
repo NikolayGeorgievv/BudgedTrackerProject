@@ -1,0 +1,112 @@
+{
+    box-sizing: border-box
+;
+}
+#expenseModalContent {
+    border: 3px solid #f1f1f1;
+    background-color: #2c396a;
+}
+
+#editExpenseModalLabel {
+    color: white;
+}
+
+#billLabel {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+label {
+    color: #ffc107;
+}
+
+.btn2 {
+    width: 25%;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn2:hover {
+    border: 1px solid #0099cc;
+    background-color: #00aacc;
+}
+
+#content1 {
+    display: none;
+    width: 100%;
+    font-size: 14px;
+    background-color: #2c396a;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#datepickerInput1 {
+    width: 100%;
+}
+
+#dateInputField1 {
+    pointer-events: none;
+    background-color: white;
+    opacity: 0.9;
+}
+
+
+#expenseModalContent input[type=text] {
+    border: none;
+    background: #f1f1f1;
+}
+
+#expenseModalContent input[type=text]:focus {
+    outline: none;
+}
+
+.button {
+    background-color: #2c396a;
+    color: #ffc107;
+    padding: 16px 20px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+button:hover {
+    border: 1px solid #0099cc;
+    background-color: #00aacc;
+}
+
+
+#expenseModalContent .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+#every {
+    color: white;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+#accountToUseLabel {
+    margin-right: 9px;
+}
+
+.hide {
+    display: none;
+    background-color: #2c396a;
+    overflow: visible;
+    position: relative;
+}
+
+.editExpenseInfo:hover + .hide {
+    display: block;
+    color: white;
+}
+.editExpenseInfo:hover{
+    display: none;
+
+}
+.editExpenseInfo{
+    margin-right: 15px;
+    padding: 10px;
+}
