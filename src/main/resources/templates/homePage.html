@@ -39,12 +39,12 @@
 </div>
 
 <!--MIDHERO-->
-<div class="text-secondary px-4 py-5 text-center">
+<div class="text-secondary px-4 py-5 text-center" id="midHero">
     <div class="py-5">
         <h2 class="display-5 fw-bold">Don't waste another second!</h2>
         <div class="col-lg-6 mx-auto">
             <p class="fs-5 mb-4 fw-bold fst-italic" id="midParagraph">Lets find that financial independence together! The average PineConer saves up to
-                6,000$ their first year!</p>
+                6,000$ their first year! There is a plan for everyone! Check out our pricing below.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a href="registerForm.html">
                     <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for
@@ -63,7 +63,7 @@
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">FREE</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h1 class="card-title pricing-card-title">$0<small
                             class="fw-light">/mo</small></h1>
                     <ul class="list-unstyled mt-3 mb-5">
@@ -83,7 +83,7 @@
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">GOLD</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h1 class="card-title pricing-card-title">$15<small
                             class="fw-light">/mo</small></h1>
                     <ul class="list-unstyled mt-3 mb-4">
@@ -103,7 +103,7 @@
                 <div class="card-header py-3 ">
                     <h4 class="my-0 fw-normal">PREMIUM</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h1 class="card-title pricing-card-title">$29<small
                             class="fw-light">/mo</small></h1>
                     <ul class="list-unstyled mt-3 mb-4">
@@ -126,7 +126,12 @@
 <div>
     <nav th:replace="~{fragments/footer}"></nav>
 </div>
+
+
 <style>
+    #midHero{
+        margin-top:50px;
+    }
     h2 {
         color: silver;
     }
