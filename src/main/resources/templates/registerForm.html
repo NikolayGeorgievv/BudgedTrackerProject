@@ -12,33 +12,14 @@
     <meta charset="UTF-8">
     <title>Register Page</title>
 </head>
-<body style="background-image: url('/images/reg.png');">
+<body data-spy="scroll" style="background-image: url('/images/indexPageBG-IMG.png')">
 
 <!--HEADER -->
 
 
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/homePage" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/homePage"><img src="/images/PineConeLogo - BG.png"
-                                             class="d-block mx-lg-auto img-fluid"
-                                             alt="#" width="45" height="30" loading="lazy"></a></li>
-                <li><a href="/homePage" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-        </div>
-    </div>
-</header>
+<div>
+    <nav th:replace="~{fragments/navbar-guest}"></nav>
+</div>
 
 
 <!--REGISTER FORM-->
@@ -106,48 +87,24 @@
 
                     <input class="form-check-input" type="checkbox" name="termsAccepted" id="gridCheck">
                     <label class="form-check-label" for="gridCheck">
-                        I have read <a th:href="@{termsAndConditions.html}" >Terms and conditions</a>.
+                        I have read and agree <a th:href="@{termsAndConditions.html}" style="color: white; "> Terms and conditions</a>.
                     </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold">Sign in</button>
         </form>
 
     </div>
 </div>
 
 
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <a href="homePage.html"><img src="/images/PineConeLogo.png" class="d-block mx-lg-auto img-fluid"
-                                         alt="#" width="70" height="50" loading="lazy"></a>
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 PineCone, Inc</span>
-        </div>
-
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#twitter"></use>
-                </svg>
-            </a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#instagram"></use>
-                </svg>
-            </a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#">
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#facebook"></use>
-                </svg>
-            </a></li>
-        </ul>
-    </footer>
+<div>
+    <nav th:replace="~{fragments/footer}"></nav>
 </div>
+<style>
+    #registration-form{
+        color: white;
+    }
+</style>
 </body>
 </html>
