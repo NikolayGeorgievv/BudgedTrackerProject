@@ -34,7 +34,8 @@
 
             <tbody>
 
-            <tr class="border-top border-bottom" th:each="e : ${userExpenses}">
+            <tr class="border-top border-bottom" th:each="e : ${userExpenses}"
+                th:id="'expenseRow-' + ${e.getId()}">
 
                 <td
                         th:text="${e.getName()}"
@@ -51,23 +52,23 @@
                         th:value="${e.getAccount().getName()}">
                 </td>
 
-<!--                EDIT AND DELETE BTN!-->
+                <!--                EDIT AND DELETE BTN!-->
 
                 <td>
                     <div class="d-flex flex-row">
                         <div style="margin-right: 5px">
-<!--                            <form-->
-<!--                                    th:action="@{/editExpense}"-->
-<!--                                    th:method="post">-->
-<!--                                <button-->
-<!--                                        type="button" class="btn btn-warning btn-sm open-button"-->
-<!--                                        th:id="'updateButton-' + ${e.getId}" name="accountId"-->
-<!--                                        title="Edit account" th:value="${e.getId()}"-->
-<!--                                        data-bs-toggle="modal" data-bs-target="#editModal"-->
-<!--                                        th:onclick="newValue(/*[[${e.getId()}]]*/)">-->
-<!--                                    <i class="fa-solid fa-pen-to-square"></i></button>-->
+                            <form
+                                    th:action="@{/editExpense}"
+                                    th:method="post">
+                                <button
+                                        type="button" class="btn btn-warning btn-sm open-button"
+                                        th:id="'updateExpenseButton-' + ${e.getId}" name="expenseId"
+                                        title="Edit expense" th:value="${e.getId()}"
+                                        data-bs-toggle="modal" data-bs-target="#editExpenseModal"
+                                        th:onclick="newValue1(/*[[${e.getId()}]]*/)">
+                                    <i class="fa-solid fa-pen-to-square"></i></button>
 
-<!--                            </form>-->
+                            </form>
                         </div>
                         <div style="margin-left: 5px">
                             <form
@@ -91,9 +92,269 @@
     </div>
 </div>
 
+<div class="modal fade" id="editExpenseModal" tabindex="-1" role="dialog" aria-labelledby="editExpenseModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="expenseModalContent">
+            <form
+                    th:action="@{/editExpense}"
+                    th:method="post"
+                    th:object="${editExpenseInfoDTO}">
+            <div class="flex-grow-1">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editExpenseModalLabel">Edit Expense</h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
+                            <label id="billLabel">Bill</label>
+                            <input type="text" placeholder="Bill name" name="name" id="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex">
+                                    <button class="btn2" type="button" id="weekly1">Weekly</button>
+                                    <button class="btn2" type="button" id="monthly1">Monthly</button>
+                                    <button class="btn2" type="button" id="yearly1">Yearly</button>
+                                    <button class="btn2" type="button" id="custom1">One time buy</button>
+                                </div>
+                            </div>
+                            <div>
+                                <select id="content1" class="dropdown-content"></select>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <p id="every">Every</p>
+                                <div id="datepicker1">
+                                    <input type="text" id="datepickerInput1" name="dateDue"
+                                           th:replace="~{fragments/datepicker}">
+                                </div>
+                                <input type="text" id="dateInputField1" name="periodDate">
+                                <input type="hidden" id="period1" name="period">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between" style="margin: 5px">
+                        <div class="d-flex flex-column">
+                            <div>
+                                <label>Amount needed</label>
+                                <input type="text" placeholder="1000$" name="assigned" id="amountNeeded">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between" style="margin: 5px">
+                        <div class="d-flex flex-column">
+                            <div>
+                                <label id="accountToUseLabel">Account to use</label>
+                                <select name="accountToUse">
+                                    <option
+                                            th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                            th:text="${a.getName()}"
+                                            th:value="${a.getName()}"
+                                    >
+
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="button" id="submitButton111">Add</button>
+                    <input type="hidden" id="expenseId1" name="id"/>
+
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<style>
+    {
+        box-sizing: border-box
+    ;
+    }
+    #expenseModalContent {
+        border: 3px solid #f1f1f1;
+        background-color: #2c396a;
+    }
+    #billLabel {
+        display: block;
+        text-align: center;
+    }
+
+    label {
+        color: #ffc107;
+    }
+
+    .btn2 {
+        width: 25%;
+        border-radius: 10px;
+        border: none;
+    }
+    .btn2:hover {
+        border: 1px solid #0099cc;
+        background-color: #00aacc;
+    }
+
+    #content1 {
+        display: none;
+        width: 100%;
+        font-size: 14px;
+        background-color: #2c396a;
+        color: white;
+        margin-bottom: 5px;
+    }
+
+    #datepickerInput1 {
+        width: 100%;
+    }
+
+    #dateInputField1 {
+        pointer-events: none;
+        background-color: white;
+        opacity: 0.9;
+    }
+
+
+    #expenseModalContent input[type=text] {
+        border: none;
+        background: #f1f1f1;
+    }
+
+    #expenseModalContent input[type=text]:focus {
+        background-color: #2c396a;
+        outline: none;
+    }
+
+    .button {
+        background-color: #2c396a;
+        color: #ffc107;
+        padding: 16px 20px;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+
+    button:hover {
+        border: 1px solid #0099cc;
+        background-color: #00aacc;
+    }
+
+
+    #expenseModalContent .btn:hover, .open-button:hover {
+        opacity: 1;
+    }
+
+    #every {
+        color: white;
+        font-weight: 400;
+        margin-bottom: 0px;
+    }
+    #accountToUseLabel{
+        margin-right: 9px;
+    }
+
+</style>
+
+
 <script th:inline="javascript">
-    function newValue(expenseId) {
-        document.getElementById("accountId1").value = expenseId;
+
+
+    function newValue1(expenseId) {
+        document.getElementById("expenseId1").value = expenseId;
+    }
+
+    let weeklyBtn1 = document.getElementById("weekly1");
+    let monthlyBtn1 = document.getElementById("monthly1");
+    let yearlyBtn1 = document.getElementById("yearly1");
+    let customBtn1 = document.getElementById("custom1");
+
+    let contentDiv1 = document.getElementById("content1");
+    let dateInputField1 = document.getElementById("dateInputField1");
+    let datePicker1 = document.getElementById("datepicker1");
+    let period1 = document.getElementById("period1");
+    datePicker1.style.display = "none";
+
+    weeklyBtn1.addEventListener("click", function () {
+        period1.value = 'weekly';
+        buttonsBgColourClear1()
+        weeklyBtn1.style.backgroundColor = '#0099cc';
+        contentDiv1.innerHTML = "";
+        dateInputField1.value = "Sunday";
+        dateInputField1.type = "text";
+        datePicker1.style.display = "none";
+        const daysOfWeek1 = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        daysOfWeek1.forEach(day => {
+            const option1 = document.createElement('option');
+            option1.textContent = day;
+            contentDiv1.appendChild(option1);
+
+        });
+        contentDiv1.style.display = "block"
+        contentDiv1.classList.toggle("show");
+
+
+    });
+
+    monthlyBtn1.addEventListener("click", function () {
+        period1.value = 'monthly';
+        buttonsBgColourClear1()
+        monthlyBtn1.style.backgroundColor = '#0099cc';
+        contentDiv1.innerHTML = "";
+        dateInputField1.value = "Last day of month";
+        dateInputField1.type = "text";
+        datePicker1.style.display = "none";
+        const datesOfMonth1 = ['Last day of month', '31th', '30th', '29th', '28th', '27th', '26th', '25th', '24th', '23th', '22nd'
+            , '21st', '20th', '19th', '18th', '17th', '16th', '15th', '14th', '13th', '12th', '11th', '10th', '9th', '8th', '7th'
+            , '6th', '5th', '4th', '3th', '2nd', '1st'];
+
+        datesOfMonth1.forEach(day => {
+            const option1 = document.createElement('option');
+            option1.textContent = day;
+            contentDiv1.appendChild(option1);
+
+        });
+
+        contentDiv1.style.display = "block"
+        contentDiv1.classList.toggle("show");
+
+    });
+
+    contentDiv1.addEventListener("change", function () {
+        dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+    })
+    yearlyBtn1.addEventListener("click", function () {
+        period1.value = 'yearly';
+        buttonsBgColourClear1()
+        yearlyBtn1.style.backgroundColor = '#0099cc';
+        dateInputField1.value = "";
+        contentDiv1.innerHTML = "";
+        contentDiv1.style.display = "none";
+        dateInputField1.type = "hidden";
+        datePicker1.style.display = "block";
+    });
+
+    customBtn1.addEventListener("click", function () {
+        period1.value = 'custom';
+        buttonsBgColourClear1()
+        customBtn1.style.backgroundColor = '#0099cc';
+        dateInputField1.value = "";
+        contentDiv1.innerHTML = "";
+        contentDiv1.style.display = "none";
+        dateInputField1.type = "hidden";
+        datePicker1.style.display = "block";
+    });
+    function buttonsBgColourClear1() {
+        weeklyBtn1.style.backgroundColor = 'white';
+        monthlyBtn1.style.backgroundColor = 'white';
+        yearlyBtn1.style.backgroundColor = 'white';
+        customBtn1.style.backgroundColor = 'white';
     }
 </script>
 </body>

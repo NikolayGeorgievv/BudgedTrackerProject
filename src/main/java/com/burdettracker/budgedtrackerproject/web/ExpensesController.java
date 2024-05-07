@@ -1,6 +1,8 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
@@ -104,6 +106,13 @@ public class ExpensesController {
         return "redirect:/allExpensesPage";
     }
 
+    @PostMapping("/editExpense")
+    public String editAccount(
+            @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO){
+
+
+        return "redirect:/allExpensesPage";
+    }
 
 
     public UserExpensesDetailsDTO getUserByEmail(){
