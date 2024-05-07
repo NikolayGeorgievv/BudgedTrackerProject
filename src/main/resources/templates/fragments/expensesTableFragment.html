@@ -100,73 +100,79 @@
                     th:action="@{/editExpense}"
                     th:method="post"
                     th:object="${editExpenseInfoDTO}">
-            <div class="flex-grow-1">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editExpenseModalLabel">Edit Expense</h5>
-                </div>
-                <div class="modal-body">
-
-                    <div class="d-flex flex-column">
-                        <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
-                            <label id="billLabel">Bill</label>
-                            <input type="text" placeholder="Bill name" name="name" id="name">
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center modal-header">
+                        <div id="editExpenseModalLabel">
+                            <h5 class="modal-title" >Edit Expense</h5>
+                        </div>
+                        <div id="editExpenseInfo">
+                            <div class="editExpenseInfo"><i class="fa-solid fa-circle-info fa-2x"></i></div>
+                            <div class="hide">Did you know? You don't have to fill every field! Just the ones you want to update</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
-                            <div class="d-flex flex-column">
-                                <div class="d-flex">
-                                    <button class="btn2" type="button" id="weekly1">Weekly</button>
-                                    <button class="btn2" type="button" id="monthly1">Monthly</button>
-                                    <button class="btn2" type="button" id="yearly1">Yearly</button>
-                                    <button class="btn2" type="button" id="custom1">One time buy</button>
+                    <div class="modal-body">
+
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
+                                <label id="billLabel">Bill</label>
+                                <input type="text" placeholder="Bill name" name="name" id="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex">
+                                        <button class="btn2" type="button" id="weekly1">Weekly</button>
+                                        <button class="btn2" type="button" id="monthly1">Monthly</button>
+                                        <button class="btn2" type="button" id="yearly1">Yearly</button>
+                                        <button class="btn2" type="button" id="custom1">One time buy</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <select id="content1" class="dropdown-content"></select>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <p id="every">Every</p>
+                                    <div id="datepicker1">
+                                        <input type="text" id="datepickerInput1" name="dateDue"
+                                               th:replace="~{fragments/datepicker}">
+                                    </div>
+                                    <input type="text" id="dateInputField1" name="periodDate">
+                                    <input type="hidden" id="period1" name="period">
                                 </div>
                             </div>
-                            <div>
-                                <select id="content1" class="dropdown-content"></select>
-                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between" style="margin: 5px">
                             <div class="d-flex flex-column">
-                                <p id="every">Every</p>
-                                <div id="datepicker1">
-                                    <input type="text" id="datepickerInput1" name="dateDue"
-                                           th:replace="~{fragments/datepicker}">
+                                <div>
+                                    <label>Amount needed</label>
+                                    <input type="text" placeholder="1000$" name="assigned" id="amountNeeded">
                                 </div>
-                                <input type="text" id="dateInputField1" name="periodDate">
-                                <input type="hidden" id="period1" name="period">
                             </div>
                         </div>
-                    </div>
+                        <div class="d-flex justify-content-between" style="margin: 5px">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <label id="accountToUseLabel">Account to use</label>
+                                    <select name="accountToUse">
+                                        <option
+                                                th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                                th:text="${a.getName()}"
+                                                th:value="${a.getName()}"
+                                        >
 
-                    <div class="d-flex justify-content-between" style="margin: 5px">
-                        <div class="d-flex flex-column">
-                            <div>
-                                <label>Amount needed</label>
-                                <input type="text" placeholder="1000$" name="assigned" id="amountNeeded">
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
+
+                        <button type="submit" class="button" id="submitButton111">Add</button>
+                        <input type="hidden" id="expenseId1" name="id"/>
+
                     </div>
-                    <div class="d-flex justify-content-between" style="margin: 5px">
-                        <div class="d-flex flex-column">
-                            <div>
-                                <label id="accountToUseLabel">Account to use</label>
-                                <select name="accountToUse">
-                                    <option
-                                            th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
-                                            th:text="${a.getName()}"
-                                            th:value="${a.getName()}"
-                                    >
-
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="button" id="submitButton111">Add</button>
-                    <input type="hidden" id="expenseId1" name="id"/>
-
                 </div>
-            </div>
             </form>
         </div>
     </div>
@@ -182,6 +188,11 @@
         border: 3px solid #f1f1f1;
         background-color: #2c396a;
     }
+
+    #editExpenseModalLabel {
+        color: white;
+    }
+
     #billLabel {
         display: block;
         text-align: center;
@@ -196,6 +207,7 @@
         border-radius: 10px;
         border: none;
     }
+
     .btn2:hover {
         border: 1px solid #0099cc;
         background-color: #00aacc;
@@ -256,10 +268,30 @@
         font-weight: 400;
         margin-bottom: 0px;
     }
-    #accountToUseLabel{
+
+    #accountToUseLabel {
         margin-right: 9px;
     }
 
+    .hide {
+        display: none;
+        background-color: #2c396a;
+        overflow: visible;
+        position: relative;
+    }
+
+    .editExpenseInfo:hover + .hide {
+        display: block;
+        color: white;
+    }
+    .editExpenseInfo:hover{
+        display: none;
+
+    }
+    .editExpenseInfo{
+        margin-right: 15px;
+        padding: 10px;
+    }
 </style>
 
 
@@ -327,7 +359,7 @@
     });
 
     contentDiv1.addEventListener("change", function () {
-        dateInputField.value = contentDiv.options[contentDiv.selectedIndex].text;
+        dateInputField1.value = contentDiv1.options[contentDiv1.selectedIndex].text;
     })
     yearlyBtn1.addEventListener("click", function () {
         period1.value = 'yearly';
@@ -350,12 +382,21 @@
         dateInputField1.type = "hidden";
         datePicker1.style.display = "block";
     });
+
     function buttonsBgColourClear1() {
         weeklyBtn1.style.backgroundColor = 'white';
         monthlyBtn1.style.backgroundColor = 'white';
         yearlyBtn1.style.backgroundColor = 'white';
         customBtn1.style.backgroundColor = 'white';
     }
+
+    let informationMark = document.getElementById("editExpenseInfo");
+    informationMark.addEventListener("mouseover", function () {
+        document.getElementById("editExpenseModalLabel").style.color = "#2c396a"
+    })
+    informationMark.addEventListener("mouseout", function () {
+        document.getElementById("editExpenseModalLabel").style.color = "white";
+    })
 </script>
 </body>
 </html>
