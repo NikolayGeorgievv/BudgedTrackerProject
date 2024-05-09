@@ -19,18 +19,18 @@
 <body>
 <div class="flex-grow-1">
     <!--        div for table-->
-    <div class="table-responsive d-flex">
-        <table class="table table-responsive table-borderless"
+    <div class="table-responsive-md">
+        <table class="table table-borderless table-hover"
                th:action="@{/index}"
                th:method="get"
                th:object="${userExpenses}">
 
             <thead>
-            <tr class="bg-light">
-                <th scope="col">BILL</th>
-                <th scope="col">TARGET</th>
-                <th scope="col"><span>ACCOUNT ASSIGNED</span></th>
-                <th scope="col"></th>
+            <tr class="">
+                <th scope="col" width="25%" style="padding-left: 15px">BILL</th>
+                <th scope="col" width="35%">TARGET</th>
+                <th scope="col" width="25%"><span>ACCOUNT ASSIGNED</span></th>
+                <th scope="col" width="15%"></th>
             </tr>
             </thead>
 
@@ -41,17 +41,19 @@
 
                 <td
                         th:text="${e.getName()}"
-                        th:value="${e.getName()}">
+                        th:value="${e.getName()}"
+                        style="padding-left: 15px; font-weight: 550;">
                 </td>
                 <td
-                        style="border: none"
-                        th:text="${e.assigned} + ' by ' + ${e.periodDate}"
-                        th:value="${e.assigned} + ' by ' + ${e.periodDate}">
+                        th:text="'$' + ${e.assigned} + ' needed by ' + ${e.periodDate}"
+                        th:value="'$' + ${e.assigned} + ' needed by ' + ${e.periodDate}"
+                        style="border: none; font-weight: bold; font-style: italic;">
                 </td>
 
                 <td
                         th:text="${e.getAccount().getName()}"
-                        th:value="${e.getAccount().getName()}">
+                        th:value="${e.getAccount().getName()}"
+                        style="font-weight: 550;">
                 </td>
 
                 <!--                EDIT AND DELETE BTN!-->
@@ -91,7 +93,7 @@
 
         <!--    div for filling space-->
 <!--        TODO: FIX THAT -->
-        <div class="block" style="background: white; width: 50vh"></div>
+<!--        <div class="block" style="background: white; width: 50vh"></div>-->
     </div>
 </div>
 

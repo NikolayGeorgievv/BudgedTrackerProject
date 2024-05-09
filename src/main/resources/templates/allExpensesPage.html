@@ -29,8 +29,21 @@
 
         <h3 style="margin: 10px">All Bills</h3>
 
-        <div class="d-flex" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
+        <div class="d-flex flex-column" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
             <!--            all accounts balance-->
+
+            <div>
+                <p
+                    th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                    th:value ="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                    style="color: green; font-weight: bold"
+                ></p>
+            </div>
+            <div>
+              <p
+              th:text="'Todays date is'  + ${todaysDate}"
+              ></p>
+            </div>
             <div>
                 <p
                 ></p>

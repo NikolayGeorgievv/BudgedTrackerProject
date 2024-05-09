@@ -37,7 +37,7 @@
                 <p
                         th:action="@{/allAccountsPage}"
                         th:method="get"
-                        th:text="${allAccountsInfoDTO.getTotalBalance()} + '$'"
+                        th:text="'Total funds: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()} "
                         style="color: green; font-weight: bold"
                 ></p>
             </div>

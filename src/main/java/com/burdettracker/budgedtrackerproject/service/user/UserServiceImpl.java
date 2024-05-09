@@ -132,18 +132,19 @@ public class UserServiceImpl implements UserService {
         expense.setUser(user);
 
         if (expenseDTO.getPeriodDate().equals("")){
-            //period = yearly or custom
+            //period = yearly or one-time-buy
             //dateDue will be used
             String[] dateData = expenseDTO.getDateDue().split("-");
-            int year = Integer.parseInt(dateData[0]);
+            int day = Integer.parseInt(dateData[0]);
             String monthNormalCasing = dateData[1];
             String month = dateData[1].toUpperCase();
-            int day = Integer.parseInt(dateData[2]);
+            int year = Integer.parseInt(dateData[2]);
 
             //check if the given date is in the future
-            if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now())){
+            if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now()) || LocalDate.of(year, Month.valueOf(month), day).equals(LocalDate.now())){
+                //TODO: CHECK IF THE BILL IS ONE-TIME-BUY
                 expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
-                expense.setPeriodDate(String.format("%d-%s-%d", year,monthNormalCasing,day));
+                expense.setPeriodDate(String.format("%d-%s-%d", day,monthNormalCasing,year));
             }else {
                 throw new RuntimeException("Date should be in the future!");
             }
@@ -154,7 +155,6 @@ public class UserServiceImpl implements UserService {
 
         }
 
-        System.out.println("TEST");
         accountToUse.getExpenses().add(expense);
         accountRepository.saveAndFlush(accountToUse);
         user.getExpenses().add(expense);

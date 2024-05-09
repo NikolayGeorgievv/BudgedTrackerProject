@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -62,7 +65,13 @@ public class ExpensesController {
     }
 
     @GetMapping("/allExpensesPage")
-    public String allBillsPage(){
+    public String allBillsPage(Model model){
+        double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
+        model.addAttribute("totalExpensesFunds", totalBalance);
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String todaysDate = date.format(formatter);
+        model.addAttribute("todaysDate", todaysDate);
         return "allExpensesPage";
     }
 
@@ -115,7 +124,7 @@ public class ExpensesController {
         try {
             expenseService.editExpense(editExpenseInfoDTO);
         }catch (RuntimeException e){
-            bindingResult.addError(new FieldError("expenseDTO","periodDate","Please choose a correct date."));
+            bindingResult.addError(new FieldError("expenseDTO","periodDate1","Please choose a correct date."));
             return "/allExpensesPage";
         }
 
