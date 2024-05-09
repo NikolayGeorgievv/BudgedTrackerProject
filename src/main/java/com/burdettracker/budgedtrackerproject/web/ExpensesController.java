@@ -68,10 +68,8 @@ public class ExpensesController {
     public String allBillsPage(Model model){
         double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
         model.addAttribute("totalExpensesFunds", totalBalance);
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        String todaysDate = date.format(formatter);
-        model.addAttribute("todaysDate", todaysDate);
+
+        model.addAttribute("todaysDate", todaysDate());
         return "allExpensesPage";
     }
 
@@ -139,5 +137,11 @@ public class ExpensesController {
 
         return userService.getUserByEmail(currentUserName);
 
+    }
+
+    public String todaysDate(){
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        return date.format(formatter);
     }
 }

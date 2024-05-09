@@ -20,29 +20,31 @@
 </div>
 
 <div class="d-flex">
-  <div>
-    <div th:replace="~{fragments/sideBar}" style="margin-right: 0"></div>
-  </div>
+    <div>
+        <div th:replace="~{fragments/sideBar}" style="margin-right: 0"></div>
+    </div>
 
     <!--    main div for table-->
     <div class="flex-grow-1" style="border-radius: 10px">
 
         <h3 style="margin: 10px">All Bills</h3>
 
-        <div class="d-flex flex-column" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
+        <div class="d-flex" style="border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
             <!--            all accounts balance-->
 
             <div>
                 <p
-                    th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
-                    th:value ="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
-                    style="color: green; font-weight: bold"
+                        th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                        th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                        style="color: green; font-weight: bold"
                 ></p>
             </div>
             <div>
-              <p
-              th:text="'Todays date is'  + ${todaysDate}"
-              ></p>
+                <p
+                        th:text="'Today\'s date is: '  + ${todaysDate}"
+                        th:value="'Today\'s date is: '  + ${todaysDate}"
+                        style="color: #2c396a; font-weight: bold; margin-left: 20px"
+                ></p>
             </div>
             <div>
                 <p
