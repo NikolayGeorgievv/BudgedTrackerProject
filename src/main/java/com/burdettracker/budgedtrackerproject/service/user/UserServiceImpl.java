@@ -127,7 +127,6 @@ public class UserServiceImpl implements UserService {
     public void addExpense(String email, ExpenseDTO expenseDTO) {
         User user = this.userRepository.getByEmail(email);
         Expense expense = modelMapper.map(expenseDTO, Expense.class);
-        //TODO: manually set dateDue
         Account accountToUse = accountRepository.getByName(expenseDTO.getAccountToUse());
         expense.setAccount(accountToUse);
         expense.setUser(user);

@@ -108,7 +108,16 @@ public class ExpensesController {
 
     @PostMapping("/editExpense")
     public String editAccount(
-            @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO){
+            @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO, BindingResult bindingResult){
+
+
+        //TODO: FIX VALIDATION FOR INCORRECT DATE
+        try {
+            expenseService.editExpense(editExpenseInfoDTO);
+        }catch (RuntimeException e){
+            bindingResult.addError(new FieldError("expenseDTO","periodDate","Please choose a correct date."));
+            return "/allExpensesPage";
+        }
 
 
         return "redirect:/allExpensesPage";
