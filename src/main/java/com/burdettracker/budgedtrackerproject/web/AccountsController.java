@@ -3,16 +3,15 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -27,41 +26,6 @@ public class AccountsController {
         this.userService = userService;
         this.accountService = accountService;
         this.accounts = accounts;
-    }
-
-    @ModelAttribute("allAccountsInfoDTO")
-    public AllAccountsInfoDTO allAccountsInfoDTO(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-        return this.accountService.getAllAccounts(currentUserName);
-    }
-
-    @ModelAttribute("userFullNameDTO")
-    public UserFullNameDTO userFullNameDTO() {
-        UserExpensesDetailsDTO userByEmail = getUserByEmail();
-
-        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(),userByEmail.getEmail());
-    }
-    @ModelAttribute("usersAccountCeil")
-    public Model accountCeilModel(Model model){
-        UserExpensesDetailsDTO userByEmail = getUserByEmail();
-        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
-            model.addAttribute("usersAccountCeil", true);
-        }
-        return model;
-    }
-    @ModelAttribute("expenseDTO")
-    public ExpenseDTO expenseDTO(){
-        return new ExpenseDTO();
-    }
-
-    @ModelAttribute("userAccounts")
-    public Model userAccountsModel(Model model){
-        UserExpensesDetailsDTO userByEmail = getUserByEmail();
-
-        accounts = userByEmail.getAccounts();
-        model.addAttribute("userAccounts", accounts);
-        return model;
     }
 
     @PostMapping("/editAccount")
@@ -97,13 +61,5 @@ public class AccountsController {
     public String allAccountPage() {
 
         return "/allAccountsPage";
-    }
-
-    public UserExpensesDetailsDTO getUserByEmail(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-
-        return userService.getUserByEmail(currentUserName);
-
     }
 }

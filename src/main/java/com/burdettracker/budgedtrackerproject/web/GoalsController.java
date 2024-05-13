@@ -12,3 +12,4 @@ public class GoalsController {
         return "allGoalsPage";
     }
 }
+

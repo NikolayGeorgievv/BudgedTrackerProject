@@ -31,8 +31,6 @@ public class User {
     private String email;
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
-    @Column(name = "total_balance", nullable = false)
-    private BigDecimal totalBalance = BigDecimal.ZERO;
     @Column(name = "password", nullable = false)
     private String password;
     private int userAccountsAllowed;
@@ -121,14 +119,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public BigDecimal getTotalBalance() {
-        return totalBalance;
-    }
-
-    public void setTotalBalance() {
-        this.totalBalance = BigDecimal.ZERO;
-    }
-
     public int getUserAccountsAllowed() {
         return userAccountsAllowed;
     }
@@ -139,10 +129,6 @@ public class User {
 
     public List<Account> getAccounts() {
         return accounts;
-    }
-
-    public void setTotalBalance(BigDecimal totalBalance) {
-        this.totalBalance = totalBalance;
     }
 
     public void setAccounts(List<Account> accounts) {
