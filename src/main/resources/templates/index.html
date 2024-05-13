@@ -13,8 +13,7 @@
     <meta charset="UTF-8">
     <title>Home Page for Logged Users</title>
 </head>
-<!--//TODO ADD BG IMAGE-->
-<body style="height: 100vh; margin: 0; background-image: url(#); ">
+<body style="height: 100vh; margin: 0; background-image: url('/images/main-table-bg-img.jpg'); ">
 <!--HEADER -->
 
 
@@ -38,9 +37,34 @@
     <!--    main div for table-->
     <div class="flex-grow-1">
 
-        <!--    div for top bar, yet to be implemented-->
+        <div class="d-flex" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
 
-        <div class="container" style="border: black 2px solid; height: 15vh; margin-left: 0">
+
+            <div>
+                <p
+                        th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                        th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                        style="color: green; font-weight: bold"
+                ></p>
+            </div>
+            <div>
+                <p
+                        th:text="'Today\'s date is: '  + ${todaysDate}"
+                        th:value="'Today\'s date is: '  + ${todaysDate}"
+                        style="color: #2c396a; font-weight: bold; margin-left: 20px"
+                ></p>
+            </div>
+            <div>
+                <p
+                        th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                        th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                        style="color: green; font-weight: bold"
+                ></p>
+            </div>
+            <div>
+                <!--         next bill to be paid?,      -->
+
+            </div>
 
         </div>
 

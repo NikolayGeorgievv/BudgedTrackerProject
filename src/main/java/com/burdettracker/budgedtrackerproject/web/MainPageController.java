@@ -14,7 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class MainPageController {
@@ -68,6 +72,11 @@ public class MainPageController {
         accounts = userByEmail.getAccounts();
         model.addAttribute("userAccounts", accounts);
 
+        double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
+        model.addAttribute("totalExpensesFunds", totalBalance);
+
+        model.addAttribute("todaysDate", todaysDate());
+
         return "redirect:/index";
     }
 
@@ -77,5 +86,11 @@ public class MainPageController {
 
         return userService.getUserByEmail(currentUserName);
 
+    }
+    public String todaysDate() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String day = String.valueOf(LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
+        return date.format(formatter) + " (" + day + ")";
     }
 }

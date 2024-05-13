@@ -92,7 +92,6 @@ public class AccountsController {
         return "redirect:/allAccountsPage";
     }
 
-    //TODO: ADD TH:EACH ALL ACC ON SIDEBAR
 
     @GetMapping("/allAccountsPage")
     public String allAccountPage() {

@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <title>Expenses table</title>
 </head>
-<body>
+<body >
 <div class="flex-grow-1">
     <!--        div for table-->
     <div class="table-responsive-md">
@@ -65,7 +65,7 @@
                                     th:action="@{/editExpense}"
                                     th:method="post">
                                 <button
-                                        type="button" class="btn btn-warning btn-sm open-button"
+                                        type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
                                         th:id="'updateExpenseButton-' + ${e.getId}" name="expenseId"
                                         title="Edit expense" th:value="${e.getId()}"
                                         data-bs-toggle="modal" data-bs-target="#editExpenseModal"
@@ -74,11 +74,11 @@
 
                             </form>
                         </div>
-                        <div style="margin-left: 5px">
+                        <div>
                             <form
                                     th:action="@{/deleteExpense}"
                                     th:method="get">
-                                <a class="btn btn-warning btn-sm open-button" title="Delete account"
+                                <a class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete expense"
                                    th:href="@{/deleteExpense/{expenseId}(expenseId = ${e.getId()})}">
                                     <i class="fa-solid fa-trash-can"></i></a>
 
