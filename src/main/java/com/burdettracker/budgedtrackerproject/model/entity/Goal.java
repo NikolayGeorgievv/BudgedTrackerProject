@@ -12,10 +12,14 @@ public class Goal extends BaseEntity{
     private String name;
     @Column(name = "amount_to_be_saved", nullable = false)
     private BigDecimal amountToBeSaved;
+    @Column(name = "current_amount")
+    private BigDecimal currentAmount;
     @Column
     private String description;
     @ManyToOne
     private User user;
+    @ManyToOne
+    private Account account;
 
     public Goal() {
     }
@@ -50,5 +54,21 @@ public class Goal extends BaseEntity{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public void setCurrentAmount(BigDecimal currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

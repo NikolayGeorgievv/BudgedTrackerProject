@@ -28,6 +28,9 @@ public class Account extends BaseEntity{
     @OneToMany
     @JoinColumn(name = "account_to_use_id")
     private List<Expense> expenses = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "account_id")
+    private List<Goal> goals = new ArrayList<>();
 
 
     public Account() {
@@ -105,5 +108,13 @@ public class Account extends BaseEntity{
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+    }
+
+    public List<Goal> getGoals() {
+        return goals;
+    }
+
+    public void setGoals(List<Goal> goals) {
+        this.goals = goals;
     }
 }

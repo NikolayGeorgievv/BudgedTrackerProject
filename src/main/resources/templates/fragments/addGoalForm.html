@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"></script>
+<!--  TODO: FIX STYLING FILE-->
+  <link rel="stylesheet" th:href="@{css/addAccountFormStyle.css}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Add goal form</title>
+</head>
+<body>
+
+<button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" th:if="${usersAccountCeil}"
+        title="Add account" value="Add account" onclick="openGoalForm()"
+><i class="fa-solid fa-plus"></i></button>
+<div class="form-popup" id="myGoalForm">
+  <form
+          th:action="@{${#strings.isEmpty(name) ? '/index' : '/addGoal'}}"
+          th:method="post"
+          th:object="${goalDTO}"
+          class="form-container">
+<!--    TODO: MAKE A HELP SECTION-->
+    <div class="d-flex justify-content-between" style="margin: 5px" id="form">
+      <label>Goal</label>
+      <input type="text" placeholder="What's your goal?" name="name" id="name">
+    </div>
+
+    <div class="d-flex justify-content-between" style="margin: 5px">
+      <label>Target</label>
+      <input type="text" placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSaved">
+    </div>
+
+      <div class="d-flex justify-content-between">
+          <label id="accountToUseLabel1" style="margin-left: 5px">Account to use</label>
+
+          <select name="accountToUse1" style="width: 190px; margin-right: 5px">
+            <option
+                    th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                    th:text="${a.getName()}"
+                    th:value="${a.getName()}"
+            >
+            </option>
+          </select>
+      </div>
+
+
+    <div class="d-flex justify-content-between" style="margin: 5px">
+      <label>Add initial funds</label>
+      <input type="number" placeholder="1000$" name="currentAmount" id="currentAmount">
+    </div>
+
+    <div class="d-flex justify-content-between" style="margin: 5px">
+      <label>Description</label>
+      <textarea placeholder="Add a small description for your goal." name="description" id="description"
+      style="width: 190px; height: 80px"></textarea>
+    </div>
+
+    <button type="submit" class="button" id="submitButton" disabled>Add Account</button>
+    <button type="button" class="button" onclick="closeGoalForm()">Close</button>
+  </form>
+</div>
+
+<script>
+  function openGoalForm(){
+    document.getElementById("myGoalForm").style.display = "block";
+  }
+  function closeGoalForm() {
+    document.getElementById("myGoalForm").style.display = "none";
+  }
+
+  window.addEventListener('mouseup',function(event){
+    let form = document.getElementById('myGoalForm');
+    if(!form.contains(event.target)){
+      form.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

@@ -41,11 +41,20 @@
 
 
             <div>
-                <p
-                        th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
-                        th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
-                        style="color: green; font-weight: bold"
-                ></p>
+                <div>
+                    <p
+                            th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                            th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                            style="color: green; font-weight: bold"
+                    ></p>
+                </div>
+                <div>
+                    <p
+                            th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                            th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                            style="color: green; font-weight: bold"
+                    ></p>
+                </div>
             </div>
             <div>
                 <p
@@ -54,13 +63,7 @@
                         style="color: #2c396a; font-weight: bold; margin-left: 20px"
                 ></p>
             </div>
-            <div>
-                <p
-                        th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
-                        th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
-                        style="color: green; font-weight: bold"
-                ></p>
-            </div>
+
             <div>
                 <!--         next bill to be paid?,      -->
 

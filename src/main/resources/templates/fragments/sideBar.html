@@ -38,8 +38,8 @@
       <ul class="list-unstyled ps-0">
         <li class="mb-1">
           <div class="d-flex justify-content-between">
-            <div class="d-inline-flex align-content-center rounded border-0" style="color: white">
-              <a th:href="@{/allAccountsPage}">My Accounts </a>
+            <div class="d-inline-flex align-content-center rounded border-0" >
+              <a th:href="@{/allAccountsPage}" style="color: white">My Accounts </a>
             </div>
             <form
                     th:action="@{/addAccount}"
@@ -53,8 +53,8 @@
         </li>
         <li class="mb-1">
           <div class="d-flex justify-content-between">
-          <div class="d-inline-flex align-items-left rounded border-0" style="color: white">
-            <a th:href="@{/allExpensesPage}">My Bills</a>
+          <div class="d-inline-flex align-items-left rounded border-0">
+            <a th:href="@{/allExpensesPage}" style="color: white">My Bills</a>
           </div>
           <form
                   th:action="@{/addExpense}"
@@ -65,14 +65,17 @@
           </div>
         </li>
         <li class="mb-1">
-          <div class="d-inline-flex align-items-center rounded border-0" style="color: white">
-           <a>My Goals</a>
+          <div class="d-flex justify-content-between">
+            <div class="d-inline-flex align-items-left rounded border-0" >
+              <a th:href="@{allGoalsPage}" style="color: white">My Goals</a>
+            </div>
+            <form
+                    th:action="@{/addGoal}"
+                    th:method="post"
+            >
+              <button th:replace="~{fragments/addGoalForm}"></button>
+            </form>
           </div>
-          <ul class="fw-normal pb-1 small list-unstyled">
-            <li style="color: white">TEST</li>
-            <li style="color: white">TEST</li>
-            <li style="color: white">TEST</li>
-          </ul>
 
         </li>
         <li class="border-top my-3"></li>

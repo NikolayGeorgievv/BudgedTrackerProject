@@ -62,7 +62,7 @@
             <div class="d-flex flex-column">
                 <div>
                     <label>Amount needed</label>
-                    <input type="text" placeholder="1000$" name="assigned" id="amountNeeded">
+                    <input type="number" placeholder="1000$" name="assigned" id="amountNeeded">
                 </div>
                 <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
             </div>
@@ -189,6 +189,12 @@
         customBtn.style.backgroundColor = 'white';
     }
 
+    window.addEventListener('mouseup',function(event){
+        let expenseForm = document.getElementById('myExpenseForm');
+        if(!expenseForm.contains(event.target)){
+            expenseForm.style.display = 'none';
+        }
+    });
 </script>
 
 </body>

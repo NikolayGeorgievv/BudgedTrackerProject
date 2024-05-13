@@ -44,7 +44,7 @@
 
         <div class="d-flex justify-content-between" style="margin: 5px">
             <label>Add funds</label>
-            <input type="text" placeholder="1000$" name="currentAmount" id="currentAmount">
+            <input type="number" placeholder="1000$" name="currentAmount" id="currentAmount">
         </div>
 
         <button type="submit" class="button" id="submitButton" disabled>Add Account</button>
@@ -73,6 +73,13 @@
     function closeForm() {
         document.getElementById("myForm").style.display = "none";
     }
+
+    window.addEventListener('mouseup',function(event){
+        let accountForm = document.getElementById('myForm');
+        if(!accountForm.contains(event.target)){
+            accountForm.style.display = 'none';
+        }
+    });
 </script>
 </body>
 </html>
