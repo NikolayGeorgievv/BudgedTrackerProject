@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class ExpensesController {
@@ -134,6 +136,7 @@ public class ExpensesController {
     public String todaysDate() {
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-        return date.format(formatter);
+        String day = String.valueOf(LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
+        return date.format(formatter) + " (" + day + ")";
     }
 }
