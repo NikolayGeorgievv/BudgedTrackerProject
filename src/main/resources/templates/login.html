@@ -36,7 +36,7 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
                 <p id="passHelp" class="form-text text-muted">Please enter your password</p>
-                <p class="errors alert alert-danger"
+                <p class="errors"
                    th:if="${error}">
                     Wrong email or password.
                 </p>
@@ -54,6 +54,10 @@
     }
     #emailHelp, #passHelp{
         color: white !important;
+    }
+    .errors{
+        font-size: 15px;
+        color: red;
     }
 </style>
 </body>

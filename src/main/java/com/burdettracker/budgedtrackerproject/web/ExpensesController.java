@@ -1,7 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -40,32 +38,36 @@ public class ExpensesController {
         this.expenseService = expenseService;
         this.accountService = accountService;
     }
+
     @ModelAttribute("allAccountsInfoDTO")
-    public AllAccountsInfoDTO allAccountsInfoDTO(){
+    public AllAccountsInfoDTO allAccountsInfoDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         return this.accountService.getAllAccounts(currentUserName);
     }
+
     @ModelAttribute("userExpenses")
-    public Model userExpenses(Model model){
+    public Model userExpenses(Model model) {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
         expenses = userByEmail.getExpenses();
         model.addAttribute("userExpenses", expenses);
         return model;
     }
+
     @ModelAttribute("userFullNameDTO")
-    public UserFullNameDTO userFullNameDTO(){
+    public UserFullNameDTO userFullNameDTO() {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
         return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail());
     }
+
     @ModelAttribute("expenseDTO")
-    public ExpenseDTO expenseDTO(){
+    public ExpenseDTO expenseDTO() {
         return new ExpenseDTO();
     }
 
     @GetMapping("/allExpensesPage")
-    public String allBillsPage(Model model){
+    public String allBillsPage(Model model) {
         double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
         model.addAttribute("totalExpensesFunds", totalBalance);
 
@@ -75,9 +77,9 @@ public class ExpensesController {
 
     @PostMapping("/addExpense")
     public String addExpense(
-           @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO,BindingResult bindingResult){
+            @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 
             return "allExpensesPageWithErrors";
         }
@@ -85,28 +87,26 @@ public class ExpensesController {
         String currentUserName = authentication.getName();
 
         try {
-            userService.addExpense(currentUserName,expenseDTO);
-        }catch (RuntimeException e){
-            bindingResult.addError(new FieldError("expenseDTO","periodDate","Please choose a correct date."));
+            userService.addExpense(currentUserName, expenseDTO);
+        } catch (RuntimeException e) {
+            bindingResult.addError(new FieldError("expenseDTO", "periodDate", "Please choose a correct date."));
             return "allExpensesPageWithErrors";
         }
 
 
-
         return "redirect:/allExpensesPage";
     }
+
     @GetMapping("/addExpense")
-    public String getExpense(Model model){
+    public String getExpense(Model model) {
         ExpenseDTO expenseDTO = new ExpenseDTO();
-        model.addAttribute("expenseDTO",expenseDTO);
+        model.addAttribute("expenseDTO", expenseDTO);
         return "allExpensesPageWithErrors";
     }
 
-    //TODO: total funds assigned to expenses, today's date,
-
 
     @GetMapping("/deleteExpense/{expenseId}")
-    public String deleteExpense (@PathVariable String expenseId){
+    public String deleteExpense(@PathVariable String expenseId) {
 
         expenseService.deleteById(expenseId);
 
@@ -115,14 +115,14 @@ public class ExpensesController {
 
     @PostMapping("/editExpense")
     public String editAccount(
-            @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO, BindingResult bindingResult){
+            @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO, BindingResult bindingResult) {
 
 
         //TODO: FIX VALIDATION FOR INCORRECT DATE
         try {
             expenseService.editExpense(editExpenseInfoDTO);
-        }catch (RuntimeException e){
-            bindingResult.addError(new FieldError("expenseDTO","periodDate1","Please choose a correct date."));
+        } catch (RuntimeException e) {
+            bindingResult.addError(new FieldError("expenseDTO", "periodDate1", "Please choose a correct date."));
             return "/allExpensesPage";
         }
 
@@ -131,7 +131,7 @@ public class ExpensesController {
     }
 
 
-    public UserExpensesDetailsDTO getUserByEmail(){
+    public UserExpensesDetailsDTO getUserByEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
@@ -139,7 +139,7 @@ public class ExpensesController {
 
     }
 
-    public String todaysDate(){
+    public String todaysDate() {
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         return date.format(formatter);
