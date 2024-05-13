@@ -52,7 +52,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             // TODO: CHECK THE DATE IF IT IS IN THE FUTURE
             String dateToSet = parseDateDue(editExpenseInfoDTO.getDateDue());
             expenseToEdit.setDateDue(LocalDate.parse(dateToSet));
-            expenseToEdit.setPeriodDate(dateToSet);}
+            expenseToEdit.setPeriodDate(editExpenseInfoDTO.getDateDue());}
 
 
         this.expenseRepository.saveAndFlush(expenseToEdit);
@@ -63,17 +63,17 @@ public class ExpenseServiceImpl implements ExpenseService {
 private String parseDateDue(String dateToParse){
         //2024-May-11
     String[] dateAsString = dateToParse.split("-");
-    String year = dateAsString[0];
+    String year = dateAsString[2];
     String month = dateAsString[1];
-    String day = dateAsString[2];
+    String day = dateAsString[0];
 
     //check if the given date is in the future
-    if (!LocalDate.of(
-            Integer.parseInt(year),
-            Month.valueOf(month),
-            Integer.parseInt(day)).isAfter(LocalDate.now())){
-        throw new RuntimeException("Date should be in the future!");
-    }
+//    if (!LocalDate.of(
+//            Integer.parseInt(year),
+//            Month.valueOf(month),
+//            Integer.parseInt(day)).isAfter(LocalDate.now())){
+//        throw new RuntimeException("Date should be in the future!");
+//    }
 
     switch (month){
         case "January": month = "01"; break;

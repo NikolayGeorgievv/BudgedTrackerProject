@@ -28,7 +28,7 @@
             <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
                 <label id="billLabel">Bill</label>
                 <!--      TODO: ADD SUGGESTIONS-->
-                <input type="text" placeholder="Bill name" name="name" id="name">
+                <input type="text" placeholder="Electricity, Water, Internet, Gas..." name="name" id="name">
             </div>
             <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
         </div>
