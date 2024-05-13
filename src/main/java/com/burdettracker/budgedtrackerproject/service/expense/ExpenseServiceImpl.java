@@ -45,6 +45,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenseToEdit.setAssigned(editExpenseInfoDTO.getAssigned());}
 
         if (!expenseToEdit.getAccount().getName().equals(editExpenseInfoDTO.getAccountToUse())) {
+            //TODO ACCOUNT SHOUD COME FROM USERS ACCOUNT NOT FROM REPO
             Account account = this.accountRepository.getByName(editExpenseInfoDTO.getAccountToUse());
             expenseToEdit.setAccount(account);}
 

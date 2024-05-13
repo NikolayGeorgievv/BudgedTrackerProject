@@ -11,6 +11,7 @@ import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +22,7 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
-@ControllerAdvice
+@Controller
 public class BaseController {
 
     private List<ExpenseDTO> expenses;

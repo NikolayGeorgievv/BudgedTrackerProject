@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
@@ -20,19 +21,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class ExpensesController {
+public class ExpensesController extends BaseController{
 
     private List<ExpenseDTO> expenses;
     private final UserService userService;
     private final ExpenseService expenseService;
     private final AccountService accountService;
+    private List<AccountDTO> accounts;
 
-    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService) {
-        this.expenses = expenses;
-        this.userService = userService;
-        this.expenseService = expenseService;
-        this.accountService = accountService;
+    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, AccountService accountService1, List<ExpenseDTO> expenses1, UserService userService1, ExpenseService expenseService1, AccountService accountService2, List<AccountDTO> accounts) {
+        super(expenses, userService, expenseService, accountService, accountService1);
+        this.expenses = expenses1;
+        this.userService = userService1;
+        this.expenseService = expenseService1;
+        this.accountService = accountService2;
+        this.accounts = accounts;
     }
+
+
+
     @GetMapping("/allExpensesPage")
     public String allBillsPage(Model model) {
         return "allExpensesPage";
