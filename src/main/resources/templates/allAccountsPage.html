@@ -100,7 +100,7 @@
                                             th:action="@{/editAccount}"
                                             th:method="post">
                                         <button
-                                                type="button" class="btn btn-warning btn-sm open-button"
+                                                type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
                                                 th:id="'updateButton-' + ${a.getId}" name="accountId"
                                                 title="Edit account" th:value="${a.getId()}"
                                                 data-bs-toggle="modal" data-bs-target="#editModal"
@@ -113,7 +113,7 @@
                                     <form
                                             th:action="@{/deleteAccount}"
                                             th:method="get">
-                                        <a class="btn btn-warning btn-sm open-button" title="Delete account"
+                                        <a class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold" title="Delete account"
                                            th:href="@{/deleteAccount/{accountId}(accountId = ${a.getId()})}">
                                             <i class="fa-solid fa-trash-can"></i></a>
 

@@ -85,7 +85,7 @@ public class BaseController {
     }
 
     @ModelAttribute("accountDTO")
-    public AccountDTO accountDTO(){
+    public AccountDTO accountDTO() {
         return new AccountDTO();
     }
 
@@ -98,7 +98,7 @@ public class BaseController {
     }
 
     @ModelAttribute("totalExpensesFunds")
-    public String totalExpensesFunds(){
+    public String totalExpensesFunds() {
         double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
         return String.valueOf(totalBalance);
     }

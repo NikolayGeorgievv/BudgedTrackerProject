@@ -21,5 +21,7 @@ public class GoalsController extends BaseController{
 
         return "allGoalsPage";
     }
+
+
 }
 

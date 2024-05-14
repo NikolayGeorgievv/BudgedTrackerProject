@@ -16,7 +16,7 @@
 </head>
 <body>
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-        title="Add expense" value="Add expense" onclick="openExpenseForm()"
+        title="Add expense" value="Add expense" onclick="openExpenseForm()" id="addExpenseFormBtn"
 ><i class="fa-solid fa-plus"></i></button>
 <div class="form-popup1" id="myExpenseForm">
     <form
@@ -189,10 +189,11 @@
         customBtn.style.backgroundColor = 'white';
     }
 
-    window.addEventListener('mouseup',function(event){
-        let expenseForm = document.getElementById('myExpenseForm');
-        //TODO: FIX DATEPICKER
-        if(!expenseForm.contains(event.target)){
+
+    window.addEventListener('click', function (event) {
+        const expenseForm = document.getElementById('myExpenseForm');
+        const isClosest = event.target.closest('#myExpenseForm, #datepicker, #addExpenseFormBtn');
+        if (!isClosest) {
             expenseForm.style.display = 'none';
         }
     });
