@@ -29,7 +29,7 @@
 
     <!--    main div for table-->
     <div class="flex-grow-1" style="margin-right: 0">
-        <h3 style="margin: 10px">All Accounts</h3>
+        <h3 style="margin: 10px">My Accounts</h3>
 
         <div class="d-flex" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
             <!--            all accounts balance-->
@@ -49,8 +49,8 @@
         <div class="flex-grow-1">
             <!--        div for table-->
             <div>
-                <div class="table-responsive d-flex">
-                    <table class="table table-borderless table-hover"
+                <div class="d-flex">
+                    <table class="table table-borderless table-hover" id="accountTable"
                            th:action="@{/allAccountsPage}"
                            th:method="get"
                            th:object="${allAccountsInfoDTO}">
@@ -124,9 +124,6 @@
                         </tr>
                         </tbody>
                     </table>
-
-                    <!--    div for filling space-->
-<!--                    <div class="block" style="background: white; width: 50vh"></div>-->
                 </div>
 
             </div>
@@ -174,5 +171,11 @@
 
 
 </script>
+
+<style>
+    .table{
+        --bs-table-bg: transparent;
+    }
+</style>
 </body>
 </html>

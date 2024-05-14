@@ -1,11 +1,14 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -22,6 +25,12 @@ public class GoalsController extends BaseController{
         return "allGoalsPage";
     }
 
+    @PostMapping("/addGoal")
+    public String addGoal(@ModelAttribute("goalDTO")GoalDTO goalDTO){
 
+
+
+        return "allGoalsPage";
+    }
 }
 

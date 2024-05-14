@@ -62,7 +62,7 @@
             <div class="d-flex flex-column">
                 <div>
                     <label>Amount needed</label>
-                    <input type="number" placeholder="1000$" name="assigned" id="amountNeeded">
+                    <input type="number" min="0" placeholder="1000$" name="assigned" id="amountNeeded">
                 </div>
                 <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
             </div>
