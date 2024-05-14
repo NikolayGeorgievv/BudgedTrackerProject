@@ -24,6 +24,15 @@ public class Goal extends BaseEntity{
     public Goal() {
     }
 
+    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account) {
+        this.name = name;
+        this.amountToBeSaved = amountToBeSaved;
+        this.currentAmount = currentAmount;
+        this.description = description;
+        this.user = user;
+        this.account = account;
+    }
+
     public User getUser() {
         return user;
     }

@@ -5,6 +5,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
+import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -23,19 +24,15 @@ import java.util.List;
 @Controller
 public class ExpensesController extends BaseController{
 
-    private List<ExpenseDTO> expenses;
+
     private final UserService userService;
     private final ExpenseService expenseService;
-    private final AccountService accountService;
-    private List<AccountDTO> accounts;
 
-    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, AccountService accountService1, List<ExpenseDTO> expenses1, UserService userService1, ExpenseService expenseService1, AccountService accountService2, List<AccountDTO> accounts) {
-        super(expenses, userService, expenseService, accountService, accountService1);
-        this.expenses = expenses1;
+
+    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, List<ExpenseDTO> expenses1, UserService userService1, ExpenseService expenseService1, AccountService accountService2, List<AccountDTO> accounts, GoalsService goalsService) {
+        super(expenses, userService, expenseService, accountService, goalsService);
         this.userService = userService1;
         this.expenseService = expenseService1;
-        this.accountService = accountService2;
-        this.accounts = accounts;
     }
 
 

@@ -5,12 +5,9 @@ import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
-import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.stream.Stream;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {

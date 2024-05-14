@@ -4,12 +4,21 @@ import java.math.BigDecimal;
 
 public class GoalDTO {
 
+    private Long id;
     private String name;
     private BigDecimal amountToBeSaved;
-    private String goalAccountToUse;
-    private BigDecimal initialAmount;
+    private String account;
+    private BigDecimal currentAmount;
     private String description;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -27,20 +36,20 @@ public class GoalDTO {
         this.amountToBeSaved = amountToBeSaved;
     }
 
-    public String getGoalAccountToUse() {
-        return goalAccountToUse;
+    public String getAccount() {
+        return account;
     }
 
-    public void setGoalAccountToUse(String goalAccountToUse) {
-        this.goalAccountToUse = goalAccountToUse;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public BigDecimal getInitialAmount() {
-        return initialAmount;
+    public BigDecimal getCurrentAmount() {
+        return currentAmount;
     }
 
-    public void setInitialAmount(BigDecimal initialAmount) {
-        this.initialAmount = initialAmount;
+    public void setCurrentAmount(BigDecimal currentAmount) {
+        this.currentAmount = currentAmount;
     }
 
     public String getDescription() {

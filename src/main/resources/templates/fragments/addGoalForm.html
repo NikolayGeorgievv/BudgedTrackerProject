@@ -39,7 +39,7 @@
       <div class="d-flex justify-content-between">
           <label id="accountToUseLabel1" style="margin-left: 5px">Account to use</label>
 
-          <select name="goalAccountToUse" style="width: 190px; margin-right: 5px">
+          <select name="account" style="width: 190px; margin-right: 5px">
             <option
                     th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                     th:text="${a.getName()}"
@@ -52,7 +52,7 @@
 
     <div class="d-flex justify-content-between" style="margin: 5px">
       <label>Add initial funds</label>
-      <input type="number" min="0" placeholder="1000$(Optional)" name="initialAmount" id="initialAmount">
+      <input type="number" min="0" placeholder="1000$(Optional)" name="currentAmount" id="initialAmount">
     </div>
 
     <div class="d-flex justify-content-between" style="margin: 5px">

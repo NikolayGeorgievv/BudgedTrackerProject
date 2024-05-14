@@ -33,6 +33,82 @@
             <!--            TOP BAR-->
         </div>
 
+        <div class="flex-grow-1">
+            <!--        div for table-->
+            <div>
+                <div class="d-flex">
+                    <table class="table table-borderless table-hover"
+                           th:action="@{/allGoalsPage}"
+                           th:method="get"
+                           th:object="${allGoalsInfoDTO}">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Funds</th>
+                            <th scope="col">Transaction history</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr class="border-top border-bottom" th:each="g : ${allGoalsInfoDTO.getAllGoals()}"
+                            th:id="'goalRow-' + ${g.getId()}">
+
+                            <td
+                                    th:text="${g.getName()}"
+                                    th:value="${g.getName()}">
+                            </td>
+                            <td
+                                    th:text="${g.getCurrentAmount()}"
+                                    th:value="${g.getCurrentAmount()}">
+
+                            </td>
+                            <td
+                                    th:text="${g.getDescription()}"
+                                    th:value="${g.getDescription()}">
+
+                            </td>
+
+                            <!--                            <td>-->
+                            <!--                                <div class="d-flex flex-row">-->
+                            <!--                                    <div style="margin-right: 5px">-->
+                            <!--                                        <form-->
+                            <!--                                                th:action="@{/editAccount}"-->
+                            <!--                                                th:method="post">-->
+                            <!--                                            <button-->
+                            <!--                                                    type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"-->
+                            <!--                                                    th:id="'updateButton-' + ${a.getId}" name="accountId"-->
+                            <!--                                                    title="Edit account" th:value="${a.getId()}"-->
+                            <!--                                                    data-bs-toggle="modal" data-bs-target="#editModal"-->
+                            <!--                                                    th:onclick="newValue(/*[[${a.getId()}]]*/)">-->
+                            <!--                                                <i class="fa-solid fa-pen-to-square"></i></button>-->
+
+                            <!--                                        </form>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div style="margin-left: 5px">-->
+                            <!--                                        <form-->
+                            <!--                                                th:action="@{/deleteAccount}"-->
+                            <!--                                                th:method="get">-->
+                            <!--                                            <a class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold" title="Delete account"-->
+                            <!--                                               th:href="@{/deleteAccount/{accountId}(accountId = ${a.getId()})}">-->
+                            <!--                                                <i class="fa-solid fa-trash-can"></i></a>-->
+
+                            <!--                                        </form>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
 
     </div>
 

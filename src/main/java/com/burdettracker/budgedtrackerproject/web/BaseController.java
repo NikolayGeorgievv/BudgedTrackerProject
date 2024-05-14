@@ -4,16 +4,17 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
+import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDate;
@@ -30,13 +31,22 @@ public class BaseController {
     private final ExpenseService expenseService;
     private final AccountService accountService;
     private List<AccountDTO> accounts;
+    final GoalsService goalsService;
 
 
-    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, AccountService accountService1) {
+    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService) {
         this.expenses = expenses;
         this.userService = userService;
         this.expenseService = expenseService;
-        this.accountService = accountService1;
+        this.accountService = accountService;
+        this.goalsService = goalsService;
+    }
+
+    @ModelAttribute("allGoalsInfoDTO")
+    public AllGoalsInfoDTO allGoalsInfoDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return this.goalsService.getAllGoals(currentUserName);
     }
 
     @ModelAttribute("allAccountsInfoDTO")

@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
+import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,14 +22,11 @@ import java.util.List;
 public class AccountsController extends BaseController{
     private final UserService userService;
     private final AccountService accountService;
-    private List<AccountDTO> accounts;
-    private List<ExpenseDTO> expenses;
-    public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, AccountService accountService1, UserService userService1, AccountService accountService2, List<AccountDTO> accounts, List<ExpenseDTO> expenses1) {
-        super(expenses, userService, expenseService, accountService, accountService1);
+
+    public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, UserService userService1, AccountService accountService2, List<AccountDTO> accounts, List<ExpenseDTO> expenses1, GoalsService goalsService) {
+        super(expenses, userService, expenseService, accountService, goalsService);
         this.userService = userService1;
         this.accountService = accountService2;
-        this.accounts = accounts;
-        this.expenses = expenses1;
     }
 
 

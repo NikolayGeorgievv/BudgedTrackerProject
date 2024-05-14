@@ -2,18 +2,13 @@ package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
-import com.burdettracker.budgedtrackerproject.model.entity.Account;
-import com.burdettracker.budgedtrackerproject.model.entity.Expense;
-import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
-import com.burdettracker.budgedtrackerproject.model.entity.User;
+import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
-import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
-import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
-import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
-import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,7 +33,8 @@ public class UserServiceImpl implements UserService {
     private final UserDetailImpl userDetail;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    private final GoalsRepository goalsRepository;
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -46,6 +42,7 @@ public class UserServiceImpl implements UserService {
         this.userDetail = userDetail;
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
+        this.goalsRepository = goalsRepository;
     }
 
     @Override
@@ -127,7 +124,6 @@ public class UserServiceImpl implements UserService {
     public void addExpense(String email, ExpenseDTO expenseDTO) {
         User user = this.userRepository.getByEmail(email);
         Expense expense = modelMapper.map(expenseDTO, Expense.class);
-        //TODO: ACCOUNT SHOULD BE COMING FROM USER NOT REPO
         Account accountToUse = user.getAccounts()
                 .stream().filter(acc -> acc.getName().equals(expenseDTO.getAccountToUse())).findFirst().get();
 
@@ -163,5 +159,26 @@ public class UserServiceImpl implements UserService {
         user.getExpenses().add(expense);
         userRepository.saveAndFlush(user);
         expenseRepository.saveAndFlush(expense);
+    }
+
+    @Override
+    public void addGoal(String email, GoalDTO goalDTO) {
+        User user = this.userRepository.getByEmail(email);
+        Account account = user.getAccounts()
+                .stream().filter(acc -> acc.getName().equals(goalDTO.getAccount())).findFirst().get();
+
+        Goal goal = new Goal(
+                goalDTO.getName(),
+                goalDTO.getAmountToBeSaved(),
+                goalDTO.getCurrentAmount(),
+                goalDTO.getDescription(),
+                user,
+                account);
+        if (goal.getCurrentAmount() == null){
+            goal.setCurrentAmount(BigDecimal.ZERO);
+        }
+        user.getGoals().add(goal);
+        userRepository.saveAndFlush(user);
+        goalsRepository.saveAndFlush(goal);
     }
 }
