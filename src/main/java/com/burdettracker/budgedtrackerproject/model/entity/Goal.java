@@ -20,17 +20,19 @@ public class Goal extends BaseEntity{
     private User user;
     @ManyToOne
     private Account account;
+    private String accountToUse;
 
     public Goal() {
     }
 
-    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account) {
+    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account, String accountToUse) {
         this.name = name;
         this.amountToBeSaved = amountToBeSaved;
         this.currentAmount = currentAmount;
         this.description = description;
         this.user = user;
         this.account = account;
+        this.accountToUse = accountToUse;
     }
 
     public User getUser() {
@@ -79,5 +81,13 @@ public class Goal extends BaseEntity{
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getAccountToUse() {
+        return accountToUse;
+    }
+
+    public void setAccountToUse(String accountToUse) {
+        this.accountToUse = accountToUse;
     }
 }

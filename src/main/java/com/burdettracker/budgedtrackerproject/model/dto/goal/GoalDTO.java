@@ -7,7 +7,7 @@ public class GoalDTO {
     private Long id;
     private String name;
     private BigDecimal amountToBeSaved;
-    private String account;
+    private String accountToUse;
     private BigDecimal currentAmount;
     private String description;
 
@@ -36,12 +36,12 @@ public class GoalDTO {
         this.amountToBeSaved = amountToBeSaved;
     }
 
-    public String getAccount() {
-        return account;
+    public String getAccountToUse() {
+        return accountToUse;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setAccountToUse(String accountToUse) {
+        this.accountToUse = accountToUse;
     }
 
     public BigDecimal getCurrentAmount() {

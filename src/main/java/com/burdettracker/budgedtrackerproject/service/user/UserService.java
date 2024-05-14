@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
@@ -21,4 +22,5 @@ public interface UserService {
     void addExpense(String currentUserName, ExpenseDTO expenseDTO);
 
     void addGoal(String currentUserName, GoalDTO goalDTO);
+
 }

@@ -29,9 +29,6 @@ public class AccountsController extends BaseController{
         this.accountService = accountService2;
     }
 
-
-
-
     @PostMapping("/editAccount")
     public String editAccount(
             @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO,

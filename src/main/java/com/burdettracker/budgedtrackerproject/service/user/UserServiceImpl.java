@@ -2,6 +2,7 @@ package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -165,7 +167,7 @@ public class UserServiceImpl implements UserService {
     public void addGoal(String email, GoalDTO goalDTO) {
         User user = this.userRepository.getByEmail(email);
         Account account = user.getAccounts()
-                .stream().filter(acc -> acc.getName().equals(goalDTO.getAccount())).findFirst().get();
+                .stream().filter(acc -> acc.getName().equals(goalDTO.getAccountToUse())).findFirst().get();
 
         Goal goal = new Goal(
                 goalDTO.getName(),
@@ -173,7 +175,8 @@ public class UserServiceImpl implements UserService {
                 goalDTO.getCurrentAmount(),
                 goalDTO.getDescription(),
                 user,
-                account);
+                account,
+                goalDTO.getAccountToUse());
         if (goal.getCurrentAmount() == null){
             goal.setCurrentAmount(BigDecimal.ZERO);
         }
@@ -181,4 +184,5 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         goalsRepository.saveAndFlush(goal);
     }
+
 }
