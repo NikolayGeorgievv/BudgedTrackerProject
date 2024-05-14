@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.stream.Stream;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -45,9 +46,11 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenseToEdit.setAssigned(editExpenseInfoDTO.getAssigned());}
 
         if (!expenseToEdit.getAccount().getName().equals(editExpenseInfoDTO.getAccountToUse())) {
-            //TODO ACCOUNT SHOUD COME FROM USERS ACCOUNT NOT FROM REPO
-            Account account = this.accountRepository.getByName(editExpenseInfoDTO.getAccountToUse());
-            expenseToEdit.setAccount(account);}
+            Account account = expenseToEdit.getUser().getAccounts()
+                    .stream().filter(acc -> acc.getName().equals(editExpenseInfoDTO.getAccountToUse())).findFirst().get();
+
+            expenseToEdit.setAccount(account);
+        }
 
         if (!editExpenseInfoDTO.getDateDue().trim().equals("")) {
             // TODO: CHECK THE DATE IF IT IS IN THE FUTURE

@@ -128,7 +128,9 @@ public class UserServiceImpl implements UserService {
         User user = this.userRepository.getByEmail(email);
         Expense expense = modelMapper.map(expenseDTO, Expense.class);
         //TODO: ACCOUNT SHOULD BE COMING FROM USER NOT REPO
-        Account accountToUse = accountRepository.getByName(expenseDTO.getAccountToUse());
+        Account accountToUse = user.getAccounts()
+                .stream().filter(acc -> acc.getName().equals(expenseDTO.getAccountToUse())).findFirst().get();
+
         expense.setAccount(accountToUse);
         expense.setUser(user);
 
