@@ -99,9 +99,9 @@
                                         <button
                                                 type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
                                                 th:id="'updateGoalButton-' + ${g.getId()}" name="goalId"
-                                                title="Edit expense" th:value="${g.getId()}"
-                                                data-bs-toggle="modal" data-bs-target="#editExpenseModal"
-                                                th:onclick="testJS(/*[[${g.getId()}]]*/)"
+                                                title="Edit goal" th:value="${g.getId()}"
+                                                data-bs-toggle="modal" data-bs-target="#editGoalModal"
+                                                th:onclick="getGoalId(/*[[${g.getId()}]]*/)"
                                                 >
                                             <i class="fa-solid fa-pen-to-square"></i></button>
 
@@ -111,7 +111,7 @@
                                     <form
                                             th:action="@{/deleteGoal}"
                                             th:method="get">
-                                        <a class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete expense"
+                                        <a class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete goal"
                                            th:href="@{/deleteGoal/{goalId}(goalId = ${g.getId()})}">
                                             <i class="fa-solid fa-trash-can"></i></a>
 
@@ -184,6 +184,9 @@
     let goalsTable = document.getElementById("goalsTable");
     let progressBarPercentage = 0;
 
+    function getGoalId(goalId){
+        document.getElementById("goalId").value = goalId;
+    }
 
 
 

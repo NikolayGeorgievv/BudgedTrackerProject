@@ -28,4 +28,9 @@ public class GoalsServiceImpl implements GoalsService {
         AllGoalsInfoDTO allGoalsInfoDTO = new AllGoalsInfoDTO(goalsList);
         return allGoalsInfoDTO;
     }
+
+    @Override
+    public void deleteGoal(String goalId) {
+        this.goalsRepository.deleteById(Long.valueOf(goalId));
+    }
 }

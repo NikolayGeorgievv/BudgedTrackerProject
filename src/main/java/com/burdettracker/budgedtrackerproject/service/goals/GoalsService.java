@@ -6,4 +6,5 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
 public interface GoalsService {
     AllGoalsInfoDTO getAllGoals(String currentUserName);
 
+    void deleteGoal(String goalId);
 }
