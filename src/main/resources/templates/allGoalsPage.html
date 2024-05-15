@@ -135,13 +135,14 @@
                                         progressBarPercentage = 1;
                                     }
                                     progressBar.style.backgroundColor = "#FF2400";
-                                }else if(progressBarPercentage > 25 && progressBarPercentage <= 50){
+                                }else if(progressBarPercentage > 25 && progressBarPercentage <= 60){
                                     progressBar.style.backgroundColor = "#ecc400";
-                                }else if(progressBarPercentage > 50){
-                                    if (progressBarPercentage > 100){
+                                }else if(progressBarPercentage > 60){
+                                    progressBar.style.backgroundColor = "#AAFF00";
+                                    if (progressBarPercentage > 100 || progressBarPercentage=== 100){
                                         progressBarPercentage = 100;
+                                        progressBar.style.backgroundColor = "#4caf50";
                                     }
-                                    progressBar.style.backgroundColor = "#4caf50";
                                 }
                                 progressBar.style.width = `${progressBarPercentage}%`;
                             }
@@ -182,7 +183,6 @@
 <script th:inline="javascript">
     let goalsTable = document.getElementById("goalsTable");
     let progressBarPercentage = 0;
-
 
 
 
