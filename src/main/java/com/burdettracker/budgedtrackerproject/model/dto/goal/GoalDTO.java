@@ -59,4 +59,14 @@ public class GoalDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    public  int getBarProgress(){
+
+        double currentDouble = Double.parseDouble(currentAmount.toString());
+        double currentTotal = Double.parseDouble(String.valueOf(amountToBeSaved));
+        double resultDouble = currentDouble / currentTotal * 100;
+
+        return (int) resultDouble;
+    }
 }

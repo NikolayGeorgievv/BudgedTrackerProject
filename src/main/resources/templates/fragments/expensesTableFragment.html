@@ -66,7 +66,7 @@
                                     th:method="post">
                                 <button
                                         type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
-                                        th:id="'updateExpenseButton-' + ${e.getId}" name="expenseId"
+                                        th:id="'updateExpenseButton-' + ${e.getId()}" name="expenseId"
                                         title="Edit expense" th:value="${e.getId()}"
                                         data-bs-toggle="modal" data-bs-target="#editExpenseModal"
                                         th:onclick="testJS(/*[[${e.getId()}]]*/)">

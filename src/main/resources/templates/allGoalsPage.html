@@ -35,52 +35,158 @@
 
         <div class="flex-grow-1">
             <!--        div for table-->
-                <div class="d-flex">
-                    <table class="table table-borderless table-hover"
-                           th:action="@{/allGoalsPage}"
-                           th:method="get"
-                           th:object="${allGoalsInfoDTO}">
+            <div class="d-flex">
+                <table class="table table-borderless table-hover" id="goalsTable"
+                       th:action="@{/allGoalsPage}"
+                       th:method="get"
+                       th:object="${allGoalsInfoDTO}">
 
-                        <thead>
-                        <tr>
-                            <th scope="col">Goal</th>
-                            <th scope="col">Current amount</th>
-                            <th scope="col">description</th>
-                            <th scope="col"></th>
+                    <thead>
+                    <tr>
+                        <th scope="col" width="10%">Goal</th>
+                        <th scope="col" width="20%">Target</th>
+                        <th scope="col" width="20%"></th>
+                        <th scope="col" width="25%">Description</th>
+                        <th scope="col" width="10%">Account</th>
+                        <th scope="col" width="14%"></th>
+                        <th scope="col" width="1%"></th>
 
-                        </tr>
-                        </thead>
+                    </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
-                        <tr class="border-top border-bottom" th:each="g : ${allGoalsInfoDTO.getAllGoals()}"
-                            >
-<!--                            th:id="'goalRow-' + ${g.getId()}"-->
+                    <tr class="border-top border-bottom" th:each="g : ${allGoalsInfoDTO.getAllGoals()}"
+                        th:id="'goalRow-' + ${g.getId()}"
+                    >
 
-                            <td
-                                    th:text="${g.getName()}"
-                                    th:value="${g.getName()}">
-                            </td>
-                            <td
-                                    th:text="${g.getCurrentAmount()}"
-                                    th:value="${g.getCurrentAmount()}">
+                        <td
+                                th:text="${g.getName()}"
+                                th:value="${g.getName()}"
+                                style="padding-left: 15px; font-weight: 550;">
+                        </td>
+                        <td
+                                th:text="'$' +  ${g.getCurrentAmount()} + ' out of $' + ${g.getAmountToBeSaved()}"
+                                th:value="'$' +  ${g.getCurrentAmount()} + ' out of $' + ${g.getAmountToBeSaved()}"
+                                style="border: none; font-weight: bold; font-style: italic;">
 
-                            </td>
-                            <td
-                                    th:text="${g.getDescription()}"
-                                    th:value="${g.getDescription()}">
+                        </td>
+                        <td>
+                            <div class="goal-progress">
+                                <div class="progress-bar" th:id="'progressBar' + ${g.getId()}" style="width: 50%;"></div>
+                            </div>
+                        </td>
+                        <td
+                                th:text="${g.getDescription()}"
+                                th:value="${g.getDescription()}"
+                                style="font-weight: 550;">
 
-                            </td>
+                        </td>
+                        <td
+                                th:text="${g.getAccountToUse()}"
+                                th:value="${g.getAccountToUse()}"
+                                style="font-weight: 550;">
 
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        </td>
+
+
+                        <td>
+                            <div class="d-flex flex-row">
+                                <div style="margin-right: 5px">
+                                    <form
+                                            th:action="@{/editGoal}"
+                                            th:method="post">
+                                        <button
+                                                type="button" class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
+                                                th:id="'updateGoalButton-' + ${g.getId()}" name="goalId"
+                                                title="Edit expense" th:value="${g.getId()}"
+                                                data-bs-toggle="modal" data-bs-target="#editExpenseModal"
+                                                th:onclick="testJS(/*[[${g.getId()}]]*/)"
+                                                >
+                                            <i class="fa-solid fa-pen-to-square"></i></button>
+
+                                    </form>
+                                </div>
+                                <div>
+                                    <form
+                                            th:action="@{/deleteGoal}"
+                                            th:method="get">
+                                        <a class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete expense"
+                                           th:href="@{/deleteGoal/{goalId}(goalId = ${g.getId()})}">
+                                            <i class="fa-solid fa-trash-can"></i></a>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="hidden" th:value="${g.getBarProgress()}" th:id="'goalBarId' + ${g.getId()}">
+                        </td>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            for (let i = 0; i < goalsTable.rows.length; i++){
+                                let progressBarId = 'progressBar' + /*[[${g.getId()}]]*/ null;
+
+                                let progressBar = document.getElementById(progressBarId);
+                                progressBarPercentage = /*[[${g.getBarProgress()}]]*/ 2222;
+
+                                if (progressBarPercentage <= 25){
+                                    if (progressBarPercentage === 0){
+                                        progressBarPercentage = 1;
+                                    }
+                                    progressBar.style.backgroundColor = "#FF2400";
+                                }else if(progressBarPercentage > 25 && progressBarPercentage <= 50){
+                                    progressBar.style.backgroundColor = "#ecc400";
+                                }else if(progressBarPercentage > 50){
+                                    if (progressBarPercentage > 100){
+                                        progressBarPercentage = 100;
+                                    }
+                                    progressBar.style.backgroundColor = "#4caf50";
+                                }
+                                progressBar.style.width = `${progressBarPercentage}%`;
+                            }
+
+                            /*]]>*/
+                        </script>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
     </div>
 
 </div>
+
+<style>
+    .table {
+        --bs-table-bg: transparent;
+    }
+
+    .goal-progress {
+        width: 100%;
+        height: 15px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background-color: #4caf50;
+        border-radius: 10px;
+    }
+</style >
+
+<script th:inline="javascript">
+    let goalsTable = document.getElementById("goalsTable");
+    let progressBarPercentage = 0;
+
+
+
+
+
+</script>
 </body>
 </html>
