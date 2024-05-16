@@ -46,6 +46,7 @@ public class GoalsServiceImpl implements GoalsService {
         String newGoalName = editGoalDTO.getNewGoalName();
         String newAccountToUse = editGoalDTO.getAccountToUse();
         BigDecimal addedAmount = editGoalDTO.getAddedAmount();
+        String newDescription = editGoalDTO.getDescription();
         boolean isNewPrimary = editGoalDTO.getIsNewPrimary() != null;
 
         Goal goalToEdit = this.goalsRepository.getReferenceById(Long.valueOf(editGoalDTO.getId()));
@@ -57,6 +58,9 @@ public class GoalsServiceImpl implements GoalsService {
             goalToEdit.setAccount(newAcc);
             goalToEdit.setAccountToUse(newAccountToUse);
         }
+        if (!newDescription.trim().equals("")){
+            goalToEdit.setDescription(newDescription);
+        }
 
         if (addedAmount != null){
             //Updating the account's amount.(Negative results are allowed)
@@ -67,7 +71,8 @@ public class GoalsServiceImpl implements GoalsService {
 
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
-            goalsRepository.saveAndFlush(goalToEdit);
         }
+        goalsRepository.saveAndFlush(goalToEdit);
+
     }
 }

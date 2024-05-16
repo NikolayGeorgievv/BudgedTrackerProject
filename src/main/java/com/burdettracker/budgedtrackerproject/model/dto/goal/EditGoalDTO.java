@@ -9,6 +9,8 @@ public class EditGoalDTO {
     private BigDecimal addedAmount;
     private String accountToUse;
     private String isNewPrimary;
+    private String description;
+
 
     public String getId() {
         return id;
@@ -46,7 +48,18 @@ public class EditGoalDTO {
         return isNewPrimary;
     }
 
+
     public void setIsNewPrimary(String isNewPrimary) {
         this.isNewPrimary = isNewPrimary;
+
+
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
