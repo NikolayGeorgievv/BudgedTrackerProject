@@ -8,41 +8,52 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Completed goals</title>
 </head>
 <body>
-
-<button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-        title="Completed goals" value="completed goals" data-bs-toggle="modal" data-bs-target="#completedGoalsModal"
-><i class="fa-solid fa-plus"></i></button>
-
+<div class="d-flex">
+    <div>
+        <p>Check out your completed goals here</p>
+    </div>
+<!--    TODO: ADD ARROW IMG-->
+    <div>
+        <img th:src="@{/images/curvy-arrow}">
+    </div>
+    <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+            title="Completed goals" value="completed goals" data-bs-toggle="modal" data-bs-target="#completedGoalsModal"
+    ><i class="fa-solid fa-plus"></i></button>
+</div>
 
 <div class="modal fade" id="completedGoalsModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" id="modal-dialog">
         <div class="modal-content" id="completedGoalsContent">
             <div class="flex-grow-1">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Your completed goals!</h5>
+                    <h5 class="modal-title" id="completedGoalsModalLabel">Hey check it out! Your accomplishments so
+                        far!</h5>
                 </div>
                 <div class="modal-body">
                     <div class="flex-grow-1">
                         <!--        div for table-->
                         <div class="d-flex">
-                            <table class="table table-borderless table-hover" id="goalsTable"
+                            <table class="table table-borderless table-hover" id="completedGoalsTable"
                                    th:action="@{/allGoalsPage}"
                                    th:method="get"
                                    th:object="${allCompletedGoalsInfoDTO}">
 
                                 <thead>
                                 <tr>
-                                    <th scope="col" width="10%">Goal</th>
-                                    <th scope="col" width="10%">Target</th>
-                                    <th scope="col" width="15%">Started</th>
-                                    <th scope="col" width="15%">Completed</th>
-                                    <th scope="col" width="50%">Description</th>
+                                    <th scope="col" width=""></th>
+                                    <th scope="col" width="15%">Goal</th>
+                                    <th scope="col" width="15%">Target</th>
+                                    <th scope="col" width="20%">Started</th>
+                                    <th scope="col" width="20%">Completed</th>
+                                    <th scope="col" width="30%">Description</th>
                                 </tr>
                                 </thead>
 
@@ -51,15 +62,18 @@
                                 <tr class="border-top border-bottom"
                                     th:each="g : ${allCompletedGoalsInfoDTO.getCompletedGoals()}"
                                 >
-
+                                    <td>
+                                        <i class="fa-solid fa-star"></i>
+                                    </td>
                                     <td
+
                                             th:text="${g.getName()}"
                                             th:value="${g.getName()}"
                                             style="padding-left: 15px; font-weight: 550;">
                                     </td>
                                     <td
-                                            th:text="${g.getAmountToBeSaved()}"
-                                            th:value="${g.getAmountToBeSaved()}"
+                                            th:text="${'$' + g.getAmountToBeSaved()}"
+                                            th:value="${'$' + g.getAmountToBeSaved()}"
                                             style="border: none; font-weight: bold; font-style: italic;">
 
                                     </td>
@@ -91,6 +105,28 @@
         </div>
     </div>
 </div>
+
+<style>
+    #completedGoalsContent {
+        width: 1000px;
+        background-color: #1E88A1;
+    }
+
+    #completedGoalsTable {
+        width: 100%;
+        background-color: #1E88A1;
+
+    }
+
+    #modal-dialog {
+        display: table;
+    }
+
+    #completedGoalsModalLabel {
+        color: black;
+        font-weight: bold;
+    }
+</style>
 </body>
 </html>
 
