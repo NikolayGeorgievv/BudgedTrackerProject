@@ -73,7 +73,8 @@
                         </td>
                         <td>
                             <div class="goal-progress">
-                                <div class="progress-bar" th:id="'progressBar' + ${g.getId()}" style="width: 50%;"></div>
+                                <div class="progress-bar" th:id="'progressBar' + ${g.getId()}"
+                                     style="width: 50%;"></div>
                             </div>
                         </td>
                         <td
@@ -102,7 +103,7 @@
                                                 title="Edit goal" th:value="${g.getId()}"
                                                 data-bs-toggle="modal" data-bs-target="#editGoalModal"
                                                 th:onclick="getGoalId(/*[[${g.getId()}]]*/)"
-                                                >
+                                        >
                                             <i class="fa-solid fa-pen-to-square"></i></button>
 
                                     </form>
@@ -124,42 +125,88 @@
                         </td>
                         <script th:inline="javascript">
                             /*<![CDATA[*/
-                            for (let i = 0; i < goalsTable.rows.length; i++){
+                            for (let i = 0; i < goalsTable.rows.length; i++) {
                                 let progressBarId = 'progressBar' + /*[[${g.getId()}]]*/ null;
 
                                 let progressBar = document.getElementById(progressBarId);
                                 progressBarPercentage = /*[[${g.getBarProgress()}]]*/ 2222;
 
-                                if (progressBarPercentage <= 25){
-                                    if (progressBarPercentage === 0){
+                                if (progressBarPercentage <= 25) {
+                                    if (progressBarPercentage === 0) {
                                         progressBarPercentage = 1;
                                     }
                                     progressBar.style.backgroundColor = "#FF2400";
-                                }else if(progressBarPercentage > 25 && progressBarPercentage <= 60){
+                                } else if (progressBarPercentage > 25 && progressBarPercentage <= 60) {
                                     progressBar.style.backgroundColor = "#ecc400";
-                                }else if(progressBarPercentage > 60){
+                                } else if (progressBarPercentage > 60) {
                                     progressBar.style.backgroundColor = "#AAFF00";
-                                    if (progressBarPercentage > 100 || progressBarPercentage=== 100){
+                                    if (progressBarPercentage > 100 || progressBarPercentage === 100) {
                                         progressBarPercentage = 100;
                                         progressBar.style.backgroundColor = "#4caf50";
                                     }
                                 }
                                 progressBar.style.width = `${progressBarPercentage}%`;
                             }
-
                             /*]]>*/
                         </script>
-
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-
     </div>
-
 </div>
+<div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="goalModalContent">
+            <div class="flex-grow-1">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Goal</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/editGoal}"
+                          th:method="post"
+                          th:object="${editGoalDTO}">
+                        <div class="d-flex flex-column justify-content-between">
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="newGoalName">New Name:</label>
+                                <input type="text" id="newGoalName" name="newGoalName">
+                            </div>
+                            <div class="d-flex flex-column justify-content-between">
+                                <label for="addedAmount">Add Funds:</label>
+                                <input type="number" min="0" id="addedAmount" name="addedAmount">
+                            </div>
+                            <div class="d-flex justify-content-between" style="margin: 5px">
+                                <div class="d-flex flex-column">
+                                    <label id="accountToUseLabel">From account</label>
+                                    <!--  TODO: DEFAULT SHOULD BE CURRENT USED ACCOUNT-->
+                                    <select name="accountToUse">
+                                        <option
+                                                th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                                th:text="${a.getName()}"
+                                                th:value="${a.getName()}"
+                                        >
+                                        </option>
+                                    </select>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="isNewPrimary">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Make this account primary for this goal.</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="d-flex flex-column justify-content-between">
+                                <button type="submit" class="button" id="submitButton">Update</button>
+                            </div>
+                            <input type="hidden" id="goalId1" name="id"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <style>
     .table {
@@ -178,16 +225,23 @@
         background-color: #4caf50;
         border-radius: 10px;
     }
-</style >
+    #goalModalContent{
+        border: 3px solid #f1f1f1;
+        background-color: #2c396a;
+    }
+    #editModalLabel{
+        color: white;
+    }
+</style>
 
 <script th:inline="javascript">
     let goalsTable = document.getElementById("goalsTable");
     let progressBarPercentage = 0;
 
-    function getGoalId(goalId){
-        document.getElementById("goalId").value = goalId;
+    function getGoalId(goalId) {
+        document.getElementById("goalId1").value = goalId;
+        console.log(goalId)
     }
-
 
 
 </script>
