@@ -1,11 +1,11 @@
-package com.burdettracker.budgedtrackerproject.model.dto.goal;
+package com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted;
 
 import java.util.List;
 
-public class AllGoalsInfoDTO {
+public class AllUncompletedGoalsInfoDTO {
     private List<GoalDTO> allGoals;
 
-    public AllGoalsInfoDTO(List<GoalDTO> allGoals) {
+    public AllUncompletedGoalsInfoDTO(List<GoalDTO> allGoals) {
         this.allGoals = allGoals;
     }
 

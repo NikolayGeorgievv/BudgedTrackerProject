@@ -2,7 +2,7 @@ package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;

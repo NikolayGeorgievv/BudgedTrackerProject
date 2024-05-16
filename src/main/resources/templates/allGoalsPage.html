@@ -26,9 +26,12 @@
 
     <!--    main div for table-->
     <div class="flex-grow-1" style="border-radius: 10px">
-
-        <h3 style="margin: 10px">My Goals</h3>
-
+        <div class="d-flex justify-content-between">
+            <h3 style="margin: 10px">My Goals</h3>
+            <div>
+                <button th:replace="~{fragments/completedGoalsFragment}"></button>
+            </div>
+        </div>
         <div class="d-flex" style="border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
             <!--            TOP BAR-->
         </div>
@@ -39,7 +42,7 @@
                 <table class="table table-borderless table-hover" id="goalsTable"
                        th:action="@{/allGoalsPage}"
                        th:method="get"
-                       th:object="${allGoalsInfoDTO}">
+                       th:object="${allUncompletedGoalsInfoDTO}">
 
                     <thead>
                     <tr>
@@ -56,7 +59,7 @@
 
                     <tbody>
 
-                    <tr class="border-top border-bottom" th:each="g : ${allGoalsInfoDTO.getAllGoals()}"
+                    <tr class="border-top border-bottom" th:each="g : ${allUncompletedGoalsInfoDTO.getAllGoals()}"
                         th:id="'goalRow-' + ${g.getId()}"
                     >
 
@@ -89,7 +92,6 @@
                                 style="font-weight: 550;">
 
                         </td>
-
 
                         <td>
                             <div class="d-flex flex-row">
@@ -139,7 +141,7 @@
                                 } else if (progressBarPercentage > 25 && progressBarPercentage <= 60) {
                                     progressBar.style.backgroundColor = "#ecc400";
                                 } else if (progressBarPercentage > 60) {
-                                    progressBar.style.backgroundColor = "#AAFF00";
+                                    progressBar.style.backgroundColor = "#4caf50";
                                     if (progressBarPercentage > 100 || progressBarPercentage === 100) {
                                         progressBarPercentage = 100;
                                         progressBar.style.backgroundColor = "#4caf50";
@@ -156,7 +158,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="goalModalContent">
             <div class="flex-grow-1">
@@ -189,8 +192,10 @@
                                         </option>
                                     </select>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="isNewPrimary">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Make this account primary for this goal.</label>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                               name="isNewPrimary">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Make this account
+                                            primary for this goal.</label>
                                     </div>
                                 </div>
                             </div>
@@ -230,11 +235,13 @@
         background-color: #4caf50;
         border-radius: 10px;
     }
-    #goalModalContent{
+
+    #goalModalContent {
         border: 3px solid #f1f1f1;
         background-color: #2c396a;
     }
-    #editModalLabel{
+
+    #editModalLabel {
         color: white;
     }
 </style>

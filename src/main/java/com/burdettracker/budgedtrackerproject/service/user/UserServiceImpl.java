@@ -2,8 +2,7 @@ package com.burdettracker.budgedtrackerproject.service.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
@@ -22,7 +21,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -176,7 +174,12 @@ public class UserServiceImpl implements UserService {
                 goalDTO.getDescription(),
                 user,
                 account,
-                goalDTO.getAccountToUse());
+                goalDTO.getAccountToUse(),
+                false,
+                //Created on
+                LocalDate.now(),
+                //Completed on
+                null);
         if (goal.getCurrentAmount() == null){
             goal.setCurrentAmount(BigDecimal.ZERO);
         }

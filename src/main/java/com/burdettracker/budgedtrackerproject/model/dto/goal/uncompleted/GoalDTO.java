@@ -1,4 +1,4 @@
-package com.burdettracker.budgedtrackerproject.model.dto.goal;
+package com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted;
 
 import java.math.BigDecimal;
 
@@ -10,6 +10,7 @@ public class GoalDTO {
     private String accountToUse;
     private BigDecimal currentAmount;
     private String description;
+    private boolean isCompleted;
 
 
     public Long getId() {
@@ -60,6 +61,13 @@ public class GoalDTO {
         this.description = description;
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
 
     public  int getBarProgress(){
 

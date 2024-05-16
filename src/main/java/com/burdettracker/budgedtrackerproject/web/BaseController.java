@@ -4,7 +4,8 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
@@ -42,11 +43,18 @@ public class BaseController {
         this.goalsService = goalsService;
     }
 
-    @ModelAttribute("allGoalsInfoDTO")
-    public AllGoalsInfoDTO allGoalsInfoDTO(){
+    @ModelAttribute("allCompletedGoalsInfoDTO")
+    public AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        return this.goalsService.getAllGoals(currentUserName);
+        return this.goalsService.getAllCompletedGoals(currentUserName);
+    }
+
+    @ModelAttribute("allUncompletedGoalsInfoDTO")
+    public AllUncompletedGoalsInfoDTO allGoalsInfoDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return this.goalsService.getAllUncompletedGoals(currentUserName);
     }
 
     @ModelAttribute("allAccountsInfoDTO")

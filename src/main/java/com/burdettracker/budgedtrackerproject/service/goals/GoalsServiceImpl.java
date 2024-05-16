@@ -1,17 +1,19 @@
 package com.burdettracker.budgedtrackerproject.service.goals;
 
-import com.burdettracker.budgedtrackerproject.model.dto.goal.AllGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.CompletedGoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.GoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.GoalsRepository;
-import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,14 +28,6 @@ public class GoalsServiceImpl implements GoalsService {
         this.goalsRepository = goalsRepository;
         this.modelMapper = modelMapper;
         this.accountRepository = accountRepository;
-    }
-
-    @Override
-    public AllGoalsInfoDTO getAllGoals(String currentUserName) {
-        List<Goal> allByUserEmail = this.goalsRepository.getAllByUser_Email(currentUserName);
-        List<GoalDTO> goalsList = Arrays.stream(modelMapper.map(allByUserEmail, GoalDTO[].class)).toList();
-        AllGoalsInfoDTO allGoalsInfoDTO = new AllGoalsInfoDTO(goalsList);
-        return allGoalsInfoDTO;
     }
 
     @Override
@@ -71,8 +65,35 @@ public class GoalsServiceImpl implements GoalsService {
 
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
+            if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0){
+                goalToEdit.setCompletedOn(LocalDate.now());
+                goalToEdit.setCompleted(true);
+            }
         }
         goalsRepository.saveAndFlush(goalToEdit);
 
+    }
+
+    @Override
+    public AllCompletedGoalsInfoDTO getAllCompletedGoals(String currentUserName) {
+        List<Goal> allByUserEmail = this.goalsRepository.getAllByUser_Email(currentUserName);
+        //All goals
+        List<CompletedGoalDTO> goalsList = Arrays.stream(modelMapper.map(allByUserEmail, CompletedGoalDTO[].class)).toList();
+        //Completed goals
+        List<CompletedGoalDTO> completedGoals = goalsList.stream().filter(CompletedGoalDTO::isCompleted).toList();
+
+        AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO = new AllCompletedGoalsInfoDTO(completedGoals);
+        return allCompletedGoalsInfoDTO;
+    }
+    @Override
+    public AllUncompletedGoalsInfoDTO getAllUncompletedGoals(String currentUserName) {
+        List<Goal> allByUserEmail = this.goalsRepository.getAllByUser_Email(currentUserName);
+        //All goals
+        List<GoalDTO> goalsList = Arrays.stream(modelMapper.map(allByUserEmail, GoalDTO[].class)).toList();
+        //Uncompleted goals
+        List<GoalDTO> uncompletedGoals = goalsList.stream().filter(goal -> !goal.isCompleted()).toList();
+
+        AllUncompletedGoalsInfoDTO allUncompletedGoalsInfoDTO = new AllUncompletedGoalsInfoDTO(uncompletedGoals);
+        return allUncompletedGoalsInfoDTO;
     }
 }

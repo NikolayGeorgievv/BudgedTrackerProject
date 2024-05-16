@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.model.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "goals")
@@ -16,16 +17,23 @@ public class Goal extends BaseEntity{
     private BigDecimal currentAmount;
     @Column
     private String description;
+    @Column(name = "is_completed")
+    private boolean isCompleted;
     @ManyToOne
     private User user;
     @ManyToOne
     private Account account;
+
+
     private String accountToUse;
+    private LocalDate createdOn;
+    private LocalDate completedOn;
+
 
     public Goal() {
     }
 
-    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account, String accountToUse) {
+    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account, String accountToUse,boolean isCompleted, LocalDate createdOn, LocalDate completedOn) {
         this.name = name;
         this.amountToBeSaved = amountToBeSaved;
         this.currentAmount = currentAmount;
@@ -33,6 +41,9 @@ public class Goal extends BaseEntity{
         this.user = user;
         this.account = account;
         this.accountToUse = accountToUse;
+        this.isCompleted = isCompleted;
+        this.createdOn = createdOn;
+        this.completedOn = completedOn;
     }
 
     public User getUser() {
@@ -89,5 +100,29 @@ public class Goal extends BaseEntity{
 
     public void setAccountToUse(String accountToUse) {
         this.accountToUse = accountToUse;
+    }
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDate getCompletedOn() {
+        return completedOn;
+    }
+
+    public void setCompletedOn(LocalDate completedOn) {
+        this.completedOn = completedOn;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }
