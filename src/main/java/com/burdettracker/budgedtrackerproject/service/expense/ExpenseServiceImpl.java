@@ -8,6 +8,7 @@ import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -59,9 +60,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         this.expenseRepository.saveAndFlush(expenseToEdit);
     }
 
+    @Override
+    public List<Expense> findByDateDue(LocalDate todaysDate) {
+        return this.expenseRepository.findAllByDateDue(todaysDate);
+    }
 
 
-private String parseDateDue(String dateToParse){
+    private String parseDateDue(String dateToParse){
         //2024-May-11
     String[] dateAsString = dateToParse.split("-");
     String year = dateAsString[2];

@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public class UserServiceImpl implements UserService {
 
         if (expenseDTO.getPeriodDate().equals("")){
             //period = yearly or one-time-buy
-            //dateDue will be used
+            //period date needs to be set
             String[] dateData = expenseDTO.getDateDue().split("-");
             int day = Integer.parseInt(dateData[0]);
             String monthNormalCasing = dateData[1];
@@ -149,9 +150,62 @@ public class UserServiceImpl implements UserService {
             }
         } else if (expenseDTO.getDateDue().equals("")) {
             //period = weekly or monthly
-            //period date will be used
-            //day from period date, month = this month + 1, year = this year except if it is december
+            //dateDue needs to be set
 
+            if (expenseDTO.getPeriod().equals("weekly")){
+
+                String periodDateDay = expenseDTO.getPeriodDate();
+                int periodDateDayValue = getPeriodDateDayValue(periodDateDay);
+
+                for (int i = 0; i < 7; i++) {
+                    LocalDate dateToCheck = LocalDate.now().plusDays(i);
+
+                    DayOfWeek neededDay = DayOfWeek.of(periodDateDayValue);
+                    if (dateToCheck.getDayOfWeek().equals(neededDay)){
+                        expense.setDateDue(dateToCheck);
+                    }
+                }
+
+            }else if (expenseDTO.getPeriod().equals("monthly")){
+                String periodDateDay = expenseDTO.getPeriodDate();
+                // 20th  => yyyy MM 20
+                int todayDayOfMonth = LocalDate.now().getDayOfMonth();
+                int totalMonthDays = LocalDate.now().lengthOfMonth();
+                int periodDateDayValue = 0;
+                if (periodDateDay.equals("Last day of month")){
+                    periodDateDayValue = totalMonthDays;
+                }else {
+                    char[] dateDayCharArr = periodDateDay.toCharArray();
+                    String result;
+                    if (periodDateDay.length() == 3){
+                        //0-9
+                        result = String.valueOf(dateDayCharArr[0]);
+                        periodDateDayValue = Integer.parseInt(result);
+                    }else {
+                        //10-30
+                        result = String.valueOf(dateDayCharArr[0] + dateDayCharArr[1]);
+                        periodDateDayValue = Integer.parseInt(result);
+                    }
+                }
+                //Check where DateDue is based on today's date.
+                if (todayDayOfMonth <= periodDateDayValue){
+                    //month stays the same
+                    LocalDate dateToSet = LocalDate.of(
+                            LocalDate.now().getYear(),
+                            LocalDate.now().getMonth(),
+                            periodDateDayValue);
+                    expense.setDateDue(dateToSet);
+                }else{
+                    //month +1
+                    //TODO: CHECK IF +1 MONTH WORKS CORRECTLY FOR TURNING YEAR AHEAD
+                    LocalDate dateToSet = LocalDate.of(
+                            LocalDate.now().getYear(),
+                            LocalDate.now().getMonth().plus(1),
+                            periodDateDayValue);
+                    expense.setDateDue(dateToSet);
+                }
+
+            }
         }
 
         accountToUse.getExpenses().add(expense);
@@ -159,6 +213,21 @@ public class UserServiceImpl implements UserService {
         user.getExpenses().add(expense);
         userRepository.saveAndFlush(user);
         expenseRepository.saveAndFlush(expense);
+    }
+
+    //TODO: TAKE THOSE METHODS IN A UTIL CLASS
+    private int getPeriodDateDayValue(String periodDateDay) {
+        int result = 0;
+        switch (periodDateDay){
+            case "Monday": result = 1;break;
+            case "Tuesday":  result = 2;break;
+            case "Wednesday":  result = 3;break;
+            case "Thursday":  result = 4;break;
+            case "Friday":  result = 5;break;
+            case "Saturday":  result = 6;break;
+            case "Sunday":  result = 7;break;
+        }
+        return result;
     }
 
     @Override
