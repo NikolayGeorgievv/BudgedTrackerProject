@@ -27,7 +27,6 @@
         <div class="d-flex flex-column">
             <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
                 <label id="billLabel">Bill</label>
-                <!--      TODO: ADD SUGGESTIONS-->
                 <input type="text" placeholder="Electricity, Water, Internet, Gas..." name="name" id="name">
             </div>
             <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
@@ -70,7 +69,6 @@
         <div class="d-flex justify-content-between" style="margin: 5px">
             <div class="d-flex flex-column" >
                 <div>
-<!--                    TODO: ADD LIST WITH ACCOUNTS-->
                     <label id="accountToUseLabel">Account to use</label>
                     <select name="accountToUse">
                         <option

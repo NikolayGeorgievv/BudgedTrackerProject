@@ -23,8 +23,10 @@ public class ExpenseUpdater {
         this.expenseRepository = expenseRepository;
     }
 
-//    @Scheduled(cron = "0 55 23 */1 * *")
-    @Scheduled(cron = "*/30 * * * * *")
+    //cron = */30.. is for test purposes only
+
+//    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 55 23 */1 * *")
     public void updateExpense() {
         LocalDate todaysDate = LocalDate.now();
         //TODO: ADD TRANSACTION INFORMATION AS WELL!!!!

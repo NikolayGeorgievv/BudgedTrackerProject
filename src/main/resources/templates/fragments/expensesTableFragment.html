@@ -50,10 +50,14 @@
                         style="border: none; font-weight: bold; font-style: italic;">
                 </td>
 
-                <td
-                        th:text="${e.getAccount().getName()}"
-                        th:value="${e.getAccount().getName()}"
-                        style="font-weight: 550;">
+                <td style="font-weight: 550;">
+                    <a th:href="@{allAccountsPage}" style="text-decoration: none; color: #1E88E5">
+                        <th:block
+                                th:text="${e.getAccount().getName()}"
+                                th:value="${e.getAccount().getName()}"></th:block>
+                    </a>
+
+
                 </td>
 
                 <!--                EDIT AND DELETE BTN!-->
@@ -90,10 +94,6 @@
             </tbody>
 
         </table>
-
-        <!--    div for filling space-->
-<!--        TODO: FIX THAT -->
-<!--        <div class="block" style="background: white; width: 50vh"></div>-->
     </div>
 </div>
 
