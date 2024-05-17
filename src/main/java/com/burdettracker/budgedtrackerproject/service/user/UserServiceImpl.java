@@ -183,7 +183,7 @@ public class UserServiceImpl implements UserService {
                         periodDateDayValue = Integer.parseInt(result);
                     }else {
                         //10-30
-                        result = String.valueOf(dateDayCharArr[0] + dateDayCharArr[1]);
+                        result = String.valueOf(String.valueOf(dateDayCharArr[0]) + String.valueOf(dateDayCharArr[1]));
                         periodDateDayValue = Integer.parseInt(result);
                     }
                 }
