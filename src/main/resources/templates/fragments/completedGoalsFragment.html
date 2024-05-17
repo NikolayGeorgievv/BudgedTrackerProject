@@ -15,17 +15,16 @@
     <title>Completed goals</title>
 </head>
 <body>
-<div class="d-flex">
+<div class="d-flex" id="completedGoalsEndDiv">
     <div>
-        <p>Check out your completed goals here</p>
+        <p id="completedGoalsDescPara">Check out your completed goals here</p>
     </div>
-<!--    TODO: ADD ARROW IMG-->
     <div>
-        <img th:src="@{/images/curvy-arrow}">
+        <img src="/images/curvy-arrow-edited.png" alt="#">
     </div>
-    <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+    <button type="button" class="btn fw-bold" id="completedGoalsBtn"
             title="Completed goals" value="completed goals" data-bs-toggle="modal" data-bs-target="#completedGoalsModal"
-    ><i class="fa-solid fa-plus"></i></button>
+    ><i class="fa-solid fa-heart fa-2x" style="color: red"></i></button>
 </div>
 
 <div class="modal fade" id="completedGoalsModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
@@ -117,6 +116,9 @@
         background-color: #1E88A1;
 
     }
+    #completedGoalsEndDiv{
+        margin-right: 20px;
+    }
 
     #modal-dialog {
         display: table;
@@ -125,6 +127,16 @@
     #completedGoalsModalLabel {
         color: black;
         font-weight: bold;
+    }
+    #completedGoalsDescPara{
+        font-weight: bold;
+        font-style: italic;
+    }
+    #completedGoalsBtn{
+        padding: 8px 20px;
+        border: 2px black solid;
+        border-radius: 5px;
+
     }
 </style>
 </body>
