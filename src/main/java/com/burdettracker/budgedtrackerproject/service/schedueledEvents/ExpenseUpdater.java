@@ -35,7 +35,7 @@ public class ExpenseUpdater {
         List<Expense> expensesByDateDue = this.expenseRepository.findAllByDateDue(todaysDate);
         expensesByDateDue.forEach(ex -> {
 
-            transactionService.addTransaction(ex);
+            transactionService.addExpenseTransaction(ex);
 
             String period = ex.getPeriod();
             Account account = ex.getAccount();

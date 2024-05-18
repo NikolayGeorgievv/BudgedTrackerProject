@@ -9,6 +9,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.GoalsRepository;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,13 @@ public class GoalsServiceImpl implements GoalsService {
     private final GoalsRepository goalsRepository;
     private final ModelMapper modelMapper;
     private final AccountRepository accountRepository;
+    private final TransactionService transactionService;
 
-    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountRepository accountRepository) {
+    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountRepository accountRepository, TransactionService transactionService) {
         this.goalsRepository = goalsRepository;
         this.modelMapper = modelMapper;
         this.accountRepository = accountRepository;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class GoalsServiceImpl implements GoalsService {
             BigDecimal newAccAmount = newAcc.getCurrentAmount().subtract(addedAmount);
             newAcc.setCurrentAmount(newAccAmount);
             accountRepository.saveAndFlush(newAcc);
-
+            transactionService.addGoalTransaction(goalToEdit,addedAmount);
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
             if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0){

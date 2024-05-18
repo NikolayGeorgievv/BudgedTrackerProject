@@ -2,9 +2,14 @@ package com.burdettracker.budgedtrackerproject.service.transaction;
 
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.AccountTransactionsDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
+import com.burdettracker.budgedtrackerproject.model.entity.Goal;
+
+import java.math.BigDecimal;
 
 public interface TransactionService {
-    void addTransaction(Expense ex);
+    void addExpenseTransaction(Expense ex);
 
     AccountTransactionsDTO getAccountTransaction(String accountId);
+
+    void addGoalTransaction(Goal goal, BigDecimal addedAmount);
 }
