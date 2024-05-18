@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.AccountTransactionsDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
@@ -25,7 +26,9 @@ public class TransactionsController extends BaseController{
     public String getAccountTransactions(@PathVariable("accountId") String accountId, Model model){
 
        AccountTransactionsDTO accountTransactionsDTO =  transactionService.getAccountTransaction(accountId);
+        AccountDTO currentAccountDTO = accountService.getAccountDTOById(accountId);
         model.addAttribute("accountTransactionsDTO", accountTransactionsDTO);
+        model.addAttribute("currentAccountDTO", currentAccountDTO);
         return "singleAccountTransactionHistory";
     }
 }

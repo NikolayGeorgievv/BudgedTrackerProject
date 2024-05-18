@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.account;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
@@ -14,4 +15,5 @@ public interface AccountService {
 
     Account getByName(String name);
 
+    AccountDTO getAccountDTOById(String accountId);
 }

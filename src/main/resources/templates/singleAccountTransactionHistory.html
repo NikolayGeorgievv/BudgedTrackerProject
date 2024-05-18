@@ -28,16 +28,18 @@
   <!--    main div for table-->
   <div class="flex-grow-1" style="margin-right: 0">
 <!--    TODO:current account name + balance, download fail btn-->
-    <h3 style="margin: 10px">My Accounts</h3>
+    <h3
+            th:text="${currentAccountDTO.getName()}"
+            style="margin: 10px">My Account</h3>
 
     <div class="d-flex" style="height: 5vh; border-top: 1px solid #2c396a;border-bottom: 1px solid #2c396a">
-      <!--            all accounts balance-->
       <div>
         <p
-                th:action="@{/allAccountsPage}"
+                th:action="@{/accounts/{accountId}/transactions}"
                 th:method="get"
-                th:text="'Total funds: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()} "
-                style="color: green; font-weight: bold"
+                th:object="${currentAccountDTO}"
+                th:text="'This account funds: ' + '$'+ ${currentAccountDTO.getCurrentAmount()} "
+                style="color: green; font-weight: bold;margin: 10px;"
         ></p>
       </div>
       <div>
@@ -50,7 +52,7 @@
       <div>
         <div class="d-flex">
           <table class="table table-borderless table-hover" id="accountTable"
-                 th:action="@{//accounts/{accountId}/transactions}"
+                 th:action="@{/accounts/{accountId}/transactions}"
                  th:method="get"
                  th:object="${accountTransactionsDTO}">
 

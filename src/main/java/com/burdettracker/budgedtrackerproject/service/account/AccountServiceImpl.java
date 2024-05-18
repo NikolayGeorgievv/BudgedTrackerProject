@@ -63,6 +63,12 @@ public class AccountServiceImpl implements AccountService {
       return this.accountRepository.getByName(name);
     }
 
+    @Override
+    public AccountDTO getAccountDTOById(String accountId) {
+        Account account = this.accountRepository.getReferenceById(Long.valueOf(accountId));
+        AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
+        return accountDTO;
+    }
 
 
     public double getTotalBalance(List<AccountDTO> accList){
