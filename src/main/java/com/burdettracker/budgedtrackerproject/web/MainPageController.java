@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetails
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +20,10 @@ import java.util.List;
 @Controller
 public class MainPageController extends BaseController{
 
-    private final UserService userService;
 
 
-    public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, UserService userService1, List<AccountDTO> accounts, List<ExpenseDTO> expenses1, AccountService accountService2, GoalsService goalsService) {
-        super(expenses, userService, expenseService, accountService, goalsService);
-        this.userService = userService1;
+    public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
+        super(expenses, userService, expenseService, accountService, goalsService, transactionService);
     }
 
     @ModelAttribute

@@ -21,7 +21,9 @@ public class Account extends BaseEntity{
     private CurrencyType currencyType;
     @Column(name = "current_amount", nullable = false)
     private BigDecimal currentAmount;
+
     @OneToMany
+    @JoinColumn(name = "account_id")
     private List<Transaction> transactionHistory;
     @ManyToOne
     private User user;
@@ -51,14 +53,6 @@ public class Account extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Transaction> getTransactionHistory() {
-        return transactionHistory;
-    }
-
-    public void setTransactionHistory(List<Transaction> transactionHistory) {
-        this.transactionHistory = transactionHistory;
     }
 
     public User getUser() {

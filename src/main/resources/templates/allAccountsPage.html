@@ -88,7 +88,9 @@
 
                             </td>
                             <td>
-                                <a th:href="@{#}">
+
+                                <a
+                                        th:href="@{/accounts/{accountId}/transactions(accountId = ${a.getId()})}">
                                     <p style="font-size: small">View transaction history</p>
                                 </a>
                             </td>

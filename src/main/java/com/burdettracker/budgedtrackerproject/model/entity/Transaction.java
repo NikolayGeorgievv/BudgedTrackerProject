@@ -4,25 +4,42 @@ import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "expense_transactions")
+@Table(name = "transactions")
 public class Transaction extends BaseEntity{
 
-    @Column(name = "currency_type",nullable = false)
+
+
+    @Column(name = "currency_type")
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
-    @Column(name = "date_and_time_completed", nullable = false)
-    private Date dateAndTimeCompleted;
-    @Column()
-    private String description;
-    @Column(nullable = false)
-    private BigDecimal amount;
+
+
     @Column(nullable = false)
     private String paidTo;
+    @Column(nullable = false)
+    private BigDecimal amount;
+    @Column(name = "completed_on")
+    private LocalDate completedOn;
+    @ManyToOne
+    private Account account;
+
+    private String transactionDescription;
+
+    //TODO: Implement currency type
+
+
+    public Transaction(String paidTo, BigDecimal amount, LocalDate completedOn, Account account) {
+        this.paidTo = paidTo;
+        this.amount = amount;
+        this.completedOn = completedOn;
+        this.account = account;
+    }
 
     public Transaction() {
+
     }
 
     public CurrencyType getCurrencyType() {
@@ -33,20 +50,12 @@ public class Transaction extends BaseEntity{
         this.currencyType = currencyType;
     }
 
-    public Date getDateAndTimeCompleted() {
-        return dateAndTimeCompleted;
+    public String getPaidTo() {
+        return paidTo;
     }
 
-    public void setDateAndTimeCompleted(Date dateAndTimeCompleted) {
-        this.dateAndTimeCompleted = dateAndTimeCompleted;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPaidTo(String paidTo) {
+        this.paidTo = paidTo;
     }
 
     public BigDecimal getAmount() {
@@ -57,11 +66,27 @@ public class Transaction extends BaseEntity{
         this.amount = amount;
     }
 
-    public String getPaidTo() {
-        return paidTo;
+    public LocalDate getCompletedOn() {
+        return completedOn;
     }
 
-    public void setPaidTo(String paid) {
-        this.paidTo = paid;
+    public void setCompletedOn(LocalDate completedOn) {
+        this.completedOn = completedOn;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public String getTransactionDescription() {
+        return transactionDescription;
+    }
+
+    public void setTransactionDescription(String transactionDescription) {
+        this.transactionDescription = transactionDescription;
     }
 }

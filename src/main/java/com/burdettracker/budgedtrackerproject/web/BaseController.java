@@ -6,11 +6,13 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.transaction.AccountTransactionsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,20 +29,22 @@ import java.util.Locale;
 @Controller
 public class BaseController {
 
-    private List<ExpenseDTO> expenses;
-    private final UserService userService;
-    private final ExpenseService expenseService;
-    private final AccountService accountService;
-    private List<AccountDTO> accounts;
-    final GoalsService goalsService;
+    protected List<ExpenseDTO> expenses;
+    protected final UserService userService;
+    protected final ExpenseService expenseService;
+    protected final AccountService accountService;
+    protected List<AccountDTO> accounts;
+    protected final GoalsService goalsService;
+    protected final TransactionService transactionService;
 
 
-    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService) {
+    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
         this.expenses = expenses;
         this.userService = userService;
         this.expenseService = expenseService;
         this.accountService = accountService;
         this.goalsService = goalsService;
+        this.transactionService = transactionService;
     }
 
     @ModelAttribute("allCompletedGoalsInfoDTO")

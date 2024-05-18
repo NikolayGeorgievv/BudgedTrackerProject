@@ -7,6 +7,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +21,11 @@ import java.util.List;
 
 @Controller
 public class AccountsController extends BaseController{
-    private final UserService userService;
-    private final AccountService accountService;
 
-    public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, UserService userService1, AccountService accountService2, List<AccountDTO> accounts, List<ExpenseDTO> expenses1, GoalsService goalsService) {
-        super(expenses, userService, expenseService, accountService, goalsService);
-        this.userService = userService1;
-        this.accountService = accountService2;
+
+    public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
+        super(expenses, userService, expenseService, accountService, goalsService, transactionService);
+
     }
 
     @PostMapping("/editAccount")

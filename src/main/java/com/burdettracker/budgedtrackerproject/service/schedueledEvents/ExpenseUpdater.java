@@ -5,6 +5,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +18,12 @@ public class ExpenseUpdater {
 
     private final AccountRepository accountRepository;
     private final ExpenseRepository expenseRepository;
+    private final TransactionService transactionService;
 
-    public ExpenseUpdater(AccountRepository accountRepository, ExpenseRepository expenseRepository) {
+    public ExpenseUpdater(AccountRepository accountRepository, ExpenseRepository expenseRepository, TransactionService transactionService) {
         this.accountRepository = accountRepository;
         this.expenseRepository = expenseRepository;
+        this.transactionService = transactionService;
     }
 
     //cron = */30.. is for test purposes only
@@ -29,9 +32,11 @@ public class ExpenseUpdater {
     @Scheduled(cron = "0 55 23 */1 * *")
     public void updateExpense() {
         LocalDate todaysDate = LocalDate.now();
-        //TODO: ADD TRANSACTION INFORMATION AS WELL!!!!
         List<Expense> expensesByDateDue = this.expenseRepository.findAllByDateDue(todaysDate);
         expensesByDateDue.forEach(ex -> {
+
+            transactionService.addTransaction(ex);
+
             String period = ex.getPeriod();
             Account account = ex.getAccount();
 
@@ -45,7 +50,7 @@ public class ExpenseUpdater {
                 } else {
                     LocalDate newDateToSet = ex.getDateDue().plusMonths(1);
                     if (ex.getPeriodDate().equals("Last day of month")) {
-                        //We only set this if case the period date is set to
+                        //We only set this in case the period date is set to
                         //"Last day of month" and previous month has fewer days than the next one
                         LocalDate updatedNewDateToSet = LocalDate.of(
                                 newDateToSet.getYear(),
@@ -72,6 +77,7 @@ public class ExpenseUpdater {
                     //TODO: FIGURE OUT WHAT TO DO WITH ONE-TIME-BUY EXPENSES
                 }
             }
+
             accountRepository.saveAndFlush(account);
             expenseRepository.saveAndFlush(ex);
         });
