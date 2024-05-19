@@ -83,15 +83,16 @@
                             </td>
                             <td
                                     th:text="'$' + ${a.getCurrentAmount()}"
-                                    th:value="'$' + ${a.getCurrentAmount()}"
-                                    style="border: none; font-weight: bold; font-style: italic;">
+                                     th:value="'$' + ${a.getCurrentAmount()}"
+                                    th:style="${a.getCurrentAmount()} < 0 ? 'color: red;border: none; font-weight: bold; font-style: italic;'
+                                     : 'color: black;border: none; font-weight: bold; font-style: italic;'" >
 
                             </td>
                             <td>
 
                                 <a
                                         th:href="@{/accounts/{accountId}/transactions(accountId = ${a.getId()})}">
-                                    <p style="font-size: small">View transaction history</p>
+                                    <p style="font-size: small;">View transaction history</p>
                                 </a>
                             </td>
 
