@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-<!--    <script type="text/javascript" th:src="@{/js/addExpenseJS.js}"></script>-->
+    <!--    <script type="text/javascript" th:src="@{/js/addExpenseJS.js}"></script>-->
     <link rel="stylesheet" th:href="@{css/addExpenseFormStyle.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
             class="form-container">
         <div class="d-flex flex-column">
             <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
-                <label id="billLabel">Bill</label>
+                <label class="addExpenseLabels">Your bill information</label>
                 <input type="text" placeholder="Electricity, Water, Internet, Gas..." name="name" id="name">
             </div>
             <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
@@ -50,39 +50,29 @@
                     <div id="datepicker">
                         <input type="text" id="datepickerInput" name="dateDue" th:replace="~{fragments/datepicker}">
                     </div>
-                    <input type="text" id="dateInputField" name="periodDate">
+                    <input type="text" id="dateInputField" name="periodDate" class="addExpenseField">
                     <div th:if="${#fields.hasErrors('periodDate')}" th:errors="*{periodDate}" class="errors"></div>
                     <input type="hidden" id="period" name="period">
                 </div>
             </div>
         </div>
 
-        <div class="d-flex justify-content-between" style="margin: 5px">
+        <div class="d-flex flex-column">
+            <label class="addExpenseLabels">Amount needed</label>
+            <input type="number" min="0" placeholder="1000$" name="assigned" id="amountNeeded" class="addExpenseField">
+        </div>
+        <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
             <div class="d-flex flex-column">
-                <div>
-                    <label>Amount needed</label>
-                    <input type="number" min="0" placeholder="1000$" name="assigned" id="amountNeeded">
-                </div>
-                <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
+                <label class="addExpenseLabels">Account to use</label>
+                <select name="accountToUse" class="addExpenseField">
+                    <option
+                            th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                            th:text="${a.getName()}"
+                            th:value="${a.getName()}">
+                    </option>
+                </select>
             </div>
-        </div>
-        <div class="d-flex justify-content-between" style="margin: 5px">
-            <div class="d-flex flex-column" >
-                <div>
-                    <label id="accountToUseLabel">Account to use</label>
-                    <select name="accountToUse">
-                        <option
-                        th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
-                        th:text="${a.getName()}"
-                        th:value="${a.getName()}"
-                        >
-
-                        </option>
-                    </select>
-                </div>
-                <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
-            </div>
-        </div>
+            <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
 
         <button type="submit" class="button" id="submitButton">Add</button>
         <button type="button" class="button" onclick="closeExpenseForm()">Close</button>

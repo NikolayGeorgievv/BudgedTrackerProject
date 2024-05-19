@@ -164,9 +164,7 @@
                                         <option
                                                 th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                                                 th:text="${a.getName()}"
-                                                th:value="${a.getName()}"
-                                        >
-
+                                                th:value="${a.getName()}">
                                         </option>
                                     </select>
                             </div>
