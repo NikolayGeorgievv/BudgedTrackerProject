@@ -18,7 +18,7 @@
 
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Add goal" value="Add goal" onclick="openGoalForm()"
-><i class="fa-regular fa-heart"></i></i></button>
+><i class="fa-regular fa-heart"></i></button>
 <div class="form-popup" id="myGoalForm">
   <form
           th:action="@{${#strings.isEmpty(name) ? '/index' : '/addGoal'}}"

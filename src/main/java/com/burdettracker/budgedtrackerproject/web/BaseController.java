@@ -8,6 +8,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllComple
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
@@ -46,6 +47,8 @@ public class BaseController {
         this.transactionService = transactionService;
     }
 
+
+
     @ModelAttribute("allCompletedGoalsInfoDTO")
     public AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,7 +82,7 @@ public class BaseController {
     public UserFullNameDTO userFullNameDTO() {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
-        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail());
+        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail(), userByEmail.getMembershipType().toString());
     }
 
     @ModelAttribute("expenseDTO")
@@ -130,5 +133,9 @@ public class BaseController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String day = String.valueOf(LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
         return date.format(formatter) + " (" + day + ")";
+    }
+    @ModelAttribute("memberships")
+    public MembershipType[] memberships() {
+        return MembershipType.values();
     }
 }

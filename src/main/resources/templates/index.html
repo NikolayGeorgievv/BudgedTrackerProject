@@ -37,36 +37,52 @@
     <!--    main div for table-->
     <div class="flex-grow-1">
 
-        <div class="d-flex" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
-
-
-            <div>
+        <div class="d-flex  justify-content-between" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
+            <div class="d-flex">
                 <div>
-                    <p
-                            th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
-                            th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
-                            style="color: green; font-weight: bold"
-                    ></p>
+                    <div>
+                        <p
+                                th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                                th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                                style="color: green; font-weight: bold"
+                        ></p>
+                    </div>
+                    <div>
+                        <p
+                                th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                                th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                                style="color: green; font-weight: bold"
+                        ></p>
+                    </div>
                 </div>
+
                 <div>
                     <p
-                            th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
-                            th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
-                            style="color: green; font-weight: bold"
+                            th:text="'Today\'s date is: '  + ${todaysDate}"
+                            th:value="'Today\'s date is: '  + ${todaysDate}"
+                            style="color: #2c396a; font-weight: bold; margin-left: 20px"
                     ></p>
                 </div>
             </div>
-            <div>
-                <p
-                        th:text="'Today\'s date is: '  + ${todaysDate}"
-                        th:value="'Today\'s date is: '  + ${todaysDate}"
-                        style="color: #2c396a; font-weight: bold; margin-left: 20px"
-                ></p>
-            </div>
 
-            <div>
-                <!--        TODO: next bill to be paid?,      -->
+            <div class="d-flex flex-column" style="margin-right: 10px">
+                <div class="d-flex justify-content-between" style="color: white">
+                    <p style="color: #2c396a; font-weight: bold; margin-right: 10px">My current plan is </p>
+                    <p th:text="${userFullNameDTO.getMembership()}"
+                       style="color: #f3a63b; font-weight: bold; font-style: italic"></p>
+                </div>
 
+                <div class="d-flex justify-content-between">
+                    <div class="d-inline-flex align-items-left rounded border-0">
+                        <p style="color: #2c396a;font-weight: bold">Change plan here</p>
+                    </div>
+                    <form
+                            th:action="@{/changePlan}"
+                            th:method="post"
+                    >
+                        <button th:replace="~{fragments/changePlanForm}"></button>
+                    </form>
+                </div>
             </div>
 
         </div>
