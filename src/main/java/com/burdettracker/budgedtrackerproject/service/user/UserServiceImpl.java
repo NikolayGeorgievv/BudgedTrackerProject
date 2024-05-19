@@ -3,8 +3,8 @@ package com.burdettracker.budgedtrackerproject.service.user;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
@@ -251,8 +251,16 @@ public class UserServiceImpl implements UserService {
                 null);
         if (goal.getCurrentAmount() == null){
             goal.setCurrentAmount(BigDecimal.ZERO);
+        }else {
+            if (goalDTO.getCurrentAmount().equals(goalDTO.getAmountToBeSaved())){
+                goal.setCompleted(true);
+                goal.setCompletedOn(LocalDate.now());
+            }
+            BigDecimal newAccAmount = account.getCurrentAmount().subtract(goalDTO.getCurrentAmount());
+            account.setCurrentAmount(newAccAmount);
         }
         user.getGoals().add(goal);
+        accountRepository.saveAndFlush(account);
         userRepository.saveAndFlush(user);
         goalsRepository.saveAndFlush(goal);
     }
