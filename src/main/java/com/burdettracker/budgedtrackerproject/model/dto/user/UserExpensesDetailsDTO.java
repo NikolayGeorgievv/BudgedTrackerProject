@@ -23,6 +23,7 @@ public class UserExpensesDetailsDTO {
     private String email;
     private List<ExpenseDTO> expenses;
     private int userAccountsAllowed;
+    private String accountNameAssignedForSubscription;
 
 
     public String getFirstName() {
@@ -120,5 +121,13 @@ public class UserExpensesDetailsDTO {
 
     public void setGoals(List<Goal> goals) {
         this.goals = goals;
+    }
+
+    public String getAccountNameAssignedForSubscription() {
+        return accountNameAssignedForSubscription;
+    }
+
+    public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
+        this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
     }
 }

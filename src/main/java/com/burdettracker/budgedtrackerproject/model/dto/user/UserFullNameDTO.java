@@ -6,15 +6,15 @@ public class UserFullNameDTO {
     private String lastName;
     private String email;
     private String membership;
+    private String accountNameAssignedForSubscription;
 
-    public UserFullNameDTO() {
-    }
 
-    public UserFullNameDTO(String firstName, String lastName,String email,String membership) {
+    public UserFullNameDTO(String firstName, String lastName, String email, String membership, String accountNameAssignedForSubscription) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.membership = membership;
+        this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
     }
 
     public String getEmail() {
@@ -49,8 +49,16 @@ public class UserFullNameDTO {
         this.membership = membership;
     }
 
+    public String getAccountNameAssignedForSubscription() {
+        return accountNameAssignedForSubscription;
+    }
+
+    public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
+        this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
+    }
+
     @Override
     public String toString() {
-        return firstName + " "+ lastName;
+        return firstName + " " + lastName;
     }
 }

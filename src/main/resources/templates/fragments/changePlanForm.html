@@ -34,7 +34,9 @@
         <option class="membershipPlanFormOption"
                 th:each="m : ${memberships}"
                 th:text="${m}"
-                th:value="${m}">
+                th:value="${m}"
+                th:selected="${userFullNameDTO.getMembership()}"
+                >
         </option>
       </select>
     </div>
@@ -46,6 +48,7 @@
                     th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                     th:text="${a.getName()}"
                     th:value="${a.getName()}"
+                    th:selected="${userFullNameDTO.getAccountNameAssignedForSubscription()}"
             >
 
             </option>

@@ -21,7 +21,7 @@ public class User {
     @Id
     @UuidGenerator
     private UUID id;
-    @Column(name = "user_type", nullable = false)
+    @Column(name = "membership_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
     @Column(name = "first_name", nullable = false)
