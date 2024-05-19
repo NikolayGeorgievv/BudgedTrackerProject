@@ -57,7 +57,10 @@ public class UserServiceImpl implements UserService {
         }else{
             user.setRole(UserRole.USER);
         }
-
+        //Set registeredOn, this will be used for account subscription reference
+        user.setRegisteredOnDate(LocalDate.now());
+        //Subscription fees will be deducted from the basic account
+        user.setAccountNameAssignedForSubscription(user.getAccounts().get(0).getName());
         userRepository.saveAndFlush(user);
         transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
         accountRepository.saveAllAndFlush(user.getAccounts());

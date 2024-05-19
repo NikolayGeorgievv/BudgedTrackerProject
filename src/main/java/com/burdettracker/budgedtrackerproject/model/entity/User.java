@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +38,10 @@ public class User {
     @Column
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    @Column(name = "registered_on", nullable = false)
+    private LocalDate registeredOnDate;
+
+    private String accountNameAssignedForSubscription;
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -157,5 +162,21 @@ public class User {
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+    }
+
+    public LocalDate getRegisteredOnDate() {
+        return registeredOnDate;
+    }
+
+    public void setRegisteredOnDate(LocalDate registeredOnDate) {
+        this.registeredOnDate = registeredOnDate;
+    }
+
+    public String getAccountNameAssignedForSubscription() {
+        return accountNameAssignedForSubscription;
+    }
+
+    public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
+        this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
     }
 }
