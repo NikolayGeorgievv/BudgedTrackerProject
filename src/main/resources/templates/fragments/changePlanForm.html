@@ -41,7 +41,7 @@
 
       <div class="d-flex flex-column" >
           <label id="accountToUseLabel" class="membershipLabel">Account to use</label>
-          <select name="accountToUse" class="membershipDropdown">
+          <select name="accountToUse" class="membershipDropdown" id="planAccountToUse">
             <option class="membershipPlanFormOption"
                     th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                     th:text="${a.getName()}"
@@ -54,12 +54,27 @@
 
     </div>
 
-    <button type="submit" class="button" id="submitGoalButton" disabled>Change my plan!</button>
+    <button type="submit" class="button" id="submitChangesButton" disabled>Change my plan!</button>
     <button type="button" class="button" onclick="closeChangePlanForm()">Close</button>
   </form>
 </div>
 
 <script>
+
+
+  const membership = document.getElementById('membershipDropdownId');
+  const account = document.getElementById('planAccountToUse');
+  const submitChangesButton = document.getElementById('submitChangesButton');
+
+  function checkFormValidity() {
+    const isNameValid = membership.value.trim() !== '';
+    const isAmountValid = account.value.trim() !== '';
+
+    submitChangesButton.disabled = !(isNameValid && isAmountValid);
+  }
+
+  membership.addEventListener('input', checkFormValidity);
+  account.addEventListener('input', checkFormValidity);
 
   function openChangePlanForm(){
     document.getElementById("changePlanForm").style.display = "block";

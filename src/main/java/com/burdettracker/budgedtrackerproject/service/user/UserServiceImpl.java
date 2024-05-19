@@ -3,10 +3,12 @@ package com.burdettracker.budgedtrackerproject.service.user;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
 import com.burdettracker.budgedtrackerproject.repository.*;
 import org.modelmapper.ModelMapper;
@@ -123,7 +125,6 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         accountRepository.saveAndFlush(account);
     }
-    //TODO: MOVE THIS TO EXPENSE SERVICE
     @Override
     public void addExpense(String email, ExpenseDTO expenseDTO) {
         User user = this.userRepository.getByEmail(email);
@@ -266,6 +267,19 @@ public class UserServiceImpl implements UserService {
         accountRepository.saveAndFlush(account);
         userRepository.saveAndFlush(user);
         goalsRepository.saveAndFlush(goal);
+    }
+
+    @Override
+    public void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email) {
+        User user = userRepository.getByEmail(email);
+        user.setAccountNameAssignedForSubscription(changePlanDTO.getAccountToUse());
+        switch (changePlanDTO.getMembership()){
+            case "FREE": user.setMembershipType(MembershipType.FREE);break;
+            case "GOLD": user.setMembershipType(MembershipType.GOLD);break;
+            case "PREMIUM": user.setMembershipType(MembershipType.PREMIUM);break;
+        }
+
+        userRepository.saveAndFlush(user);
     }
 
 }

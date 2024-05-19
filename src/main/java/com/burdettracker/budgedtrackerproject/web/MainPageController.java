@@ -2,6 +2,7 @@ package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -38,6 +40,14 @@ public class MainPageController extends BaseController{
         return "redirect:/index";
     }
 
+    @PostMapping("/changePlan")
+    public String changeMembershipPlan(@ModelAttribute("changePlanDTO")ChangeMembershipDTO changePlanDTO){
+
+        userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
+
+        return "redirect:/index";
+    }
+
     public UserExpensesDetailsDTO getUserByEmail(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
@@ -45,5 +55,7 @@ public class MainPageController extends BaseController{
         return userService.getUserByEmail(currentUserName);
 
     }
+
+
 
 }
