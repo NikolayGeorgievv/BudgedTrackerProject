@@ -4,8 +4,10 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullDetailsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
@@ -24,6 +26,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -317,6 +320,14 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public AllUsersInfoDTO getAllUsersInfo() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers, UserFullDetailsInfoDTO[].class)).toList();
+        AllUsersInfoDTO allUsersInfoDTO = new AllUsersInfoDTO(mappedUsers);
+        return allUsersInfoDTO;
     }
 
 }

@@ -25,3 +25,4 @@ public class AdminController extends BaseController{
         return "/adminPage";
     }
 }
+//<a th:href="@{/adminPage}" class="nav-link px-2 text-white">Admin Panel</a>

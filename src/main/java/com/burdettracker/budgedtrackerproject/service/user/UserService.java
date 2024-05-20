@@ -5,9 +5,12 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
 import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 public interface UserService {
     void registerUser(RegisterUserDTO registerUserDTO);
@@ -24,4 +27,6 @@ public interface UserService {
     void addGoal(String currentUserName, GoalDTO goalDTO);
 
     void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email);
+
+    AllUsersInfoDTO getAllUsersInfo();
 }

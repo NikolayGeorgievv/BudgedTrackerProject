@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
@@ -47,7 +48,10 @@ public class BaseController {
         this.transactionService = transactionService;
     }
 
-
+    @ModelAttribute("allUsersDTO")
+    public AllUsersInfoDTO allUsersDTO(){
+       return this.userService.getAllUsersInfo();
+    }
 
     @ModelAttribute("allCompletedGoalsInfoDTO")
     public AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO(){

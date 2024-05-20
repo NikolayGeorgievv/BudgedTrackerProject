@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.config;
 
+import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.user.UserDetailImpl;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
@@ -25,8 +26,7 @@ public class SecurityConfig {
 //                                // Allow anyone to see the home page, the registration page and the login form.
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
                                 .requestMatchers("/error", "/fragments/**", "/users/termsAndConditions.html").permitAll()
-                                //Allowing all, just for testing!!
-//                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/adminPage").hasRole(UserRoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
                 ).formLogin(
                         formLogin -> {
