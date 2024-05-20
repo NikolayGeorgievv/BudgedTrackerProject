@@ -18,7 +18,7 @@
 
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Add goal" value="Add goal" onclick="openChangePlanForm()"
-><i class="fa-regular fa-heart"></i></button>
+><i class="fa-solid fa-arrow-trend-up"></i></button>
 <div class="form-popup" id="changePlanForm">
   <form
           th:action="@{${#strings.isEmpty(name) ? '/index' : '/changePlan'}}"

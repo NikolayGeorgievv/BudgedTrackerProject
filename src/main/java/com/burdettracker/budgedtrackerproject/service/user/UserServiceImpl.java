@@ -9,7 +9,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetails
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final GoalsRepository goalsRepository;
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository) {
+    private final RolesRepository rolesRepository;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
         this.goalsRepository = goalsRepository;
+        this.rolesRepository = rolesRepository;
     }
 
     @Override
@@ -53,12 +56,23 @@ public class UserServiceImpl implements UserService {
 
         User user = mapUser(registerUserDTO);
 
+
+        UserRoleEntity userRoleEntity = new UserRoleEntity();
+
         //First registered user will be Admin
-        if (this.userRepository.count() == 0){
-            user.setRole(UserRole.ADMIN);
-        }else{
-            user.setRole(UserRole.USER);
+        if (this.userRepository.count() == 0) {
+            UserRoleEntity adminRoleEntity = new UserRoleEntity();
+            adminRoleEntity.setRole(UserRoleEnum.ADMIN);
+            userRoleEntity.setRole(UserRoleEnum.USER);
+            user.setRoles(List.of(userRoleEntity, adminRoleEntity));
+            rolesRepository.saveAllAndFlush(List.of(userRoleEntity, adminRoleEntity));
+        } else {
+            userRoleEntity.setRole(UserRoleEnum.USER);
+            user.setRoles(List.of(userRoleEntity));
+            rolesRepository.saveAndFlush(userRoleEntity);
         }
+
+
         //Set registeredOn, this will be used for account subscription reference
         user.setRegisteredOnDate(LocalDate.now());
         //Subscription fees will be deducted from the basic account
@@ -86,25 +100,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserExpensesDetailsDTO getUserByEmail(String email) {
         User userByEmail = userRepository.getByEmail(email);
-       return modelMapper.map(userByEmail, UserExpensesDetailsDTO.class);
+        return modelMapper.map(userByEmail, UserExpensesDetailsDTO.class);
     }
 
 
-
-    private User mapUser(RegisterUserDTO registerUserDTO){
+    private User mapUser(RegisterUserDTO registerUserDTO) {
 
         User user = modelMapper.map(registerUserDTO, User.class);
         user.setPassword(passwordEncoder.encode(registerUserDTO.getPassword()));
 
         //Set users account limit based on his membership
-        switch (user.getMembershipType()){
+        switch (user.getMembershipType()) {
             case FREE -> user.setUserAccountsAllowed(1);
             case GOLD -> user.setUserAccountsAllowed(2);
             case PREMIUM -> user.setUserAccountsAllowed(20);
         }
         //Set basic account for the user
         List<Transaction> transactions = new ArrayList<>();
-        Account baseAccount = new Account("MyAccount",LocalDate.now(), CurrencyType.LV,BigDecimal.ZERO,transactions, user);
+        Account baseAccount = new Account("MyAccount", LocalDate.now(), CurrencyType.LV, BigDecimal.ZERO, transactions, user);
         user.getAccounts().add(baseAccount);
         return user;
     }
@@ -125,6 +138,7 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
         accountRepository.saveAndFlush(account);
     }
+
     @Override
     public void addExpense(String email, ExpenseDTO expenseDTO) {
         User user = this.userRepository.getByEmail(email);
@@ -135,7 +149,7 @@ public class UserServiceImpl implements UserService {
         expense.setAccount(accountToUse);
         expense.setUser(user);
 
-        if (expenseDTO.getPeriodDate().equals("")){
+        if (expenseDTO.getPeriodDate().equals("")) {
             //period = yearly or one-time-buy
             //period date needs to be set
             String[] dateData = expenseDTO.getDateDue().split("-");
@@ -145,18 +159,18 @@ public class UserServiceImpl implements UserService {
             int year = Integer.parseInt(dateData[2]);
 
             //check if the given date is in the future
-            if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now()) || LocalDate.of(year, Month.valueOf(month), day).equals(LocalDate.now())){
+            if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now()) || LocalDate.of(year, Month.valueOf(month), day).equals(LocalDate.now())) {
                 //TODO: CHECK IF THE BILL IS ONE-TIME-BUY
                 expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
-                expense.setPeriodDate(String.format("%d-%s-%d", day,monthNormalCasing,year));
-            }else {
+                expense.setPeriodDate(String.format("%d-%s-%d", day, monthNormalCasing, year));
+            } else {
                 throw new RuntimeException("Date should be in the future!");
             }
         } else if (expenseDTO.getDateDue().equals("")) {
             //period = weekly or monthly
             //dateDue needs to be set
 
-            if (expenseDTO.getPeriod().equals("weekly")){
+            if (expenseDTO.getPeriod().equals("weekly")) {
 
                 String periodDateDay = expenseDTO.getPeriodDate();
                 int periodDateDayValue = getPeriodDateDayValue(periodDateDay);
@@ -165,41 +179,41 @@ public class UserServiceImpl implements UserService {
                     LocalDate dateToCheck = LocalDate.now().plusDays(i);
 
                     DayOfWeek neededDay = DayOfWeek.of(periodDateDayValue);
-                    if (dateToCheck.getDayOfWeek().equals(neededDay)){
+                    if (dateToCheck.getDayOfWeek().equals(neededDay)) {
                         expense.setDateDue(dateToCheck);
                     }
                 }
 
-            }else if (expenseDTO.getPeriod().equals("monthly")){
+            } else if (expenseDTO.getPeriod().equals("monthly")) {
                 String periodDateDay = expenseDTO.getPeriodDate();
                 // 20th  => yyyy MM 20
                 int todayDayOfMonth = LocalDate.now().getDayOfMonth();
                 int totalMonthDays = LocalDate.now().lengthOfMonth();
                 int periodDateDayValue = 0;
-                if (periodDateDay.equals("Last day of month")){
+                if (periodDateDay.equals("Last day of month")) {
                     periodDateDayValue = totalMonthDays;
-                }else {
+                } else {
                     char[] dateDayCharArr = periodDateDay.toCharArray();
                     String result;
-                    if (periodDateDay.length() == 3){
+                    if (periodDateDay.length() == 3) {
                         //0-9
                         result = String.valueOf(dateDayCharArr[0]);
                         periodDateDayValue = Integer.parseInt(result);
-                    }else {
+                    } else {
                         //10-30
                         result = String.valueOf(String.valueOf(dateDayCharArr[0]) + String.valueOf(dateDayCharArr[1]));
                         periodDateDayValue = Integer.parseInt(result);
                     }
                 }
                 //Check where DateDue is based on today's date.
-                if (todayDayOfMonth <= periodDateDayValue){
+                if (todayDayOfMonth <= periodDateDayValue) {
                     //month stays the same
                     LocalDate dateToSet = LocalDate.of(
                             LocalDate.now().getYear(),
                             LocalDate.now().getMonth(),
                             periodDateDayValue);
                     expense.setDateDue(dateToSet);
-                }else{
+                } else {
                     //month +1
                     //TODO: CHECK IF +1 MONTH WORKS CORRECTLY FOR TURNING YEAR AHEAD
                     LocalDate dateToSet = LocalDate.of(
@@ -222,14 +236,28 @@ public class UserServiceImpl implements UserService {
     //TODO: TAKE THOSE METHODS IN A UTIL CLASS
     private int getPeriodDateDayValue(String periodDateDay) {
         int result = 0;
-        switch (periodDateDay){
-            case "Monday": result = 1;break;
-            case "Tuesday":  result = 2;break;
-            case "Wednesday":  result = 3;break;
-            case "Thursday":  result = 4;break;
-            case "Friday":  result = 5;break;
-            case "Saturday":  result = 6;break;
-            case "Sunday":  result = 7;break;
+        switch (periodDateDay) {
+            case "Monday":
+                result = 1;
+                break;
+            case "Tuesday":
+                result = 2;
+                break;
+            case "Wednesday":
+                result = 3;
+                break;
+            case "Thursday":
+                result = 4;
+                break;
+            case "Friday":
+                result = 5;
+                break;
+            case "Saturday":
+                result = 6;
+                break;
+            case "Sunday":
+                result = 7;
+                break;
         }
         return result;
     }
@@ -253,10 +281,10 @@ public class UserServiceImpl implements UserService {
                 LocalDate.now(),
                 //Completed on
                 null);
-        if (goal.getCurrentAmount() == null){
+        if (goal.getCurrentAmount() == null) {
             goal.setCurrentAmount(BigDecimal.ZERO);
-        }else {
-            if (goalDTO.getCurrentAmount().equals(goalDTO.getAmountToBeSaved())){
+        } else {
+            if (goalDTO.getCurrentAmount().equals(goalDTO.getAmountToBeSaved())) {
                 goal.setCompleted(true);
                 goal.setCompletedOn(LocalDate.now());
             }
@@ -273,10 +301,19 @@ public class UserServiceImpl implements UserService {
     public void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email) {
         User user = userRepository.getByEmail(email);
         user.setAccountNameAssignedForSubscription(changePlanDTO.getAccountToUse());
-        switch (changePlanDTO.getMembership()){
-            case "FREE": user.setMembershipType(MembershipType.FREE);break;
-            case "GOLD": user.setMembershipType(MembershipType.GOLD);break;
-            case "PREMIUM": user.setMembershipType(MembershipType.PREMIUM);break;
+        switch (changePlanDTO.getMembership()) {
+            case "FREE":
+                user.setMembershipType(MembershipType.FREE);
+                user.setUserAccountsAllowed(1);
+                break;
+            case "GOLD":
+                user.setMembershipType(MembershipType.GOLD);
+                user.setUserAccountsAllowed(2);
+                break;
+            case "PREMIUM":
+                user.setMembershipType(MembershipType.PREMIUM);
+                user.setUserAccountsAllowed(20);
+                break;
         }
 
         userRepository.saveAndFlush(user);

@@ -2,12 +2,11 @@ package com.burdettracker.budgedtrackerproject.model.entity;
 
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRole;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +34,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
     private int userAccountsAllowed;
-    @Column
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
     @Column(name = "registered_on", nullable = false)
     private LocalDate registeredOnDate;
 
@@ -56,16 +52,14 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Expense> expenses = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<UserRoleEntity>  roles;
 
     public User() {
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public UUID getId() {
@@ -178,5 +172,13 @@ public class User {
 
     public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
         this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
+    }
+
+    public List<UserRoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRoleEntity> roles) {
+        this.roles = roles;
     }
 }

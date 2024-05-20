@@ -22,9 +22,6 @@
 </div>
 
 
-<!--  SIDEBAR-->
-
-
 <!--  main div that holds sidebar and table-->
 <div class="d-flex">
 
@@ -66,15 +63,15 @@
             </div>
 
             <div class="d-flex flex-column" style="margin-right: 10px">
-                <div class="d-flex justify-content-between" style="color: white">
+                <div class="d-flex" style="color: white">
                     <p style="color: #2c396a; font-weight: bold; margin-right: 10px">My current plan is </p>
                     <p th:text="${userFullNameDTO.getMembership()}"
                        style="color: #f3a63b; font-weight: bold; font-style: italic"></p>
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <div class="d-inline-flex align-items-left rounded border-0">
-                        <p style="color: #2c396a;font-weight: bold">Change plan here</p>
+                <div class="d-flex">
+                    <div>
+                        <p style="color: #2c396a;font-weight: bold; margin-right: 10px">Change plan here</p>
                     </div>
                     <form
                             th:action="@{/changePlan}"

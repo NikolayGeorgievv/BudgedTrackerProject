@@ -1,6 +1,9 @@
 package com.burdettracker.budgedtrackerproject.service.user;
 
+import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,8 +32,14 @@ public class UserDetailImpl implements UserDetailsService {
     private static UserDetails map(com.burdettracker.budgedtrackerproject.model.entity.User user) {
         return User.withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities(List.of())
+                .authorities(user.getRoles().stream().map(UserDetailImpl::mapRoles).toList())
                 .build();
 
+    }
+
+    private static GrantedAuthority mapRoles(UserRoleEntity userRoleEntity) {
+        return new SimpleGrantedAuthority(
+                "ROLE_" + userRoleEntity.getRole().name()
+        );
     }
 }

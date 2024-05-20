@@ -82,7 +82,12 @@ public class BaseController {
     public UserFullNameDTO userFullNameDTO() {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
-        return new UserFullNameDTO(userByEmail.getFirstName(), userByEmail.getLastName(), userByEmail.getEmail(), userByEmail.getMembershipType().toString(), userByEmail.getAccountNameAssignedForSubscription());
+        return new UserFullNameDTO(
+                userByEmail.getFirstName(),
+                userByEmail.getLastName(),
+                userByEmail.getEmail(),
+                userByEmail.getMembershipType().toString(),
+                userByEmail.getAccountNameAssignedForSubscription());
     }
 
     @ModelAttribute("expenseDTO")
