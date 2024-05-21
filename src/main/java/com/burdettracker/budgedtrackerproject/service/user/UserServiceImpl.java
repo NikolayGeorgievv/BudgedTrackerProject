@@ -57,19 +57,19 @@ public class UserServiceImpl implements UserService {
         User user = mapUser(registerUserDTO);
 
 
-        UserRoleEntity userRoleEntity = new UserRoleEntity();
 
-        //First registered user will be Admin
+        //First registered user will be Admin, also populate roles table
         if (this.userRepository.count() == 0) {
+            UserRoleEntity userRoleEntity = new UserRoleEntity();
             UserRoleEntity adminRoleEntity = new UserRoleEntity();
+
             adminRoleEntity.setRole(ADMIN);
             userRoleEntity.setRole(UserRoleEnum.USER);
-            user.setRoles(List.of(userRoleEntity, adminRoleEntity));
             rolesRepository.saveAllAndFlush(List.of(userRoleEntity, adminRoleEntity));
+            user.setRoles(List.of(userRoleEntity, adminRoleEntity));
         } else {
-            userRoleEntity.setRole(UserRoleEnum.USER);
-            user.setRoles(List.of(userRoleEntity));
-            rolesRepository.saveAndFlush(userRoleEntity);
+            UserRoleEntity userRole = rolesRepository.getReferenceById(1L);
+            user.setRoles(List.of(userRole));
         }
 
 
@@ -360,23 +360,15 @@ public class UserServiceImpl implements UserService {
             user.setPhoneNumber(userChangeInformationDTO.getNewPhoneNumber());
         }
         if (userChangeInformationDTO.isPromoteUser()){
-            UserRoleEntity ADMIN = new UserRoleEntity();
-            ADMIN.setRole(UserRoleEnum.ADMIN);
-            UserRoleEntity USER = new UserRoleEntity();
-            USER.setRole(UserRoleEnum.USER);
+            UserRoleEntity ADMIN = rolesRepository.getReferenceById(2L);
+            UserRoleEntity USER = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(ADMIN, USER));
-            rolesRepository.saveAllAndFlush(List.of(ADMIN, USER));
         }
         if (userChangeInformationDTO.isDemoteAdmin()){
-            UserRoleEntity USER = new UserRoleEntity();
-            USER.setRole(UserRoleEnum.USER);
+            UserRoleEntity USER = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(USER));
-            rolesRepository.saveAndFlush(USER);
         }
-        try {
             userRepository.saveAndFlush(user);
-        }catch (UnsupportedOperationException exception){
 
-        }
     }
 }
