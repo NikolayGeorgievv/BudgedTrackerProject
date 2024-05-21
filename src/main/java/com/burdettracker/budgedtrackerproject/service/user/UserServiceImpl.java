@@ -368,7 +368,13 @@ public class UserServiceImpl implements UserService {
             UserRoleEntity USER = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(USER));
         }
+        try {
             userRepository.saveAndFlush(user);
+
+        }catch (UnsupportedOperationException ex){
+            userRepository.saveAndFlush(user);
+
+        }
 
     }
 }
