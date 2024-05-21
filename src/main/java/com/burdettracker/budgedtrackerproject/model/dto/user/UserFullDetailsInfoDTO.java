@@ -27,6 +27,9 @@ public class UserFullDetailsInfoDTO {
     private List<UserRoleEntity>  roles;
     private String registeredOnDate;
 
+    public UserFullDetailsInfoDTO() {
+    }
+
     public UUID getId() {
         return id;
     }

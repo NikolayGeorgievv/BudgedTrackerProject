@@ -20,6 +20,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +49,12 @@ public class BaseController {
         this.goalsService = goalsService;
         this.transactionService = transactionService;
     }
+
+
+//    @ModelAttribute("filteredUsers")
+//    public AllUsersInfoDTO filterUsersByEmail(@RequestParam("emailFilter") String email){
+//        return this.userService.filterAllUsersByEmail(email);
+//    }
 
     @ModelAttribute("allUsersDTO")
     public AllUsersInfoDTO allUsersDTO(){

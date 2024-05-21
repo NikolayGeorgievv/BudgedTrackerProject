@@ -28,6 +28,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -330,4 +331,15 @@ public class UserServiceImpl implements UserService {
         return allUsersInfoDTO;
     }
 
+    @Override
+    public AllUsersInfoDTO filterAllUsersByEmail(String email) {
+        Optional<List<User>> allUsers = userRepository.findAllByEmailContaining(email);
+        if (allUsers.isEmpty()){
+            //TODO: CATCH EX
+            return null;
+        }
+        List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers.get(), UserFullDetailsInfoDTO[].class)).toList();
+        AllUsersInfoDTO allUsersInfoDTO = new AllUsersInfoDTO(mappedUsers);
+        return allUsersInfoDTO;
+    }
 }

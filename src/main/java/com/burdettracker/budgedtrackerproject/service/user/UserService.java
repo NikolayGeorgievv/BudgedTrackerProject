@@ -29,4 +29,7 @@ public interface UserService {
     void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email);
 
     AllUsersInfoDTO getAllUsersInfo();
+
+    AllUsersInfoDTO filterAllUsersByEmail(String email);
+
 }

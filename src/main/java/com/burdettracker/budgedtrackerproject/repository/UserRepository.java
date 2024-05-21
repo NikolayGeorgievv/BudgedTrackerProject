@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<List<User>> findAllByRegisteredOnDate(LocalDate date);
 
+    Optional<List<User>> findAllByEmailContaining(String email);
+
 }
