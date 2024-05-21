@@ -184,7 +184,7 @@
                                 <div class="d-flex flex-column" style="width: 100%">
                                     <label id="accountToUseLabel">From account</label>
                                     <!--  TODO: DEFAULT SHOULD BE CURRENT USED ACCOUNT-->
-                                    <select name="accountToUse">
+                                    <select name="accountToUse" id="editGoalAccountSelect">
                                         <option
                                                 th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                                                 th:text="${a.getName()}"
@@ -244,6 +244,9 @@
 
     #editModalLabel {
         color: white;
+    }
+    #editGoalAccountSelect{
+        height: 35px;
     }
 </style>
 

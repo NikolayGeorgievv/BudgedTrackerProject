@@ -30,7 +30,7 @@
 
     <div class="flex-grow-1">
         <!--TOP BAR-->
-        <div class="d-flex" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
+        <div class="d-flex" id="adminTopBar">
 
             <!--      USER DATA-->
             <div>
@@ -39,7 +39,7 @@
                         th:method="get"
                 >
                     <input type="text" id="userSearch" name="emailFilter" placeholder="Search users...">
-                    <button type="submit">Search</button>
+                    <button type="submit" id="filterUserBtn" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold">Search</button>
                 </form>
 
 
@@ -99,7 +99,8 @@
                             style="padding-left: 15px; font-weight: 550;">
                     </td>
                     <td>
-                        <button>EDIT</button>
+                        <a      th:href="@{/allUsers/{userId}/editUser(userId = ${u.getId()})}"
+                                class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" id="editUserBtn">Full Information</a>
                     </td>
 
 
@@ -116,6 +117,20 @@
 <style>
     .table {
         --bs-table-bg: transparent;
+    }
+    #adminTopBar{
+        border-bottom: 1px solid #2c396a;
+        margin: 15px 10px;
+    }
+    #userSearch{
+        width: 300px;
+    }
+    #filterUserBtn{
+        margin-bottom: 5px;
+        color: black;
+    }
+    #editUserBtn{
+        color: black;
     }
 </style>
 </body>

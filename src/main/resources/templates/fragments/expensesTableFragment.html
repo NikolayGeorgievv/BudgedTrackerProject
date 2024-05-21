@@ -160,7 +160,7 @@
                             <div class="d-flex flex-column" style="width: 100%">
                                     <label id="accountToUseLabel">Account to use</label>
 <!--                                    TODO: DEFAULT SHOULD BE CURRENT USED ACCOUNT-->
-                                    <select name="accountToUse">
+                                    <select name="accountToUse" id="editExpenseAccountSelect">
                                         <option
                                                 th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                                                 th:text="${a.getName()}"

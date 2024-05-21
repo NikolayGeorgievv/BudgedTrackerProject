@@ -4,10 +4,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.RegisterUserDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullDetailsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.user.*;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
@@ -25,10 +22,9 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum.ADMIN;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -66,7 +62,7 @@ public class UserServiceImpl implements UserService {
         //First registered user will be Admin
         if (this.userRepository.count() == 0) {
             UserRoleEntity adminRoleEntity = new UserRoleEntity();
-            adminRoleEntity.setRole(UserRoleEnum.ADMIN);
+            adminRoleEntity.setRole(ADMIN);
             userRoleEntity.setRole(UserRoleEnum.USER);
             user.setRoles(List.of(userRoleEntity, adminRoleEntity));
             rolesRepository.saveAllAndFlush(List.of(userRoleEntity, adminRoleEntity));
@@ -334,12 +330,53 @@ public class UserServiceImpl implements UserService {
     @Override
     public AllUsersInfoDTO filterAllUsersByEmail(String email) {
         Optional<List<User>> allUsers = userRepository.findAllByEmailContaining(email);
-        if (allUsers.isEmpty()){
+        if (allUsers.isEmpty()) {
             //TODO: CATCH EX
             return null;
         }
         List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers.get(), UserFullDetailsInfoDTO[].class)).toList();
         AllUsersInfoDTO allUsersInfoDTO = new AllUsersInfoDTO(mappedUsers);
         return allUsersInfoDTO;
+    }
+
+    @Override
+    public UserFullDetailsInfoDTO getUserById(String userId) {
+        User user = this.userRepository.getReferenceById(UUID.fromString(userId));
+        UserFullDetailsInfoDTO mappedUser = modelMapper.map(user, UserFullDetailsInfoDTO.class);
+        return mappedUser;
+    }
+
+    @Override
+    public void updateUser(UserChangeInformationDTO userChangeInformationDTO) {
+        User user = userRepository.getReferenceById(UUID.fromString(userChangeInformationDTO.getId()));
+
+        if (!userChangeInformationDTO.getNewFirstName().trim().equals("")){
+            user.setFirstName(userChangeInformationDTO.getNewFirstName());
+        }
+        if (!userChangeInformationDTO.getNewLastName().trim().equals("")){
+            user.setLastName(userChangeInformationDTO.getNewLastName());
+        }
+        if (!userChangeInformationDTO.getNewPhoneNumber().trim().equals("")){
+            user.setPhoneNumber(userChangeInformationDTO.getNewPhoneNumber());
+        }
+        if (userChangeInformationDTO.isPromoteUser()){
+            UserRoleEntity ADMIN = new UserRoleEntity();
+            ADMIN.setRole(UserRoleEnum.ADMIN);
+            UserRoleEntity USER = new UserRoleEntity();
+            USER.setRole(UserRoleEnum.USER);
+            user.setRoles(List.of(ADMIN, USER));
+            rolesRepository.saveAllAndFlush(List.of(ADMIN, USER));
+        }
+        if (userChangeInformationDTO.isDemoteAdmin()){
+            UserRoleEntity USER = new UserRoleEntity();
+            USER.setRole(UserRoleEnum.USER);
+            user.setRoles(List.of(USER));
+            rolesRepository.saveAndFlush(USER);
+        }
+        try {
+            userRepository.saveAndFlush(user);
+        }catch (UnsupportedOperationException exception){
+
+        }
     }
 }

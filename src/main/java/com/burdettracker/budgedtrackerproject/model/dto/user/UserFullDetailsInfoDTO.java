@@ -141,4 +141,14 @@ public class UserFullDetailsInfoDTO {
     public void setRegisteredOnDate(String registeredOnDate) {
         this.registeredOnDate = registeredOnDate;
     }
+
+    public String getAllRoles(){
+        StringBuilder sb = new StringBuilder();
+        this.getRoles().forEach(r ->{
+            String role = r.getRole().name();
+            sb.append(role);
+            sb.append(" ");
+        });
+        return sb.toString();
+    }
 }
