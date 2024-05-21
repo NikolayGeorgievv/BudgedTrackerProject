@@ -43,6 +43,12 @@
         ></p>
       </div>
       <div>
+        <form
+        th:action="@{/downloadCSV/{accountId}(accountId = ${currentAccountDTO.getId()})}"
+        th:method="get">
+        <button type="submit" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold">download</button>
+
+        </form>
       </div>
     </div>
     <br>
