@@ -120,7 +120,7 @@
                         <div class="d-flex flex-column">
                             <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
                                 <label id="billLabel">Bill</label>
-                                <input type="text" placeholder="Bill name" name="name" id="name">
+                                <input class="expenseTableInput" type="text" placeholder="Bill name" name="name" id="name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -142,7 +142,7 @@
                                         <input type="text" id="datepickerInput1" name="dateDue"
                                                th:replace="~{fragments/datepicker}">
                                     </div>
-                                    <input type="text" id="dateInputField1" name="periodDate">
+                                    <input class="expenseTableInput" type="text" id="dateInputField1" name="periodDate">
                                     <input type="hidden" id="period1" name="period">
                                 </div>
                             </div>
