@@ -36,9 +36,9 @@
                 <p
                         th:action="@{/allAccountsPage}"
                         th:method="get"
-                        th:text="'Total funds: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()} "
-                        style="color: green; font-weight: bold"
-                ></p>
+                        th:text="'Total funds: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                        th:style="${allAccountsInfoDTO.getTotalBalance()} < 0 ? 'color: red;border: none; font-weight: bold; font-style: italic;'
+                                     : 'color: green;border: none; font-weight: bold; font-style: italic;'"></p>
             </div>
             <div>
 <!--                TODO: ADD SECOND CURRENCY-->
@@ -139,8 +139,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="accountModalContent">
             <div class="flex-grow-1">
-                <div class="modal-header">
+                <div class="d-flex justify-content-between align-items-center modal-header">
+                <div>
                     <h5 class="modal-title" id="editModalLabel">Edit Account</h5>
+                </div>
+                <div id="editAccountInfo">
+                    <div class="editAccountInfo"><i class="fa-solid fa-circle-info fa-2x"></i></div>
+                    <div class="hideInfo">Did you know? You don't have to fill every field! Just the ones you want to update</div>
+                </div>
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/editAccount}"
@@ -185,6 +191,26 @@
     }
     #editModalLabel{
         color: white;
+    }
+
+    .hideInfo {
+        display: none;
+        background-color: #2c396a;
+        overflow: visible;
+        position: relative;
+    }
+
+    .editAccountInfo:hover + .hideInfo {
+        display: block;
+        color: white;
+    }
+    .editAccountInfo:hover{
+        display: none;
+
+    }
+    .editAccountInfo{
+        margin-right: 15px;
+        padding: 10px;
     }
 </style>
 </body>
