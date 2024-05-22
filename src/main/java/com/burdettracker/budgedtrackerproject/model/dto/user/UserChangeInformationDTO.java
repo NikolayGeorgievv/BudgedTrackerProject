@@ -8,6 +8,7 @@ public class UserChangeInformationDTO {
     private String newPhoneNumber;
     private boolean demoteAdmin;
     private boolean promoteUser;
+    private String membership;
 
 
     public String getId() {
@@ -56,5 +57,13 @@ public class UserChangeInformationDTO {
 
     public void setPromoteUser(boolean promoteUser) {
         this.promoteUser = promoteUser;
+    }
+
+    public String getMembership() {
+        return membership;
+    }
+
+    public void setMembership(String membership) {
+        this.membership = membership;
     }
 }

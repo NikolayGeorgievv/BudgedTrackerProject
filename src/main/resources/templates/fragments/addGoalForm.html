@@ -39,7 +39,7 @@
       <div class="d-flex justify-content-between">
           <label id="accountToUseLabel1" style="margin-left: 5px">Account to use</label>
 
-          <select name="accountToUse" style="width: 200px; margin-right: 5px">
+          <select name="accountToUse" style="width: 200px; margin-right: 5px; font-weight: bold">
             <option
                     th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
                     th:text="${a.getName()}"

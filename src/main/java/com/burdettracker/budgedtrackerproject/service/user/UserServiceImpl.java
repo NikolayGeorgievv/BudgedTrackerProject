@@ -301,20 +301,7 @@ public class UserServiceImpl implements UserService {
     public void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email) {
         User user = userRepository.getByEmail(email);
         user.setAccountNameAssignedForSubscription(changePlanDTO.getAccountToUse());
-        switch (changePlanDTO.getMembership()) {
-            case "FREE":
-                user.setMembershipType(MembershipType.FREE);
-                user.setUserAccountsAllowed(1);
-                break;
-            case "GOLD":
-                user.setMembershipType(MembershipType.GOLD);
-                user.setUserAccountsAllowed(2);
-                break;
-            case "PREMIUM":
-                user.setMembershipType(MembershipType.PREMIUM);
-                user.setUserAccountsAllowed(20);
-                break;
-        }
+        changeUserMembership(user, changePlanDTO.getMembership());
 
         userRepository.saveAndFlush(user);
     }
@@ -350,6 +337,9 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserChangeInformationDTO userChangeInformationDTO) {
         User user = userRepository.getReferenceById(UUID.fromString(userChangeInformationDTO.getId()));
 
+        if (!user.getMembershipType().toString().equals(userChangeInformationDTO.getMembership())){
+            changeUserMembership(user, userChangeInformationDTO.getMembership());
+        }
         if (!userChangeInformationDTO.getNewFirstName().trim().equals("")){
             user.setFirstName(userChangeInformationDTO.getNewFirstName());
         }
@@ -376,5 +366,22 @@ public class UserServiceImpl implements UserService {
 
         }
 
+    }
+
+    private void changeUserMembership(User user, String membership) {
+        switch (membership) {
+            case "FREE":
+                user.setMembershipType(MembershipType.FREE);
+                user.setUserAccountsAllowed(1);
+                break;
+            case "GOLD":
+                user.setMembershipType(MembershipType.GOLD);
+                user.setUserAccountsAllowed(2);
+                break;
+            case "PREMIUM":
+                user.setMembershipType(MembershipType.PREMIUM);
+                user.setUserAccountsAllowed(20);
+                break;
+        }
     }
 }

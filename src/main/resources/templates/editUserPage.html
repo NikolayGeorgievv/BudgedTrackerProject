@@ -137,6 +137,18 @@
                     <form th:action="@{/editUser}"
                           th:method="post"
                           th:object="${editUserInfoDTO}">
+                        <div class="d-flex flex-column">
+                            <label for="membershipDropdownId" class="membershipLabel">Select the desired plan</label>
+                            <select  id="membershipDropdownId" name="membership" class="membershipDropdown">
+                                <option class="membershipPlanFormOption"
+                                        th:each="m : ${memberships}"
+                                        th:text="${m}"
+                                        th:value="${m}"
+                                        th:selected="${userFullNameDTO.getMembership()}"
+                                >
+                                </option>
+                            </select>
+                        </div>
                         <div class="d-flex flex-column justify-content-between">
                             <div class="d-flex flex-column justify-content-between">
                                 <label for="newFirstName">First name:</label>
