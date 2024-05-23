@@ -10,6 +10,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.*;
+import com.burdettracker.budgedtrackerproject.service.email.EmailVerificationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,8 +39,9 @@ public class UserServiceImpl implements UserService {
     private final TransactionRepository transactionRepository;
     private final GoalsRepository goalsRepository;
     private final RolesRepository rolesRepository;
+    private final EmailVerificationService emailVerificationService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository, EmailVerificationService emailVerificationService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -49,16 +51,22 @@ public class UserServiceImpl implements UserService {
         this.transactionRepository = transactionRepository;
         this.goalsRepository = goalsRepository;
         this.rolesRepository = rolesRepository;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Override
     public void registerUser(RegisterUserDTO registerUserDTO) {
 
+        if (registerUserDTO.isENABLED()) {
+            if (emailVerificationService.isEmailValid(registerUserDTO.getEmail())) {
+                throw new RuntimeException("Invalid email.");
+            }
+        }
+
         User user = mapUser(registerUserDTO);
 
-
-
         //First registered user will be Admin, also populate roles table
+        //TODO: ROLES REPO INIT
         if (this.userRepository.count() == 0) {
             UserRoleEntity userRoleEntity = new UserRoleEntity();
             UserRoleEntity adminRoleEntity = new UserRoleEntity();

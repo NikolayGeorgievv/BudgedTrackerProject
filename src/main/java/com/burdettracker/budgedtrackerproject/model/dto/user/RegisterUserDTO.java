@@ -1,10 +1,7 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.Check;
 
 public class RegisterUserDTO {
@@ -29,6 +26,13 @@ public class RegisterUserDTO {
     private MembershipType membership;
     @AssertTrue
     private boolean termsAccepted;
+    @AssertFalse
+    private boolean invalidEmail;
+
+    //REST API ENABLER, change to true to enable it.
+    private final boolean ENABLED = false;
+
+
 
     public boolean isTermsAccepted() {
         return termsAccepted;
@@ -97,4 +101,15 @@ public class RegisterUserDTO {
         this.confirmPassword = confirmPassword;
     }
 
+    public boolean isInvalidEmail() {
+        return invalidEmail;
+    }
+
+    public void setInvalidEmail(boolean invalidEmail) {
+        this.invalidEmail = invalidEmail;
+    }
+
+    public boolean isENABLED() {
+        return ENABLED;
+    }
 }

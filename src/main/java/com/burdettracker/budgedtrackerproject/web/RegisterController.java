@@ -46,9 +46,12 @@ public class RegisterController {
             return "registerForm";
         }
 
+        try {
         userService.registerUser(registerUserDTO);
-
-
+        }catch (RuntimeException err){
+            bindingResult.addError(new FieldError("registerUserDTO", "invalidEmail", "Invalid email"));
+            return "registerForm";
+        }
         return "login";
     }
 
