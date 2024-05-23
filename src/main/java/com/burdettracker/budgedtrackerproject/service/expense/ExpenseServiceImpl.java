@@ -1,24 +1,31 @@
 package com.burdettracker.budgedtrackerproject.service.expense;
 
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final AccountRepository accountRepository;
+    private final ModelMapper modelMapper;
 
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository, AccountRepository accountRepository) {
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, AccountRepository accountRepository, ModelMapper modelMapper) {
         this.expenseRepository = expenseRepository;
         this.accountRepository = accountRepository;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -65,21 +72,23 @@ public class ExpenseServiceImpl implements ExpenseService {
         return this.expenseRepository.findAllByDateDue(todaysDate);
     }
 
+    @Override
+    public List<ExpenseDTO> sortByCategory(String category) {
+        Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory(ExpenseCategories.valueOf(category));
+        if (expensesByCategory.isEmpty()){
+            return null;
+        }
+        return Arrays.stream(modelMapper.map(expensesByCategory.get(), ExpenseDTO[].class)).toList();
+    }
+
 
     private String parseDateDue(String dateToParse){
-        //2024-May-11
+
     String[] dateAsString = dateToParse.split("-");
     String year = dateAsString[2];
     String month = dateAsString[1];
     String day = dateAsString[0];
 
-    //check if the given date is in the future
-//    if (!LocalDate.of(
-//            Integer.parseInt(year),
-//            Month.valueOf(month),
-//            Integer.parseInt(day)).isAfter(LocalDate.now())){
-//        throw new RuntimeException("Date should be in the future!");
-//    }
 
     switch (month){
         case "January": month = "01"; break;

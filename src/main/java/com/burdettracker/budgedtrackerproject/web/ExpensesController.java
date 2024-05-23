@@ -82,4 +82,11 @@ public class ExpensesController extends BaseController{
 
         return "redirect:/allExpensesPage";
     }
+    @GetMapping("/categorySort")
+    public String sortByCategory(String category) {
+
+        List<ExpenseDTO> sortedExpenses =  expenseService.sortByCategory(category);
+        return "redirect:/index";
+//        return "redirect:/sortedExpenses";
+    }
 }

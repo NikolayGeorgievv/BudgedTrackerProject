@@ -27,10 +27,11 @@
 
             <thead>
             <tr class="">
-                <th scope="col" width="25%" style="padding-left: 15px">BILL</th>
+                <th scope="col" width="20%" style="padding-left: 15px">BILL</th>
                 <th scope="col" width="35%">TARGET</th>
-                <th scope="col" width="25%"><span>ACCOUNT ASSIGNED</span></th>
-                <th scope="col" width="15%"></th>
+                <th scope="col" width="20%"><span>ACCOUNT ASSIGNED</span></th>
+                <th scope="col" width="15%"><span>CATEGORY</span></th>
+                <th scope="col" width="10%"></th>
             </tr>
             </thead>
 
@@ -56,8 +57,11 @@
                                 th:text="${e.getAccount().getName()}"
                                 th:value="${e.getAccount().getName()}"></th:block>
                     </a>
-
-
+                </td>
+                <td
+                        th:text="${e.getCategory()}"
+                        th:value="${e.getCategory()}"
+                        style="padding-left: 15px; font-weight: 550;">
                 </td>
 
                 <!--                EDIT AND DELETE BTN!-->

@@ -13,4 +13,6 @@ public interface ExpenseService {
     void editExpense(EditExpenseInfoDTO editExpenseInfoDTO);
 
     List<Expense> findByDateDue(LocalDate todaysDate);
+
+    List<ExpenseDTO> sortByCategory(String category);
 }

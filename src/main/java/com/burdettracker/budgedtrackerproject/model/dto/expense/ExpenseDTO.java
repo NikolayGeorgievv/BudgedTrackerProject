@@ -27,6 +27,9 @@ public class ExpenseDTO {
     private User user;
     private Account account;
 
+    public ExpenseDTO() {
+    }
+
     public String getId() {
         return id;
     }
