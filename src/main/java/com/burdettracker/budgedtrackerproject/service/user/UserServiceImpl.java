@@ -66,15 +66,10 @@ public class UserServiceImpl implements UserService {
         User user = mapUser(registerUserDTO);
 
         //First registered user will be Admin, also populate roles table
-        //TODO: ROLES REPO INIT
-        if (this.userRepository.count() == 0) {
-            UserRoleEntity userRoleEntity = new UserRoleEntity();
-            UserRoleEntity adminRoleEntity = new UserRoleEntity();
 
-            adminRoleEntity.setRole(ADMIN);
-            userRoleEntity.setRole(UserRoleEnum.USER);
-            rolesRepository.saveAllAndFlush(List.of(userRoleEntity, adminRoleEntity));
-            user.setRoles(List.of(userRoleEntity, adminRoleEntity));
+        if (this.userRepository.count() == 0) {
+            List<UserRoleEntity> allRoles = rolesRepository.findAll();
+            user.setRoles(allRoles);
         } else {
             UserRoleEntity userRole = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(userRole));
