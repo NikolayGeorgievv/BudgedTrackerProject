@@ -6,9 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.*;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.*;
 import com.burdettracker.budgedtrackerproject.service.email.EmailVerificationService;
 import org.modelmapper.ModelMapper;
@@ -24,8 +22,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
-
-import static com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum.ADMIN;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -120,7 +116,7 @@ public class UserServiceImpl implements UserService {
         }
         //Set basic account for the user
         List<Transaction> transactions = new ArrayList<>();
-        Account baseAccount = new Account("MyAccount", LocalDate.now(), CurrencyType.LV, BigDecimal.ZERO, transactions, user);
+        Account baseAccount = new Account("MyAccount", LocalDate.now(), BigDecimal.ZERO, transactions, user);
         user.getAccounts().add(baseAccount);
         return user;
     }
@@ -132,7 +128,6 @@ public class UserServiceImpl implements UserService {
         Account account = new Account(
                 accountDTO.getName(),
                 LocalDate.now(),
-                accountDTO.getCurrencyType(),
                 accountDTO.getCurrentAmount(),
                 new ArrayList<>(),
                 user

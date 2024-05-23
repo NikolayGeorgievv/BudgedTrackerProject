@@ -2,7 +2,6 @@ package com.burdettracker.budgedtrackerproject.model.dto.account;
 
 import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +12,6 @@ public class AccountDTO {
     private Long id;
     private String name;
     private LocalDate createdOn;
-    private CurrencyType currencyType;
     private BigDecimal currentAmount;
     private List<Transaction> transactionHistory;
     private User user;
@@ -42,13 +40,6 @@ public class AccountDTO {
         this.createdOn = createdOn;
     }
 
-    public CurrencyType getCurrencyType() {
-        return currencyType;
-    }
-
-    public void setCurrencyType(CurrencyType currencyType) {
-        this.currencyType = currencyType;
-    }
 
     public BigDecimal getCurrentAmount() {
         return currentAmount;

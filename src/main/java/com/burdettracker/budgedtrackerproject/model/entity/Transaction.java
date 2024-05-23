@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -9,12 +8,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "transactions")
 public class Transaction extends BaseEntity{
-
-
-
-    @Column(name = "currency_type")
-    @Enumerated(EnumType.STRING)
-    private CurrencyType currencyType;
 
 
     @Column(nullable = false)
@@ -40,14 +33,6 @@ public class Transaction extends BaseEntity{
 
     public Transaction() {
 
-    }
-
-    public CurrencyType getCurrencyType() {
-        return currencyType;
-    }
-
-    public void setCurrencyType(CurrencyType currencyType) {
-        this.currencyType = currencyType;
     }
 
     public String getPaidTo() {

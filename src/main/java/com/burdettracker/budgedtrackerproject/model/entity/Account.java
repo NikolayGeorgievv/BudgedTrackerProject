@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import com.burdettracker.budgedtrackerproject.model.entity.enums.CurrencyType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,9 +15,6 @@ public class Account extends BaseEntity{
     private String name;
     @Column(name = "created_on", nullable = false)
     private LocalDate createdOn;
-    @Column(name = "currency_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CurrencyType currencyType;
     @Column(name = "current_amount", nullable = false)
     private BigDecimal currentAmount;
 
@@ -38,10 +34,9 @@ public class Account extends BaseEntity{
     public Account() {
     }
 
-    public Account(String name,LocalDate createdOn, CurrencyType currencyType, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
+    public Account(String name,LocalDate createdOn, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
         this.name = name;
         this.createdOn = createdOn;
-        this.currencyType = currencyType;
         this.currentAmount = currentAmount;
         this.transactionHistory = transactionHistory;
         this.user = user;
@@ -69,14 +64,6 @@ public class Account extends BaseEntity{
 
     public void setCreatedOn(LocalDate createdOn) {
         this.createdOn = createdOn;
-    }
-
-    public CurrencyType getCurrencyType() {
-        return currencyType;
-    }
-
-    public void setCurrencyType(CurrencyType currencyType) {
-        this.currencyType = currencyType;
     }
 
     public BigDecimal getCurrentAmount() {
