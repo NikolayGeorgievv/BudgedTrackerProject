@@ -22,6 +22,8 @@ public class ExpenseDTO {
     @NotEmpty(message = "Please choose an account.")
     private String accountToUse;
     private String periodDate;
+    private String category;
+
     private User user;
     private Account account;
 
@@ -71,6 +73,14 @@ public class ExpenseDTO {
 
     public void setPeriod(String period) {
         this.period = period;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getAccountToUse() {

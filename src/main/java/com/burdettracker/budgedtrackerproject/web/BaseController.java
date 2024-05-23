@@ -9,6 +9,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUnco
 import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
@@ -51,25 +52,25 @@ public class BaseController {
     }
 
 
-//    @ModelAttribute("filteredUsers")
-//    public AllUsersInfoDTO filterUsersByEmail(@RequestParam("emailFilter") String email){
-//        return this.userService.filterAllUsersByEmail(email);
-//    }
+    @ModelAttribute("expenseCategories")
+    public ExpenseCategories[] getAllCategories() {
+        return ExpenseCategories.values();
+    }
 
     @ModelAttribute("allUsersDTO")
-    public AllUsersInfoDTO allUsersDTO(){
-       return this.userService.getAllUsersInfo();
+    public AllUsersInfoDTO allUsersDTO() {
+        return this.userService.getAllUsersInfo();
     }
 
     @ModelAttribute("allCompletedGoalsInfoDTO")
-    public AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO(){
+    public AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         return this.goalsService.getAllCompletedGoals(currentUserName);
     }
 
     @ModelAttribute("allUncompletedGoalsInfoDTO")
-    public AllUncompletedGoalsInfoDTO allGoalsInfoDTO(){
+    public AllUncompletedGoalsInfoDTO allGoalsInfoDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         return this.goalsService.getAllUncompletedGoals(currentUserName);
@@ -151,6 +152,7 @@ public class BaseController {
         String day = String.valueOf(LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
         return date.format(formatter) + " (" + day + ")";
     }
+
     @ModelAttribute("memberships")
     public MembershipType[] memberships() {
         return MembershipType.values();

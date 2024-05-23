@@ -1,9 +1,7 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +18,9 @@ public class Expense extends BaseEntity{
     private BigDecimal assigned;
     @Column
     private String period;
+    @Column(name = "category")
+    @Enumerated(EnumType.STRING)
+    private ExpenseCategories category;
 
     @Column(name = "period_date")
     private String periodDate;
@@ -56,6 +57,14 @@ public class Expense extends BaseEntity{
 
     public void setAssigned(BigDecimal assigned) {
         this.assigned = assigned;
+    }
+
+    public ExpenseCategories getCategory() {
+        return category;
+    }
+
+    public void setCategory(ExpenseCategories category) {
+        this.category = category;
     }
 
     public String getPeriod() {
