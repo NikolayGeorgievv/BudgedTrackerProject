@@ -2,7 +2,6 @@ package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import jakarta.validation.constraints.*;
-import org.hibernate.annotations.Check;
 
 public class RegisterUserDTO {
 

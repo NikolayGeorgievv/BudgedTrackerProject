@@ -32,17 +32,17 @@
                     <label for="firstName">First Name</label>
                     <input class="form-control" id="firstName" name="firstName" placeholder="First Name">
 
-                    <p th:if="${#fields.hasErrors('firstName')}" class="errors" >Please enter a first name.</p>
+                    <p th:if="${#fields.hasErrors('firstName')}" class="errors" >Please enter a valid first name.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="lastName">Last Name</label>
                     <input class="form-control" id="lastName" name="lastName" placeholder="Last Name">
-                    <p th:if="${#fields.hasErrors('lastName')}" class="errors">Please enter a last name.</p>
+                    <p th:if="${#fields.hasErrors('lastName')}" class="errors">Please enter a valid last name.</p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email">
-                    <p th:if="${#fields.hasErrors('email')}" class="errors">Please enter an email.</p>
+                    <p th:if="${#fields.hasErrors('email')}" class="errors">Please enter a valid email.</p>
                     <p th:if="${#fields.hasErrors('invalidEmail')}" class="errors">Invalid email.</p>
                 </div>
                 <div class="form-group col-md-6">
@@ -60,7 +60,7 @@
                 <div class="form-group col-md-6">
                     <label for="inputZip">Tel. number</label>
                     <input type="text" class="form-control" id="inputZip" name="phoneNumber">
-                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="errors">Please enter a phone number.</p>
+                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="errors">Please enter a valid phone number.</p>
                 </div>
 
                 <div class="form-group">

@@ -152,15 +152,18 @@
                         <div class="d-flex flex-column justify-content-between">
                             <div class="d-flex flex-column justify-content-between">
                                 <label for="newFirstName">First name:</label>
-                                <input type="text" id="newFirstName" name="newFirstName">
+                                <input type="text" id="newFirstName" name="newFirstName"
+                                       minlength="2" maxlength="30">
                             </div>
                             <div class="d-flex flex-column justify-content-between">
                                 <label for="newLastName">Last name:</label>
-                                <input type="text" id="newLastName" name="newLastName">
+                                <input type="text" id="newLastName" name="newLastName"
+                                       minlength="2" maxlength="30">
                             </div>
                             <div class="d-flex flex-column justify-content-between">
                                 <label for="newPhoneNumber">Phone number:</label>
-                                <input type="text" id="newPhoneNumber" name="newPhoneNumber">
+                                <input type="text" id="newPhoneNumber" name="newPhoneNumber"
+                                       minlength="2" maxlength="40">
                             </div>
                             <th:block th:if="${selectedUserInfo.getAllRoles().contains('ADMIN')}">
                                 <div class="form-check form-switch">
