@@ -141,7 +141,7 @@ public class BaseController {
 
     @ModelAttribute("totalExpensesFunds")
     public String totalExpensesFunds() {
-        double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
+        String totalBalance = this.expenseService.getTotalValue(expenses);
         return String.valueOf(totalBalance);
     }
 

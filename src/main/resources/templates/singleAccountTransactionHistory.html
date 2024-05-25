@@ -27,7 +27,6 @@
 
   <!--    main div for table-->
   <div class="flex-grow-1" style="margin-right: 0">
-<!--    TODO:current account name + balance, download fail btn-->
     <h3
             th:text="${currentAccountDTO.getName()}"
             style="margin: 10px">My Account</h3>
@@ -49,7 +48,7 @@
         <form
         th:action="@{/downloadCSV/{accountId}(accountId = ${currentAccountDTO.getId()})}"
         th:method="get">
-        <button type="submit" title="download" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"><i class="fa-solid fa-download"></i></button>
+        <button type="submit" title="Download" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"><i class="fa-solid fa-download"></i></button>
 
         </form>
       </div>

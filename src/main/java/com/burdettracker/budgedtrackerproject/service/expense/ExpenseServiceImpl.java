@@ -81,6 +81,12 @@ public class ExpenseServiceImpl implements ExpenseService {
         return Arrays.stream(modelMapper.map(expensesByCategory.get(), ExpenseDTO[].class)).toList();
     }
 
+    @Override
+    public String getTotalValue(List<ExpenseDTO> expenses) {
+        double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
+        return String.valueOf(totalBalance);
+    }
+
 
     private String parseDateDue(String dateToParse){
 

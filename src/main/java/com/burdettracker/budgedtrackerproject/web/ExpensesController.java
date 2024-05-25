@@ -83,10 +83,15 @@ public class ExpensesController extends BaseController{
         return "redirect:/allExpensesPage";
     }
     @GetMapping("/categorySort")
-    public String sortByCategory(String category) {
+    public String sortByCategory(String category, Model model) {
 
         List<ExpenseDTO> sortedExpenses =  expenseService.sortByCategory(category);
-        return "redirect:/index";
-//        return "redirect:/sortedExpenses";
+        String categoryTotalBalance = this.expenseService.getTotalValue(sortedExpenses);
+
+        model.addAttribute("categoryTotalBalance", categoryTotalBalance);
+        model.addAttribute("category", category);
+        model.addAttribute("expensesByCategory", sortedExpenses);
+
+        return "/categorizedExpenses";
     }
 }

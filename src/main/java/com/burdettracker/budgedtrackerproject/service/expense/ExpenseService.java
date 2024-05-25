@@ -15,4 +15,6 @@ public interface ExpenseService {
     List<Expense> findByDateDue(LocalDate todaysDate);
 
     List<ExpenseDTO> sortByCategory(String category);
+
+    String getTotalValue(List<ExpenseDTO> sortedExpenses);
 }
