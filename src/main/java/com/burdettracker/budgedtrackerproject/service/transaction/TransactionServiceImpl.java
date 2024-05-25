@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.transaction;
 
+import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.AccountTransactionsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.TransactionInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
@@ -39,9 +40,10 @@ public class TransactionServiceImpl implements TransactionService {
 
         //TODO: think about displaying the local date(dateDue) user-friendly.
 
-        String transactionDescription = String.format("%s paid on %s. $%s withdrawn from account %s.",
+        String transactionDescription = String.format("%s paid on %s.Category: %s. $%s withdrawn from account %s.",
                 ex.getName(),
                 ex.getDateDue(),
+                ex.getCategory().toString(),
                 ex.getAssigned(),
                 ex.getAccount().getName());
 
@@ -75,9 +77,29 @@ public class TransactionServiceImpl implements TransactionService {
                 goal.getName(),
                 LocalDate.now(),
                 goal.getAccountToUse()
-              );
+        );
 
         transaction.setTransactionDescription(transactionDescription);
         this.transactionRepository.saveAndFlush(transaction);
     }
+
+    @Override
+    public void AddFundsTransaction(EditAccountInfoDTO editAccountInfoDTO, Account account) {
+        Transaction transaction = new Transaction(
+                account.getName(),
+                editAccountInfoDTO.getAddedAmount(),
+                LocalDate.now(),
+                account);
+        String transactionDescription = String.format("Successfully added $%s to %s account. Date: %s.",
+                editAccountInfoDTO.getAddedAmount(),
+                account.getName(),
+                LocalDate.now()
+        );
+
+        transaction.setTransactionDescription(transactionDescription);
+        this.transactionRepository.saveAndFlush(transaction);
+    }
+
 }
+
+

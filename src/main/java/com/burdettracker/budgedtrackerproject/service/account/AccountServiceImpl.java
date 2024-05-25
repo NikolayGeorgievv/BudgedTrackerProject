@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoD
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,12 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
     private final ExpenseRepository expenseRepository;
-    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository) {
+    private final TransactionService transactionService;
+    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository, TransactionService transactionService) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
         this.expenseRepository = expenseRepository;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -45,6 +48,7 @@ public class AccountServiceImpl implements AccountService {
             account.setName(newName);
         }
         if (amountToAdd != null){
+            this.transactionService.AddFundsTransaction(editAccountInfoDTO, account);
             account.setCurrentAmount(account.getCurrentAmount().add(amountToAdd));
         }
 
