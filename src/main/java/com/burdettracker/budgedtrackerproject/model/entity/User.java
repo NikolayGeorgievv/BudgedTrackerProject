@@ -51,6 +51,9 @@ public class User {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Expense> expenses = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Transaction> transactions = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -180,5 +183,13 @@ public class User {
 
     public void setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

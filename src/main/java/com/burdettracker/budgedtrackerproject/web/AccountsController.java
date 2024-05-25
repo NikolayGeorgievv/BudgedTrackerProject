@@ -32,8 +32,9 @@ public class AccountsController extends BaseController{
     public String editAccount(
             @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO,
             @ModelAttribute("allAccountsInfoDTO") AllAccountsInfoDTO allAccountsInfoDTO){
-
-        accountService.updateAccountById(editAccountInfoDTO);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        accountService.updateAccountById(editAccountInfoDTO, currentUserName);
 
         return "redirect:/allAccountsPage";
     }

@@ -7,8 +7,10 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
+import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.GoalsRepository;
+import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,12 +27,14 @@ public class GoalsServiceImpl implements GoalsService {
     private final ModelMapper modelMapper;
     private final AccountRepository accountRepository;
     private final TransactionService transactionService;
+    private final UserRepository userRepository;
 
-    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountRepository accountRepository, TransactionService transactionService) {
+    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountRepository accountRepository, TransactionService transactionService, UserRepository userRepository) {
         this.goalsRepository = goalsRepository;
         this.modelMapper = modelMapper;
         this.accountRepository = accountRepository;
         this.transactionService = transactionService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class GoalsServiceImpl implements GoalsService {
     }
 
     @Override
-    public void editGoal(EditGoalDTO editGoalDTO) {
+    public void editGoal(EditGoalDTO editGoalDTO, String currentUserName) {
         String newGoalName = editGoalDTO.getNewGoalName();
         String newAccountToUse = editGoalDTO.getAccountToUse();
         BigDecimal addedAmount = editGoalDTO.getAddedAmount();
@@ -60,12 +64,13 @@ public class GoalsServiceImpl implements GoalsService {
         }
 
         if (addedAmount != null){
+            User user = this.userRepository.getByEmail(currentUserName);
             //Updating the account's amount.(Negative results are allowed)
             Account newAcc = this.accountRepository.getByName(newAccountToUse);
             BigDecimal newAccAmount = newAcc.getCurrentAmount().subtract(addedAmount);
             newAcc.setCurrentAmount(newAccAmount);
             accountRepository.saveAndFlush(newAcc);
-            transactionService.addGoalTransaction(goalToEdit,addedAmount);
+            transactionService.fundGoalTransaction(goalToEdit,addedAmount, user);
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
             if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0){

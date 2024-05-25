@@ -4,8 +4,10 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
+import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -22,11 +24,13 @@ public class AccountServiceImpl implements AccountService {
     private final ModelMapper modelMapper;
     private final ExpenseRepository expenseRepository;
     private final TransactionService transactionService;
-    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository, TransactionService transactionService) {
+    private final UserRepository userRepository;
+    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository, TransactionService transactionService, UserRepository userRepository) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
         this.expenseRepository = expenseRepository;
         this.transactionService = transactionService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void updateAccountById(EditAccountInfoDTO editAccountInfoDTO) {
+    public void updateAccountById(EditAccountInfoDTO editAccountInfoDTO, String currentUserName) {
         Long accountId = Long.parseLong(editAccountInfoDTO.getId());
         String newName = editAccountInfoDTO.getNewAccountName();;
         BigDecimal amountToAdd = editAccountInfoDTO.getAddedAmount();
@@ -48,7 +52,8 @@ public class AccountServiceImpl implements AccountService {
             account.setName(newName);
         }
         if (amountToAdd != null){
-            this.transactionService.AddFundsTransaction(editAccountInfoDTO, account);
+            User user = this.userRepository.getByEmail(currentUserName);
+            this.transactionService.AddFundsTransaction(editAccountInfoDTO, account, user);
             account.setCurrentAmount(account.getCurrentAmount().add(amountToAdd));
         }
 

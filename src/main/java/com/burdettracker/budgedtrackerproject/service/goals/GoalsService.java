@@ -9,7 +9,7 @@ public interface GoalsService {
 
     void deleteGoal(String goalId);
 
-    void editGoal(EditGoalDTO editGoalDTO);
+    void editGoal(EditGoalDTO editGoalDTO, String currentUserName);
 
     AllCompletedGoalsInfoDTO getAllCompletedGoals(String currentUserName);
 }

@@ -18,6 +18,8 @@ public class Transaction extends BaseEntity{
     private LocalDate completedOn;
     @ManyToOne
     private Account account;
+    @ManyToOne
+    private User user;
 
     private String transactionDescription;
 
@@ -73,5 +75,13 @@ public class Transaction extends BaseEntity{
 
     public void setTransactionDescription(String transactionDescription) {
         this.transactionDescription = transactionDescription;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

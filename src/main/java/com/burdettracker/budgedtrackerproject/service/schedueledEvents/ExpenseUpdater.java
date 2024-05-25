@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.service.schedueledEvents;
 
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
+import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
@@ -35,10 +36,12 @@ public class ExpenseUpdater {
         List<Expense> expensesByDateDue = this.expenseRepository.findAllByDateDue(todaysDate);
         expensesByDateDue.forEach(ex -> {
 
-            transactionService.addExpenseTransaction(ex);
+            transactionService.addExpenseTransaction(ex, ex.getUser());
 
             String period = ex.getPeriod();
             Account account = ex.getAccount();
+
+
 
             if (period.equals("weekly") || period.equals("monthly")) {
                 if (period.equals("weekly")) {

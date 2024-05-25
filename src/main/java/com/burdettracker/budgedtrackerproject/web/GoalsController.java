@@ -35,10 +35,11 @@ public class GoalsController extends BaseController{
 
     @PostMapping("/editGoal")
     public String editGoal(@ModelAttribute("editGoalDTO") EditGoalDTO editGoalDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
 
 
-
-        goalsService.editGoal(editGoalDTO);
+        goalsService.editGoal(editGoalDTO, currentUserName);
         return "redirect:/allGoalsPage";
     }
 

@@ -31,4 +31,10 @@ public class TransactionsController extends BaseController{
         model.addAttribute("currentAccountDTO", currentAccountDTO);
         return "singleAccountTransactionHistory";
     }
+
+    @GetMapping("/getAllTransactions")
+    public String getAllTransactions(){
+
+        return "/allTransactionsPage";
+    }
 }

@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.transaction.TransactionInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
@@ -21,8 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -52,6 +51,13 @@ public class BaseController {
     }
 
 
+    @ModelAttribute("allTransactions")
+    public List<TransactionInfoDTO> allTransactionsDTO(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        List<TransactionInfoDTO> allTransactionsInfo = transactionService.getAllTransactionsInfo(currentUserName);
+        return allTransactionsInfo;
+    }
     @ModelAttribute("expenseCategories")
     public ExpenseCategories[] getAllCategories() {
         return ExpenseCategories.values();
