@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
         switch (user.getMembershipType()) {
             case FREE -> user.setUserAccountsAllowed(1);
             case GOLD -> user.setUserAccountsAllowed(2);
-            case PREMIUM -> user.setUserAccountsAllowed(20);
+            case PREMIUM -> user.setUserAccountsAllowed(10);
         }
         //Set basic account for the user
         List<Transaction> transactions = new ArrayList<>();
@@ -378,7 +378,7 @@ public class UserServiceImpl implements UserService {
                 break;
             case "PREMIUM":
                 user.setMembershipType(MembershipType.PREMIUM);
-                user.setUserAccountsAllowed(20);
+                user.setUserAccountsAllowed(10);
                 break;
         }
     }
