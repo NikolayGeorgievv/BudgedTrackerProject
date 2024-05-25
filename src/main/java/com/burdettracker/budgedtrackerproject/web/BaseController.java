@@ -118,12 +118,9 @@ public class BaseController {
     }
 
     @ModelAttribute("usersAccountCeil")
-    public Model accountCeilModel(Model model) {
+    public boolean accountCeilModel() {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
-        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()) {
-            model.addAttribute("usersAccountCeil", true);
-        }
-        return model;
+        return userByEmail.getAccounts().size() < userByEmail.getUserAccountsAllowed();
     }
 
     @ModelAttribute("accountDTO")
