@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.web;
 
-import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
@@ -52,7 +51,7 @@ public class MainPageController extends BaseController{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
-        return userService.getUserByEmail(currentUserName);
+        return userService.getUserExpensesDetailsByEmail(currentUserName);
 
     }
 

@@ -34,6 +34,12 @@
                 <p
                         style="margin: 5px; font-weight: 500; "
                 >Download CSV transaction history:</p>
+                <form
+                        th:action="@{/downloadAllTransactionsCSV}"
+                        th:method="get">
+                    <button type="submit" title="Download" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"><i class="fa-solid fa-download"></i></button>
+
+                </form>
 
             </div>
         </div>

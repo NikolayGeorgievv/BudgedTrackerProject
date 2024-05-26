@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserExpensesDetailsDTO getUserByEmail(String email) {
+    public UserExpensesDetailsDTO getUserExpensesDetailsByEmail(String email) {
         User userByEmail = userRepository.getByEmail(email);
         return modelMapper.map(userByEmail, UserExpensesDetailsDTO.class);
     }
@@ -393,4 +393,10 @@ public class UserServiceImpl implements UserService {
                 break;
         }
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return this.userRepository.getByEmail(email);
+    }
+
 }

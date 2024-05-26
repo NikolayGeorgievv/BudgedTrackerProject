@@ -138,7 +138,7 @@ public class BaseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
-        return userService.getUserByEmail(currentUserName);
+        return userService.getUserExpensesDetailsByEmail(currentUserName);
 
     }
 
