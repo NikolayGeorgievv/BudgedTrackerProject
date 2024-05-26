@@ -11,8 +11,9 @@ public class RegisterUserDTO {
     @NotEmpty(message = "Please enter a last name.")
     @Size(min = 3, max = 20)
     private String lastName;
-    @NotEmpty(message = "Please enter an email.")
+    @NotEmpty(message = "Please enter a valid email.")
     @Email
+    @Size(max = 40)
     private String email;
     @NotEmpty(message = "Please enter a phone number.")
     @Size(max = 20)

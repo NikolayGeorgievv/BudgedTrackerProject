@@ -41,6 +41,7 @@ public class AdminController extends BaseController{
         return "adminPage";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/allUsers/{userId}/editUser")
     public String getUserFullInformation(@PathVariable("userId") String userId, Model model){
         UserFullDetailsInfoDTO selectedUser =  this.userService.getUserById(userId);

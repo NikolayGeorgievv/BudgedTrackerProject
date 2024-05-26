@@ -48,34 +48,34 @@
                 <div
                         th:text="'Email:' + ${selectedUserInfo.getEmail()}"
                         th:value="'Email:' + ${selectedUserInfo.getEmail()}"
-                        class="col">Email
+                        class="col">
                 </div>
             </div>
             <div class="row" id="userInfoRow2">
                 <div
                         th:text="'Plan:' + ${selectedUserInfo.getMembershipType().toString()}"
                         th:value="'Plan:' + ${selectedUserInfo.getMembershipType().toString()}"
-                        class="col">Plan: Premium
+                        class="col">
                 </div>
                 <div
                         th:text="'Full Name:' + ${selectedUserInfo.getFirstName() + ' ' + selectedUserInfo.getLastName()}"
                         th:value="'Full Name:' + ${selectedUserInfo.getFirstName() + ' ' + selectedUserInfo.getLastName()}"
-                        class="col">Full Name: John Doe
+                        class="col">
                 </div>
                 <div
                         th:text="'Phone number:' + ${selectedUserInfo.getPhoneNumber()}"
                         th:value="'Phone number:' + ${selectedUserInfo.getPhoneNumber()}"
-                        class="col">Phone Number: 123-456-7890
+                        class="col">
                 </div>
                 <div
                         th:text="'Role:' + ${selectedUserInfo.getAllRoles()}"
                         th:value="'Role:' + ${selectedUserInfo.getAllRoles()}"
-                        class="col">Roles: Admin, User
+                        class="col">
                 </div>
                 <div
                         th:text="'Registered On:' + ${selectedUserInfo.getRegisteredOnDate()}"
                         th:value="'Registered On:' + ${selectedUserInfo.getRegisteredOnDate()}"
-                        class="col">Registered On: May 15, 2024
+                        class="col">
                 </div>
             </div>
             <div class="row" id="userInfoRow3">
@@ -106,16 +106,6 @@
                                 th:text="${g.getName()}"
                                 th:value="${g.getName()}"
                                 class="col">Goal
-                        </div>
-                    </div>
-                </div>
-                <div class="col user-info">
-                    <h4>Documents</h4>
-                    <div class="row" th:each="d : ${selectedUserInfo.getUserDocuments()}">
-                        <div
-                                th:text="${d.getName()}"
-                                th:value="${d.getName()}"
-                                class="col">Document
                         </div>
                     </div>
                 </div>

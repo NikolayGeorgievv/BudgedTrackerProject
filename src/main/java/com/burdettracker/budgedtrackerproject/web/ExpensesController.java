@@ -41,7 +41,6 @@ public class ExpensesController extends BaseController{
             @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-
             return "allExpensesPageWithErrors";
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

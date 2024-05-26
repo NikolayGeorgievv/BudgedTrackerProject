@@ -1,10 +1,15 @@
 package com.burdettracker.budgedtrackerproject.model.dto.user;
 
+import jakarta.validation.constraints.Size;
+
 public class UserChangeInformationDTO {
 
     private String id;
+    @Size(min = 3, max = 20)
     private String newFirstName;
+    @Size(min = 3, max = 20)
     private String newLastName;
+    @Size(min = 3, max = 20)
     private String newPhoneNumber;
     private boolean demoteAdmin;
     private boolean promoteUser;
