@@ -34,9 +34,14 @@
             <h5
                     th:text="'Current UserID: ' + ${selectedUserInfo.getId()}"
             ></h5>
+            <div class="d-flex">
             <button class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" id="editUserInfoBtn"
                     data-bs-toggle="modal" data-bs-target="#editUserModal">Edit Information
             </button>
+            <button class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" id="backToAdminPageBtn">
+            <a th:href="@{adminPage}" style="text-decoration: none; color: black">Go back</a>
+            </button>
+            </div>
         </div>
 
         <div class="container"
@@ -194,11 +199,16 @@
         margin-bottom: 10px;
     }
 
-    #editUserInfoBtn {
+    #editUserInfoBtn{
         margin-left: 20px;
         width: fit-content;
         margin-bottom: 5px;
-        color: black
+        color: black;
+        margin-right: 10px;
+    }
+    #backToAdminPageBtn{
+        width: fit-content;
+        margin-bottom: 5px;
     }
 
     #userInfoRow1 {
