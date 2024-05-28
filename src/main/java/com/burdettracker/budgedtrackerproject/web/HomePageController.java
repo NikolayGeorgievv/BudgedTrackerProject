@@ -17,4 +17,9 @@ public class HomePageController {
 
         return "homePage";
     }
+
+    @GetMapping("FAQsPage")
+    public String getFAQPage(){
+        return "/FAQsPage";
+    }
 }

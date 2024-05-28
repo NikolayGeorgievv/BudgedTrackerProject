@@ -26,19 +26,18 @@ public class SecurityConfig {
 //                                // Allow anyone to see the home page, the registration page and the login form.
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
                                 .requestMatchers("/error", "/fragments/**", "/users/termsAndConditions.html").permitAll()
+                                //guests
+                                .requestMatchers("FAQsPage").permitAll()
                                 .requestMatchers("/adminPage").hasRole(UserRoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
                 ).formLogin(
                         formLogin -> {
                             formLogin
-                                    // redirect here when we access something which is not allowed.
-                                    // also this is the page where we perform login.
                                     .loginPage("/users/login")
                                     // The names of the input fields
                                     .usernameParameter("email")
                                     .passwordParameter("password")
                                     .defaultSuccessUrl("/index")
-//                                    .failureForwardUrl("/users/login-error");
                                     .failureUrl("/users/login-error");
 
                         }

@@ -24,9 +24,8 @@
                                                  class="d-block mx-lg-auto img-fluid" alt="#" width="45" height="30"
                                                  loading="lazy"></a></li>
                     <li><a href="/homePage" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white" id="pricingLink">Pricing</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                 </ul>
 
@@ -55,5 +54,12 @@
         padding-bottom: 5px;
     }
 </style>
+
+<script>
+    let prisingLink = document.getElementById("pricingLink");
+    prisingLink.addEventListener('click', () => {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+</script>
 </body>
 </html>
