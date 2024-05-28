@@ -22,4 +22,9 @@ public class HomePageController {
     public String getFAQPage(){
         return "/FAQsPage";
     }
+
+    @GetMapping("contactsPage")
+    public String getContactPage(){
+        return "/contactsPage";
+    }
 }
