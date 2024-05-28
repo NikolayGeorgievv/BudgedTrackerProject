@@ -44,9 +44,6 @@ public class User {
     private List<Account> accounts = new ArrayList<>();
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<UserDocument> userDocuments = new ArrayList<>();
-    @OneToMany
-    @JoinColumn(name = "user_id")
     private List<Goal> goals = new ArrayList<>();
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -135,14 +132,6 @@ public class User {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
-    }
-
-    public List<UserDocument> getUserDocuments() {
-        return userDocuments;
-    }
-
-    public void setUserDocuments(List<UserDocument> userDocuments) {
-        this.userDocuments = userDocuments;
     }
 
     public List<Goal> getGoals() {

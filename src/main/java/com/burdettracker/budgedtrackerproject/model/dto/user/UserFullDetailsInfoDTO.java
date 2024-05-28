@@ -3,7 +3,6 @@ package com.burdettracker.budgedtrackerproject.model.dto.user;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
-import com.burdettracker.budgedtrackerproject.model.entity.UserDocument;
 import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 
@@ -16,7 +15,6 @@ public class UserFullDetailsInfoDTO {
     private MembershipType membershipType;
     private String phoneNumber;
     private List<AccountDTO> accounts;
-    private List<UserDocument> userDocuments;
     private List<Goal> goals;
     private String firstName;
     private String lastName;
@@ -62,13 +60,6 @@ public class UserFullDetailsInfoDTO {
         this.accounts = accounts;
     }
 
-    public List<UserDocument> getUserDocuments() {
-        return userDocuments;
-    }
-
-    public void setUserDocuments(List<UserDocument> userDocuments) {
-        this.userDocuments = userDocuments;
-    }
 
     public List<Goal> getGoals() {
         return goals;

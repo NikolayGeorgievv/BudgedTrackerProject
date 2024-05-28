@@ -17,7 +17,6 @@ public class UserExpensesDetailsDTO {
     private String phoneNumber;
     private BigDecimal totalBalance;
     private List<AccountDTO> accounts;
-    private List<UserDocument> userDocuments;
     private List<Goal> goals;
     private String firstName;
     private String lastName;
@@ -106,14 +105,6 @@ public class UserExpensesDetailsDTO {
 
     public void setAccounts(List<AccountDTO> accounts) {
         this.accounts = accounts;
-    }
-
-    public List<UserDocument> getUserDocuments() {
-        return userDocuments;
-    }
-
-    public void setUserDocuments(List<UserDocument> userDocuments) {
-        this.userDocuments = userDocuments;
     }
 
     public List<Goal> getGoals() {
