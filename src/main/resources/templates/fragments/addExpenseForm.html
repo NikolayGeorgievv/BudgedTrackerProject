@@ -20,7 +20,7 @@
 ><i class="fa-solid fa-plus"></i></button>
 <div class="form-popup1" id="myExpenseForm">
     <form
-            th:action="@{${#strings.isEmpty(name) ? '/index' : '/addExpense'}}"
+            th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addExpense'}}"
             th:method="post"
             th:object="${expenseDTO}"
             class="form-container">

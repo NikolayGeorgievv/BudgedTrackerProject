@@ -21,7 +21,7 @@
 ><i class="fa-solid fa-arrow-trend-up"></i></button>
 <div class="form-popup" id="changePlanForm">
   <form
-          th:action="@{${#strings.isEmpty(name) ? '/index' : '/changePlan'}}"
+          th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/changePlan'}}"
           th:method="post"
           th:object="${changePlanDTO}"
           class="form-container">

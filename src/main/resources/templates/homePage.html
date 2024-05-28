@@ -7,153 +7,109 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
+    <!--    FONTAWESOME KIT-->
+    <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Home Page for Logged Users</title>
 </head>
-<body data-spy="scroll" style="background-image: url('/images/indexPageBG-IMG.png')">
+<body style="height: 100vh; margin: 0; background-image: url('/images/main-table-bg-img.jpg'); ">
+<!--HEADER -->
+
 
 <div>
-    <nav th:replace="~{fragments/navbar-guest}"></nav>
+    <nav th:replace="~{fragments/navbar-logged}"></nav>
 </div>
 
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div class="col-10 col-sm-8 col-lg-6">
-            <img src="/images/phone-image.png" class="d-block mx-lg-auto img-fluid" id="phone-pic" alt="#"
-                 width="700" height="500" loading="lazy">
-        </div>
-        <div class="col-lg-6">
-            <h2 class="display-5 fw-bold">Care for your money, but let us do the work!</h2>
-            <p class="lead fw-bold fst-italic" id="firstParagraphOfIndexPage">Combine effortless saving, free to use and
-                flexible methods for managing finances app with your dreams! </p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <a th:href="@{/users/register}">
-                    <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" id="signUpBtn">Sign up</button>
-                </a>
+
+<!--  main div that holds sidebar and table-->
+<div class="d-flex">
+
+    <!--    main div for the sidebar-->
+    <div>
+        <div th:replace="~{fragments/sideBar}"></div>
+    </div>
+
+
+    <!--    main div for table-->
+    <div class="flex-grow-1">
+
+        <div class="d-flex  justify-content-between" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
+            <div class="d-flex">
+                <div>
+                    <div>
+                        <p
+                                th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                                th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
+                                style="color: green; font-weight: bold"
+                        ></p>
+                    </div>
+                    <div>
+                        <p
+                                th:text="'Total funds assigned: ' + '$' + ${totalExpensesFunds}"
+                                th:value="'Total funds assigned: ' + '$' +  ${totalExpensesFunds}"
+                                style="color: green; font-weight: bold"
+                        ></p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p
+                                th:text="'Today\'s date is: '  + ${todaysDate}"
+                                th:value="'Today\'s date is: '  + ${todaysDate}"
+                                style="color: #2c396a; font-weight: bold; margin-left: 20px"
+                        ></p>
+                    </div>
+                    <form
+                            th:action="@{/categorySort}"
+                            th:method="get">
+                        <div class="d-flex" style="align-items: baseline; height: 10px">
+                            <p style="margin-left: 20px; margin-right: 10px; font-weight: bold; color: #2c396a;">Sort by
+                                Category:</p>
+                            <div>
+                                <select name="category" style="background-color: aliceblue;font-weight: 500;">
+                                    <option
+                                            th:each="c : ${expenseCategories}"
+                                            th:text="${c}"
+                                            th:value="${c}">
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" style="margin-left: 10px">
+                                Sort
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+            <div class="d-flex flex-column" style="margin-right: 10px">
+                <div class="d-flex" style="color: white">
+                    <p style="color: #2c396a; font-weight: bold; margin-right: 10px">My current plan is </p>
+                    <p th:text="${userFullNameDTO.getMembership()}"
+                       style="color: #f3a63b; font-weight: bold; font-style: italic"></p>
+                </div>
+
+                <div class="d-flex">
+                    <div>
+                        <p style="color: #2c396a;font-weight: bold; margin-right: 10px">Change plan here</p>
+                    </div>
+                    <form
+                            th:action="@{/changePlan}"
+                            th:method="post"
+                    >
+                        <button th:replace="~{fragments/changePlanForm}"></button>
+                    </form>
+                </div>
+            </div>
+
         </div>
+
+        <div th:replace="~{fragments/expensesTableFragment}"></div>
+
     </div>
 </div>
 
-<!--MIDHERO-->
-<div class="text-secondary px-4 py-5 text-center" id="midHero">
-    <div class="py-5">
-        <h2 class="display-5 fw-bold">Don't waste another second!</h2>
-        <div class="col-lg-6 mx-auto">
-            <p class="fs-5 mb-4 fw-bold fst-italic" id="midParagraph">Lets find that financial independence together! The average PineConer saves up to
-                6,000$ their first year! There is a plan for everyone! Check out our pricing below.</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a th:href="@{/users/register}">
-                    <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for
-                        free
-                    </button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="d-flex flex-wrap align-items-center justify-content-center">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center w-75">
-        <div class="col">
-            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard1">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">FREE</h4>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title pricing-card-title">$0<small
-                            class="fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-5">
-                        <li>1 Account</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                        <li></li>
-                    </ul>
-                    <a th:href="@{/users/register}">
-                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Sign up for free</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard2">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">GOLD</h4>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title pricing-card-title">$15<small
-                            class="fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>2 Accounts</li>
-                        <li>Export your transaction history</li>
-                        <li>Priority email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <a th:href="@{/users/register}">
-                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Get started</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="pricingCard mb-4 rounded-3 shadow-sm" id="pricingCard3">
-                <div class="card-header py-3 ">
-                    <h4 class="my-0 fw-normal">PREMIUM</h4>
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h1 class="card-title pricing-card-title">$29<small
-                            class="fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Up to 10 Accounts</li>
-                        <li>Export your transaction history</li>
-                        <li>Phone and email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <a th:href="@{/users/register}">
-                        <button type="button" class="w-100 btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Get started</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--    FOOTER-->
-
-<div>
-    <nav th:replace="~{fragments/footer}"></nav>
-</div>
-
-
-<style>
-    #midHero{
-        margin-top:50px;
-    }
-    h2 {
-        color: silver;
-    }
-
-    #firstParagraphOfIndexPage {
-        color: white;
-    }
-
-    #midParagraph{
-        color: white;
-    }
-    #pricingCard1{
-        background-image: url('/images/bg-img-1.png');
-    }
-    #pricingCard2{
-        background-image: url('/images/bg-img-card2.png');
-    }
-    #pricingCard3{
-        background-image: url('/images/bg-img-card3.png');
-    }
-    .pricingCard>*{
-        color: white;
-    }
-</style>
 
 </body>
 </html>

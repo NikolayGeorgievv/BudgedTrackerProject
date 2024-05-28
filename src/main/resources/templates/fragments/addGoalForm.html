@@ -21,7 +21,7 @@
 ><i class="fa-regular fa-heart"></i></button>
 <div class="form-popup" id="myGoalForm">
   <form
-          th:action="@{${#strings.isEmpty(name) ? '/index' : '/addGoal'}}"
+          th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addGoal'}}"
           th:method="post"
           th:object="${goalDTO}"
           class="form-container">

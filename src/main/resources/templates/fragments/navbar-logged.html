@@ -27,8 +27,8 @@
                                                     alt="#" width="45" height="30" loading="lazy"></a></li>
                     <li><a th:href="@{/index}" class="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Contacts</a></li>
+                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white">FAQs</a></li>
+                    <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white">Contacts</a></li>
                     <li sec:authorize="hasRole('ADMIN')">
                         <div class="dropdown">
                             <button onclick="toggleDropdown()" id="dropbtn" class="nav-link px-2 text-white">Admin Panel</button>

@@ -28,7 +28,7 @@ public class MainPageController extends BaseController{
     }
 
     @ModelAttribute
-    @GetMapping("/index")
+    @GetMapping("/homePage")
     public String loggedIn(Model model) {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
@@ -36,7 +36,7 @@ public class MainPageController extends BaseController{
             model.addAttribute("usersAccountCeil", true);
         }
 
-        return "redirect:/index";
+        return "redirect:/homePage";
     }
 
     @PostMapping("/changePlan")
@@ -44,7 +44,7 @@ public class MainPageController extends BaseController{
 
         userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
 
-        return "redirect:/index";
+        return "redirect:/homePage";
     }
 
     public UserExpensesDetailsDTO getUserByEmail(){

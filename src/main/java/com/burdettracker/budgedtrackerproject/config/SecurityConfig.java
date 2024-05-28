@@ -24,7 +24,7 @@ public class SecurityConfig {
                                 .requestMatchers(String.valueOf(PathRequest.toStaticResources().atCommonLocations())).permitAll()
                                 .requestMatchers("/images/**", "/js/**", "/css/**", "/favicon/**").permitAll()
 //                                // Allow anyone to see the home page, the registration page and the login form.
-                                .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
+                                .requestMatchers("/index", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
                                 .requestMatchers("/error", "/fragments/**", "/users/termsAndConditions.html").permitAll()
                                 //guests
                                 .requestMatchers("FAQsPage", "contactsPage").permitAll()
@@ -37,7 +37,7 @@ public class SecurityConfig {
                                     // The names of the input fields
                                     .usernameParameter("email")
                                     .passwordParameter("password")
-                                    .defaultSuccessUrl("/index")
+                                    .defaultSuccessUrl("/homePage")
                                     .failureUrl("/users/login-error");
 
                         }
@@ -45,7 +45,7 @@ public class SecurityConfig {
                         logout -> {
                             logout
                                     .logoutUrl("/logout")
-                                    .logoutSuccessUrl("/homePage")
+                                    .logoutSuccessUrl("/index")
                                     .invalidateHttpSession(true);
                         }
 //        ).rememberMe(
