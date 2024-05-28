@@ -27,7 +27,7 @@ public class SecurityConfig {
                                 .requestMatchers("/homePage", "/users/login", "/users/register", "/", "/users/login-error").permitAll()
                                 .requestMatchers("/error", "/fragments/**", "/users/termsAndConditions.html").permitAll()
                                 //guests
-                                .requestMatchers("FAQsPage").permitAll()
+                                .requestMatchers("FAQsPage", "contactsPage").permitAll()
                                 .requestMatchers("/adminPage").hasRole(UserRoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
                 ).formLogin(
