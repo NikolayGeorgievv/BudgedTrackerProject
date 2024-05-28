@@ -66,11 +66,22 @@ public class GoalsServiceImpl implements GoalsService {
         if (addedAmount != null){
             User user = this.userRepository.getByEmail(currentUserName);
             //Updating the account's amount.(Negative results are allowed)
-            Account newAcc = this.accountRepository.getByName(newAccountToUse);
-            BigDecimal newAccAmount = newAcc.getCurrentAmount().subtract(addedAmount);
-            newAcc.setCurrentAmount(newAccAmount);
-            accountRepository.saveAndFlush(newAcc);
-            transactionService.fundGoalTransaction(goalToEdit,addedAmount, user);
+            Account acc = this.accountRepository.getByName(newAccountToUse);
+
+
+            BigDecimal amountDifference = goalToEdit.getAmountToBeSaved().subtract(goalToEdit.getCurrentAmount()).subtract(editGoalDTO.getAddedAmount());
+            BigDecimal abs = BigDecimal.ZERO;
+            BigDecimal transactionAmount = addedAmount;
+            if (amountDifference.compareTo(BigDecimal.ZERO) < 0){
+                abs = amountDifference.abs();
+                transactionAmount = addedAmount.subtract(amountDifference.abs());
+            }
+
+
+            BigDecimal newAccAmount = acc.getCurrentAmount().subtract(addedAmount).add(abs);
+            acc.setCurrentAmount(newAccAmount);
+            accountRepository.saveAndFlush(acc);
+            transactionService.fundGoalTransaction(goalToEdit,transactionAmount, user);
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
             if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0){

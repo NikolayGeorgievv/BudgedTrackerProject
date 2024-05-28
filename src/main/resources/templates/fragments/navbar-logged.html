@@ -17,16 +17,14 @@
     <header class="p-3" style="background-image: url('/images/indexPageBG-IMG.png')">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a th:href="@{/index}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-
-                </a>
+                <a th:href="@{/index}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a th:href="@{/homePage}"><img src="/images/PineConeLogoBG-IMG.png"
                                                     class="d-block mx-lg-auto img-fluid"
                                                     alt="#" width="45" height="30" loading="lazy"></a></li>
                     <li><a th:href="@{/homePage}" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">How to use</a></li>
                     <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white">FAQs</a></li>
                     <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white">Contacts</a></li>
                     <li sec:authorize="hasRole('ADMIN')">
