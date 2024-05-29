@@ -10,9 +10,11 @@ import com.burdettracker.budgedtrackerproject.model.dto.transaction.TransactionI
 import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.Category;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
+import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
@@ -39,15 +41,17 @@ public class BaseController {
     protected List<AccountDTO> accounts;
     protected final GoalsService goalsService;
     protected final TransactionService transactionService;
+    protected final CategoryService categoryService;
 
 
-    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
+    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService, CategoryService categoryService) {
         this.expenses = expenses;
         this.userService = userService;
         this.expenseService = expenseService;
         this.accountService = accountService;
         this.goalsService = goalsService;
         this.transactionService = transactionService;
+        this.categoryService = categoryService;
     }
 
 
@@ -59,8 +63,8 @@ public class BaseController {
         return allTransactionsInfo;
     }
     @ModelAttribute("expenseCategories")
-    public ExpenseCategories[] getAllCategories() {
-        return ExpenseCategories.values();
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     @ModelAttribute("allUsersDTO")

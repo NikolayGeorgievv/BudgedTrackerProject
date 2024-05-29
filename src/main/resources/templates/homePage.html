@@ -60,27 +60,30 @@
                                 style="color: #2c396a; font-weight: bold; margin-left: 20px"
                         ></p>
                     </div>
-                    <form
-                            th:action="@{/categorySort}"
-                            th:method="get">
-                        <div class="d-flex" style="align-items: baseline; height: 10px">
-                            <p style="margin-left: 20px; margin-right: 10px; font-weight: bold; color: #2c396a;">Sort by
-                                Category:</p>
-                            <div>
-                                <select name="category" style="background-color: aliceblue;font-weight: 500;">
-                                    <option
-                                            th:each="c : ${expenseCategories}"
-                                            th:text="${c}"
-                                            th:value="${c}">
-                                    </option>
-                                </select>
+                        <form
+                                th:action="@{/categorySort}"
+                                th:method="get">
+                            <div class="d-flex" style="align-items: baseline; height: 10px">
+                                <p style="margin-left: 20px; margin-right: 10px; font-weight: bold; color: #2c396a;">
+                                    Sort by
+                                    Category:</p>
+                                <div>
+                                    <select name="category" style="background-color: aliceblue;font-weight: 500;">
+                                        <option
+                                                th:each="c : ${expenseCategories}"
+                                                th:text="${c.getCategory()}"
+                                                th:value="${c.getCategory()}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold"
+                                        style="margin-left: 10px">
+                                    Sort
+                                </button>
                             </div>
-                            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" style="margin-left: 10px">
-                                Sort
-                            </button>
-                        </div>
-                    </form>
+                        </form>
                 </div>
+
             </div>
 
             <div class="d-flex flex-column" style="margin-right: 10px">

@@ -4,6 +4,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
+import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
@@ -23,8 +24,8 @@ public class MainPageController extends BaseController{
 
 
 
-    public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService);
+    public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
+        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
     @ModelAttribute

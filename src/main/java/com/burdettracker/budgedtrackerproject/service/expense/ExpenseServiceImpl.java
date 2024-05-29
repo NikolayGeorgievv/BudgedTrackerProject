@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.expense;
 
+import com.burdettracker.budgedtrackerproject.model.dto.expense.AddCategoryDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
@@ -103,6 +104,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         double totalBalance = expenses.stream().mapToDouble(e -> Double.parseDouble(String.valueOf(e.getAssigned()))).sum();
         return String.valueOf(totalBalance);
     }
+
+
 
 
     private String parseDateDue(String dateToParse){

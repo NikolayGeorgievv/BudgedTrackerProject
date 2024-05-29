@@ -4,6 +4,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.AccountTransactionsDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
+import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
@@ -17,8 +18,8 @@ import java.util.List;
 
 @Controller
 public class TransactionsController extends BaseController{
-    public TransactionsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService);
+    public TransactionsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
+        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
 
