@@ -44,11 +44,9 @@ public class CSVService {
                     transaction.getTransactionDescription()};
             accountData.add(row);
         }
-        //TODO: GENERATE NAME FILE
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=account_transactions.csv");
 
-        // Write data to response output stream
         try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream())) {
             CSVHelper.writeDataToCSV(writer, accountData);
         }
@@ -68,11 +66,9 @@ public class CSVService {
                     transaction.getTransactionDescription()};
             transactionData.add(row);
         }
-        //TODO: GENERATE NAME FILE
         response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=account_transactions.csv");
+        response.setHeader("Content-Disposition", "attachment; filename=all_accounts_transactions.csv");
 
-        // Write data to response output stream
         try (OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream())) {
             CSVHelper.writeDataToCSV(writer, transactionData);
         }

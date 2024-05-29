@@ -10,10 +10,13 @@ import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static com.burdettracker.budgedtrackerproject.util.Utils.*;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -45,6 +48,19 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenseToEdit.setPeriod(editExpenseInfoDTO.getPeriod());}
 
         if (!expenseToEdit.getPeriodDate().equals(editExpenseInfoDTO.getPeriodDate()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
+            //TODO: SET DATEDUE
+            LocalDate todaysDate = LocalDate.now();
+            if (editExpenseInfoDTO.getPeriod().equals("weekly")){
+                //30th, monthly 2024-05-30
+                //Thursday, weekly next thursday
+                setWeeklyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+
+            } else if (editExpenseInfoDTO.getPeriod().equals("monthly")) {
+
+                setMonthlyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+            }
+
+
             expenseToEdit.setPeriodDate(editExpenseInfoDTO.getPeriodDate());}
 
         if (editExpenseInfoDTO.getAssigned() != null && !expenseToEdit.getAssigned().equals(editExpenseInfoDTO.getAssigned())) {
@@ -66,6 +82,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         this.expenseRepository.saveAndFlush(expenseToEdit);
     }
+
+
 
     @Override
     public List<Expense> findByDateDue(LocalDate todaysDate) {

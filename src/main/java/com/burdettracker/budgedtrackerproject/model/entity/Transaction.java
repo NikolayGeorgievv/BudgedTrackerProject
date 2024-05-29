@@ -23,9 +23,6 @@ public class Transaction extends BaseEntity{
 
     private String transactionDescription;
 
-    //TODO: Implement currency type
-
-
     public Transaction(String paidTo, BigDecimal amount, LocalDate completedOn, Account account) {
         this.paidTo = paidTo;
         this.amount = amount;

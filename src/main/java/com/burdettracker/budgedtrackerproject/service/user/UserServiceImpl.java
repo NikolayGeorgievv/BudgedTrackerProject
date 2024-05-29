@@ -9,6 +9,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.repository.*;
 import com.burdettracker.budgedtrackerproject.service.email.EmailVerificationService;
+import com.burdettracker.budgedtrackerproject.service.expense.ExpenseServiceImpl;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +24,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
+
+import static com.burdettracker.budgedtrackerproject.util.Utils.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -177,57 +180,11 @@ public class UserServiceImpl implements UserService {
 
             if (expenseDTO.getPeriod().equals("weekly")) {
 
-                String periodDateDay = expenseDTO.getPeriodDate();
-                int periodDateDayValue = getPeriodDateDayValue(periodDateDay);
-
-                for (int i = 0; i < 7; i++) {
-                    LocalDate dateToCheck = LocalDate.now().plusDays(i);
-
-                    DayOfWeek neededDay = DayOfWeek.of(periodDateDayValue);
-                    if (dateToCheck.getDayOfWeek().equals(neededDay)) {
-                        expense.setDateDue(dateToCheck);
-                    }
-                }
+                setWeeklyDateDue(expense, expenseDTO.getPeriodDate());
 
             } else if (expenseDTO.getPeriod().equals("monthly")) {
-                String periodDateDay = expenseDTO.getPeriodDate();
-                // 20th  => yyyy MM 20
-                int todayDayOfMonth = LocalDate.now().getDayOfMonth();
-                int totalMonthDays = LocalDate.now().lengthOfMonth();
-                int periodDateDayValue = 0;
-                if (periodDateDay.equals("Last day of month")) {
-                    periodDateDayValue = totalMonthDays;
-                } else {
-                    char[] dateDayCharArr = periodDateDay.toCharArray();
-                    String result;
-                    if (periodDateDay.length() == 3) {
-                        //0-9
-                        result = String.valueOf(dateDayCharArr[0]);
-                        periodDateDayValue = Integer.parseInt(result);
-                    } else {
-                        //10-30
-                        result = String.valueOf(String.valueOf(dateDayCharArr[0]) + String.valueOf(dateDayCharArr[1]));
-                        periodDateDayValue = Integer.parseInt(result);
-                    }
-                }
-                //Check where DateDue is based on today's date.
-                if (todayDayOfMonth <= periodDateDayValue) {
-                    //month stays the same
-                    LocalDate dateToSet = LocalDate.of(
-                            LocalDate.now().getYear(),
-                            LocalDate.now().getMonth(),
-                            periodDateDayValue);
-                    expense.setDateDue(dateToSet);
-                } else {
-                    //month +1
-                    //TODO: CHECK IF +1 MONTH WORKS CORRECTLY FOR TURNING YEAR AHEAD
-                    LocalDate dateToSet = LocalDate.of(
-                            LocalDate.now().getYear(),
-                            LocalDate.now().getMonth().plus(1),
-                            periodDateDayValue);
-                    expense.setDateDue(dateToSet);
-                }
 
+                setMonthlyDateDue(expense, expenseDTO.getPeriodDate());
             }
         }
 
@@ -239,33 +196,6 @@ public class UserServiceImpl implements UserService {
     }
 
     //TODO: TAKE THOSE METHODS IN A UTIL CLASS
-    private int getPeriodDateDayValue(String periodDateDay) {
-        int result = 0;
-        switch (periodDateDay) {
-            case "Monday":
-                result = 1;
-                break;
-            case "Tuesday":
-                result = 2;
-                break;
-            case "Wednesday":
-                result = 3;
-                break;
-            case "Thursday":
-                result = 4;
-                break;
-            case "Friday":
-                result = 5;
-                break;
-            case "Saturday":
-                result = 6;
-                break;
-            case "Sunday":
-                result = 7;
-                break;
-        }
-        return result;
-    }
 
     @Override
     public void addGoal(String email, GoalDTO goalDTO) {
