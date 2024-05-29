@@ -195,7 +195,6 @@ public class UserServiceImpl implements UserService {
         expenseRepository.saveAndFlush(expense);
     }
 
-    //TODO: TAKE THOSE METHODS IN A UTIL CLASS
 
     @Override
     public void addGoal(String email, GoalDTO goalDTO) {
@@ -257,7 +256,6 @@ public class UserServiceImpl implements UserService {
     public AllUsersInfoDTO filterAllUsersByEmail(String email) {
         Optional<List<User>> allUsers = userRepository.findAllByEmailContaining(email);
         if (allUsers.isEmpty()) {
-            //TODO: CATCH EX
             return null;
         }
         List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers.get(), UserFullDetailsInfoDTO[].class)).toList();

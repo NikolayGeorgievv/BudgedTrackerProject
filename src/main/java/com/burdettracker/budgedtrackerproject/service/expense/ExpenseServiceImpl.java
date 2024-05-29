@@ -48,7 +48,6 @@ public class ExpenseServiceImpl implements ExpenseService {
             expenseToEdit.setPeriod(editExpenseInfoDTO.getPeriod());}
 
         if (!expenseToEdit.getPeriodDate().equals(editExpenseInfoDTO.getPeriodDate()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
-            //TODO: SET DATEDUE
             LocalDate todaysDate = LocalDate.now();
             if (editExpenseInfoDTO.getPeriod().equals("weekly")){
                 //30th, monthly 2024-05-30
