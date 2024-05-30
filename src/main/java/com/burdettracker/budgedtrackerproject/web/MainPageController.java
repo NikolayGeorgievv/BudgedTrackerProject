@@ -50,7 +50,7 @@ public class MainPageController extends BaseController{
             userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
         }catch (RuntimeException er){
 
-            bindingResult.addError(new FieldError("changePlanDTO", "membership", "Number of accounts allowed exceeded."));
+            bindingResult.addError(new FieldError("changePlanDTO", "membership", "Can't downgrade.Number of allowed accounts exceeded."));
             return "changePlanErrorPage";
         }
         return "redirect:/homePage";

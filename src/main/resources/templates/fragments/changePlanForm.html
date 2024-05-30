@@ -31,11 +31,11 @@
     <div class="d-flex flex-column">
       <label for="membershipDropdownId" class="membershipLabel">Select the desired plan</label>
       <select  id="membershipDropdownId" name="membership" class="membershipDropdown">
+        <option th:value="0" th:text="'Please choose a plan'" disabled selected></option>
         <option class="membershipPlanFormOption"
                 th:each="m : ${memberships}"
                 th:text="${m}"
                 th:value="${m}"
-                th:selected="${userFullNameDTO.getMembership()}"
                 >
         </option>
       </select>
