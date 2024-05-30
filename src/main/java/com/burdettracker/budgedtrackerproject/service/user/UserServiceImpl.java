@@ -168,7 +168,10 @@ public class UserServiceImpl implements UserService {
 
             //check if the given date is in the future
             if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now()) || LocalDate.of(year, Month.valueOf(month), day).equals(LocalDate.now())) {
-                //TODO: CHECK IF THE BILL IS ONE-TIME-BUY
+                //if the expense is one-time-buy, it will appear next to its name
+                if (expense.getPeriod().equals("custom")){
+                    expense.setName(String.format("%s /One-Time-Buy/", expense.getName()));
+                }
                 expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
                 expense.setPeriodDate(String.format("%d-%s-%d", day, monthNormalCasing, year));
             } else {
