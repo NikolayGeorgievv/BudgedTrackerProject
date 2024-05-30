@@ -38,8 +38,8 @@
             <select name="category" class="addExpenseField">
                 <option
                         th:each="c : ${expenseCategories}"
-                        th:text="${c}"
-                        th:value="${c}">
+                        th:text="${c.getCategory()}"
+                        th:value="${c.getCategory()}">
                 </option>
             </select>
         </div>

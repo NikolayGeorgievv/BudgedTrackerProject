@@ -18,9 +18,12 @@ public class Expense extends BaseEntity{
     private BigDecimal assigned;
     @Column
     private String period;
-    @Column(name = "category")
-    @Enumerated(EnumType.STRING)
-    private ExpenseCategories category;
+    @ManyToOne
+    @JoinTable(
+            name = "expenses_categories",
+            joinColumns = @JoinColumn(name = "expense_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Category category;
 
     @Column(name = "period_date")
     private String periodDate;
@@ -59,11 +62,11 @@ public class Expense extends BaseEntity{
         this.assigned = assigned;
     }
 
-    public ExpenseCategories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(ExpenseCategories category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
