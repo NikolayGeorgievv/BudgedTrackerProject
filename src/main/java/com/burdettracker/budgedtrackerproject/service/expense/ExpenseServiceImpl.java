@@ -74,7 +74,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         }
 
         if (!editExpenseInfoDTO.getDateDue().trim().equals("")) {
-            // TODO: CHECK THE DATE IF IT IS IN THE FUTURE
             String dateToSet = parseDateDue(editExpenseInfoDTO.getDateDue());
             expenseToEdit.setDateDue(LocalDate.parse(dateToSet));
             expenseToEdit.setPeriodDate(editExpenseInfoDTO.getDateDue());}

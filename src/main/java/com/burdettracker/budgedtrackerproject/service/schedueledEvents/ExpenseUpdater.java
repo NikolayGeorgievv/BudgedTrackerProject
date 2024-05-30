@@ -29,8 +29,8 @@ public class ExpenseUpdater {
 
     //cron = */30.. is for test purposes only
 
-//    @Scheduled(cron = "*/30 * * * * *")
-    @Scheduled(cron = "0 55 23 */1 * *")
+    @Scheduled(cron = "*/30 * * * * *")
+//    @Scheduled(cron = "0 55 23 */1 * *")
     public void updateExpense() {
         LocalDate todaysDate = LocalDate.now();
         List<Expense> expensesByDateDue = this.expenseRepository.findAllByDateDue(todaysDate);
@@ -77,12 +77,18 @@ public class ExpenseUpdater {
                 } else {
                     BigDecimal newAccValue = account.getCurrentAmount().subtract(ex.getAssigned());
                     account.setCurrentAmount(newAccValue);
-                    //TODO: FIGURE OUT WHAT TO DO WITH ONE-TIME-BUY EXPENSES
                 }
             }
 
             accountRepository.saveAndFlush(account);
+
+            //one-time-buys will be deleted from expenses(transaction will be made)
+            if (period.equals("custom")){
+                expenseRepository.delete(ex);
+            }else {
             expenseRepository.saveAndFlush(ex);
+            }
+
         });
 
     }

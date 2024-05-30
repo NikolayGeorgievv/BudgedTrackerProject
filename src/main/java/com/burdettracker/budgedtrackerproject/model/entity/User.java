@@ -5,6 +5,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -48,7 +49,7 @@ public class User {
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Expense> expenses = new ArrayList<>();
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Transaction> transactions = new ArrayList<>();
 

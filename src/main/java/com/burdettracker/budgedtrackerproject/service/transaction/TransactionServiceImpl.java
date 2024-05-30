@@ -8,6 +8,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class TransactionServiceImpl implements TransactionService {
         String transactionDescription = String.format("%s paid on %s.Category: %s. $%s withdrawn from account %s.",
                 ex.getName(),
                 ex.getDateDue(),
-                ex.getCategory().toString(),
+                ex.getCategory().getCategory(),
                 ex.getAssigned(),
                 ex.getAccount().getName());
 
