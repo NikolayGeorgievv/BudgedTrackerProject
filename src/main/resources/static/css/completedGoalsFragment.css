@@ -1,0 +1,32 @@
+#completedGoalsContent {
+    width: 1000px;
+    background-color: #1E88A1;
+}
+
+#completedGoalsTable {
+    width: 100%;
+    background-color: #1E88A1;
+
+}
+#completedGoalsEndDiv{
+    margin-right: 20px;
+}
+
+#modal-dialog {
+    display: table;
+}
+
+#completedGoalsModalLabel {
+    color: black;
+    font-weight: bold;
+}
+#completedGoalsDescPara{
+    font-weight: bold;
+    font-style: italic;
+}
+#completedGoalsBtn{
+    padding: 5px 30px;
+    border: 2px #92ccf0 solid;
+    border-radius: 10px;
+
+}

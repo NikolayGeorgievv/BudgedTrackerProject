@@ -42,7 +42,6 @@ public class TransactionServiceImpl implements TransactionService {
                 ex.getDateDue(),
                 ex.getAccount());
 
-        //TODO: think about displaying the local date(dateDue) user-friendly.
 
         String transactionDescription = String.format("%s paid on %s.Category: %s. $%s withdrawn from account %s.",
                 ex.getName(),
@@ -77,7 +76,6 @@ public class TransactionServiceImpl implements TransactionService {
                 goal.getAccount()
         );
 
-        //TODO: think about displaying the local date(dateDue) user-friendly.
 
         String transactionDescription = String.format("Successfully added $%s to your %s Goal. Date: %s. Account: %s.",
                 addedAmount,

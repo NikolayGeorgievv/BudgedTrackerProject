@@ -26,25 +26,32 @@ public class ProfileSubscription {
 
     //cron = */10.. is for test purposes only
 
-//        @Scheduled(cron = "*/10 * * * * *")
+    //        @Scheduled(cron = "*/10 * * * * *")
     @Scheduled(cron = "0 55 23 */1 * *")
-    public void payForProfileSubscription(){
+    public void payForProfileSubscription() {
 
-        List<User> allUsers = this.userRepository.findAllByRegisteredOnDate(LocalDate.now()).orElse(null);
+        List<User> allUsers = this.userRepository.findAll();
 
         try {
             allUsers.forEach(user -> {
-                Account account = accountRepository.getByName(user.getAccountNameAssignedForSubscription());
-                    if (user.getMembershipType().toString().equals("GOLD")){
+                int usersRegisteredDay = user.getRegisteredOnDate().getDayOfMonth();
+                int todaysDay = LocalDate.now().getDayOfMonth();
+                boolean flag = usersRegisteredDay > 29 && LocalDate.now().lengthOfMonth() < usersRegisteredDay;
+
+
+                if (usersRegisteredDay == todaysDay || flag) {
+                    Account account = accountRepository.getByName(user.getAccountNameAssignedForSubscription());
+                    if (user.getMembershipType().toString().equals("GOLD")) {
                         BigDecimal newAccAmount = account.getCurrentAmount().subtract(BigDecimal.valueOf(15));
                         account.setCurrentAmount(newAccAmount);
-                    }else if (user.getMembershipType().toString().equals("PREMIUM")){
+                    } else if (user.getMembershipType().toString().equals("PREMIUM")) {
                         BigDecimal newAccAmount = account.getCurrentAmount().subtract(BigDecimal.valueOf(29));
                         account.setCurrentAmount(newAccAmount);
                     }
-                accountRepository.saveAndFlush(account);
+                    accountRepository.saveAndFlush(account);
+                }
             });
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             //TODO: LOG THE EX
         }
     }

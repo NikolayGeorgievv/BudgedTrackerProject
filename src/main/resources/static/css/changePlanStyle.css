@@ -1,0 +1,22 @@
+.membershipLabel{
+    height: 50px;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 9px;
+    font-style: oblique;
+}
+.membershipDropdown{
+    height: 35px;
+    font-weight: 700;
+    font-style: oblique;
+    margin-bottom: 5px;
+    background-color: aliceblue;
+    text-align: center;
+}
+.membershipPlanFormOption{
+    font-weight: 700;
+    font-style: oblique;
+}
+#changePlanForm{
+    right: 0px;
+}

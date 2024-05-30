@@ -1,0 +1,17 @@
+.tableAdminPage {
+    --bs-table-bg: transparent;
+}
+#adminTopBar{
+    border-bottom: 1px solid #2c396a;
+    margin: 15px 10px;
+}
+#userSearch{
+    width: 300px;
+}
+#filterUserBtn{
+    margin-bottom: 5px;
+    color: black;
+}
+#editUserBtn{
+    color: black;
+}
