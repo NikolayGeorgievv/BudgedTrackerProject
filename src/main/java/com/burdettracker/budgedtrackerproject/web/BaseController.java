@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.TransactionInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
@@ -145,6 +146,12 @@ public class BaseController {
         return userService.getUserExpensesDetailsByEmail(currentUserName);
 
     }
+
+    @ModelAttribute("changePlanDTO")
+    public ChangeMembershipDTO changePlanDTO(){
+        return new ChangeMembershipDTO();
+    }
+
 
     @ModelAttribute("totalExpensesFunds")
     public String totalExpensesFunds() {

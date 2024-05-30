@@ -9,10 +9,13 @@ import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,10 +44,15 @@ public class MainPageController extends BaseController{
     }
 
     @PostMapping("/changePlan")
-    public String changeMembershipPlan(@ModelAttribute("changePlanDTO")ChangeMembershipDTO changePlanDTO){
+    public String changeMembershipPlan(@ModelAttribute("changePlanDTO") @Valid ChangeMembershipDTO changePlanDTO, BindingResult bindingResult){
 
-        userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
+        try {
+            userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
+        }catch (RuntimeException er){
 
+            bindingResult.addError(new FieldError("changePlanDTO", "membership", "Number of accounts allowed exceeded."));
+            return "changePlanErrorPage";
+        }
         return "redirect:/homePage";
     }
 

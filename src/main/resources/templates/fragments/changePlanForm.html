@@ -39,6 +39,7 @@
                 >
         </option>
       </select>
+      <div th:if="${#fields.hasErrors('membership')}" th:errors="*{membership}" class="errors">TEST</div>
     </div>
 
       <div class="d-flex flex-column" >
