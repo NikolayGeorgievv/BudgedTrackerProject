@@ -4,6 +4,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import static com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum.ADMIN;
 
 @Component
+@Profile("!test")
 public class RolesRepositoryInit implements CommandLineRunner {
 
     private final RolesRepository rolesRepository;

@@ -1,16 +1,15 @@
 package com.burdettracker.budgedtrackerproject.init;
 
 import com.burdettracker.budgedtrackerproject.model.entity.Category;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import com.burdettracker.budgedtrackerproject.repository.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Profile("!test")
 public class CategoriesRepositoryInit implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
 

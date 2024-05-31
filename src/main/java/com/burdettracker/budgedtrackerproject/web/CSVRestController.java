@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-public class CSVController {
+public class CSVRestController {
 
     private final CSVService csvService;
 
-    public CSVController(CSVService csvService) {
+    public CSVRestController(CSVService csvService) {
         this.csvService = csvService;
     }
     @GetMapping("/downloadCSV/{accountId}")
