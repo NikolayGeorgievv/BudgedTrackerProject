@@ -16,6 +16,14 @@ public class AccountDTO {
     private List<Transaction> transactionHistory;
     private User user;
 
+    public AccountDTO() {
+    }
+
+    public AccountDTO(String name, BigDecimal currentAmount) {
+        this.name = name;
+        this.currentAmount = currentAmount;
+    }
+
     public Long getId() {
         return id;
     }

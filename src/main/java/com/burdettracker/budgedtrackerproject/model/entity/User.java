@@ -40,13 +40,13 @@ public class User {
 
     private String accountNameAssignedForSubscription;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Account> accounts = new ArrayList<>();
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Goal> goals = new ArrayList<>();
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Expense> expenses = new ArrayList<>();
     @OneToMany(fetch = FetchType.EAGER)
@@ -61,6 +61,24 @@ public class User {
     private List<UserRoleEntity>  roles;
 
     public User() {
+    }
+
+    public User(UUID id, MembershipType membershipType, String firstName, String lastName, String email, String phoneNumber, String password, int userAccountsAllowed, LocalDate registeredOnDate, String accountNameAssignedForSubscription, List<Account> accounts, List<Goal> goals, List<Expense> expenses, List<Transaction> transactions, List<UserRoleEntity> roles) {
+        this.id = id;
+        this.membershipType = membershipType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.userAccountsAllowed = userAccountsAllowed;
+        this.registeredOnDate = registeredOnDate;
+        this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
+        this.accounts = accounts;
+        this.goals = goals;
+        this.expenses = expenses;
+        this.transactions = transactions;
+        this.roles = roles;
     }
 
     public UUID getId() {
