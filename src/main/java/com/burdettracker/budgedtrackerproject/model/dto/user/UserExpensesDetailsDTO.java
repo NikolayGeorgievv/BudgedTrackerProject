@@ -25,6 +25,8 @@ public class UserExpensesDetailsDTO {
     private int userAccountsAllowed;
     private String accountNameAssignedForSubscription;
 
+    public UserExpensesDetailsDTO() {
+    }
 
     public String getFirstName() {
         return firstName;
