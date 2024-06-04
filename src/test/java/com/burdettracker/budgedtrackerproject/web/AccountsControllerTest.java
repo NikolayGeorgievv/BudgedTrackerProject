@@ -60,24 +60,40 @@ class AccountsControllerTest {
     public void setUp() {
         accountRepository.deleteAll();
         userRepository.deleteAll();
-        user = createDummyUser();
-        userRepository.saveAndFlush(user);
     }
 
 
     @Test
     void editAccount() {
+
+
     }
 
     @Test
     void deleteAccount() {
+        Account account = createDummyAccount();
+        Account account1 = createDummyAccount();
+        accountRepository.saveAllAndFlush(List.of(account, account1));
+        User user = createDummyUser();
+        user.getAccounts().add(account);
+        user.getAccounts().add(account1);
+        userRepository.saveAndFlush(user);
+
+        accountsController.deleteAccount("1");
+
+        User updatedUser = userRepository.getByEmail("myEmail@example.com");
+        Assertions.assertEquals(1, updatedUser.getAccounts().size());
+
+        String viewName = accountsController.deleteAccount("1");
+        Assertions.assertEquals("redirect:/allAccountsPage", viewName);
     }
 
     @Test
     void addAccount() {
         String email = "myEmail@example.com";
         AccountDTO accountDTO = new AccountDTO("myDTOAccount", BigDecimal.valueOf(200));
-
+        User user = createDummyUser();
+        userRepository.saveAndFlush(user);
         accountsController.addAccount(accountDTO);
         User updatedUser = userRepository.getByEmail(email);
         Assertions.assertEquals(1, updatedUser.getAccounts().size());
@@ -88,6 +104,8 @@ class AccountsControllerTest {
 
     @Test
     void allAccountPage() {
+        String viewName = accountsController.allAccountPage();
+        Assertions.assertEquals("/allAccountsPage", viewName);
     }
 
 
@@ -113,5 +131,14 @@ class AccountsControllerTest {
         rolesRepository.saveAllAndFlush(List.of(userRoleEntity));
 
         return user;
+    }
+
+    private Account createDummyAccount(){
+        Account account = new Account();
+        account.setName("MyTestAcc");
+        account.setCreatedOn(LocalDate.now());
+        account.setCurrentAmount(BigDecimal.ZERO);
+
+        return account;
     }
 }
