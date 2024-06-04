@@ -109,6 +109,8 @@ class MainPageControllerTest {
             doThrow().when(mainPageController.changeMembershipPlan(changeMembershipDTO, bindingResult));
         });
 
+        String viewName = mainPageController.changeMembershipPlan(changeMembershipDTO, bindingResult);
+        Assertions.assertEquals("changePlanErrorPage", viewName);
     }
 
 
