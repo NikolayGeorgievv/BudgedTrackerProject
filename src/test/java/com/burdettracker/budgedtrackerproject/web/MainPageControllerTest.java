@@ -1,10 +1,12 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
+import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
+import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.user.UserServiceImpl;
@@ -12,7 +14,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,11 +21,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -39,6 +42,8 @@ class MainPageControllerTest {
     private UserRepository userRepository;
     @Autowired
     private RolesRepository rolesRepository;
+    @Autowired
+    private AccountRepository accountRepository;
     @Mock
     private UserServiceImpl userService;
     @Mock
@@ -51,6 +56,8 @@ class MainPageControllerTest {
 
     @BeforeEach
     public void setUp() {
+        accountRepository.deleteAll();
+        userRepository.deleteAll();
         user = createDummyUser();
         userRepository.saveAndFlush(user);
     }
@@ -62,7 +69,7 @@ class MainPageControllerTest {
     }
 
     @Test
-    void changeMembershipPlan() {
+    void changeMembershipPlanSuccessful() {
         ChangeMembershipDTO changeMembershipDTO = new ChangeMembershipDTO();
         changeMembershipDTO.setAccountToUse("MyAccount");
         changeMembershipDTO.setMembership("FREE");
@@ -83,6 +90,27 @@ class MainPageControllerTest {
 
         Assertions.assertEquals("FREE", updatedUser.getMembershipType().toString());
     }
+
+    @Test
+    void changeMembershipPlanFail() {
+        Account firstAcc = createDummyAccount();
+        Account secondAcc = createDummyAccount();
+        accountRepository.saveAllAndFlush(List.of(firstAcc, secondAcc));
+        String email = "myEmail@example.com";
+        User user = userRepository.getByEmail(email);
+        user.getAccounts().add(firstAcc);
+        user.getAccounts().add(secondAcc);
+        userRepository.saveAndFlush(user);
+        ChangeMembershipDTO changeMembershipDTO = new ChangeMembershipDTO();
+        changeMembershipDTO.setAccountToUse("MyAccount");
+        changeMembershipDTO.setMembership("FREE");
+
+        assertThrows(RuntimeException.class, () -> {
+            doThrow().when(mainPageController.changeMembershipPlan(changeMembershipDTO, bindingResult));
+        });
+
+    }
+
 
     @Test
     void getUserByEmail() {
@@ -112,6 +140,15 @@ class MainPageControllerTest {
         rolesRepository.saveAllAndFlush(List.of(userRoleEntity));
 
         return user;
+    }
+
+    private Account createDummyAccount(){
+        Account account = new Account();
+        account.setName("MyTestAcc");
+        account.setCreatedOn(LocalDate.now());
+        account.setCurrentAmount(BigDecimal.ZERO);
+
+        return account;
     }
     private void changeUserMembership(User user, String membership) {
         switch (membership) {
