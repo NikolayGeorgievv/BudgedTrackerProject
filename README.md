@@ -3,7 +3,7 @@ This is a Budged tracking web application.
 It uses Java/Spring Boot, MYSQL for database and Bootstrap/JS for the front end.
 
 ## How to use
-Clone this repository, run it and the app in the browser.
+Clone this repository, run it and open the app in the browser.
 Register and Log in.
 You are now able to track your finances by creating accounts, expenses and even goals.
 For more detailed information check "FAQs" or "How to use" in the application.(Located on the nav-bar)
