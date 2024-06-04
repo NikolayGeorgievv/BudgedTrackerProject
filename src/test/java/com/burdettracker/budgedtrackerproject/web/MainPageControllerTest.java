@@ -108,7 +108,7 @@ class MainPageControllerTest {
         assertThrows(RuntimeException.class, () -> {
             doThrow().when(mainPageController.changeMembershipPlan(changeMembershipDTO, bindingResult));
         });
-//
+
     }
 
 
