@@ -27,4 +27,9 @@ public class IndexPageController {
     public String getContactPage(){
         return "/contactsPage";
     }
+
+    @GetMapping("howItWorksPage")
+    public String getHowItWorksPage(){
+        return "/howItWorksPage";
+    }
 }
