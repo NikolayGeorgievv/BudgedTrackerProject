@@ -3,9 +3,11 @@ package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.expense.AddCategoryDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.transaction.TransactionInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
@@ -54,7 +56,14 @@ public class BaseController {
         this.transactionService = transactionService;
         this.categoryService = categoryService;
     }
-
+    @ModelAttribute("goalDTO")
+    public GoalDTO goalDTO(){
+        return new GoalDTO();
+    }
+    @ModelAttribute("addCategoryDTO")
+    public AddCategoryDTO addCategoryDTO(){
+        return new AddCategoryDTO();
+    }
 
     @ModelAttribute("allTransactions")
     public List<TransactionInfoDTO> allTransactionsDTO(){

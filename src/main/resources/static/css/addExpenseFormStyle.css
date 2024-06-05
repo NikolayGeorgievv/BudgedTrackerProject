@@ -105,3 +105,11 @@ button:hover {
     margin-left: 3px;
     color: red;
 }
+
+.display-expense-form{
+    display: block;
+}
+
+.hide-expense-form{
+    display: none;
+}

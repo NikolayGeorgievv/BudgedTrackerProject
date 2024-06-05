@@ -20,3 +20,10 @@
 #changePlanForm{
     right: 0px;
 }
+
+.display-change-plan-form{
+    display: block;
+}
+.hide-change-plan-form{
+    display: none;
+}

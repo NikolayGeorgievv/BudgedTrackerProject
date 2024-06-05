@@ -18,12 +18,14 @@
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Add expense" value="Add expense" onclick="openExpenseForm()" id="addExpenseFormBtn"
 ><i class="fa-solid fa-plus"></i></button>
-<div class="form-popup1" id="myExpenseForm">
+<div class="form-popup1" id="myExpenseForm"
+     th:object="${expenseDTO}"
+     th:classappend="${#fields.hasErrors('*')} ? 'display-expense-form' : 'hide-expense-form'">
     <form
             th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addExpense'}}"
             th:method="post"
-            th:object="${expenseDTO}"
-            class="form-container">
+
+            class="form-container form-popup1">
         <div class="d-flex flex-column">
             <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
                 <label class="addExpenseLabels">Your bill information</label>

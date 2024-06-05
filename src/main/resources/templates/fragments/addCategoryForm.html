@@ -17,18 +17,22 @@
 <button  type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
          title="Add category" value="Add category" onclick="addCategoryForm()"
 ><i class="fa-solid fa-plus"></i></button>
-<div class="form-popup" id="categoryForm" >
+<div class="category-form-popup" id="categoryForm"
+     th:object="${addCategoryDTO}"
+     th:classappend="${#fields.hasErrors('*')} ? 'display-category-form' : 'hide-category-form'"
+     >
   <form
           th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addCategory'}}"
           th:method="post"
-          th:object="${addCategoryDTO}"
           class="form-container">
 
 
     <div class="d-flex flex-column" style="margin: 5px" id="form">
       <label class="addCategoryLabel">Category</label>
       <input type="text" placeholder="Account name" name="category" id="category" class="addCategoryField"
-             minlength="2" maxlength="30">
+             minlength="2" maxlength="40">
+      <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors"></div>
+
     </div>
 
     <button type="submit" class="button" id="submitButtonCategory" disabled>Add Category</button>

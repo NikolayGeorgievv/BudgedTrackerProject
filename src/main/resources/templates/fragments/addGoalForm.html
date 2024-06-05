@@ -8,6 +8,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{css/addGoalFormStyle.css}">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>Add goal form</title>
@@ -17,22 +19,25 @@
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Add goal" value="Add goal" onclick="openGoalForm()"
 ><i class="fa-regular fa-heart"></i></button>
-<div class="form-popup" id="myGoalForm">
+<div class="goal-form-popup" id="myGoalForm"
+     th:object="${goalDTO}"
+     th:classappend="${#fields.hasErrors('*')} ? 'display-goal-form' : 'hide-goal-form'">
   <form
           th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addGoal'}}"
           th:method="post"
-          th:object="${goalDTO}"
           class="form-container">
 <!--    TODO: MAKE A HELP SECTION-->
     <div class="d-flex justify-content-between" style="margin: 5px" id="form">
       <label>Goal</label>
       <input class="goalInputField" type="text" placeholder="What's your goal?" name="name" id="goalName"
-             minlength="2" maxlength="30">
+              maxlength="30">
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
     </div>
 
     <div class="d-flex justify-content-between" style="margin: 5px">
       <label>Target</label>
-      <input class="goalInputField" type="number" min="0" max="9999999" placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSaved">
+      <input class="goalInputField" type="number" min="0"  placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSaved">
+        <div th:if="${#fields.hasErrors('amountToBeSaved')}" th:errors="*{amountToBeSaved}" class="errors"></div>
     </div>
 
       <div class="d-flex justify-content-between">
@@ -51,7 +56,7 @@
 
     <div class="d-flex justify-content-between" style="margin: 5px">
       <label>Add initial funds</label>
-      <input class="goalInputField" type="number" min="0" max="9999999" placeholder="1000$(Optional)" name="currentAmount" id="initialAmount">
+      <input class="goalInputField" type="number" min="0" max="99999999" placeholder="1000$(Optional)" name="currentAmount" id="initialAmount">
     </div>
 
     <div class="d-flex justify-content-between" style="margin: 5px">

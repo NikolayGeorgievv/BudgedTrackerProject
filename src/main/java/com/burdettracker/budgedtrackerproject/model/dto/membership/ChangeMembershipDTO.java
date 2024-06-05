@@ -1,8 +1,12 @@
 package com.burdettracker.budgedtrackerproject.model.dto.membership;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ChangeMembershipDTO {
 
+    @NotNull
     private String accountToUse;
+    @NotNull
     private String membership;
 
 

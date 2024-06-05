@@ -8,7 +8,9 @@ import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,7 +25,11 @@ public class CategoryController extends BaseController{
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute("addCategoryDTO") AddCategoryDTO addCategoryDTO){
+    public String addCategory(@Valid AddCategoryDTO addCategoryDTO, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return "/homePage";
+        }
         categoryService.addCategory(addCategoryDTO);
         return "redirect:/homePage";
     }

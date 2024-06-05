@@ -51,7 +51,7 @@ public class MainPageController extends BaseController{
         }catch (RuntimeException er){
 
             bindingResult.addError(new FieldError("changePlanDTO", "membership", "Can't downgrade.Number of allowed accounts exceeded."));
-            return "changePlanErrorPage";
+            return "/homePage";
         }
         return "redirect:/homePage";
     }

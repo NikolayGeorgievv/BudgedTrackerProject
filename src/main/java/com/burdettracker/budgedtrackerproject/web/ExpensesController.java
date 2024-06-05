@@ -41,7 +41,7 @@ public class ExpensesController extends BaseController{
             @Valid @ModelAttribute("expenseDTO") ExpenseDTO expenseDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "allExpensesPageWithErrors";
+            return "/allExpensesPage";
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
@@ -50,18 +50,12 @@ public class ExpensesController extends BaseController{
             userService.addExpense(currentUserName, expenseDTO);
         } catch (RuntimeException e) {
             bindingResult.addError(new FieldError("expenseDTO", "periodDate", "Please choose a correct date."));
-            return "allExpensesPageWithErrors";
+
+            return "/allExpensesPage";
         }
 
 
         return "redirect:/allExpensesPage";
-    }
-
-    @GetMapping("/addExpense")
-    public String getExpense(Model model) {
-        ExpenseDTO expenseDTO = new ExpenseDTO();
-        model.addAttribute("expenseDTO", expenseDTO);
-        return "allExpensesPageWithErrors";
     }
 
 

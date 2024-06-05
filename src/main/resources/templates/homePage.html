@@ -41,7 +41,8 @@
                         <p
                                 th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
                                 th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
-                                style="color: green; font-weight: bold"
+                                th:style="${allAccountsInfoDTO.getTotalBalance()} < 0 ? 'color: red;border: none; font-weight: bold;'
+                                     : 'color: green;border: none; font-weight: bold;'"
                         ></p>
                     </div>
                     <div>

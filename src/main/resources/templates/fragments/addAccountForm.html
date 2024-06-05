@@ -17,23 +17,26 @@
 <button  th:if="${usersAccountCeil}" type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Add account" value="Add account" onclick="openForm()"
 ><i class="fa-solid fa-plus"></i></button>
-<div class="form-popup" id="myForm" >
+<div class="account-form-popup" id="myForm"
+     th:object="${accountDTO}"
+     th:classappend="${#fields.hasErrors('*')} ? 'display-account-form' : 'hide-account-form'">
     <form
             th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addAccount'}}"
             th:method="post"
-            th:object="${accountDTO}"
             class="form-container">
 
 
         <div class="d-flex flex-column" style="margin: 5px" id="form">
             <label class="addAccountLabel">Account name</label>
             <input type="text" placeholder="Account name" name="name" id="name" class="addAccountField"
-            minlength="2" maxlength="30">
+           minlength="2" maxlength="30">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
         </div>
 
         <div class="d-flex flex-column" style="margin: 5px">
             <label class="addAccountLabel">Add funds</label>
-            <input type="number" min="0" max="9999999" placeholder="1000$" name="currentAmount" id="currentAmount" class="addAccountField">
+            <input type="number" min="0" max="9999999"  placeholder="1000$" name="currentAmount" id="currentAmount" class="addAccountField">
+            <div th:if="${#fields.hasErrors('currentAmount')}" th:errors="*{currentAmount}" class="errors"></div>
         </div>
 
         <button type="submit" class="button" id="submitButton" disabled>Add Account</button>

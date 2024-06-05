@@ -1,11 +1,20 @@
 package com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 public class GoalDTO {
 
     private Long id;
+    @NotEmpty
+    @Size(min = 2, max = 30, message = "Goal name length must be between 2 and 30 symbols.")
     private String name;
+    @Min(value = 0, message = "Please enter your goal target.")
+    @Max(value = 99999999, message = "The maximum target for a goal is $99.999.999")
     private BigDecimal amountToBeSaved;
     private String accountToUse;
     private BigDecimal currentAmount;

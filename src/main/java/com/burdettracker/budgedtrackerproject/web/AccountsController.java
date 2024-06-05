@@ -10,9 +10,11 @@ import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,10 +51,14 @@ public class AccountsController extends BaseController{
 
     @PostMapping("/addAccount")
     public String addAccount(
-            @ModelAttribute("accountDTO") AccountDTO accountDTO) {
+            @ModelAttribute("accountDTO") @Valid AccountDTO accountDTO,  BindingResult bindingResult) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
+        if (bindingResult.hasErrors()) {
+            return "/allAccountsPage";
+        }
+
         this.userService.addAccount(currentUserName, accountDTO);
 
         return "redirect:/allAccountsPage";

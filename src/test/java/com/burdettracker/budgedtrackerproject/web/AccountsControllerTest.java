@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.validation.BindingResult;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -53,6 +54,9 @@ class AccountsControllerTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    BindingResult bindingResult;
 
     User user;
 
@@ -94,11 +98,11 @@ class AccountsControllerTest {
         AccountDTO accountDTO = new AccountDTO("myDTOAccount", BigDecimal.valueOf(200));
         User user = createDummyUser();
         userRepository.saveAndFlush(user);
-        accountsController.addAccount(accountDTO);
+        accountsController.addAccount(accountDTO, bindingResult);
         User updatedUser = userRepository.getByEmail(email);
         Assertions.assertEquals(1, updatedUser.getAccounts().size());
 
-        String viewName = accountsController.addAccount(accountDTO);
+        String viewName = accountsController.addAccount(accountDTO, bindingResult);
         Assertions.assertEquals("redirect:/allAccountsPage", viewName);
     }
 
