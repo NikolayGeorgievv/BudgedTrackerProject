@@ -1,3 +1,12 @@
+
+.change-plan-form-popup {
+    display: none;
+    position: absolute;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: #2c396a;
+    width: 20%;
+}
 .membershipLabel{
     height: 50px;
     font-size: 18px;

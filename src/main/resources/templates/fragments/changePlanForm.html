@@ -18,7 +18,7 @@
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
         title="Change plan" value="Change plan" onclick="openChangePlanForm()"
 ><i class="fa-solid fa-arrow-trend-up"></i></button>
-<div class="form-popup" id="changePlanForm"
+<div class="change-plan-form-popup" id="changePlanForm"
      th:classappend="${#fields.hasErrors('*')} ? 'display-change-plan-form' : 'hide-change-plan-form'"
      th:object="${changePlanDTO}"
 >
