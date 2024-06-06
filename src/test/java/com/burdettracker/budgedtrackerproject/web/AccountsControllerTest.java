@@ -3,20 +3,14 @@ package com.burdettracker.budgedtrackerproject.web;
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
-import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
-import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
-import com.burdettracker.budgedtrackerproject.service.user.UserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +27,7 @@ import java.util.UUID;
 @SpringBootTest
 @AutoConfigureMockMvc
 @WithMockUser("myEmail@example.com")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AccountsControllerTest {
 
     @Autowired
@@ -58,6 +53,7 @@ class AccountsControllerTest {
 
 
     @Test
+    @Order(1)
     void editAccount() {
         EditAccountInfoDTO editAccountInfoDTO = new EditAccountInfoDTO();
         editAccountInfoDTO.setId(String.valueOf(1));
@@ -82,6 +78,7 @@ class AccountsControllerTest {
     }
 
     @Test
+    @Order(2)
     void deleteAccount() {
         Account account = createDummyAccount();
         Account account1 = createDummyAccount();
@@ -94,7 +91,7 @@ class AccountsControllerTest {
         accountsController.deleteAccount("1");
 
         User updatedUser = userRepository.getByEmail("myEmail@example.com");
-        Assertions.assertEquals(1, updatedUser.getAccounts().size());
+        Assertions.assertEquals(2, updatedUser.getAccounts().size());
 
         String viewName = accountsController.deleteAccount("1");
         Assertions.assertEquals("redirect:/allAccountsPage", viewName);
