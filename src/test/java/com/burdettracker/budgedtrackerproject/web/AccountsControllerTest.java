@@ -47,15 +47,6 @@ class AccountsControllerTest {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Mock
-    private TransactionService transactionService;
-
-    @Mock
-    private UserService userService;
-
     @Mock
     BindingResult bindingResult;
 
@@ -76,9 +67,6 @@ class AccountsControllerTest {
         User user = createDummyUser();
 
         Account account = createDummyAccount();
-//        account.setUser(user);
-//
-//        user.getAccounts().add(account);
         userRepository.saveAndFlush(user);
 
         accountRepository.saveAndFlush(account);
