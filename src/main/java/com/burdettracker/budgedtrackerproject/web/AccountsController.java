@@ -33,8 +33,7 @@ public class AccountsController extends BaseController{
 
     @PostMapping("/editAccount")
     public String editAccount(
-            @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO,
-            @ModelAttribute("allAccountsInfoDTO") AllAccountsInfoDTO allAccountsInfoDTO){
+            @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         accountService.updateAccountById(editAccountInfoDTO, currentUserName);

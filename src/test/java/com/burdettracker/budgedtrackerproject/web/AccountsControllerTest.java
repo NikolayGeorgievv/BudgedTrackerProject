@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Transaction;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
@@ -58,8 +59,6 @@ class AccountsControllerTest {
     @Mock
     BindingResult bindingResult;
 
-    User user;
-
     @BeforeEach
     public void setUp() {
         accountRepository.deleteAll();
@@ -69,8 +68,29 @@ class AccountsControllerTest {
 
     @Test
     void editAccount() {
+        EditAccountInfoDTO editAccountInfoDTO = new EditAccountInfoDTO();
+        editAccountInfoDTO.setId(String.valueOf(1));
+        editAccountInfoDTO.setNewAccountName("myAccountNewName");
+        editAccountInfoDTO.setAddedAmount(BigDecimal.valueOf(100));
 
+        User user = createDummyUser();
 
+        Account account = createDummyAccount();
+//        account.setUser(user);
+//
+//        user.getAccounts().add(account);
+        userRepository.saveAndFlush(user);
+
+        accountRepository.saveAndFlush(account);
+        accountsController.editAccount(editAccountInfoDTO);
+
+        Account updatedAccount = accountRepository.getReferenceById(1L);
+
+        Assertions.assertEquals("myAccountNewName", updatedAccount.getName());
+        Assertions.assertEquals(BigDecimal.valueOf(100.0), updatedAccount.getCurrentAmount().setScale(1));
+
+        String viewName = accountsController.editAccount(editAccountInfoDTO);
+        Assertions.assertEquals("redirect:/allAccountsPage", viewName);
     }
 
     @Test
@@ -137,7 +157,7 @@ class AccountsControllerTest {
         return user;
     }
 
-    private Account createDummyAccount(){
+    private Account createDummyAccount() {
         Account account = new Account();
         account.setName("MyTestAcc");
         account.setCreatedOn(LocalDate.now());
