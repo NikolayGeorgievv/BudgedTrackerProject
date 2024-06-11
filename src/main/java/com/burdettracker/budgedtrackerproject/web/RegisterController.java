@@ -34,8 +34,9 @@ public class RegisterController {
 
     @PostMapping("/users/register")
     public String register(@Valid @ModelAttribute("registerUserDTO") RegisterUserDTO registerUserDTO, BindingResult bindingResult, RedirectAttributes rAtt) {
+        boolean passwordsNotMatch = !registerUserDTO.getPassword().equals(registerUserDTO.getConfirmPassword());
 
-        if (!registerUserDTO.getPassword().equals(registerUserDTO.getConfirmPassword())){
+        if (passwordsNotMatch){
             bindingResult.addError(new FieldError("registerUserDTO", "confirmPassword", "Passwords should match."));
         }
 
