@@ -67,8 +67,7 @@ public class UserServiceImpl implements UserService {
 
         User user = mapUser(registerUserDTO);
 
-        //First registered user will be Admin, also populate roles table
-
+        //First registered user will be Admin
         if (this.userRepository.count() == 0) {
             List<UserRoleEntity> allRoles = rolesRepository.findAll();
             user.setRoles(allRoles);
@@ -82,6 +81,7 @@ public class UserServiceImpl implements UserService {
         user.setRegisteredOnDate(LocalDate.now());
         //Subscription fees will be deducted from the basic account
         user.setAccountNameAssignedForSubscription(user.getAccounts().get(0).getName());
+
         userRepository.saveAndFlush(user);
         transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
         accountRepository.saveAllAndFlush(user.getAccounts());
