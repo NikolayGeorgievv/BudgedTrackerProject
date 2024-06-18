@@ -34,11 +34,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final ExpenseRepository expenseRepository;
     private final UserDetailImpl userDetail;
-    private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
-    private final GoalsRepository goalsRepository;
     private final RolesRepository rolesRepository;
     private final EmailVerificationService emailVerificationService;
     private final TransactionService transactionService;
@@ -47,15 +43,11 @@ public class UserServiceImpl implements UserService {
     private final ExpenseService expenseService;
     private final GoalsService goalsService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository, EmailVerificationService emailVerificationService, TransactionService transactionService, CategoryRepository categoryRepository, AccountService accountService, ExpenseService expenseService, GoalsService goalsService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, UserDetailImpl userDetail, RolesRepository rolesRepository, EmailVerificationService emailVerificationService, TransactionService transactionService, CategoryRepository categoryRepository, AccountService accountService, ExpenseService expenseService, GoalsService goalsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
-        this.expenseRepository = expenseRepository;
         this.userDetail = userDetail;
-        this.accountRepository = accountRepository;
-        this.transactionRepository = transactionRepository;
-        this.goalsRepository = goalsRepository;
         this.rolesRepository = rolesRepository;
         this.emailVerificationService = emailVerificationService;
         this.transactionService = transactionService;
