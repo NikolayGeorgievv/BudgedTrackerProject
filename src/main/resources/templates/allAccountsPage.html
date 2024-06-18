@@ -114,12 +114,13 @@
                                     </div>
                                     <div style="margin-left: 5px">
                                         <form
-                                                th:action="@{/deleteAccount}"
-                                                th:method="get">
-                                            <a class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
+                                                th:action="@{/deleteAccount/{accountId}(accountId = ${a.getId()})}"
+                                                th:method="post">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <button class="btn btn-outline-info btn-sm px-3 me-sm-1 fw-bold"
                                                title="Delete account"
-                                               th:href="@{/deleteAccount/{accountId}(accountId = ${a.getId()})}">
-                                                <i class="fa-solid fa-trash-can"></i></a>
+                                               >
+                                                <i class="fa-solid fa-trash-can"></i></button>
 
                                         </form>
                                     </div>

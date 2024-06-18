@@ -84,11 +84,11 @@
                         </div>
                         <div>
                             <form
-                                    th:action="@{/deleteExpense}"
-                                    th:method="get">
-                                <a class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete expense"
-                                   th:href="@{/deleteExpense/{expenseId}(expenseId = ${e.getId()})}">
-                                    <i class="fa-solid fa-trash-can"></i></a>
+                                    th:action="@{/deleteExpense/{expenseId}(expenseId = ${e.getId()})}"
+                                    th:method="post">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" title="Delete expense">
+                                    <i class="fa-solid fa-trash-can"></i></button>
 
                             </form>
                         </div>
