@@ -17,5 +17,5 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     List<Expense> findAllByDateDue(LocalDate date);
 
-    Optional<List<Expense>> findAllByCategory(ExpenseCategories category);
+    Optional<List<Expense>> findAllByCategory_Category(String category);
 }

@@ -79,6 +79,16 @@ public class AccountServiceImpl implements AccountService {
         return accountDTO;
     }
 
+    @Override
+    public void saveAllAndFlush(List<Account> accounts) {
+        accountRepository.saveAllAndFlush(accounts);
+    }
+
+    @Override
+    public void saveAndFlush(Account account) {
+        accountRepository.saveAndFlush(account);
+    }
+
 
     public double getTotalBalance(List<AccountDTO> accList){
         double totalBalance = accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();

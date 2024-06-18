@@ -91,7 +91,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<ExpenseDTO> sortByCategory(String category) {
-        Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory(ExpenseCategories.valueOf(category));
+        Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory_Category(category);
         if (expensesByCategory.isEmpty()){
             return null;
         }
@@ -104,7 +104,10 @@ public class ExpenseServiceImpl implements ExpenseService {
         return String.valueOf(totalBalance);
     }
 
-
+    @Override
+    public void saveAndFlush(Expense expense) {
+        expenseRepository.saveAndFlush(expense);
+    }
 
 
     private String parseDateDue(String dateToParse){

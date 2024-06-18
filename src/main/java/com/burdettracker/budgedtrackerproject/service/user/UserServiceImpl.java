@@ -8,7 +8,10 @@ import com.burdettracker.budgedtrackerproject.model.dto.user.*;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.repository.*;
+import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.email.EmailVerificationService;
+import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
+import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,8 +43,11 @@ public class UserServiceImpl implements UserService {
     private final EmailVerificationService emailVerificationService;
     private final TransactionService transactionService;
     private final CategoryRepository categoryRepository;
+    private final AccountService accountService;
+    private final ExpenseService expenseService;
+    private final GoalsService goalsService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository, EmailVerificationService emailVerificationService, TransactionService transactionService, CategoryRepository categoryRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, ExpenseRepository expenseRepository, UserDetailImpl userDetail, AccountRepository accountRepository, TransactionRepository transactionRepository, GoalsRepository goalsRepository, RolesRepository rolesRepository, EmailVerificationService emailVerificationService, TransactionService transactionService, CategoryRepository categoryRepository, AccountService accountService, ExpenseService expenseService, GoalsService goalsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
@@ -54,6 +60,9 @@ public class UserServiceImpl implements UserService {
         this.emailVerificationService = emailVerificationService;
         this.transactionService = transactionService;
         this.categoryRepository = categoryRepository;
+        this.accountService = accountService;
+        this.expenseService = expenseService;
+        this.goalsService = goalsService;
     }
 
     @Override
@@ -83,8 +92,10 @@ public class UserServiceImpl implements UserService {
         user.setAccountNameAssignedForSubscription(user.getAccounts().get(0).getName());
 
         userRepository.saveAndFlush(user);
-        transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
-        accountRepository.saveAllAndFlush(user.getAccounts());
+        transactionService.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
+//        transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
+        accountService.saveAllAndFlush(user.getAccounts());
+//        accountRepository.saveAllAndFlush(user.getAccounts());
     }
 
     @Override
@@ -139,12 +150,14 @@ public class UserServiceImpl implements UserService {
                 user
         );
         Transaction transaction = this.transactionService.createAccountTransaction(accountDTO);
-        transactionRepository.saveAndFlush(transaction);
+        transactionService.saveAndFlush(transaction);
+//        transactionRepository.saveAndFlush(transaction);
         user.getTransactions().add(transaction);
         user.getAccounts().add(account);
         userRepository.saveAndFlush(user);
         account.getExpenseTransactionHistory().add(transaction);
-        accountRepository.saveAndFlush(account);
+        accountService.saveAndFlush(account);
+//        accountRepository.saveAndFlush(account);
     }
 
     @Override
@@ -192,10 +205,12 @@ public class UserServiceImpl implements UserService {
         }
 
         accountToUse.getExpenses().add(expense);
-        accountRepository.saveAndFlush(accountToUse);
+//        accountRepository.saveAndFlush(accountToUse);
+        accountService.saveAndFlush(accountToUse);
         user.getExpenses().add(expense);
         userRepository.saveAndFlush(user);
-        expenseRepository.saveAndFlush(expense);
+//        expenseRepository.saveAndFlush(expense);
+        expenseService.saveAndFlush(expense);
     }
 
 
@@ -232,10 +247,13 @@ public class UserServiceImpl implements UserService {
         user.getTransactions().add(transaction);
         account.getExpenseTransactionHistory().add(transaction);
         user.getGoals().add(goal);
-        transactionRepository.saveAndFlush(transaction);
-        accountRepository.saveAndFlush(account);
+//        transactionRepository.saveAndFlush(transaction);
+        transactionService.saveAndFlush(transaction);
+//        accountRepository.saveAndFlush(account);
+        accountService.saveAndFlush(account);
         userRepository.saveAndFlush(user);
-        goalsRepository.saveAndFlush(goal);
+        goalsService.saveAndFlush(goal);
+//        goalsRepository.saveAndFlush(goal);
     }
 
     @Override

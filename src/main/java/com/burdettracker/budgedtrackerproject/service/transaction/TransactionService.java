@@ -23,4 +23,8 @@ public interface TransactionService {
     Transaction createAccountTransaction(AccountDTO accountDTO);
 
     Transaction createGoalTransaction(Goal goal);
+
+    void saveAllAndFlush(List<Transaction> expenseTransactionHistory);
+
+    void saveAndFlush(Transaction transaction);
 }

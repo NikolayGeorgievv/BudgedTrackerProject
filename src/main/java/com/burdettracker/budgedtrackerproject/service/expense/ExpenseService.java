@@ -20,4 +20,5 @@ public interface ExpenseService {
     String getTotalValue(List<ExpenseDTO> sortedExpenses);
 
 
+    void saveAndFlush(Expense expense);
 }

@@ -5,6 +5,8 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 
+import java.util.List;
+
 public interface AccountService {
     AllAccountsInfoDTO getAllAccounts(String email);
 
@@ -15,4 +17,8 @@ public interface AccountService {
     Account getByName(String name);
 
     AccountDTO getAccountDTOById(String accountId);
+
+    void saveAllAndFlush(List<Account> accounts);
+
+    void saveAndFlush(Account account);
 }

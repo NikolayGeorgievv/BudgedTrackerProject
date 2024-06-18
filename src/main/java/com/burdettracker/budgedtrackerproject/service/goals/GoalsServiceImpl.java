@@ -104,6 +104,12 @@ public class GoalsServiceImpl implements GoalsService {
         AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO = new AllCompletedGoalsInfoDTO(completedGoals);
         return allCompletedGoalsInfoDTO;
     }
+
+    @Override
+    public void saveAndFlush(Goal goal) {
+        goalsRepository.saveAndFlush(goal);
+    }
+
     @Override
     public AllUncompletedGoalsInfoDTO getAllUncompletedGoals(String currentUserName) {
         List<Goal> allByUserEmail = this.goalsRepository.getAllByUser_Email(currentUserName);

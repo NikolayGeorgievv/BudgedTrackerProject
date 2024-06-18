@@ -153,6 +153,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
+    @Override
+    public void saveAllAndFlush(List<Transaction> expenseTransactionHistory) {
+        this.transactionRepository.saveAllAndFlush(expenseTransactionHistory);
+    }
+
+    @Override
+    public void saveAndFlush(Transaction transaction) {
+        transactionRepository.saveAndFlush(transaction);
+    }
 }
 
 
