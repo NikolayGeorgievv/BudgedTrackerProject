@@ -3,6 +3,7 @@ package com.burdettracker.budgedtrackerproject.config;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.user.UserDetailImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final String rememberMeKey;
+
+    public SecurityConfig(@Value("${rememberMe}") String rememberMeKey) {
+        this.rememberMeKey = rememberMeKey;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.authorizeHttpRequests(
@@ -48,12 +56,12 @@ public class SecurityConfig {
                                     .logoutSuccessUrl("/index")
                                     .invalidateHttpSession(true);
                         }
-//        ).rememberMe(
-//                rememberMe ->
-//                        rememberMe
-//                                .key(rememberMeKey)
-//                                .rememberMeParameter("rememberme")
-//                                .rememberMeCookieName("rememberme")
+        ).rememberMe(
+                rememberMe ->
+                        rememberMe
+                                .key(rememberMeKey)
+                                .rememberMeParameter("rememberMe")
+                                .rememberMeCookieName("rememberMe")
 //        ).oauth2Login(
 //                oauth -> oauth.successHandler(oAuthSuccessHandler)
                 ).csrf(AbstractHttpConfigurer::disable)
