@@ -3,9 +3,10 @@ package com.burdettracker.budgedtrackerproject.service.schedueledEvents;
 
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
-import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
+import com.burdettracker.budgedtrackerproject.service.account.AccountService;
+import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -17,30 +18,29 @@ import java.util.List;
 @Component
 public class ExpenseUpdater {
 
-    private final AccountRepository accountRepository;
-    private final ExpenseRepository expenseRepository;
     private final TransactionService transactionService;
+    private final AccountService accountService;
+    private final ExpenseService expenseService;
 
-    public ExpenseUpdater(AccountRepository accountRepository, ExpenseRepository expenseRepository, TransactionService transactionService) {
-        this.accountRepository = accountRepository;
-        this.expenseRepository = expenseRepository;
+    public ExpenseUpdater(TransactionService transactionService, AccountService accountService, ExpenseService expenseService) {
         this.transactionService = transactionService;
+        this.accountService = accountService;
+        this.expenseService = expenseService;
     }
 
     //cron = */30.. is for test purposes only
 
-//    @Scheduled(cron = "*/30 * * * * *")
+    //    @Scheduled(cron = "*/30 * * * * *")
     @Scheduled(cron = "0 55 23 */1 * *")
     public void updateExpense() {
         LocalDate todaysDate = LocalDate.now();
-        List<Expense> expensesByDateDue = this.expenseRepository.findAllByDateDue(todaysDate);
+        List<Expense> expensesByDateDue = this.expenseService.findAllByDateDue(todaysDate);
         expensesByDateDue.forEach(ex -> {
 
             transactionService.addExpenseTransaction(ex, ex.getUser());
 
             String period = ex.getPeriod();
             Account account = ex.getAccount();
-
 
 
             if (period.equals("weekly") || period.equals("monthly")) {
@@ -80,13 +80,13 @@ public class ExpenseUpdater {
                 }
             }
 
-            accountRepository.saveAndFlush(account);
+            this.accountService.saveAndFlush(account);
 
             //one-time-buys will be deleted from expenses(transaction will be made)
-            if (period.equals("custom")){
-                expenseRepository.delete(ex);
-            }else {
-            expenseRepository.saveAndFlush(ex);
+            if (period.equals("custom")) {
+                this.expenseService.delete(ex);
+            } else {
+                this.expenseService.saveAndFlush(ex);
             }
 
         });

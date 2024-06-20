@@ -8,14 +8,13 @@ import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

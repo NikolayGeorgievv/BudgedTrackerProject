@@ -23,12 +23,10 @@ import static com.burdettracker.budgedtrackerproject.util.Utils.*;
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
-    private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
 
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository, AccountRepository accountRepository, ModelMapper modelMapper) {
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, ModelMapper modelMapper) {
         this.expenseRepository = expenseRepository;
-        this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -107,6 +105,21 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void saveAndFlush(Expense expense) {
         expenseRepository.saveAndFlush(expense);
+    }
+
+    @Override
+    public void deleteByAccountId(long id) {
+        this.expenseRepository.deleteByAccountId(id);
+    }
+
+    @Override
+    public List<Expense> findAllByDateDue(LocalDate todaysDate) {
+        return this.expenseRepository.findAllByDateDue(todaysDate);
+    }
+
+    @Override
+    public void delete(Expense ex) {
+        this.expenseRepository.delete(ex);
     }
 
 

@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
             //check if the given date is in the future
             if (LocalDate.of(year, Month.valueOf(month), day).isAfter(LocalDate.now()) || LocalDate.of(year, Month.valueOf(month), day).equals(LocalDate.now())) {
                 //if the expense is one-time-buy, it will appear next to its name
-                if (expense.getPeriod().equals("custom")){
+                if (expense.getPeriod().equals("custom")) {
                     expense.setName(String.format("%s /One-Time-Buy/", expense.getName()));
                 }
                 expense.setDateDue(LocalDate.of(year, Month.valueOf(month.toUpperCase()), day));
@@ -252,12 +252,19 @@ public class UserServiceImpl implements UserService {
     public void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email) {
         User user = userRepository.getByEmail(email);
         int newPlanAccountsAllowed = 0;
-        switch (changePlanDTO.getMembership()){
-            case "FREE": newPlanAccountsAllowed = 1; break;
-            case "GOLD": newPlanAccountsAllowed = 2; break;
-            case "PREMIUM": newPlanAccountsAllowed = 10; break;
-        };
-        if (newPlanAccountsAllowed < user.getAccounts().size()){
+        switch (changePlanDTO.getMembership()) {
+            case "FREE":
+                newPlanAccountsAllowed = 1;
+                break;
+            case "GOLD":
+                newPlanAccountsAllowed = 2;
+                break;
+            case "PREMIUM":
+                newPlanAccountsAllowed = 10;
+                break;
+        }
+        ;
+        if (newPlanAccountsAllowed < user.getAccounts().size()) {
             throw new RuntimeException("Can't downgrade plan, too many accounts!");
         }
 
@@ -297,31 +304,31 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserChangeInformationDTO userChangeInformationDTO) {
         User user = userRepository.getReferenceById(UUID.fromString(userChangeInformationDTO.getId()));
 
-        if (!user.getMembershipType().toString().equals(userChangeInformationDTO.getMembership())){
+        if (!user.getMembershipType().toString().equals(userChangeInformationDTO.getMembership())) {
             changeUserMembership(user, userChangeInformationDTO.getMembership());
         }
-        if (!userChangeInformationDTO.getNewFirstName().trim().equals("")){
+        if (!userChangeInformationDTO.getNewFirstName().trim().equals("")) {
             user.setFirstName(userChangeInformationDTO.getNewFirstName());
         }
-        if (!userChangeInformationDTO.getNewLastName().trim().equals("")){
+        if (!userChangeInformationDTO.getNewLastName().trim().equals("")) {
             user.setLastName(userChangeInformationDTO.getNewLastName());
         }
-        if (!userChangeInformationDTO.getNewPhoneNumber().trim().equals("")){
+        if (!userChangeInformationDTO.getNewPhoneNumber().trim().equals("")) {
             user.setPhoneNumber(userChangeInformationDTO.getNewPhoneNumber());
         }
-        if (userChangeInformationDTO.isPromoteUser()){
+        if (userChangeInformationDTO.isPromoteUser()) {
             UserRoleEntity ADMIN = rolesRepository.getReferenceById(2L);
             UserRoleEntity USER = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(ADMIN, USER));
         }
-        if (userChangeInformationDTO.isDemoteAdmin()){
+        if (userChangeInformationDTO.isDemoteAdmin()) {
             UserRoleEntity USER = rolesRepository.getReferenceById(1L);
             user.setRoles(List.of(USER));
         }
         try {
             userRepository.saveAndFlush(user);
 
-        }catch (UnsupportedOperationException ex){
+        } catch (UnsupportedOperationException ex) {
             userRepository.saveAndFlush(user);
 
         }
@@ -348,6 +355,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return this.userRepository.getByEmail(email);
+    }
+
+    @Override
+    public void saveAndFlush(User user) {
+        this.userRepository.saveAndFlush(user);
     }
 
 }

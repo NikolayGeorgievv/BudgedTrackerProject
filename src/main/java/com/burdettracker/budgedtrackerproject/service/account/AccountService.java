@@ -21,4 +21,6 @@ public interface AccountService {
     void saveAllAndFlush(List<Account> accounts);
 
     void saveAndFlush(Account account);
+
+    Account getById(Long id);
 }

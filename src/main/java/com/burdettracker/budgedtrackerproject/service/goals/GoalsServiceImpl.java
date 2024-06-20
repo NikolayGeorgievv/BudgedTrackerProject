@@ -8,10 +8,11 @@ import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
-import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.GoalsRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
+import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,14 @@ public class GoalsServiceImpl implements GoalsService {
 
     private final GoalsRepository goalsRepository;
     private final ModelMapper modelMapper;
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final TransactionService transactionService;
     private final UserRepository userRepository;
 
-    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountRepository accountRepository, TransactionService transactionService, UserRepository userRepository) {
+    public GoalsServiceImpl(GoalsRepository goalsRepository, ModelMapper modelMapper, AccountService accountService, TransactionService transactionService, UserRepository userRepository) {
         this.goalsRepository = goalsRepository;
         this.modelMapper = modelMapper;
-        this.accountRepository = accountRepository;
+        this.accountService = accountService;
         this.transactionService = transactionService;
         this.userRepository = userRepository;
     }
@@ -51,28 +52,29 @@ public class GoalsServiceImpl implements GoalsService {
         boolean isNewPrimary = editGoalDTO.getIsNewPrimary() != null;
 
         Goal goalToEdit = this.goalsRepository.getReferenceById(Long.valueOf(editGoalDTO.getId()));
-        if (!goalToEdit.getName().equals(newGoalName) && !newGoalName.trim().equals("")){
+        if (!goalToEdit.getName().equals(newGoalName) && !newGoalName.trim().equals("")) {
             goalToEdit.setName(newGoalName);
         }
-        if (isNewPrimary){
-            Account newAcc = this.accountRepository.getByName(newAccountToUse);
+        if (isNewPrimary) {
+
+            Account newAcc = this.accountService.getByName(newAccountToUse);
             goalToEdit.setAccount(newAcc);
             goalToEdit.setAccountToUse(newAccountToUse);
         }
-        if (!newDescription.trim().equals("")){
+        if (!newDescription.trim().equals("")) {
             goalToEdit.setDescription(newDescription);
         }
 
-        if (addedAmount != null){
+        if (addedAmount != null) {
             User user = this.userRepository.getByEmail(currentUserName);
             //Updating the account's amount.(Negative results are allowed)
-            Account acc = this.accountRepository.getByName(newAccountToUse);
+            Account acc = this.accountService.getByName(newAccountToUse);
 
 
             BigDecimal amountDifference = goalToEdit.getAmountToBeSaved().subtract(goalToEdit.getCurrentAmount()).subtract(editGoalDTO.getAddedAmount());
             BigDecimal abs = BigDecimal.ZERO;
             BigDecimal transactionAmount = addedAmount;
-            if (amountDifference.compareTo(BigDecimal.ZERO) < 0){
+            if (amountDifference.compareTo(BigDecimal.ZERO) < 0) {
                 abs = amountDifference.abs();
                 transactionAmount = addedAmount.subtract(amountDifference.abs());
             }
@@ -80,11 +82,11 @@ public class GoalsServiceImpl implements GoalsService {
 
             BigDecimal newAccAmount = acc.getCurrentAmount().subtract(addedAmount).add(abs);
             acc.setCurrentAmount(newAccAmount);
-            accountRepository.saveAndFlush(acc);
-            transactionService.fundGoalTransaction(goalToEdit,transactionAmount, user);
+            this.accountService.saveAndFlush(acc);
+            this.transactionService.fundGoalTransaction(goalToEdit, transactionAmount, user);
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
-            if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0){
+            if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0) {
                 goalToEdit.setCompletedOn(LocalDate.now());
                 goalToEdit.setCompleted(true);
             }

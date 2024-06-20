@@ -21,4 +21,10 @@ public interface ExpenseService {
 
 
     void saveAndFlush(Expense expense);
+
+    void deleteByAccountId(long id);
+
+    List<Expense> findAllByDateDue(LocalDate todaysDate);
+
+    void delete(Expense ex);
 }

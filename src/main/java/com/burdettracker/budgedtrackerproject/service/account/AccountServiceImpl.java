@@ -6,8 +6,8 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoD
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
-import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -22,14 +22,14 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
-    private final ExpenseRepository expenseRepository;
     private final TransactionService transactionService;
+    private final ExpenseService expenseService;
     private final UserRepository userRepository;
-    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, ExpenseRepository expenseRepository, TransactionService transactionService, UserRepository userRepository) {
+    public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, TransactionService transactionService, ExpenseService expenseService, UserRepository userRepository) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
-        this.expenseRepository = expenseRepository;
         this.transactionService = transactionService;
+        this.expenseService = expenseService;
         this.userRepository = userRepository;
     }
 
@@ -63,7 +63,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public void deleteAccountById(String accountId) {
-        this.expenseRepository.deleteByAccountId(Long.parseLong(accountId));
+        this.expenseService.deleteByAccountId(Long.parseLong(accountId));
         this.accountRepository.deleteById(Long.parseLong(accountId));
     }
 
@@ -87,6 +87,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void saveAndFlush(Account account) {
         accountRepository.saveAndFlush(account);
+    }
+
+    @Override
+    public Account getById(Long id) {
+       return this.accountRepository.getReferenceById(id);
     }
 
 

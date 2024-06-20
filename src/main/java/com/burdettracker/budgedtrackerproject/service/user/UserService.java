@@ -34,4 +34,6 @@ public interface UserService {
     void updateUser(UserChangeInformationDTO userChangeInformationDTO);
 
     User getUserByEmail(String email);
+
+    void saveAndFlush(User user);
 }
