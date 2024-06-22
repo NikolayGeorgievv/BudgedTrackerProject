@@ -9,6 +9,13 @@ public class AddCategoryDTO {
     @Size(min = 2, max = 40, message = "Category name length must be between 2 and 40 symbols.")
     private String category;
 
+    public AddCategoryDTO() {
+    }
+
+    public AddCategoryDTO(String category) {
+        this.category = category;
+    }
+
     public String getCategory() {
         return category;
     }

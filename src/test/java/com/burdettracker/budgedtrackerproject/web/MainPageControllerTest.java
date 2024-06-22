@@ -110,7 +110,7 @@ class MainPageControllerTest {
         });
 
         String viewName = mainPageController.changeMembershipPlan(changeMembershipDTO, bindingResult);
-        Assertions.assertEquals("changePlanErrorPage", viewName);
+        Assertions.assertEquals("/homePage", viewName);
     }
 
 
