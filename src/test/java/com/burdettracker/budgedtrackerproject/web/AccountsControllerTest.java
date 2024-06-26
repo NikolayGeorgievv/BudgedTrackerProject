@@ -43,7 +43,7 @@ class AccountsControllerTest {
     private AccountRepository accountRepository;
 
     @Mock
-    BindingResult bindingResult;
+    private BindingResult bindingResult;
 
     @BeforeEach
     public void setUp() {
@@ -118,7 +118,7 @@ class AccountsControllerTest {
     }
 
 
-    private User createDummyUser() {
+    protected User createDummyUser() {
         UUID uuid = new UUID(5, 10);
         UserRoleEntity userRoleEntity = new UserRoleEntity();
         userRoleEntity.setRole(UserRoleEnum.ADMIN);

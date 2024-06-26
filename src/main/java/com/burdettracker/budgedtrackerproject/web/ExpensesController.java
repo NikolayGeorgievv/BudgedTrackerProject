@@ -65,7 +65,7 @@ public class ExpensesController extends BaseController{
     }
 
     @PostMapping("/editExpense")
-    public String editAccount(
+    public String editExpense(
             @ModelAttribute("editExpenseInfoDTO") EditExpenseInfoDTO editExpenseInfoDTO) {
 
         expenseService.editExpense(editExpenseInfoDTO);

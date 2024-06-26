@@ -38,8 +38,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public void editExpense(EditExpenseInfoDTO editExpenseInfoDTO) {
-        Expense expenseToEdit = this.expenseRepository.getReferenceById(Long.parseLong(editExpenseInfoDTO.getId()));
-
+//        Expense expenseToEdit = this.expenseRepository.getReferenceById(Long.parseLong(editExpenseInfoDTO.getId()));
+        Expense expenseToEdit = this.expenseRepository.findById(Long.parseLong(editExpenseInfoDTO.getId())).get();
         if (!expenseToEdit.getName().equals(editExpenseInfoDTO.getName()) && !editExpenseInfoDTO.getName().trim().equals("")) {
             expenseToEdit.setName(editExpenseInfoDTO.getName());}
 

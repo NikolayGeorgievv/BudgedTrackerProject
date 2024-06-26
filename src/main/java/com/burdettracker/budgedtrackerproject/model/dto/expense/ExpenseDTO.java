@@ -30,6 +30,17 @@ public class ExpenseDTO {
     public ExpenseDTO() {
     }
 
+    public ExpenseDTO(String id, String name, String period, String dateDue, BigDecimal assigned, String category, String accountToUse, String periodDate) {
+        this.id = id;
+        this.name = name;
+        this.period = period;
+        this.dateDue = dateDue;
+        this.assigned = assigned;
+        this.category = category;
+        this.accountToUse = accountToUse;
+        this.periodDate = periodDate;
+    }
+
     public String getId() {
         return id;
     }

@@ -12,6 +12,16 @@ public class EditExpenseInfoDTO {
     private BigDecimal assigned;
     private String periodDate;
 
+    public EditExpenseInfoDTO(String id, String name, String accountToUse, String period, String dateDue, BigDecimal assigned, String periodDate) {
+        this.id = id;
+        this.name = name;
+        this.accountToUse = accountToUse;
+        this.period = period;
+        this.dateDue = dateDue;
+        this.assigned = assigned;
+        this.periodDate = periodDate;
+    }
+
     public String getId() {
         return id;
     }
