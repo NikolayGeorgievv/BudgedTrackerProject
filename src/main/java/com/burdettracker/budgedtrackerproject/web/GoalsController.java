@@ -29,7 +29,7 @@ public class GoalsController extends BaseController{
     @GetMapping("/allGoalsPage")
     public String allGoalsPage(){
 
-        return "allGoalsPage";
+        return "/allGoalsPage";
     }
 
 
