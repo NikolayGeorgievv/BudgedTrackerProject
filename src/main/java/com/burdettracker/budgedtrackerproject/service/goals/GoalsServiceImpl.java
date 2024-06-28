@@ -84,7 +84,7 @@ public class GoalsServiceImpl implements GoalsService {
             BigDecimal newAccAmount = acc.getCurrentAmount().subtract(addedAmount).add(abs);
             acc.setCurrentAmount(newAccAmount);
             this.accountService.saveAndFlush(acc);
-            this.transactionService.fundGoalTransaction(goalToEdit, transactionAmount, user);
+            this.transactionService.fundGoalTransaction(goalToEdit, transactionAmount, user, newAccountToUse);
 
             goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
             if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0) {

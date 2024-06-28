@@ -8,7 +8,6 @@ import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.TransactionRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
-import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void fundGoalTransaction(Goal goal, BigDecimal addedAmount, User user) {
+    public void fundGoalTransaction(Goal goal, BigDecimal addedAmount, User user, String newAccountToUse) {
         Transaction transaction = new Transaction(
                 goal.getName(),
                 addedAmount,
@@ -80,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
                 addedAmount,
                 goal.getName(),
                 LocalDate.now(),
-                goal.getAccountToUse()
+                newAccountToUse
         );
 
         transaction.setTransactionDescription(transactionDescription);

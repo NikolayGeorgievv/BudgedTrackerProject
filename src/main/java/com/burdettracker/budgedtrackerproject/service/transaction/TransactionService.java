@@ -14,7 +14,7 @@ public interface TransactionService {
 
     AccountTransactionsDTO getAccountTransaction(String accountId);
 
-    void fundGoalTransaction(Goal goal, BigDecimal addedAmount, User user);
+    void fundGoalTransaction(Goal goal, BigDecimal addedAmount, User user, String newAccountToUse);
 
     void AddFundsTransaction(EditAccountInfoDTO editAccountInfoDTO, Account account, User user);
 
