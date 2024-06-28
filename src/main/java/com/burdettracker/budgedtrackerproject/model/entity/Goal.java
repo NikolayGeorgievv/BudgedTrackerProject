@@ -33,7 +33,16 @@ public class Goal extends BaseEntity{
     public Goal() {
     }
 
-    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account, String accountToUse,boolean isCompleted, LocalDate createdOn, LocalDate completedOn) {
+    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, boolean isCompleted, String accountToUse) {
+        this.name = name;
+        this.amountToBeSaved = amountToBeSaved;
+        this.currentAmount = currentAmount;
+        this.description = description;
+        this.isCompleted = isCompleted;
+        this.accountToUse = accountToUse;
+    }
+
+    public Goal(String name, BigDecimal amountToBeSaved, BigDecimal currentAmount, String description, User user, Account account, String accountToUse, boolean isCompleted, LocalDate createdOn, LocalDate completedOn) {
         this.name = name;
         this.amountToBeSaved = amountToBeSaved;
         this.currentAmount = currentAmount;

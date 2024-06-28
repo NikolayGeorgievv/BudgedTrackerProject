@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.utils;
 
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
@@ -43,7 +44,7 @@ public class TestUtils {
     }
 
     public static Goal createDummyGoal() {
-        return new Goal("goalName", BigDecimal.valueOf(100), BigDecimal.valueOf(50), "description", false, "myAccount");
+        return new Goal("goalName", BigDecimal.valueOf(100), BigDecimal.valueOf(50), "description", false, "MyTestAcc");
     }
 
     public static Account createDummyAccount() {
@@ -66,5 +67,9 @@ public class TestUtils {
 
     public static ExpenseDTO createDummyExpenseDTO() {
         return new ExpenseDTO("1", "expenseName", "monthly", "", BigDecimal.valueOf(100), "GENERAL", "MyTestAcc", "21st");
+    }
+
+    public static EditGoalDTO createDummyEditGoalDTO(){
+        return new EditGoalDTO("1", "newGoalName", BigDecimal.valueOf(100), "myNewAccount", "description", "true");
     }
 }

@@ -51,7 +51,8 @@ public class GoalsServiceImpl implements GoalsService {
         String newDescription = editGoalDTO.getDescription();
         boolean isNewPrimary = editGoalDTO.getIsNewPrimary() != null;
 
-        Goal goalToEdit = this.goalsRepository.getReferenceById(Long.valueOf(editGoalDTO.getId()));
+//        Goal goalToEdit = this.goalsRepository.getReferenceById(Long.valueOf(editGoalDTO.getId()));
+        Goal goalToEdit = this.goalsRepository.findById(Long.valueOf(editGoalDTO.getId())).get();
         if (!goalToEdit.getName().equals(newGoalName) && !newGoalName.trim().equals("")) {
             goalToEdit.setName(newGoalName);
         }
