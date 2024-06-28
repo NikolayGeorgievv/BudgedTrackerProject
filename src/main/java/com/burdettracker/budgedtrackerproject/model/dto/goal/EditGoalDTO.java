@@ -11,6 +11,14 @@ public class EditGoalDTO {
     private String isNewPrimary;
     private String description;
 
+    public EditGoalDTO(String id, String newGoalName, BigDecimal addedAmount, String accountToUse, String isNewPrimary, String description) {
+        this.id = id;
+        this.newGoalName = newGoalName;
+        this.addedAmount = addedAmount;
+        this.accountToUse = accountToUse;
+        this.isNewPrimary = isNewPrimary;
+        this.description = description;
+    }
 
     public String getId() {
         return id;

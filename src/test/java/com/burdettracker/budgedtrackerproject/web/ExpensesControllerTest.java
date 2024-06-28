@@ -5,9 +5,6 @@ import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
-import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
@@ -22,18 +19,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static com.burdettracker.budgedtrackerproject.utils.TestUtils.*;
 
 
 @SpringBootTest
@@ -66,7 +59,7 @@ class ExpensesControllerTest {
 
     @BeforeEach
     public void setUp() {
-        User user = createDummyUser();
+        User user = createDummyUser(rolesRepository);
         Account account = createDummyAccount();
         account = accountRepository.saveAndFlush(account);
         user.getAccounts().add(account);
@@ -160,49 +153,4 @@ class ExpensesControllerTest {
         Assertions.assertEquals("/categorizedExpenses", viewName);
     }
 
-    private User createDummyUser() {
-        UUID uuid = new UUID(5, 10);
-        UserRoleEntity userRoleEntity = new UserRoleEntity();
-        userRoleEntity.setRole(UserRoleEnum.ADMIN);
-        User user = new User(uuid,
-                MembershipType.PREMIUM,
-                "firstName",
-                "lastName",
-                "myEmail@example.com",
-                "phoneNumber",
-                "test",
-                10,
-                LocalDate.now(),
-                "MyAccount",
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new ArrayList<>(),
-                List.of(userRoleEntity));
-        rolesRepository.saveAllAndFlush(List.of(userRoleEntity));
-
-        return user;
-    }
-
-    private ExpenseDTO createDummyExpenseDTO() {
-        return new ExpenseDTO("1", "expenseName", "monthly", "", BigDecimal.valueOf(100), "GENERAL", "MyTestAcc", "21st");
-    }
-
-    private Account createDummyAccount() {
-        Account account = new Account();
-        account.setName("MyTestAcc");
-        account.setCreatedOn(LocalDate.now());
-        account.setCurrentAmount(BigDecimal.ZERO);
-
-        return account;
-    }
-
-    private Expense createDummyExpense() {
-        Expense expense = new Expense();
-        expense.setName("expenseName");
-        expense.setAssigned(BigDecimal.valueOf(100));
-        expense.setPeriod("monthly");
-        expense.setPeriodDate("21st");
-        return expense;
-    }
 }

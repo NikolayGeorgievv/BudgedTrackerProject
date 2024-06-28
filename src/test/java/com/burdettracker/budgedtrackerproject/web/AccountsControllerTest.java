@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.burdettracker.budgedtrackerproject.utils.TestUtils.createDummyAccount;
+import static com.burdettracker.budgedtrackerproject.utils.TestUtils.createDummyUser;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @WithMockUser("myEmail@example.com")
@@ -60,7 +63,7 @@ class AccountsControllerTest {
         editAccountInfoDTO.setNewAccountName("myAccountNewName");
         editAccountInfoDTO.setAddedAmount(BigDecimal.valueOf(100));
 
-        User user = createDummyUser();
+        User user = createDummyUser(rolesRepository);
 
         Account account = createDummyAccount();
         userRepository.saveAndFlush(user);
@@ -83,7 +86,7 @@ class AccountsControllerTest {
         Account account = createDummyAccount();
         Account account1 = createDummyAccount();
         accountRepository.saveAllAndFlush(List.of(account, account1));
-        User user = createDummyUser();
+        User user = createDummyUser(rolesRepository);
         user.getAccounts().add(account);
         user.getAccounts().add(account1);
         userRepository.saveAndFlush(user);
@@ -101,7 +104,7 @@ class AccountsControllerTest {
     void addAccount() {
         String email = "myEmail@example.com";
         AccountDTO accountDTO = new AccountDTO("myDTOAccount", BigDecimal.valueOf(200));
-        User user = createDummyUser();
+        User user = createDummyUser(rolesRepository);
         userRepository.saveAndFlush(user);
         accountsController.addAccount(accountDTO, bindingResult);
         User updatedUser = userRepository.getByEmail(email);
@@ -117,37 +120,4 @@ class AccountsControllerTest {
         Assertions.assertEquals("/allAccountsPage", viewName);
     }
 
-
-    protected User createDummyUser() {
-        UUID uuid = new UUID(5, 10);
-        UserRoleEntity userRoleEntity = new UserRoleEntity();
-        userRoleEntity.setRole(UserRoleEnum.ADMIN);
-        User user = new User(uuid,
-                MembershipType.PREMIUM,
-                "firstName",
-                "lastName",
-                "myEmail@example.com",
-                "phoneNumber",
-                "test",
-                10,
-                LocalDate.now(),
-                "MyAccount",
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new ArrayList<>(),
-                List.of(userRoleEntity));
-        rolesRepository.saveAllAndFlush(List.of(userRoleEntity));
-
-        return user;
-    }
-
-    private Account createDummyAccount() {
-        Account account = new Account();
-        account.setName("MyTestAcc");
-        account.setCreatedOn(LocalDate.now());
-        account.setCurrentAmount(BigDecimal.ZERO);
-
-        return account;
-    }
 }
