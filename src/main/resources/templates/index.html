@@ -17,6 +17,16 @@
     <nav th:replace="~{fragments/navbar-guest}"></nav>
 </div>
 
+
+<span th:text="#{lang.change}"></span>:
+<select id="locales">
+    <option value=""></option>
+    <option value="en" th:text="#{lang.eng}"></option>
+    <option value="bg" th:text="#{lang.bg}"></option>
+</select>
+
+
+
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
@@ -24,7 +34,9 @@
                  width="700" height="500" loading="lazy">
         </div>
         <div class="col-lg-6">
-            <h2 class="display-5 fw-bold">Care for your money, but let us do the work!</h2>
+            <h2 class="display-5 fw-bold"
+            th:text="#{greeting}"
+            >Care for your money, but let us do the work!</h2>
             <p class="lead fw-bold fst-italic" id="firstParagraphOfIndexPage">Combine effortless saving, free to use and
                 flexible methods for managing finances app with your dreams! </p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
@@ -124,7 +136,7 @@
 <div>
     <nav th:replace="~{fragments/footer}"></nav>
 </div>
-
+<!--TODO: TAKE  THIS OUT IN CSS FILE!-->
 
 <style>
     #midHero{
@@ -154,6 +166,19 @@
         color: white;
     }
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

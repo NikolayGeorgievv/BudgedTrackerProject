@@ -36,10 +36,8 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 
         ResponseEntity<String> response = restTemplate.exchange(validateEmailUrl, HttpMethod.GET, entity, String.class);
 
-        System.out.println(response.getBody());
-
         EmailVerificationDTO emailVerificationDTO = gson.fromJson(response.getBody(), EmailVerificationDTO.class);
-        System.out.println(emailVerificationDTO.isIs_role_account());
+
         return  emailVerificationDTO.isIs_role_account();
     }
 }

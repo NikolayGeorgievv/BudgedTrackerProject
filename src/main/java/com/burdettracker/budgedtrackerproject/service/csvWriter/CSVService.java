@@ -27,8 +27,7 @@ public class CSVService {
 
     public List<Transaction> getAccountTransactions(String accountId){
         Account account = this.accountRepository.getReferenceById(Long.valueOf(accountId));
-        List<Transaction> transactions = account.getExpenseTransactionHistory();
-        return transactions;
+        return account.getExpenseTransactionHistory();
     }
 
     public void generateCSV(HttpServletResponse response, String accountId) throws IOException {

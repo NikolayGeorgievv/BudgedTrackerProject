@@ -91,8 +91,5 @@ public class ApplicationBeanConfig {
         });
         return modelMapper;
     }
-    @Bean
-    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
-        return new HiddenHttpMethodFilter();
-    }
+
   }
