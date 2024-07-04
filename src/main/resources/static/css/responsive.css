@@ -1,0 +1,33 @@
+@media only screen and (max-width: 600px) {
+    #homePageMainDiv{
+        width: 10px;
+    }
+
+    #sidebar{
+        display: none;
+    }
+    #homePageTopBar{
+        display: flex;
+        flex-direction: column;
+    }
+    #homePageTopBarContent{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    #homePageTopBarAccountInfo{
+        display: flex;
+    }
+    #homePageTopBarAccountFunds{
+        margin-right: 10px;
+    }
+    #logoutBtn{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    #responsiveSidebarMenuBtn{
+        display: none;
+    }
+}

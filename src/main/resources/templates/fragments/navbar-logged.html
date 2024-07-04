@@ -41,7 +41,13 @@
                 </ul>
 
 
-                <div class="text-end">
+                <div id="responsiveSidebarMenuBtn">
+                    <button onclick="showResponsiveSideBar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="text-end" id="logoutBtn">
 
                     <form th:method="post"
                           th:action="@{/logout}">
@@ -69,6 +75,11 @@
             dropdownContent.classList.remove("show");
         }
     });
+
+    function showResponsiveSideBar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.style.display = 'block';
+    }
 </script>
 </body>
 </html>

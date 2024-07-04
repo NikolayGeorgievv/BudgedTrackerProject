@@ -9,9 +9,11 @@
             crossorigin="anonymous"></script>
     <!--    FONTAWESOME KIT-->
     <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Home Page for Logged Users</title>
+
 </head>
 <body style="height: 100vh; margin: 0; background-image: url('/images/main-table-bg-img.jpg'); ">
 <!--HEADER -->
@@ -26,18 +28,18 @@
 <div class="d-flex">
 
     <!--    main div for the sidebar-->
-    <div>
+    <div id="sidebar">
         <div th:replace="~{fragments/sideBar}"></div>
     </div>
 
 
     <!--    main div for table-->
-    <div class="flex-grow-1">
+    <div class="flex-grow-1" id="homePageMainDiv">
 
-        <div class="d-flex  justify-content-between" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
-            <div class="d-flex">
-                <div>
-                    <div>
+        <div class="d-flex  justify-content-between" id="homePageTopBar" style="border-bottom: 1px solid #2c396a; margin-bottom: 10px">
+            <div class="d-flex" id="homePageTopBarContent">
+                <div id="homePageTopBarAccountInfo">
+                    <div id="homePageTopBarAccountFunds">
                         <p
                                 th:text="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
                                 th:value="'Total funds in accounts: ' + '$'+ ${allAccountsInfoDTO.getTotalBalance()}"
