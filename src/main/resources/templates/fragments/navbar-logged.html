@@ -41,11 +41,21 @@
                 </ul>
 
 
-                <div id="responsiveSidebarMenuBtn">
-                    <button onclick="showResponsiveSideBar()">
+                <div class="dropdown" id="responsiveSidebarMenu">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa-solid fa-bars"></i>
                     </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div th:replace="~{fragments/responsiveSideBarMenu}"></div>
+                    </div>
                 </div>
+
+
+<!--                <div id="responsiveSidebarMenuBtn">-->
+<!--                    <button onclick="showResponsiveSideBar()">-->
+<!--                        <i class="fa-solid fa-bars"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
 
                 <div class="text-end" id="logoutBtn">
 
