@@ -15,8 +15,8 @@
 </head>
 <body>
 
-<nav th:fragment="navbar-logged">
-    <header class="p-3" style="background-image: url('/images/indexPageBG-IMG.png')">
+<nav th:fragment="navbar-logged" id="nav">
+    <header class="p-3" style="background-image: url('/images/indexPageBG-IMG.png'); width: 100%">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a th:href="@{/index}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
@@ -41,20 +41,13 @@
                 </ul>
 
 
-                <div class="dropdown" id="responsiveSidebarMenu">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <div th:replace="~{fragments/responsiveSideBarMenu}"></div>
-                    </div>
-                </div>
-
-
-<!--                <div id="responsiveSidebarMenuBtn">-->
-<!--                    <button onclick="showResponsiveSideBar()">-->
+<!--                <div class="dropdown" id="responsiveSidebarMenu">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
 <!--                        <i class="fa-solid fa-bars"></i>-->
 <!--                    </button>-->
+<!--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                        <div th:insert="~{fragments/responsiveSideBarMenu}"></div>-->
+<!--                    </div>-->
 <!--                </div>-->
 
                 <div class="text-end" id="logoutBtn">
@@ -86,10 +79,6 @@
         }
     });
 
-    function showResponsiveSideBar() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.style.display = 'block';
-    }
 </script>
 </body>
 </html>

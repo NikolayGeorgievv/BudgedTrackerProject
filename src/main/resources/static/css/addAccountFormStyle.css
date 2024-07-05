@@ -9,12 +9,8 @@ label {
 }
 
 .account-form-popup {
-    display: none;
-    position: absolute;
     border: 3px solid #f1f1f1;
-    z-index: 9;
     background-color: #2c396a;
-    width: 20%;
 }
 
 .form-control-currency {
@@ -65,8 +61,13 @@ button:disabled, button[disabled] {
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
 }
+#addAccountModalLabel{
+    text-align: center;
+    font-style: oblique;
+    color: #ffc107;
+}
 
-.addAccountLabel {
+.addAccountLabel{
     height: 35px;
     font-size: 18px;
     text-align: center;

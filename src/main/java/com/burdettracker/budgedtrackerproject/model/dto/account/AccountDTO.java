@@ -17,6 +17,7 @@ public class AccountDTO {
     private LocalDate createdOn;
     @Min(value = 0, message = "Added funds must be at least  $0")
     @Max(value = 9999999, message = "The maximum funds you can add is $9.999.999")
+    @NotNull(message = "Please provide the amount you want to add.")
     private BigDecimal currentAmount;
     private List<Transaction> transactionHistory;
     private User user;

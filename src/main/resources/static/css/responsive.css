@@ -6,6 +6,12 @@
     #sidebar{
         display: none;
     }
+
+    #responsiveSidebarMenu {
+        position: absolute;
+        width: 100%;
+        left: 0;
+    }
     #homePageTopBar{
         display: flex;
         flex-direction: column;
