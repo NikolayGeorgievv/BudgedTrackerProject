@@ -16,59 +16,74 @@
 </head>
 <body>
 
-<button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-        title="Add goal" value="Add goal" onclick="openGoalForm()"
-><i class="fa-regular fa-heart"></i></button>
-<div class="goal-form-popup" id="myGoalForm"
-     th:object="${goalDTO}"
-     th:classappend="${#fields.hasErrors('*')} ? 'display-goal-form' : 'hide-goal-form'">
-  <form
-          th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addGoal'}}"
-          th:method="post"
-          class="form-container">
-<!--    TODO: MAKE A HELP SECTION-->
-    <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
-      <label class="addGoalLabel">Goal</label>
-      <input class="goalInputField" type="text" placeholder="What's your goal?" name="name" id="goalName"
-             minlength="2" maxlength="30">
-        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
+<button
+        type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+        title="Add goal" value="Add goal"
+        data-bs-toggle="modal" data-bs-target="#addGoalModal">
+    <i class="fa-regular fa-heart"></i></button>
+
+<div class="modal fade" id="addGoalModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="addGoalModalContent">
+            <div class="flex-grow-1 account-form-popup">
+                <div class="d-flex justify-content-between align-items-center modal-header">
+                    <div>
+                        <h5 class="modal-title" id="addAccountModalLabel">Add Goal</h5>
+                    </div>
+                </div>
+                <div class="modal-body"
+                     th:object="${goalDTO}">
+                    <form
+                            th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addGoal'}}"
+                            th:method="post"
+                            class="form-container">
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
+                            <label class="addGoalLabel">Goal</label>
+                            <input class="goalInputField" type="text" placeholder="What's your goal?" name="name" id="goalName"
+                                   minlength="2" maxlength="30">
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Target</label>
+                            <input class="goalInputField" type="number" min="0" max="99999999" placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSaved">
+                            <div th:if="${#fields.hasErrors('amountToBeSaved')}" th:errors="*{amountToBeSaved}" class="errors"></div>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between">
+                            <label class="addGoalLabel" id="accountToUseLabel1" style="margin-left: 5px">Account to use</label>
+
+                            <select class="accountSelect" name="accountToUse">
+                                <option class="accountOption"
+                                        th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                        th:text="${a.getName()}"
+                                        th:value="${a.getName()}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Add initial funds</label>
+                            <input class="goalInputField" type="number" min="0" max="99999999" placeholder="1000$(Optional)" name="currentAmount" id="initialAmount">
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Description</label>
+                            <textarea placeholder="Add a small motivational description for your goal.(Optional)" name="description" id="description"
+                                      maxlength="255"
+                                      style="height: 80px"></textarea>
+                        </div>
+
+                        <button type="submit" class="button" id="submitGoalButton" disabled>Start Saving!</button>
+                        <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="d-flex flex-column justify-content-between" style="margin: 5px">
-      <label class="addGoalLabel">Target</label>
-      <input class="goalInputField" type="number" min="0" max="99999999" placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSaved">
-        <div th:if="${#fields.hasErrors('amountToBeSaved')}" th:errors="*{amountToBeSaved}" class="errors"></div>
-    </div>
-
-      <div class="d-flex flex-column justify-content-between">
-          <label class="addGoalLabel" id="accountToUseLabel1" style="margin-left: 5px">Account to use</label>
-
-          <select class="accountSelect" name="accountToUse">
-            <option class="accountOption"
-                    th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
-                    th:text="${a.getName()}"
-                    th:value="${a.getName()}"
-            >
-            </option>
-          </select>
-      </div>
-
-
-    <div class="d-flex flex-column justify-content-between" style="margin: 5px">
-      <label class="addGoalLabel">Add initial funds</label>
-      <input class="goalInputField" type="number" min="0" max="99999999" placeholder="1000$(Optional)" name="currentAmount" id="initialAmount">
-    </div>
-
-    <div class="d-flex flex-column justify-content-between" style="margin: 5px">
-      <label class="addGoalLabel">Description</label>
-      <textarea placeholder="Add a small motivational description for your goal.(Optional)" name="description" id="description"
-                 maxlength="255"
-      style="height: 80px"></textarea>
-    </div>
-
-    <button type="submit" class="button" id="submitGoalButton" disabled>Start Saving!</button>
-    <button type="button" class="button" onclick="closeGoalForm()">Close</button>
-  </form>
 </div>
 
 <script>
@@ -85,19 +100,14 @@
     goalName.addEventListener('input', checkGoalFormValidity);
     amountToBeSaved.addEventListener('input', checkGoalFormValidity);
 
-  function openGoalForm(){
-    document.getElementById("myGoalForm").style.display = "block";
-  }
-  function closeGoalForm() {
-    document.getElementById("myGoalForm").style.display = "none";
-  }
-
-  window.addEventListener('mouseup',function(event){
-    let form = document.getElementById('myGoalForm');
-    if(!form.contains(event.target)){
-      form.style.display = 'none';
-    }
-  });
+    document.addEventListener("DOMContentLoaded", function() {
+        let errors = document.querySelectorAll('#addGoalModal .errors');
+        let hasErrors = Array.from(errors).some(error => error.textContent.trim() !== '');
+        if (hasErrors) {
+            let myModal = new bootstrap.Modal(document.getElementById('addGoalModal'), {});
+            myModal.show();
+        }
+    });
 </script>
 </body>
 </html>
