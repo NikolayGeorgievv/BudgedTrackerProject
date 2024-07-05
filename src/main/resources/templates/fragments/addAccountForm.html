@@ -80,12 +80,14 @@
     name.addEventListener('input', checkFormValidity);
     currentAmount.addEventListener('input', checkFormValidity);
 
-    window.onload = function () {
-        if (document.querySelector('.errors')) {
+    document.addEventListener("DOMContentLoaded", function() {
+        let errors = document.querySelectorAll('#addAccountModal .errors');
+        let hasErrors = Array.from(errors).some(error => error.textContent.trim() !== '');
+        if (hasErrors) {
             let myModal = new bootstrap.Modal(document.getElementById('addAccountModal'), {});
             myModal.show();
         }
-    };
+    });
 </script>
 </body>
 </html>

@@ -15,84 +15,101 @@
     <title>Add expense form</title>
 </head>
 <body>
-<button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-        title="Add expense" value="Add expense" onclick="openExpenseForm()" id="addExpenseFormBtn"
-><i class="fa-solid fa-plus"></i></button>
-<div class="form-popup1" id="myExpenseForm"
-     th:object="${expenseDTO}"
-     th:classappend="${#fields.hasErrors('*')} ? 'display-expense-form' : 'hide-expense-form'">
-    <form
-            th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addExpense'}}"
-            th:method="post"
 
-            class="form-container form-popup1">
-        <div class="d-flex flex-column">
-            <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
-                <label class="addExpenseLabels">Your bill information</label>
-                <input type="text" placeholder="Electricity, Water, Internet, Gas..." name="name" id="name"
-                       minlength="2" maxlength="30">
-            </div>
-            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
-        </div>
+<button
+        type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+        title="Add expense" value="Add expense"
+        data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+    <i class="fa-solid fa-plus"></i></button>
 
-        <div class="d-flex flex-column">
-            <label class="addExpenseLabels">Category</label>
-            <select name="category" class="addExpenseField">
-                <option
-                        th:each="c : ${expenseCategories}"
-                        th:text="${c.getCategory()}"
-                        th:value="${c.getCategory()}">
-                </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <div class="d-flex flex-column justify-content-between" style="margin: 5px">
-                <div class="d-flex flex-column">
-                    <label class="addExpenseLabels">Period</label>
-                    <div class="d-flex">
-                        <button class="btn1" type="button" id="weekly">Weekly</button>
-                        <button class="btn1" type="button" id="monthly">Monthly</button>
-                        <button class="btn1" type="button" id="yearly">Yearly</button>
-                        <button class="btn1" type="button" id="custom">One time buy</button>
+<div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="addExpenseModalContent">
+            <div class="flex-grow-1 account-form-popup">
+                <div class="d-flex justify-content-between align-items-center modal-header">
+                    <div>
+                        <h5 class="modal-title" id="addAccountModalLabel">Add Expense</h5>
                     </div>
-                    <div th:if="${#fields.hasErrors('period')}" th:errors="*{period}" class="errors"></div>
                 </div>
-                <div>
-                    <select id="content" class="dropdown-content"></select>
-                </div>
-                <div class="d-flex flex-column">
-                    <p id="every">Every</p>
-                    <div id="datepicker">
-                        <input type="text" id="datepickerInput" name="dateDue" th:replace="~{fragments/datepicker}">
-                    </div>
-                    <input type="text" id="dateInputField" name="periodDate" class="addExpenseField">
-                    <div th:if="${#fields.hasErrors('periodDate')}" th:errors="*{periodDate}" class="errors"></div>
-                    <input type="hidden" id="period" name="period">
+                <div class="modal-body"
+                     th:object="${expenseDTO}">
+                    <form
+                            th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addExpense'}}"
+                            th:method="post"
+
+                            class="form-container form-popup1">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
+                                <label class="addExpenseLabels">Your bill information</label>
+                                <input type="text" placeholder="Electricity, Water, Internet, Gas..." name="name" id="name"
+                                       minlength="2" maxlength="30">
+                            </div>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
+                        </div>
+
+                        <div class="d-flex flex-column">
+                            <label class="addExpenseLabels">Category</label>
+                            <select name="category" class="addExpenseField">
+                                <option
+                                        th:each="c : ${expenseCategories}"
+                                        th:text="${c.getCategory()}"
+                                        th:value="${c.getCategory()}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                                <div class="d-flex flex-column">
+                                    <label class="addExpenseLabels">Period</label>
+                                    <div class="d-flex">
+                                        <button class="btn1" type="button" id="weekly">Weekly</button>
+                                        <button class="btn1" type="button" id="monthly">Monthly</button>
+                                        <button class="btn1" type="button" id="yearly">Yearly</button>
+                                        <button class="btn1" type="button" id="custom">One time buy</button>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('period')}" th:errors="*{period}" class="errors"></div>
+                                </div>
+                                <div>
+                                    <select id="content" class="dropdown-content"></select>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <p id="every">Every</p>
+                                    <div id="datepicker">
+                                        <input type="text" id="datepickerInput" name="dateDue" th:replace="~{fragments/datepicker}">
+                                    </div>
+                                    <input type="text" id="dateInputField" name="periodDate" class="addExpenseField">
+                                    <div th:if="${#fields.hasErrors('periodDate')}" th:errors="*{periodDate}" class="errors"></div>
+                                    <input type="hidden" id="period" name="period">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column">
+                            <label class="addExpenseLabels">Amount needed</label>
+                            <input type="number" min="0" max="999999" placeholder="1000$" name="assigned" id="amountNeeded" class="addExpenseField">
+                        </div>
+                        <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
+                        <div class="d-flex flex-column">
+                            <label class="addExpenseLabels">Account to use</label>
+                            <select name="accountToUse" class="addExpenseField">
+                                <option
+                                        th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                        th:text="${a.getName()}"
+                                        th:value="${a.getName()}">
+                                </option>
+                            </select>
+                        </div>
+                        <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
+
+                        <button type="submit" class="button" id="submitExpenseButton">Add</button>
+                        <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="d-flex flex-column">
-            <label class="addExpenseLabels">Amount needed</label>
-            <input type="number" min="0" max="999999" placeholder="1000$" name="assigned" id="amountNeeded" class="addExpenseField">
-        </div>
-        <div th:if="${#fields.hasErrors('assigned')}" th:errors="*{assigned}" class="errors"></div>
-            <div class="d-flex flex-column">
-                <label class="addExpenseLabels">Account to use</label>
-                <select name="accountToUse" class="addExpenseField">
-                    <option
-                            th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
-                            th:text="${a.getName()}"
-                            th:value="${a.getName()}">
-                    </option>
-                </select>
-            </div>
-            <div th:if="${#fields.hasErrors('accountToUse')}" th:errors="*{accountToUse}" class="errors"></div>
-
-        <button type="submit" class="button" id="submitButton">Add</button>
-        <button type="button" class="button" onclick="closeExpenseForm()">Close</button>
-    </form>
+    </div>
 </div>
 
 <script>
@@ -177,14 +194,14 @@
     });
 
 
-    function openExpenseForm() {
-        datePicker.style.display = "none";
-        document.getElementById("myExpenseForm").style.display = "block";
-    }
-
-    function closeExpenseForm() {
-        document.getElementById("myExpenseForm").style.display = "none";
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+        let errors = document.querySelectorAll('#addExpenseModal .errors');
+        let hasErrors = Array.from(errors).some(error => error.textContent.trim() !== '');
+        if (hasErrors) {
+            let myModal = new bootstrap.Modal(document.getElementById('addExpenseModal'), {});
+            myModal.show();
+        }
+    });
 
     function buttonsBgColourClear() {
         weeklyBtn.style.backgroundColor = 'white';
@@ -192,15 +209,6 @@
         yearlyBtn.style.backgroundColor = 'white';
         customBtn.style.backgroundColor = 'white';
     }
-
-
-    window.addEventListener('click', function (event) {
-        const expenseForm = document.getElementById('myExpenseForm');
-        const isClosest = event.target.closest('#myExpenseForm, #datepicker, #addExpenseFormBtn');
-        if (!isClosest) {
-            expenseForm.style.display = 'none';
-        }
-    });
 </script>
 
 </body>
