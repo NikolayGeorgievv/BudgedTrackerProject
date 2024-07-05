@@ -226,12 +226,16 @@ public class UserServiceImpl implements UserService {
         if (goal.getCurrentAmount() == null) {
             goal.setCurrentAmount(BigDecimal.ZERO);
         } else {
-            if (goalDTO.getCurrentAmount().equals(goalDTO.getAmountToBeSaved())) {
+            if (goalDTO.getCurrentAmount().equals(goalDTO.getAmountToBeSaved()) || goalDTO.getCurrentAmount().compareTo(goalDTO.getAmountToBeSaved()) > 0) {
                 goal.setCompleted(true);
                 goal.setCompletedOn(LocalDate.now());
+                goal.setCurrentAmount(goalDTO.getAmountToBeSaved());
+                BigDecimal newAccAmount = account.getCurrentAmount().subtract(goalDTO.getAmountToBeSaved());
+                account.setCurrentAmount(newAccAmount);
+            } else {
+                BigDecimal newAccAmount = account.getCurrentAmount().subtract(goalDTO.getCurrentAmount());
+                account.setCurrentAmount(newAccAmount);
             }
-            BigDecimal newAccAmount = account.getCurrentAmount().subtract(goalDTO.getCurrentAmount());
-            account.setCurrentAmount(newAccAmount);
         }
         Transaction transaction = this.transactionService.createGoalTransaction(goal);
         user.getTransactions().add(transaction);
