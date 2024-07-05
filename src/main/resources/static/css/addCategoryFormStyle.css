@@ -16,7 +16,9 @@ label {
     background-color: #2c396a;
     width: 20%;
 }
-
+#addCategoryModalLabel{
+    color: white;
+}
 
 .form-container {
     max-width: 600px;

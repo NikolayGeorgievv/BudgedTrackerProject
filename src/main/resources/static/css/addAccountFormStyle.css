@@ -63,8 +63,7 @@ button:disabled, button[disabled] {
 }
 #addAccountModalLabel{
     text-align: center;
-    font-style: oblique;
-    color: #ffc107;
+    color: white;
 }
 
 .addAccountLabel{

@@ -14,31 +14,49 @@
   <title>Add category form</title>
 </head>
 <body>
-<button  type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-         title="Add category" value="Add category" onclick="addCategoryForm()"
-><i class="fa-solid fa-plus"></i></button>
-<div class="category-form-popup" id="categoryForm"
-     th:object="${addCategoryDTO}"
-     th:classappend="${#fields.hasErrors('*')} ? 'display-category-form' : 'hide-category-form'"
-     >
-  <form
-          th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addCategory'}}"
-          th:method="post"
-          class="form-container">
 
 
-    <div class="d-flex flex-column" style="margin: 5px" id="form">
-      <label class="addCategoryLabel">Category</label>
-      <input type="text" placeholder="Account name" name="category" id="category" class="addCategoryField"
-             minlength="2" maxlength="40">
-      <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors"></div>
+<button
+        type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+        title="Add category" value="Add category"
+        data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+  <i class="fa-solid fa-plus"></i></button>
 
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" id="addCategoryModalContent">
+      <div class="flex-grow-1 account-form-popup">
+        <div class="d-flex justify-content-between align-items-center modal-header">
+          <div>
+            <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+          </div>
+        </div>
+        <div class="modal-body"
+             th:object="${addCategoryDTO}">
+          <form
+                  th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addCategory'}}"
+                  th:method="post"
+                  class="form-container">
+
+
+            <div class="d-flex flex-column" style="margin: 5px" id="form">
+              <label class="addCategoryLabel">Category</label>
+              <input type="text" placeholder="Account name" name="category" id="category" class="addCategoryField"
+                     minlength="2" maxlength="40">
+              <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors"></div>
+
+            </div>
+
+            <button type="submit" class="button" id="submitButtonCategory" disabled>Add Category</button>
+            <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <button type="submit" class="button" id="submitButtonCategory" disabled>Add Category</button>
-    <button type="button" class="button" onclick="closeCategoryForm()">Close</button>
-  </form>
+  </div>
 </div>
+
 <script>
 
   const categoryName = document.getElementById('category');
@@ -52,20 +70,13 @@
   }
 
   categoryName.addEventListener('input', checkFormValidity);
-  function addCategoryForm() {
-    document.getElementById("categoryForm").style.display = "block";
-  }
 
-  function closeCategoryForm() {
-    document.getElementById("categoryForm").style.display = "none";
-  }
-
-  window.addEventListener('mouseup', function (event) {
-    let categoryForm = document.getElementById('categoryForm');
-    if (!categoryForm.contains(event.target)) {
-      categoryForm.style.display = 'none';
+  window.onload = function () {
+    if (document.querySelector('.errors')) {
+      let myModal = new bootstrap.Modal(document.getElementById('addCategoryModal'), {});
+      myModal.show();
     }
-  });
+  };
 </script>
 
 </body>
