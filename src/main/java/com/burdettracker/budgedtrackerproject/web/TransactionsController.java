@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
-public class TransactionsController extends BaseController{
+public class TransactionsController extends BaseController {
     public TransactionsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
         super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
 
     @GetMapping("/accounts/{accountId}/transactions")
-    public String getAccountTransactions(@PathVariable("accountId") String accountId, Model model){
+    public String getAccountTransactions(@PathVariable("accountId") String accountId, Model model) {
 
-       AccountTransactionsDTO accountTransactionsDTO =  transactionService.getAccountTransaction(accountId);
+        AccountTransactionsDTO accountTransactionsDTO = transactionService.getAccountTransaction(accountId);
         AccountDTO currentAccountDTO = accountService.getAccountDTOById(accountId);
         model.addAttribute("accountTransactionsDTO", accountTransactionsDTO);
         model.addAttribute("currentAccountDTO", currentAccountDTO);
@@ -34,7 +34,7 @@ public class TransactionsController extends BaseController{
     }
 
     @GetMapping("/getAllTransactions")
-    public String getAllTransactions(){
+    public String getAllTransactions() {
 
         return "/allTransactionsPage";
     }

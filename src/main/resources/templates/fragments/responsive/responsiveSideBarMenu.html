@@ -27,12 +27,14 @@
             <div class="d-inline-flex align-content-center rounded border-0">
               <a th:href="@{/allAccountsPage}" style="color: white">My Accounts </a>
             </div>
+            <div>
             <form
                     th:action="@{/addAccount}"
                     th:method="post"
             >
-              <button th:replace="~{fragments/addAccountForm}"></button>
+              <button th:replace="~{fragments/responsive/addAccountFormResponsive}"></button>
             </form>
+            </div>
 
           </div>
 
@@ -46,7 +48,7 @@
                     th:action="@{/addExpense}"
                     th:method="post"
             >
-              <button th:replace="~{fragments/addExpenseForm}"></button>
+              <button th:replace="~{fragments/responsive/addExpenseFormResponsive}"></button>
             </form>
           </div>
         </li>
@@ -59,7 +61,7 @@
                     th:action="@{/addGoal}"
                     th:method="post"
             >
-              <button th:replace="~{fragments/addGoalForm}"></button>
+              <button th:replace="~{fragments/responsive/addGoalFormResponsive}"></button>
             </form>
           </div>
         </li>
@@ -76,7 +78,7 @@
                     th:action="@{/addCategory}"
                     th:method="post"
             >
-              <button th:replace="~{fragments/addCategoryForm}"></button>
+              <button th:replace="~{fragments/responsive/addCategoryFormResponsive}"></button>
             </form>
           </div>
         </li>
@@ -95,6 +97,5 @@
   </div>
 
 </div>
-
 </body>
 </html>

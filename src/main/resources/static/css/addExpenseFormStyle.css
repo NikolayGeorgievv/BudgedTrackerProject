@@ -25,7 +25,7 @@ label {
     background-color: #00aacc;
 }
 
-#content {
+#content, #contentRes {
     display: none;
     width: 91.5%;
     font-size: 14px;
@@ -34,11 +34,11 @@ label {
     margin-bottom: 5px;
 }
 
-#datepickerInput {
+#datepickerInput, #datepickerInputRes {
     width: 100%;
 }
 
-#dateInputField {
+#dateInputField, #dateInputFieldRes {
     pointer-events: none;
     background-color: white;
     opacity: 0.9;

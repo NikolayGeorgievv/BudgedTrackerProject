@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/addGoalFormStyle.css}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Add goal form</title>
+</head>
+<body>
+
+<button
+        type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
+        title="Add goal" value="Add goal"
+        data-bs-toggle="modal" data-bs-target="#addGoalModalRes">
+    <i class="fa-regular fa-heart"></i></button>
+
+<div class="modal fade" id="addGoalModalRes" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="addGoalModalContent">
+            <div class="flex-grow-1 account-form-popup">
+                <div class="d-flex justify-content-between align-items-center modal-header">
+                    <div>
+                        <h5 class="modal-title" id="addAccountModalLabel">Add Goal</h5>
+                    </div>
+                </div>
+                <div class="modal-body"
+                     th:object="${goalDTO}">
+                    <form
+                            th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/addGoal'}}"
+                            th:method="post"
+                            class="form-container">
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px" id="form">
+                            <label class="addGoalLabel">Goal</label>
+                            <input class="goalInputField" type="text" placeholder="What's your goal?" name="name" id="goalNameRes"
+                                   minlength="2" maxlength="30">
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></div>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Target</label>
+                            <input class="goalInputField" type="number" min="0" max="99999999" placeholder="How much would it take?" name="amountToBeSaved" id="amountToBeSavedRes">
+                            <div th:if="${#fields.hasErrors('amountToBeSaved')}" th:errors="*{amountToBeSaved}" class="errors"></div>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between">
+                            <label class="addGoalLabel" id="accountToUseLabel1Res" style="margin-left: 5px">Account to use</label>
+
+                            <select class="accountSelect" name="accountToUse">
+                                <option class="accountOption"
+                                        th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                                        th:text="${a.getName()}"
+                                        th:value="${a.getName()}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Add initial funds</label>
+                            <input class="goalInputField" type="number" min="0" max="99999999" placeholder="1000$(Optional)" name="currentAmount" id="initialAmountRes">
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-between" style="margin: 5px">
+                            <label class="addGoalLabel">Description</label>
+                            <textarea placeholder="Add a small motivational description for your goal.(Optional)" name="description" id="descriptionRes"
+                                      maxlength="255"
+                                      style="height: 80px"></textarea>
+                        </div>
+
+                        <button type="submit" class="button" id="submitGoalButtonRes" disabled>Start Saving!</button>
+                        <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let goalNameRes = document.getElementById("goalNameRes");
+    let amountToBeSavedRes = document.getElementById("amountToBeSavedRes");
+    let submitGoalButtonRes = document.getElementById("submitGoalButtonRes");
+    function checkGoalFormValidity() {
+        const isNameValid = goalNameRes.value.trim() !== '';
+        const isAmountValid = amountToBeSavedRes.value.trim() !== '';
+
+        submitGoalButtonRes.disabled = !(isNameValid && isAmountValid);
+    }
+
+    goalNameRes.addEventListener('input', checkGoalFormValidity);
+    amountToBeSavedRes.addEventListener('input', checkGoalFormValidity);
+
+    document.addEventListener("DOMContentLoaded", function() {
+        let errors = document.querySelectorAll('#addGoalModalRes .errors');
+        let hasErrors = Array.from(errors).some(error => error.textContent.trim() !== '');
+        if (hasErrors) {
+            let myModal = new bootstrap.Modal(document.getElementById('addGoalModalRes'), {});
+            myModal.show();
+        }
+    });
+</script>
+</body>
+</html>
