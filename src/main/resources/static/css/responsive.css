@@ -1,6 +1,27 @@
 @media only screen and (max-width: 600px) {
-    #homePageMainDiv{
-        width: 10px;
+    * {
+        max-width: 100%;
+    }
+    #homePageTopBarContent{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    #categorySort{
+        min-height: 100px;
+    }
+    #homePageTopBarContent, #changePlanInfo {
+        position: relative;
+        margin: 0;
+        overflow: auto;
+    }
+    #homePageTopBarAccountInfo{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #responsiveExpenseTable{
+        width: 100%;
     }
 
     #sidebar{
@@ -8,8 +29,7 @@
     }
 
     #responsiveSidebarMenu {
-        position: absolute;
-        width: 100%;
+        position: relative;
         left: 0;
     }
     #homePageTopBar{
