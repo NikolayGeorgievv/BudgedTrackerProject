@@ -42,7 +42,7 @@
 
             <div class="d-flex flex-column" style="margin: 5px" id="form">
               <label class="addCategoryLabel">Category</label>
-              <input type="text" placeholder="Account name" name="category" id="category" class="addCategoryField"
+              <input type="text" placeholder="Category name" name="category" id="category" class="addCategoryField"
                      minlength="2" maxlength="40">
               <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="errors"></div>
 

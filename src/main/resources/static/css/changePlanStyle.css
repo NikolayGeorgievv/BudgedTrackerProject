@@ -29,6 +29,9 @@
 #changePlanForm{
     right: 0px;
 }
+#changePlanModalLabel{
+    color: white;
+}
 
 .display-change-plan-form{
     display: block;

@@ -16,52 +16,66 @@
 <body>
 
 <button type="button" class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold"
-        title="Change plan" value="Change plan" onclick="openChangePlanForm()"
+        title="Change plan" value="Change plan" data-bs-toggle="modal" data-bs-target="#changePlanModal"
 ><i class="fa-solid fa-arrow-trend-up"></i></button>
-<div class="change-plan-form-popup" id="changePlanForm"
-     th:classappend="${#fields.hasErrors('*')} ? 'display-change-plan-form' : 'hide-change-plan-form'"
-     th:object="${changePlanDTO}"
->
-  <form
-          th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/changePlan'}}"
-          th:method="post"
-          class="form-container">
 
-    <div>
 
-    <div class="d-flex flex-column">
-      <label for="membershipDropdownId" class="membershipLabel">Select the desired plan</label>
-      <select  id="membershipDropdownId" name="membership" class="membershipDropdown">
-        <option th:value="0" th:text="'Please choose a plan'" disabled selected></option>
-        <option class="membershipPlanFormOption"
-                th:each="m : ${memberships}"
-                th:text="${m}"
-                th:value="${m}"
-                >
-        </option>
-      </select>
-      <div th:if="${#fields.hasErrors('membership')}" th:errors="*{membership}" class="errors">TEST</div>
-    </div>
+<div class="modal fade" id="changePlanModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" id="changePlanModalContent">
+      <div class="flex-grow-1 account-form-popup">
+        <div class="d-flex justify-content-between align-items-center modal-header">
+          <div>
+            <h5 class="modal-title" id="changePlanModalLabel">Change Plan</h5>
+          </div>
+        </div>
+        <div class="modal-body"
+             th:object="${changePlanDTO}">
+          <form
+                  th:action="@{${#strings.isEmpty(name) ? '/homePage' : '/changePlan'}}"
+                  th:method="post"
+                  class="form-container">
 
-      <div class="d-flex flex-column" >
-          <label id="accountToUseLabel" class="membershipLabel">Account to use</label>
-          <select name="accountToUse" class="membershipDropdown" id="planAccountToUse">
-            <option class="membershipPlanFormOption"
-                    th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
-                    th:text="${a.getName()}"
-                    th:value="${a.getName()}"
-                    th:selected="${userFullNameDTO.getAccountNameAssignedForSubscription()}"
-            >
+            <div>
 
-            </option>
-          </select>
+              <div class="d-flex flex-column">
+                <label for="membershipDropdownId" class="membershipLabel">Select the desired plan</label>
+                <select  id="membershipDropdownId" name="membership" class="membershipDropdown">
+                  <option th:value="0" th:text="'Please choose a plan'" disabled selected></option>
+                  <option class="membershipPlanFormOption"
+                          th:each="m : ${memberships}"
+                          th:text="${m}"
+                          th:value="${m}"
+                  >
+                  </option>
+                </select>
+                <div th:if="${#fields.hasErrors('membership')}" th:errors="*{membership}" class="errors">TEST</div>
+              </div>
+
+              <div class="d-flex flex-column" >
+                <label id="accountToUseLabel" class="membershipLabel">Account to use</label>
+                <select name="accountToUse" class="membershipDropdown" id="planAccountToUse">
+                  <option class="membershipPlanFormOption"
+                          th:each="a : ${allAccountsInfoDTO.getAllAccounts()}"
+                          th:text="${a.getName()}"
+                          th:value="${a.getName()}"
+                          th:selected="${userFullNameDTO.getAccountNameAssignedForSubscription()}"
+                  >
+
+                  </option>
+                </select>
+              </div>
+
+            </div>
+
+            <button type="submit" class="button" id="submitChangesButton" disabled>Change my plan!</button>
+            <button type="button" class="button" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
       </div>
-
     </div>
-
-    <button type="submit" class="button" id="submitChangesButton" disabled>Change my plan!</button>
-    <button type="button" class="button" onclick="closeChangePlanForm()">Close</button>
-  </form>
+  </div>
 </div>
 
 <script>
@@ -81,20 +95,14 @@
   membership.addEventListener('input', checkFormValidity);
   account.addEventListener('input', checkFormValidity);
 
-  function openChangePlanForm(){
-    document.getElementById("changePlanForm").style.display = "block";
-  }
-  function closeChangePlanForm() {
-    document.getElementById("changePlanForm").style.display = "none";
-  }
-
-  window.addEventListener('mouseup',function(event){
-    let form = document.getElementById('changePlanForm');
-    if(!form.contains(event.target)){
-      form.style.display = 'none';
+  document.addEventListener("DOMContentLoaded", function() {
+    let errors = document.querySelectorAll('#changePlanModal .errors');
+    let hasErrors = Array.from(errors).some(error => error.textContent.trim() !== '');
+    if (hasErrors) {
+      let myModal = new bootstrap.Modal(document.getElementById('changePlanModal'), {});
+      myModal.show();
     }
   });
-
 </script>
 </body>
 </html>
