@@ -93,7 +93,7 @@ function testJS(expenseId) {
 
     let informationMark = document.getElementById("editExpenseInfo");
     informationMark.addEventListener("mouseover", function () {
-        document.getElementById("editExpenseModalLabel").style.color = "#2c396a"
+        document.getElementById("editExpenseModalLabel").style.color = "#01154A"
     })
     informationMark.addEventListener("mouseout", function () {
         document.getElementById("editExpenseModalLabel").style.color = "white";

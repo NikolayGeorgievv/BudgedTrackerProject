@@ -63,7 +63,7 @@
                 </div>
                 <div id="categorySort">
                     <div>
-                        <p
+                        <p id="todaysDatePara"
                                 th:text="'Today\'s date is: '  + ${todaysDate}"
                                 th:value="'Today\'s date is: '  + ${todaysDate}"
                                 style="color: #2c396a; font-weight: bold; margin-left: 20px"
@@ -73,7 +73,7 @@
                             th:action="@{/categorySort}"
                             th:method="get">
                         <div class="d-flex" style="align-items: baseline; height: 10px">
-                            <p style="margin-left: 20px; margin-right: 10px; font-weight: bold; color: #2c396a;">
+                            <p style="margin-left: 20px; margin-right: 10px; font-weight: bold; color: #2c396a;" id="myPlanPara">
                                 Sort by
                                 Category:</p>
                             <div>
