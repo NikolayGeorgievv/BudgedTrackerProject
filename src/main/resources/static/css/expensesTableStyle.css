@@ -118,3 +118,20 @@ button:hover {
 .expenseTableInput{
     height: 30px;
 }
+
+#thBill{
+    width: 20%;
+    padding-left: 15px;
+}
+#thTarget{
+    width:35%;
+}
+#thAccAssigned{
+    width: 20%;
+}
+#thCategory{
+    width: 15%;
+}
+#thButtons{
+    width: 10%;
+}

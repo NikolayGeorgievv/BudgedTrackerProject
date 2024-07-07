@@ -19,7 +19,7 @@
 <body >
 <div class="flex-grow-1">
     <!--        div for table-->
-    <div class="table-responsive-md" id="responsiveExpenseTable">
+    <div class="table-responsive" id="responsiveExpenseTable">
         <table class="table table-borderless table-hover"
                th:action="@{/homePage}"
                th:method="get"
@@ -27,11 +27,11 @@
 
             <thead>
             <tr class="">
-                <th scope="col" style="width: 20%; padding-left: 15px">BILL</th>
-                <th scope="col" style="width: 35%;">TARGET</th>
-                <th scope="col" style="width: 20%;"><span>ACCOUNT ASSIGNED</span></th>
-                <th scope="col" style="width: 15%;"><span>CATEGORY</span></th>
-                <th scope="col" style="width: 10%;"></th>
+                <th scope="col" id="thBill">BILL</th>
+                <th scope="col" id="thTarget">TARGET</th>
+                <th scope="col" id="thAccAssigned"><span>ACCOUNT ASSIGNED</span></th>
+                <th scope="col" id="thCategory"><span>CATEGORY</span></th>
+                <th scope="col" id="thButtons"></th>
             </tr>
             </thead>
 
