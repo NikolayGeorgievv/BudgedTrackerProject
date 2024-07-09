@@ -9,6 +9,7 @@
             crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <link rel="stylesheet" th:href="@{/css/editUser.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
@@ -24,7 +25,7 @@
 
 <div class="d-flex">
 
-    <div>
+    <div id="sidebar">
         <div th:replace="~{fragments/sideBar}"></div>
     </div>
     <div class="flex-grow-1">
@@ -39,7 +40,7 @@
                     data-bs-toggle="modal" data-bs-target="#editUserModal">Edit Information
             </button>
             <button class="btn btn-outline-info btn-sm px-3 me-sm-3 fw-bold" id="backToAdminPageBtn">
-            <a th:href="@{adminPage}" style="text-decoration: none; color: black">Go back</a>
+            <a th:href="@{/adminPage}" style="text-decoration: none; color: black">Go back</a>
             </button>
             </div>
         </div>
@@ -188,76 +189,5 @@
         </div>
     </div>
 </div>
-
-<style>
-    .form-popup, .form-popup1 {
-        display: none;
-    }
-
-    #userInfoTopBar {
-        border-bottom: 1px solid #2c396a;
-        margin-bottom: 10px;
-    }
-
-    #editUserInfoBtn{
-        margin-left: 20px;
-        width: fit-content;
-        margin-bottom: 5px;
-        color: black;
-        margin-right: 10px;
-    }
-    #backToAdminPageBtn{
-        width: fit-content;
-        margin-bottom: 5px;
-    }
-
-    #userInfoRow1 {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px
-    }
-
-    #userInfoRow2 {
-        border: darkgrey 1px solid;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        height: 40px
-    }
-
-    #userInfoRow3 {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold
-    }
-    .user-info{
-        border: darkgrey 1px solid;
-    }
-    #editUserModalContent {
-        border: 3px solid #f1f1f1;
-        background-color: #2c396a;
-    }
-    label {
-        color: #ffc107;
-    }
-    #editModalLabel {
-        color: white;
-    }
-    .button {
-        background-color: #2c396a;
-        color: #ffc107;
-        padding: 16px 20px;
-        cursor: pointer;
-        width: 100%;
-        margin-bottom: 10px;
-        opacity: 0.8;
-    }
-
-    button:hover {
-        border: 1px solid #0099cc;
-        background-color: #00aacc;
-    }
-</style>
 </body>
 </html>

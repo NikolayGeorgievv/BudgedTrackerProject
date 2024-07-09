@@ -8,6 +8,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>All expenses page</title>
@@ -19,12 +20,19 @@
 </div>
 
 <div class="d-flex">
-    <div>
+    <div id="sidebar">
         <div th:replace="~{fragments/sideBar}" style="margin-right: 0"></div>
     </div>
 
     <!--    main div for table-->
     <div class="flex-grow-1" style="border-radius: 10px">
+
+
+        <!--    div for responsive top bar-->
+        <div id="responsiveSidebarMenu">
+            <div th:replace="~{fragments/responsive/responsiveSideBarMenu}"></div>
+        </div>
+
 
         <h3 style="margin: 10px">My Bills</h3>
 

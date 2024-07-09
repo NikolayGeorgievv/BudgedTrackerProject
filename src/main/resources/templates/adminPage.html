@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://kit.fontawesome.com/1a33788db9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/adminPage.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Admin page</title>
@@ -23,12 +24,19 @@
 
 <div class="d-flex">
 
-    <div>
+    <div id="sidebar">
         <div th:replace="~{fragments/sideBar}"></div>
     </div>
 
 
     <div class="flex-grow-1">
+
+        <!--    div for responsive top bar-->
+        <div id="responsiveSidebarMenu">
+            <div th:replace="~{fragments/responsive/responsiveSideBarMenu}"></div>
+        </div>
+
+
         <!--TOP BAR-->
         <div class="d-flex" id="adminTopBar">
 
