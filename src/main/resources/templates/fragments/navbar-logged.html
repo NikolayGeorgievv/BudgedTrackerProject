@@ -49,6 +49,18 @@
                     </form>
                 </div>
 
+                <div class="text-end" id="logoutBtnResponsive">
+
+                    <form th:method="post"
+                          th:action="@{/logout}">
+                        <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" value="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+
+                    </form>
+                </div>
+
+
             </div>
         </div>
     </header>
