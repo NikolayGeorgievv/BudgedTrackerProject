@@ -39,8 +39,21 @@
 
                     <a th:href="@{/users/register}">
                         <button type="button" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold"
-                                style="width: 110px">Sign-up</button>
+                                style="width: 110px" th:text="#{nav_bar_sign_up}">Sign-up</button>
                     </a>
+
+                    <div>
+                        <form th:method="get">
+                            <label class="text-white" for="lang" th:text="#{nav_bar_language}">Language</label>
+                            <select
+                                    id="lang"
+                                    name="lang"
+                                    onchange="this.form.submit()">
+                                <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                                <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                            </select>
+                        </form>
+                    </div>
 
                 </div>
             </div>
