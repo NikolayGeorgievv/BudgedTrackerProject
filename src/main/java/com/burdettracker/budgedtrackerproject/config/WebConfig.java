@@ -22,16 +22,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-    private final LocaleChangeInterceptor localeChangeInterceptor;
-
-    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor) {
-        this.localeChangeInterceptor = localeChangeInterceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor);
-    }
+//    private final LocaleChangeInterceptor localeChangeInterceptor;
+//
+//    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor) {
+//        this.localeChangeInterceptor = localeChangeInterceptor;
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(localeChangeInterceptor);
+//    }
 
 
     @Bean
