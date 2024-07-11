@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
@@ -22,16 +22,16 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-//    private final LocaleChangeInterceptor localeChangeInterceptor;
-//
-//    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor) {
-//        this.localeChangeInterceptor = localeChangeInterceptor;
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(localeChangeInterceptor);
-//    }
+    private final LocaleChangeInterceptor localeChangeInterceptor;
+
+    public WebConfig(LocaleChangeInterceptor localeChangeInterceptor) {
+        this.localeChangeInterceptor = localeChangeInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor);
+    }
 
 
     @Bean
