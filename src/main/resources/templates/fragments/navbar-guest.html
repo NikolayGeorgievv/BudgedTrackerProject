@@ -24,28 +24,29 @@
                                                                         class="d-block mx-lg-auto img-fluid" alt="#"
                                                                         width="45" height="30"
                                                                         loading="lazy"></a></li>
-                    <li><a href="/index" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="/index#pricing" class="nav-link px-2 text-white" id="pricingLink">Pricing</a></li>
-                    <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white">Contacts</a></li>
+                    <li><a href="/index" class="nav-link px-2 text-secondary" th:text="#{nav_bar_home}">Home</a></li>
+                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white" th:text="#{nav_bar_FAQs}">FAQs</a></li>
+                    <li><a href="/index#pricing" class="nav-link px-2 text-white" id="pricingLink" th:text="#{nav_bar_pricing}">Pricing</a></li>
+                    <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white" th:text="#{nav_bar_contacts}">Contacts</a></li>
                 </ul>
 
 
-                <div class="text-end">
-                    <a th:href="@{/users/login}" style="padding: 0px">
+                <div class="text-end d-flex">
+                    <a th:href="@{/users/login}">
                         <button type="button" class="btn btn-outline-light btn-md px-4 me-sm-3 fw-bold"
+                                th:text="#{nav_bar_login}"
                                 style="width: 110px">Login
                         </button>
                     </a>
 
                     <a th:href="@{/users/register}">
                         <button type="button" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold"
-                                style="width: 110px" th:text="#{nav_bar_sign_up}">Sign-up
+                                style="width: fit-content" th:text="#{nav_bar_sign_up}">Sign-up
                         </button>
                     </a>
 
 
-                    <div>
+                    <div class="d-flex">
                         <form id="lang-form" th:method="get">
                             <input type="hidden" id="lang" name="lang">
                         </form>
@@ -53,7 +54,7 @@
                             <img src="/images/uk-flag.png" alt="English"
                                  width="30" height="15">
                         </a>
-                        <a href="#" onclick="changeLang('bg_BG')">
+                        <a href="#" onclick="changeLang('bg_BG')" style="padding-left: 10px">
                             <img src="/images/bg-flag.png" alt="Bulgarian"
                                  width="30" height="15">
                         </a>
