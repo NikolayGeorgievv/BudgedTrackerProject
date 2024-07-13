@@ -29,42 +29,52 @@
               class="col-10 col-sm-8 col-lg-6">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="firstName">First Name</label>
-                    <input class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                    <label for="firstName" th:text="#{registerFormFirstNameInput}">First Name</label>
+                    <input class="form-control" id="firstName" name="firstName"
+                           th:placeholder="#{registerFormFirstNamePlaceholder}">
 
-                    <p th:if="${#fields.hasErrors('firstName')}" class="errors" >Please enter a valid first name.</p>
+                    <p th:if="${#fields.hasErrors('firstName')}" class="errors"
+                       th:text="#{registerFormFirstNameError}">Please enter a valid first name.</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="lastName">Last Name</label>
-                    <input class="form-control" id="lastName" name="lastName" placeholder="Last Name">
-                    <p th:if="${#fields.hasErrors('lastName')}" class="errors">Please enter a valid last name.</p>
+                    <label for="lastName" th:text="#{registerFormLastNameInput}">Last Name</label>
+                    <input class="form-control" id="lastName" name="lastName"
+                           th:placeholder="#{registerFormLastNamePlaceholder}">
+                    <p th:if="${#fields.hasErrors('lastName')}" class="errors"
+                       th:text="#{registerFormLastNameError}">Please enter a valid last name.</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email">
+                    <label for="inputEmail4" th:text="#{registerFormEmailInput}">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" name="email"
+                           th:placeholder="#{registerFormEmailPlaceholder}">
                     <p th:if="${#fields.hasErrors('email')}" class="errors">Please enter a valid email.</p>
-                    <p th:if="${#fields.hasErrors('invalidEmail')}" class="errors">Invalid email.</p>
+                    <p th:if="${#fields.hasErrors('invalidEmail')}" class="errors"
+                       th:text="#{registerFormEmailError}">Invalid email.</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputPassword4">Password</label>
+                    <label for="inputPassword4" th:text="#{registerFormPasswordInput}">Password</label>
                     <input type="password" class="form-control" id="inputPassword4" name="password"
-                           placeholder="Password">
-                    <p th:if="${#fields.hasErrors('password')}" class="errors">Please enter a valid password.</p>
+                           th:placeholder="#{registerFormPasswordPlaceholder}">
+                    <p th:if="${#fields.hasErrors('password')}" class="errors"
+                       th:text="#{registerFormPasswordError}">Please enter a valid password.</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="confirmPassword">Confirm Password</label>
+                    <label for="confirmPassword" th:text="#{registerFormConfirmPasswordInput}">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                           placeholder="Confirm Password">
-                    <p th:if="${#fields.hasErrors('confirmPassword')}" class="errors">Passwords should match.</p>
+                           th:placeholder="#{registerFormConfirmPasswordPlaceholder}">
+                    <p th:if="${#fields.hasErrors('confirmPassword')}" class="errors"
+                       th:text="#{registerFormConfirmPasswordError}">Passwords should match.</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputZip">Tel. number</label>
-                    <input type="text" class="form-control" id="inputZip" name="phoneNumber">
-                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="errors">Please enter a valid phone number.</p>
+                    <label for="inputZip" th:text="#{registerFormPhoneNumberInput}">Tel. number</label>
+                    <input type="text" class="form-control" id="inputZip" name="phoneNumber"
+                           th:placeholder="#{registerFormPhoneNumberPlaceholder}">
+                    <p th:if="${#fields.hasErrors('phoneNumber')}" class="errors"
+                       th:text="#{registerFormPhoneNumberError}">Please enter a valid phone number.</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="sel1">Membership</label>
+                    <label for="sel1" th:text="#{registerFormMembershipInput}">Membership</label>
                     <select class="form-control" id="sel1" name="membership">
                         <option
                                 th:each="m : ${memberships}"
@@ -76,15 +86,19 @@
             </div>
             <div class="form-group">
                 <div class="form-check">
-                    <p th:if="${#fields.hasErrors('termsAccepted')}" class="errors">Please accept our terms and conditions.</p>
+                    <p th:if="${#fields.hasErrors('termsAccepted')}" class="errors"
+                       th:text="#{registerFormTermsAcceptedError}"
+                    >Please accept our terms and conditions.</p>
 
                     <input class="form-check-input" type="checkbox" name="termsAccepted" id="gridCheck">
                     <label class="form-check-label" for="gridCheck">
-                        I have read and agree <a th:href="@{termsAndConditions.html}" style="color: white; "> Terms and conditions</a>.
+                        <span th:text="#{registerFormTermsAndConditions1}">I have read and agree</span>
+                         <a th:href="@{termsAndConditions.html}" style="color: white; " th:text="#{registerFormTermsAndConditions2}"> Terms and conditions</a>.
                     </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold">Sign in</button>
+            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold"
+                    th:text="#{registerFormBtn}">Sign Up</button>
         </form>
 
     </div>
