@@ -25,38 +25,43 @@
                 th:method="post"
                 class="col-10 col-sm-8 col-lg-6">
             <div class="form-group login">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
-                       placeholder="Please enter your email">
+                <label for="exampleInputEmail1" th:text="#{loginFormEmailInput}">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                       aria-describedby="emailHelp"
+                       th:placeholder="#{loginFormEmailPlaceholder}">
 
             </div>
             <br>
             <div class="form-group login">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Please enter your password">
+                <label for="exampleInputPassword1" th:text="#{loginFormPasswordInput}">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                       placeholder=""th:placeholder="#{loginFormPasswordPlaceholder}">
                 <p class="errors"
-                   th:if="${error}">
+                   th:if="${error}"
+                   th:text="#{loginValidationError}">
                     Wrong email or password.
                 </p>
             </div>
 
             <div class="form-group form-check login">
                 <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-                <label class="form-check-label" for="rememberMe" >Remember me</label>
+                <label class="form-check-label" for="rememberMe" th:text="#{loginFormRememberMe}">Remember me</label>
             </div>
 
             <br>
-            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold">Log in</button>
+            <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold"
+            th:text="#{loginFormLoginBtn}">Login</button>
 
         </form>
 
     </div>
 </div>
 <style>
-    .login{
+    .login {
         color: white;
     }
-    .errors{
+
+    .errors {
         font-size: 15px;
         color: red;
     }
