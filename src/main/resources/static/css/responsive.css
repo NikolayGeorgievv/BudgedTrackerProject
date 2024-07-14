@@ -72,6 +72,12 @@
    #termsAndConditionsContent{
        margin: 10px 10px!important;
    }
+   #FAQsQuestion2Div{
+       display: block!important;
+   }
+   #FAQsQuestion2A{
+       margin: 0!important;
+   }
 }
 
 @media only screen and (min-width: 601px) {

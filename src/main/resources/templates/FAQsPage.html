@@ -23,53 +23,66 @@
 
 <div class="d-flex flex-column text-align-center" id="FAQContentDiv">
 
-    <h1>Frequently Asked Questions:</h1>
+    <h1 th:text="#{FAQsHeader}">Frequently Asked Questions:</h1>
 
     <details>
-        <summary>What exactly do you do?</summary>
-        <p>We help you track and organise your finances. We follow your expenses, pay dates, accounts and even goals!</p>
+        <summary th:text="#{FAQsQuestion1}">What exactly do you do?</summary>
+        <p th:text="#{FAQsAnswer1}">We help you track and organise your finances. We follow your expenses, pay dates,
+            accounts and even goals!</p>
     </details>
 
     <details>
-        <summary>How do I contact customer support?</summary>
-        <p>You can reach our customer support team via email or phone. You can find more information <a th:href="@{contactsPage}" style="color: #00aacc;">here</a></p>
+        <summary th:text="#{FAQsQuestion2}">How do I contact customer support?</summary>
+        <div class="d-flex" id="FAQsQuestion2Div">
+            <p th:text="#{FAQsAnswer2}">You can reach our customer support team via email or phone. You can find more
+                information</p> <a th:href="@{contactsPage}" style="color: #00aacc; margin-left: 5px" th:text="#{FAQAnswer2_1}" id="FAQsQuestion2A">here</a>
+        </div>
     </details>
     <details>
-        <summary>How secure is my financial data within the app?</summary>
-        <p>We take security very seriously. Your data and personal information are safe with us!</p>
+        <summary th:text="#{FAQsQuestion3}">How secure is my financial data within the app?</summary>
+        <p th:text="#{FAQsAnswer3}">We take security very seriously. Your data and personal information are safe with
+            us!</p>
     </details>
     <details>
-        <summary>What types of expenses can I track using this app?</summary>
-        <p>You can track absolutely everything. From day-to-day to annually expenses. We have unique tracking system to work for you.</p>
+        <summary th:text="#{FAQsQuestion4}">What types of expenses can I track using this app?</summary>
+        <p th:text="#{FAQsAnswer4}">You can track absolutely everything. From day-to-day to annually expenses. We have
+            unique tracking system to work for you.</p>
     </details>
     <details>
-        <summary>How do I set up a budget within the app?</summary>
-        <p>Very easy! You can create an account or use the default one we created for you. The rest is 2 clicks away!</p>
+        <summary th:text="#{FAQsQuestion5}">How do I set up a budget within the app?</summary>
+        <p th:text="#{FAQsAnswer5}">Very easy! You can create an account or use the default one we created for you. The
+            rest is 2 clicks away!</p>
     </details>
     <details>
-        <summary>How it works?</summary>
-        <p>Don't worry if you don't understand something. There is a whole tutorial on how to use the app. Just click on "How to use" when you log in!</p>
+        <summary th:text="#{FAQsQuestion6}">How it works?</summary>
+        <p th:text="#{FAQsAnswer6}">Don't worry if you don't understand something. There is a whole tutorial on how to
+            use the app. Just click on "How to use" when you log in!</p>
     </details>
     <details>
-        <summary>Can I view my expenses in categories?</summary>
-        <p>Yes. You can sort your expenses by category and obtain various information about it.</p>
+        <summary th:text="#{FAQsQuestion7}">Can I view my expenses in categories?</summary>
+        <p th:text="#{FAQsAnswer7}">Yes. You can sort your expenses by category and obtain various information about
+            it.</p>
     </details>
     <details>
-        <summary>Can I create custom spending categories?</summary>
-        <p>Yes. We have the most common categories to choose from but, if that doesn't fit your case you can create your own category!</p>
+        <summary th:text="#{FAQsQuestion8}">Can I create custom spending categories?</summary>
+        <p th:text="#{FAQsAnswer8}">Yes. We have the most common categories to choose from but, if that doesn't fit your
+            case you can create your own category!</p>
     </details>
     <details>
-        <summary>Can I set financial goals within the app?</summary>
-        <p>Of course! Not everything in life is bills and expenses. We provide a nice, user-friendly system where you can track your goals and look forward to!</p>
+        <summary th:text="#{FAQsQuestion9}">Can I set financial goals within the app?</summary>
+        <p th:text="#{FAQsAnswer9}">Of course! Not everything in life is bills and expenses. We provide a nice,
+            user-friendly system where you can track your goals and look forward to!</p>
     </details>
     <details>
-        <summary>Can I export information about my expenses and accounts?</summary>
-        <p>Yes. You can download a CSV file with all the information about your transactions.</p>
+        <summary th:text="#{FAQsQuestion10}">Can I export information about my expenses and accounts?</summary>
+        <p th:text="#{FAQsAnswer10}">Yes. You can download a CSV file with all the information about your
+            transactions.</p>
     </details>
     <details>
-        <summary>How to change my plan?</summary>
-        <p>In case you are not happy with the plan you have chosen, you can always change it from the button, located
-        in the top right corner in the home page when you log in.</p>
+        <summary th:text="#{FAQsQuestion11}">How to change my plan?</summary>
+        <p th:text="#{FAQsAnswer11}">In case you are not happy with the plan you have chosen, you can always change it
+            from the button, located
+            in the top right corner in the home page when you log in.</p>
     </details>
 
 
