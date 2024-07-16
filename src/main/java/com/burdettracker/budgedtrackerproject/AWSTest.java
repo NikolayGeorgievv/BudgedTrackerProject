@@ -13,10 +13,10 @@ import java.nio.file.Path;
 public class AWSTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
-        String bucketName = "my-web-app-bucket-log"; // replace with your bucket name
-        String key = "myApp.log"; // replace with your object key
+        String bucketName = "my-web-app-bucket-log";
+        String key = "myApp.log";
 
-        Region region = Region.EU_WEST_2; // replace with your bucket region
+        Region region = Region.EU_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
 
         getObject(s3, bucketName, key);
@@ -31,7 +31,7 @@ public class AWSTest implements CommandLineRunner {
                     .key(key)
                     .build();
 
-            Path localFilePath = Path.of("C:\\Users\\skull\\Downloads\\myApp.log"); // replace with the path where you want to save the file
+            Path localFilePath = Path.of("C:\\Users\\skull\\Downloads\\myApp.log");
 
             s3.getObject(getObjectRequest, localFilePath);
 
