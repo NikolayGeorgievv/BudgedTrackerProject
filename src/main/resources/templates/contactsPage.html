@@ -24,8 +24,9 @@
 <div class="my-5">
   <div class="p-5 text-center bg-body-transparent">
     <div class="container py-5">
-      <h2>Having any trouble? Check out our <a th:href="@{/FAQsPage}">FAQ</a> first.</h2>
-      <h3 class="col-lg-8 mx-auto lead">Didn't find an answer? You can always contact us on email: pinecone@finances.com</h3>
+      <h2> <span th:text="#{contactsPageTitle_1}">Having any trouble? Check out our</span>
+        <a th:href="@{/FAQsPage}" th:text="#{contactsPageTitle_2}">FAQ</a> <span th:text="#{contactsPageTitle_3}"> first.</span></h2>
+      <h3 class="col-lg-8 mx-auto lead" th:text="#{contactsPageText}">Didn't find an answer? You can always contact us on email: pinecone@finances.com</h3>
     </div>
   </div>
 </div>
