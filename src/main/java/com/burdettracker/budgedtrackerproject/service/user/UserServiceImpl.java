@@ -85,9 +85,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.saveAndFlush(user);
         transactionService.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
-//        transactionRepository.saveAllAndFlush(user.getAccounts().get(0).getExpenseTransactionHistory());
         accountService.saveAllAndFlush(user.getAccounts());
-//        accountRepository.saveAllAndFlush(user.getAccounts());
     }
 
     @Override
@@ -143,13 +141,11 @@ public class UserServiceImpl implements UserService {
         );
         Transaction transaction = this.transactionService.createAccountTransaction(accountDTO);
         transactionService.saveAndFlush(transaction);
-//        transactionRepository.saveAndFlush(transaction);
         user.getTransactions().add(transaction);
         user.getAccounts().add(account);
         userRepository.saveAndFlush(user);
         account.getExpenseTransactionHistory().add(transaction);
         accountService.saveAndFlush(account);
-//        accountRepository.saveAndFlush(account);
     }
 
     @Override
