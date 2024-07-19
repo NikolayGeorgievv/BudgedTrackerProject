@@ -15,8 +15,27 @@ User is able to create goals. You can track your goal via progress-bar and check
 
 ## More details
 The app has both front-end and back-end user input validation with spring security and thymeleaf security.
-The app has implementation for rest-api email validation(spring email validation is also used).
-The app has roles(ADMIN, USER). The very first registered user will be ADMIN also. The ADMIN can controll the roles in-app and view various information about both users and application itself.
 
+The app has implementation for rest-api email validation(spring email validation is also used).
+
+The app has roles(ADMIN, USER). The very first registered user will be ADMIN also. The ADMIN can controll the roles in-app and view various information about both users and application itself in terms of logs stored in AWS cloud.
+
+Please note that there is no hard-coded data, api keys and paths due to safety reasons. What you have to configure before starting:
+
+1. https://apilayer.com/marketplace/email_verification-api //Email validation:
+ - schema=${https}
+ - host=${://api.apilayer.com/email_verification/}
+ - apiKey=${Your API Key goes here}
+  
+2. https://eu-west-2.console.aws.amazon.com/  //AWS cloud storage:
+ + AWS_ACCESS_KEY_ID as environment variable
+ + AWS_SECRET_ACCESS_KEY as environment variable
+ + DOWNLOAD_DIRECTORY as environment variable  //This is the directory where you would like the .log files to be downloaded.
+ + my.app.log.path=${MY_APP_LOG_PATH}  //This is usually the root directory of the application. This is where the myApp.log file will be created.
+
+3. rememberMe=${remember.Me}  //This is the key for the remember me implementation.
+4. JDBC: ${username} and ${password} to access your local mysql server.
+  
+ 
  
 
