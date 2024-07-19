@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service.schedueledEvents;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.regions.Region;
@@ -11,6 +12,10 @@ import java.nio.file.Paths;
 
 @Component
 public class LogsUpdater {
+
+    @Value("${my.app.log.path}")
+    String localFilePath;
+
 
     public void uploadObject(S3Client s3, String bucketName, String key, String filePath) {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -24,13 +29,13 @@ public class LogsUpdater {
     }
 //This rate is for testing purposes only.
 //    @Scheduled(fixedRate = 20000)
+
+    //Logs are updated every hour
+    @Scheduled(cron="0 0 * * * *")
     public void scheduledUpload() {
         String bucketName = "my-web-app-bucket-log";
         String key = "myApp.log";
 
-        //todo: take the path in the properties file
-
-        String localFilePath = "C:\\Users\\skull\\Downloads\\BudgedTrackerProject\\BudgedTrackerProject\\BudgedTrackerProject\\BudgedTrackerProject\\myApp.log";
         S3Client s3 = S3Client.builder().region(Region.EU_WEST_2).build();
 
         uploadObject(s3, bucketName, key, localFilePath);
