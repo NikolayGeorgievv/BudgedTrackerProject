@@ -1,6 +1,8 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 
+import com.burdettracker.budgedtrackerproject.service.AWSService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,19 @@ import java.io.IOException;
 @RestController
 public class LogFileController {
 
+    private final AWSService awsService;
+
+    @Autowired
+    public LogFileController(AWSService awsService) {
+        this.awsService = awsService;
+    }
+
     @GetMapping("/download-log")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<InputStreamResource> downloadLogFile() throws IOException {
-        File file = new File("myApp.log");
+        awsService.downloadLogFileFromS3();
+
+        File file = new File(System.getenv("DOWNLOAD_DIRECTORY"));
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
         return ResponseEntity.ok()

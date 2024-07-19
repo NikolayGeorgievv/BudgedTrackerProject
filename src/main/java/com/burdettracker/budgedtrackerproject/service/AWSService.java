@@ -1,6 +1,5 @@
-package com.burdettracker.budgedtrackerproject;
+package com.burdettracker.budgedtrackerproject.service;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
@@ -12,47 +11,34 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 @Component
-public class AWSTest implements CommandLineRunner {
-    @Override
-    public void run(String... args) throws Exception {
+public class AWSService {
+    public void downloadLogFileFromS3() {
         String bucketName = "my-web-app-bucket-log";
         String key = "myApp.log";
 
         Region region = Region.EU_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
 
-        getObject(s3, bucketName, key);
-
-
-
-    }
-    public static void getObject(S3Client s3, String bucketName, String key) {
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                     .bucket(bucketName)
                     .key(key)
                     .build();
 
-            Path localFilePath = Paths.get("C:\\Users\\skull\\Downloads\\myApp.log");
+            Path localFilePath = Paths.get(System.getenv("DOWNLOAD_DIRECTORY"));
 
-            // Delete the file if it exists
-            try {
-                Files.deleteIfExists(localFilePath);
-            } catch (IOException e) {
-                System.err.println("Unable to delete file: " + e.getMessage());
-                return;
+            // Check if file already exists, if so, delete it
+            if (Files.exists(localFilePath)) {
+                Files.delete(localFilePath);
             }
 
-            // Download the file
             s3.getObject(getObjectRequest, ResponseTransformer.toFile(localFilePath));
 
-            System.out.println("File downloaded successfully");
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+        } catch (S3Exception | IOException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("Failed to download file from S3", e);
         }
     }
 }
