@@ -13,6 +13,10 @@ public class AllAccountsInfoDTO {
         this.totalBalance = totalBalance;
     }
 
+    public AllAccountsInfoDTO(List<AccountDTO> allAccounts) {
+        this.allAccounts = allAccounts;
+    }
+
     public List<AccountDTO> getAllAccounts() {
         return allAccounts;
     }
