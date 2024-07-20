@@ -5,9 +5,7 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoD
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
-import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;

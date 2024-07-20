@@ -1,23 +1,20 @@
 package com.burdettracker.budgedtrackerproject.service.expense;
 
-import com.burdettracker.budgedtrackerproject.model.dto.expense.AddCategoryDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
-import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static com.burdettracker.budgedtrackerproject.util.Utils.*;
+import static com.burdettracker.budgedtrackerproject.util.Utils.setMonthlyDateDue;
+import static com.burdettracker.budgedtrackerproject.util.Utils.setWeeklyDateDue;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
