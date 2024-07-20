@@ -59,6 +59,11 @@ class ExpensesControllerTest {
 
     @BeforeEach
     public void setUp() {
+        userRepository.deleteAll();
+        accountRepository.deleteAll();
+        expenseRepository.deleteAll();
+
+
         User user = createDummyUser(rolesRepository);
         Account account = createDummyAccount();
         account = accountRepository.saveAndFlush(account);
@@ -66,12 +71,6 @@ class ExpensesControllerTest {
         userRepository.saveAndFlush(user);
     }
 
-    @AfterEach
-    public void tearDown() {
-        userRepository.deleteAll();
-        accountRepository.deleteAll();
-        expenseRepository.deleteAll();
-    }
 
     @Test
     void addExpenseValid() {
