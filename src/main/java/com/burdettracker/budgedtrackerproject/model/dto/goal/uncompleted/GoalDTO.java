@@ -22,6 +22,9 @@ public class GoalDTO {
     private boolean isCompleted;
 
 
+    public GoalDTO() {
+    }
+
     public Long getId() {
         return id;
     }

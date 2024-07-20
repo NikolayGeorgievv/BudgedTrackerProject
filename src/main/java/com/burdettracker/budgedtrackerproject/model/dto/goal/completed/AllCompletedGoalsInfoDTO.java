@@ -6,6 +6,9 @@ public class AllCompletedGoalsInfoDTO {
 
    private List<CompletedGoalDTO> completedGoals;
 
+    public AllCompletedGoalsInfoDTO() {
+    }
+
     public AllCompletedGoalsInfoDTO(List<CompletedGoalDTO> completedGoals) {
         this.completedGoals = completedGoals;
     }
