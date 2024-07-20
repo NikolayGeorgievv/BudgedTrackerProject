@@ -123,7 +123,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
 
-    private String parseDateDue(String dateToParse){
+    protected String parseDateDue(String dateToParse){
 
     String[] dateAsString = dateToParse.split("-");
     String year = dateAsString[2];
