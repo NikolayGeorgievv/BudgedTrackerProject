@@ -40,7 +40,6 @@ class CSVServiceTest {
 
     @Test
     void generateCSVWritesCorrectData() throws IOException {
-        // Given
         String accountId = "1";
         Transaction transaction1 = new Transaction();
         transaction1.setAmount(BigDecimal.valueOf(100));
@@ -54,18 +53,15 @@ class CSVServiceTest {
         account.setExpenseTransactionHistory(Arrays.asList(transaction1, transaction2));
         when(accountRepository.getReferenceById(anyLong())).thenReturn(account);
 
-        // When
         MockHttpServletResponse response = new MockHttpServletResponse();
         csvService.generateCSV(response, accountId);
 
-        // Then
         verify(accountRepository).getReferenceById(Long.parseLong(accountId));
         assertEquals("text/csv", response.getContentType());
     }
 
     @Test
     void generateAllCSVWritesCorrectData() throws IOException {
-        // Given
         String email = "test@test.com";
         Transaction transaction1 = new Transaction();
         transaction1.setAmount(BigDecimal.valueOf(100));
@@ -79,11 +75,9 @@ class CSVServiceTest {
         user.setTransactions(Arrays.asList(transaction1, transaction2));
         when(userService.getUserByEmail(anyString())).thenReturn(user);
 
-        // When
         MockHttpServletResponse response = new MockHttpServletResponse();
         csvService.generateAllCSV(response, email);
 
-        // Then
         verify(userService).getUserByEmail(email);
         assertEquals("text/csv", response.getContentType());
     }
