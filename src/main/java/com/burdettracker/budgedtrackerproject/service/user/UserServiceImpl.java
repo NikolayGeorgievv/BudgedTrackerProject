@@ -237,13 +237,10 @@ public class UserServiceImpl implements UserService {
         user.getTransactions().add(transaction);
         account.getExpenseTransactionHistory().add(transaction);
         user.getGoals().add(goal);
-//        transactionRepository.saveAndFlush(transaction);
         transactionService.saveAndFlush(transaction);
-//        accountRepository.saveAndFlush(account);
         accountService.saveAndFlush(account);
         userRepository.saveAndFlush(user);
         goalsService.saveAndFlush(goal);
-//        goalsRepository.saveAndFlush(goal);
     }
 
     @Override
