@@ -50,35 +50,27 @@ public class ExpenseUpdater {
                     account.setCurrentAmount(newAccValue);
 
                 } else {
-                    LocalDate newDateToSet = ex.getDateDue().plusMonths(1);
+                    LocalDate newDateToSet;
                     if (ex.getPeriodDate().equals("Last day of month")) {
-                        //We only set this in case the period date is set to
-                        //"Last day of month" and previous month has fewer days than the next one
-                        LocalDate updatedNewDateToSet = LocalDate.of(
-                                newDateToSet.getYear(),
-                                newDateToSet.getMonth(),
-                                newDateToSet.lengthOfMonth());
-                        ex.setDateDue(updatedNewDateToSet);
+                        newDateToSet = todaysDate.plusMonths(1).withDayOfMonth(todaysDate.plusMonths(1).lengthOfMonth());
+                    } else {
+                        newDateToSet = ex.getDateDue().plusMonths(1);
                     }
                     ex.setDateDue(newDateToSet);
                     BigDecimal newAccValue = account.getCurrentAmount().subtract(ex.getAssigned());
                     account.setCurrentAmount(newAccValue);
                 }
-
             } else if (period.equals("custom") || period.equals("yearly")) {
-
                 if (period.equals("yearly")) {
                     LocalDate newDateToSet = ex.getDateDue().plusYears(1);
                     ex.setDateDue(newDateToSet);
                     BigDecimal newAccValue = account.getCurrentAmount().subtract(ex.getAssigned());
                     account.setCurrentAmount(newAccValue);
-
                 } else {
                     BigDecimal newAccValue = account.getCurrentAmount().subtract(ex.getAssigned());
                     account.setCurrentAmount(newAccValue);
                 }
             }
-
             this.accountService.saveAndFlush(account);
 
             //one-time-buys will be deleted from expenses(transaction will be made)
@@ -87,7 +79,6 @@ public class ExpenseUpdater {
             } else {
                 this.expenseService.saveAndFlush(ex);
             }
-
         });
 
     }
