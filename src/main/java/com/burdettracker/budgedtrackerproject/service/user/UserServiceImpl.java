@@ -246,18 +246,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changeUserPlan(ChangeMembershipDTO changePlanDTO, String email) {
         User user = userRepository.getByEmail(email);
-        int newPlanAccountsAllowed = 0;
-        switch (changePlanDTO.getMembership()) {
-            case "FREE":
-                newPlanAccountsAllowed = 1;
-                break;
-            case "GOLD":
-                newPlanAccountsAllowed = 2;
-                break;
-            case "PREMIUM":
-                newPlanAccountsAllowed = 10;
-                break;
-        }
+        int newPlanAccountsAllowed = switch (changePlanDTO.getMembership()) {
+            case "FREE" -> 1;
+            case "GOLD" -> 2;
+            case "PREMIUM" -> 10;
+            default -> 0;
+        };
         ;
         if (newPlanAccountsAllowed < user.getAccounts().size()) {
             throw new RuntimeException("Can't downgrade plan, too many accounts!");
@@ -345,6 +339,8 @@ public class UserServiceImpl implements UserService {
                 user.setUserAccountsAllowed(10);
                 break;
         }
+        //Set registeredOn, this will be used for account subscription reference
+        user.setRegisteredOnDate(LocalDate.now());
     }
 
     @Override

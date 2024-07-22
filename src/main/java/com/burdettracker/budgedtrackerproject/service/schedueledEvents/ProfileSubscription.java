@@ -25,7 +25,6 @@ public class ProfileSubscription {
     }
 
     //cron = */10.. is for test purposes only
-
     //        @Scheduled(cron = "*/10 * * * * *")
     @Scheduled(cron = "0 55 23 */1 * *")
     public void payForProfileSubscription() {
