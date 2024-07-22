@@ -78,12 +78,6 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
 
-
-    @Override
-    public List<Expense> findByDateDue(LocalDate todaysDate) {
-        return this.expenseRepository.findAllByDateDue(todaysDate);
-    }
-
     @Override
     public List<ExpenseDTO> sortByCategory(String category) {
         Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory_Category(category);
