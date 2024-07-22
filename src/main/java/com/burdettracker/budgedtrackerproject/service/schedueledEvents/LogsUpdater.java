@@ -16,7 +16,6 @@ public class LogsUpdater {
     @Value("${my.app.log.path}")
     String localFilePath;
 
-
     public void uploadObject(S3Client s3, String bucketName, String key, String filePath) {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -39,5 +38,8 @@ public class LogsUpdater {
         S3Client s3 = S3Client.builder().region(Region.EU_WEST_2).build();
 
         uploadObject(s3, bucketName, key, localFilePath);
+    }
+
+    public void setS3Client(S3Client s3Client) {
     }
 }

@@ -37,7 +37,6 @@ public class ProfileSubscription {
                 int todaysDay = LocalDate.now().getDayOfMonth();
                 boolean flag = usersRegisteredDay > 29 && LocalDate.now().lengthOfMonth() < usersRegisteredDay;
 
-
                 if (usersRegisteredDay == todaysDay || flag) {
                     Account account = accountRepository.getByName(user.getAccountNameAssignedForSubscription());
                     if (user.getMembershipType().toString().equals("GOLD")) {
