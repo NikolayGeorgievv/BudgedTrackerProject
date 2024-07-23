@@ -67,6 +67,12 @@ class TransactionsControllerTest {
 
     @Mock
     private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        accountRepository.deleteAll();
+        userRepository.deleteAll();
+    }
     @Test
     void getAccountTransactions() throws Exception {
         User user = createDummyUser(rolesRepository);
