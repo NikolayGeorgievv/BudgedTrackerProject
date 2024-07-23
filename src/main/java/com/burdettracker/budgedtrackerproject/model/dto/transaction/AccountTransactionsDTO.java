@@ -6,6 +6,10 @@ public class AccountTransactionsDTO {
 
     private List<TransactionInfoDTO> allTransactions;
 
+
+    public AccountTransactionsDTO() {
+    }
+
     public AccountTransactionsDTO(List<TransactionInfoDTO> allTransactions) {
         this.allTransactions = allTransactions;
     }
