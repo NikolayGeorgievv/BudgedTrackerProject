@@ -25,16 +25,16 @@
                     <li><a th:href="@{/homePage}"><img src="/images/nav-bar-logo.png"
                                                     class="d-block mx-lg-auto img-fluid"
                                                     alt="#" width="45" height="30" loading="lazy"></a></li>
-                    <li><a th:href="@{/homePage}" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a th:href="@{/howItWorksPage}" class="nav-link px-2 text-white">How it works?</a></li>
-                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white">Contacts</a></li>
+                    <li><a th:href="@{/homePage}" class="nav-link px-2 text-secondary" th:text="#{nav_bar_home}">Home</a></li>
+                    <li><a th:href="@{/howItWorksPage}" class="nav-link px-2 text-white" th:text="#{nav_bar_how_it_works}">How it works?</a></li>
+                    <li><a th:href="@{/FAQsPage}" class="nav-link px-2 text-white" th:text="#{nav_bar_FAQs}">FAQs</a></li>
+                    <li><a th:href="@{/contactsPage}" class="nav-link px-2 text-white" th:text="#{nav_bar_contacts}">Contacts</a></li>
                     <li sec:authorize="hasRole('ADMIN')">
                         <div class="dropdown">
-                            <button onclick="toggleDropdown()" id="dropbtn" class="nav-link px-2 text-white">Admin Panel</button>
+                            <button onclick="toggleDropdown()" id="dropbtn" class="nav-link px-2 text-white" th:text="#{nav_bar_admin_panel}">Admin Panel</button>
                             <div id="myDropdown" class="dropdown-content">
-                                <a th:href="@{/adminPage}">User Data</a>
-                                <a th:href="@{/download-log}">App Data</a>
+                                <a th:href="@{/adminPage}" th:text="#{nav_bar_dropdown_content_1}">User Data</a>
+                                <a th:href="@{/download-log}" th:text="#{nav_bar_dropdown_content_2}">App Data</a>
                             </div>
                         </div>
                     </li>
@@ -44,7 +44,8 @@
 
                     <form th:method="post"
                           th:action="@{/logout}">
-                        <input type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" value="Logout"/>
+                        <button type="submit" class="btn btn-outline-info btn-md px-4 me-sm-3 fw-bold" value="Logout"
+                                th:text="#{nav_bar_logout}"></button>
 
                     </form>
                 </div>
@@ -60,6 +61,19 @@
                     </form>
                 </div>
 
+                <div class="d-flex">
+                    <form id="lang-form" th:method="get">
+                        <input type="hidden" id="lang" name="lang">
+                    </form>
+                    <a href="#" onclick="changeLang('en_US')">
+                        <img src="/images/uk-flag.png" alt="English"
+                             width="30" height="15">
+                    </a>
+                    <a href="#" onclick="changeLang('bg_BG')" style="padding-left: 10px">
+                        <img src="/images/bg-flag.png" alt="Bulgarian"
+                             width="30" height="15">
+                    </a>
+                </div>
 
             </div>
         </div>
@@ -81,6 +95,10 @@
         }
     });
 
+    function changeLang(lang) {
+        document.getElementById('lang').value = lang;
+        document.getElementById('lang-form').submit();
+    }
 </script>
 </body>
 </html>
