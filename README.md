@@ -30,6 +30,8 @@ Please note that there is no hard-coded data, api keys and paths due to safety r
 2. https://eu-west-2.console.aws.amazon.com/  //AWS cloud storage:
  + AWS_ACCESS_KEY_ID as environment variable
  + AWS_SECRET_ACCESS_KEY as environment variable
+ + bucket.name=${BUCKET_NAME} //This is the name of the bucket
+ + key.name=${KEY_NAME} //This is the name of the key(log file)
  + DOWNLOAD_DIRECTORY as environment variable  //This is the directory where you would like the .log files to be downloaded.
  + my.app.log.path=${MY_APP_LOG_PATH}  //This is usually the root directory of the application. This is where the myApp.log file will be created.
 
