@@ -1,5 +1,6 @@
 package com.burdettracker.budgedtrackerproject.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
@@ -14,9 +15,16 @@ import java.nio.file.Paths;
 
 @Component
 public class AWSService {
+
+    @Value("${bucket.name}")
+    String bucketName;
+    @Value("${key.name}")
+    String key;
+
+
+
+
     public void downloadLogFileFromS3() {
-        String bucketName = "my-web-app-bucket-log";
-        String key = "myApp.log";
 
         Region region = Region.EU_WEST_2;
         S3Client s3 = S3Client.builder().region(region).build();
