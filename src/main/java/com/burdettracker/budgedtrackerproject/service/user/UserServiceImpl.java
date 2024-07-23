@@ -291,35 +291,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserChangeInformationDTO userChangeInformationDTO) {
-        User user = userRepository.getReferenceById(UUID.fromString(userChangeInformationDTO.getId()));
+        Optional<User> userOpt = userRepository.findById(UUID.fromString(userChangeInformationDTO.getId()));
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (!user.getMembershipType().toString().equals(userChangeInformationDTO.getMembership())) {
+                changeUserMembership(user, userChangeInformationDTO.getMembership());
+            }
+            if (!userChangeInformationDTO.getNewFirstName().trim().equals("")) {
+                user.setFirstName(userChangeInformationDTO.getNewFirstName());
+            }
+            if (!userChangeInformationDTO.getNewLastName().trim().equals("")) {
+                user.setLastName(userChangeInformationDTO.getNewLastName());
+            }
+            if (!userChangeInformationDTO.getNewPhoneNumber().trim().equals("")) {
+                user.setPhoneNumber(userChangeInformationDTO.getNewPhoneNumber());
+            }
+            if (userChangeInformationDTO.isPromoteUser()) {
+                UserRoleEntity ADMIN = rolesRepository.getReferenceById(2L);
+                UserRoleEntity USER = rolesRepository.getReferenceById(1L);
+                user.setRoles(List.of(ADMIN, USER));
+            }
+            if (userChangeInformationDTO.isDemoteAdmin()) {
+                UserRoleEntity USER = rolesRepository.getReferenceById(1L);
+                user.setRoles(List.of(USER));
+            }
+            try {
+                userRepository.saveAndFlush(user);
 
-        if (!user.getMembershipType().toString().equals(userChangeInformationDTO.getMembership())) {
-            changeUserMembership(user, userChangeInformationDTO.getMembership());
-        }
-        if (!userChangeInformationDTO.getNewFirstName().trim().equals("")) {
-            user.setFirstName(userChangeInformationDTO.getNewFirstName());
-        }
-        if (!userChangeInformationDTO.getNewLastName().trim().equals("")) {
-            user.setLastName(userChangeInformationDTO.getNewLastName());
-        }
-        if (!userChangeInformationDTO.getNewPhoneNumber().trim().equals("")) {
-            user.setPhoneNumber(userChangeInformationDTO.getNewPhoneNumber());
-        }
-        if (userChangeInformationDTO.isPromoteUser()) {
-            UserRoleEntity ADMIN = rolesRepository.getReferenceById(2L);
-            UserRoleEntity USER = rolesRepository.getReferenceById(1L);
-            user.setRoles(List.of(ADMIN, USER));
-        }
-        if (userChangeInformationDTO.isDemoteAdmin()) {
-            UserRoleEntity USER = rolesRepository.getReferenceById(1L);
-            user.setRoles(List.of(USER));
-        }
-        try {
-            userRepository.saveAndFlush(user);
+            } catch (UnsupportedOperationException ex) {
+                userRepository.saveAndFlush(user);
 
-        } catch (UnsupportedOperationException ex) {
-            userRepository.saveAndFlush(user);
-
+            }
+        }else {
+            throw new RuntimeException("User not found!");
         }
 
     }
