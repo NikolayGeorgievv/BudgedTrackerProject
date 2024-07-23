@@ -1,6 +1,7 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
+import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
@@ -25,6 +26,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.burdettracker.budgedtrackerproject.utils.TestUtils.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -64,7 +68,7 @@ class GoalsControllerTest {
     @Test
     void allGoalsPage() {
         String viewName = goalsController.allGoalsPage();
-        Assertions.assertEquals("/allGoalsPage", viewName);
+        assertEquals("/allGoalsPage", viewName);
     }
 
     @Test
@@ -88,20 +92,55 @@ class GoalsControllerTest {
         Goal updatedGoal = goalsRepository.findById(1L).get();
 
 
-        Assertions.assertEquals(updatedGoal.getName(), editGoalDTO.getNewGoalName());
-        Assertions.assertEquals(updatedGoal.getDescription(), editGoalDTO.getDescription());
-        Assertions.assertEquals(updatedGoal.getAccountToUse(), account1.getName());
-        Assertions.assertEquals(updatedGoal.getCurrentAmount().setScale(1), BigDecimal.valueOf(150.0));
+        assertEquals(updatedGoal.getName(), editGoalDTO.getNewGoalName());
+        assertEquals(updatedGoal.getDescription(), editGoalDTO.getDescription());
+        assertEquals(updatedGoal.getAccountToUse(), account1.getName());
+        assertEquals(updatedGoal.getCurrentAmount().setScale(1), BigDecimal.valueOf(150.0));
     }
 
     @Test
     void addGoal() {
+        Account account = createDummyAccount();
+        User user = createDummyUser(rolesRepository);
+        user.getAccounts().add(account);
+        accountRepository.saveAndFlush(account);
+        userRepository.saveAndFlush(user);
 
+        GoalDTO goalDTO = new GoalDTO();
+        goalDTO.setName("testGoal");
+        goalDTO.setDescription("testDescription");
+        goalDTO.setAccountToUse("MyTestAcc");
+        goalDTO.setCurrentAmount(BigDecimal.valueOf(50.0));
+        goalDTO.setAmountToBeSaved(BigDecimal.valueOf(150.0));
+        when(bindingResult.hasErrors()).thenReturn(true);
+        when(bindingResult.hasErrors()).thenReturn(false);
 
+        goalsController.addGoal(goalDTO, bindingResult);
+
+        List<Goal> goals = goalsRepository.findAll();
+        assertEquals(1, goals.size());
+        Goal addedGoal = goals.get(0);
+        assertEquals(goalDTO.getName(), addedGoal.getName());
+        assertEquals(goalDTO.getDescription(), addedGoal.getDescription());
+        assertEquals(goalDTO.getAccountToUse(), addedGoal.getAccountToUse());
+        assertEquals(goalDTO.getCurrentAmount().setScale(1), addedGoal.getCurrentAmount().setScale(1));
     }
 
     @Test
     void deleteGoal() {
+        Account account = createDummyAccount();
+        User user = createDummyUser(rolesRepository);
+        user = userRepository.saveAndFlush(user);
+        account = accountRepository.saveAndFlush(account);
+
+        Goal goal = createDummyGoal();
+        goal.setUser(user);
+        goal.setAccount(account);
+        goal = goalsRepository.saveAndFlush(goal);
+
+        goalsController.deleteGoal(String.valueOf(goal.getId()));
+
+        assertFalse(goalsRepository.existsById(goal.getId()));
     }
 
 
