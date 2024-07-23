@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GoalsServiceImpl implements GoalsService {
@@ -51,48 +52,54 @@ public class GoalsServiceImpl implements GoalsService {
         String newDescription = editGoalDTO.getDescription();
         boolean isNewPrimary = editGoalDTO.getIsNewPrimary() != null;
 
-//        Goal goalToEdit = this.goalsRepository.getReferenceById(Long.valueOf(editGoalDTO.getId()));
-        Goal goalToEdit = this.goalsRepository.findById(Long.valueOf(editGoalDTO.getId())).get();
-        if (!goalToEdit.getName().equals(newGoalName) && !newGoalName.trim().equals("")) {
-            goalToEdit.setName(newGoalName);
-        }
-        if (isNewPrimary) {
+        Optional<Goal> goalToEditOpt = this.goalsRepository.findById(Long.valueOf(editGoalDTO.getId()));
 
-            Account newAcc = this.accountService.getByName(newAccountToUse);
-            goalToEdit.setAccount(newAcc);
-            goalToEdit.setAccountToUse(newAccountToUse);
-        }
-        if (!newDescription.trim().equals("")) {
-            goalToEdit.setDescription(newDescription);
-        }
+        if (goalToEditOpt.isPresent()) {
+            Goal goalToEdit = goalToEditOpt.get();
 
-        if (addedAmount != null) {
-            User user = this.userRepository.getByEmail(currentUserName);
-            //Updating the account's amount.(Negative results are allowed)
-            Account acc = this.accountService.getByName(newAccountToUse);
+            if (!goalToEdit.getName().equals(newGoalName) && !newGoalName.trim().equals("")) {
+                goalToEdit.setName(newGoalName);
+            }
+            if (isNewPrimary) {
 
-
-            BigDecimal amountDifference = goalToEdit.getAmountToBeSaved().subtract(goalToEdit.getCurrentAmount()).subtract(editGoalDTO.getAddedAmount());
-            BigDecimal abs = BigDecimal.ZERO;
-            BigDecimal transactionAmount = addedAmount;
-            if (amountDifference.compareTo(BigDecimal.ZERO) < 0) {
-                abs = amountDifference.abs();
-                transactionAmount = addedAmount.subtract(amountDifference.abs());
+                Account newAcc = this.accountService.getByName(newAccountToUse);
+                goalToEdit.setAccount(newAcc);
+                goalToEdit.setAccountToUse(newAccountToUse);
+            }
+            if (!newDescription.trim().equals("")) {
+                goalToEdit.setDescription(newDescription);
             }
 
+            if (addedAmount != null) {
+                User user = this.userRepository.getByEmail(currentUserName);
+                //Updating the account's amount.(Negative results are allowed)
+                Account acc = this.accountService.getByName(newAccountToUse);
 
-            BigDecimal newAccAmount = acc.getCurrentAmount().subtract(addedAmount).add(abs);
-            acc.setCurrentAmount(newAccAmount);
-            this.accountService.saveAndFlush(acc);
-            this.transactionService.fundGoalTransaction(goalToEdit, transactionAmount, user, newAccountToUse);
 
-            goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
-            if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0) {
-                goalToEdit.setCompletedOn(LocalDate.now());
-                goalToEdit.setCompleted(true);
+                BigDecimal amountDifference = goalToEdit.getAmountToBeSaved().subtract(goalToEdit.getCurrentAmount()).subtract(editGoalDTO.getAddedAmount());
+                BigDecimal abs = BigDecimal.ZERO;
+                BigDecimal transactionAmount = addedAmount;
+                if (amountDifference.compareTo(BigDecimal.ZERO) < 0) {
+                    abs = amountDifference.abs();
+                    transactionAmount = addedAmount.subtract(amountDifference.abs());
+                }
+
+
+                BigDecimal newAccAmount = acc.getCurrentAmount().subtract(addedAmount).add(abs);
+                acc.setCurrentAmount(newAccAmount);
+                this.accountService.saveAndFlush(acc);
+                this.transactionService.fundGoalTransaction(goalToEdit, transactionAmount, user, newAccountToUse);
+
+                goalToEdit.setCurrentAmount(goalToEdit.getCurrentAmount().add(addedAmount));
+                if (goalToEdit.getCurrentAmount().compareTo(goalToEdit.getAmountToBeSaved()) >= 0) {
+                    goalToEdit.setCompletedOn(LocalDate.now());
+                    goalToEdit.setCompleted(true);
+                }
             }
+            goalsRepository.saveAndFlush(goalToEdit);
+        } else {
+            throw new RuntimeException("Goal not found");
         }
-        goalsRepository.saveAndFlush(goalToEdit);
 
     }
 

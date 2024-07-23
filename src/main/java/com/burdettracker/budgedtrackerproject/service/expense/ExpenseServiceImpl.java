@@ -35,53 +35,64 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public void editExpense(EditExpenseInfoDTO editExpenseInfoDTO) {
-//        Expense expenseToEdit = this.expenseRepository.getReferenceById(Long.parseLong(editExpenseInfoDTO.getId()));
-        Expense expenseToEdit = this.expenseRepository.findById(Long.parseLong(editExpenseInfoDTO.getId())).get();
-        if (!expenseToEdit.getName().equals(editExpenseInfoDTO.getName()) && !editExpenseInfoDTO.getName().trim().equals("")) {
-            expenseToEdit.setName(editExpenseInfoDTO.getName());}
+        Optional<Expense> expenseToEditOpt = this.expenseRepository.findById(Long.parseLong(editExpenseInfoDTO.getId()));
 
-        if (!expenseToEdit.getPeriod().equals(editExpenseInfoDTO.getPeriod()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
-            expenseToEdit.setPeriod(editExpenseInfoDTO.getPeriod());}
+        if (expenseToEditOpt.isPresent()) {
+            Expense expenseToEdit = expenseToEditOpt.get();
 
-        if (!expenseToEdit.getPeriodDate().equals(editExpenseInfoDTO.getPeriodDate()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
-            LocalDate todaysDate = LocalDate.now();
-            if (editExpenseInfoDTO.getPeriod().equals("weekly")){
-                //30th, monthly 2024-05-30
-                //Thursday, weekly next thursday
-                setWeeklyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+            if (!expenseToEdit.getName().equals(editExpenseInfoDTO.getName()) && !editExpenseInfoDTO.getName().trim().equals("")) {
+                expenseToEdit.setName(editExpenseInfoDTO.getName());
+            }
 
-            } else if (editExpenseInfoDTO.getPeriod().equals("monthly")) {
+            if (!expenseToEdit.getPeriod().equals(editExpenseInfoDTO.getPeriod()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
+                expenseToEdit.setPeriod(editExpenseInfoDTO.getPeriod());
+            }
 
-                setMonthlyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+            if (!expenseToEdit.getPeriodDate().equals(editExpenseInfoDTO.getPeriodDate()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
+                LocalDate todaysDate = LocalDate.now();
+                if (editExpenseInfoDTO.getPeriod().equals("weekly")) {
+                    //30th, monthly 2024-05-30
+                    //Thursday, weekly next thursday
+                    setWeeklyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+
+                } else if (editExpenseInfoDTO.getPeriod().equals("monthly")) {
+
+                    setMonthlyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
+                }
+
+
+                expenseToEdit.setPeriodDate(editExpenseInfoDTO.getPeriodDate());
+            }
+
+            if (editExpenseInfoDTO.getAssigned() != null && !expenseToEdit.getAssigned().equals(editExpenseInfoDTO.getAssigned())) {
+                expenseToEdit.setAssigned(editExpenseInfoDTO.getAssigned());
+            }
+
+            if (!expenseToEdit.getAccount().getName().equals(editExpenseInfoDTO.getAccountToUse())) {
+                Account account = expenseToEdit.getUser().getAccounts()
+                        .stream().filter(acc -> acc.getName().equals(editExpenseInfoDTO.getAccountToUse())).findFirst().get();
+
+                expenseToEdit.setAccount(account);
+            }
+
+            if (!editExpenseInfoDTO.getDateDue().trim().equals("")) {
+                String dateToSet = parseDateDue(editExpenseInfoDTO.getDateDue());
+                expenseToEdit.setDateDue(LocalDate.parse(dateToSet));
+                expenseToEdit.setPeriodDate(editExpenseInfoDTO.getDateDue());
             }
 
 
-            expenseToEdit.setPeriodDate(editExpenseInfoDTO.getPeriodDate());}
-
-        if (editExpenseInfoDTO.getAssigned() != null && !expenseToEdit.getAssigned().equals(editExpenseInfoDTO.getAssigned())) {
-            expenseToEdit.setAssigned(editExpenseInfoDTO.getAssigned());}
-
-        if (!expenseToEdit.getAccount().getName().equals(editExpenseInfoDTO.getAccountToUse())) {
-            Account account = expenseToEdit.getUser().getAccounts()
-                    .stream().filter(acc -> acc.getName().equals(editExpenseInfoDTO.getAccountToUse())).findFirst().get();
-
-            expenseToEdit.setAccount(account);
+            this.expenseRepository.saveAndFlush(expenseToEdit);
+        } else {
+            throw new RuntimeException("Expense not found");
         }
-
-        if (!editExpenseInfoDTO.getDateDue().trim().equals("")) {
-            String dateToSet = parseDateDue(editExpenseInfoDTO.getDateDue());
-            expenseToEdit.setDateDue(LocalDate.parse(dateToSet));
-            expenseToEdit.setPeriodDate(editExpenseInfoDTO.getDateDue());}
-
-
-        this.expenseRepository.saveAndFlush(expenseToEdit);
     }
 
 
     @Override
     public List<ExpenseDTO> sortByCategory(String category) {
         Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory_Category(category);
-        if (expensesByCategory.isEmpty()){
+        if (expensesByCategory.isEmpty()) {
             return null;
         }
         return Arrays.stream(modelMapper.map(expensesByCategory.get(), ExpenseDTO[].class)).toList();
@@ -114,29 +125,53 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
 
-    protected String parseDateDue(String dateToParse){
+    protected String parseDateDue(String dateToParse) {
 
-    String[] dateAsString = dateToParse.split("-");
-    String year = dateAsString[2];
-    String month = dateAsString[1];
-    String day = dateAsString[0];
+        String[] dateAsString = dateToParse.split("-");
+        String year = dateAsString[2];
+        String month = dateAsString[1];
+        String day = dateAsString[0];
 
 
-    switch (month){
-        case "January": month = "01"; break;
-        case "February": month = "02"; break;
-        case "March": month = "03"; break;
-        case "April": month = "04"; break;
-        case "May": month = "05"; break;
-        case "June": month = "06"; break;
-        case "July": month = "07"; break;
-        case "August": month = "08"; break;
-        case "September": month = "09"; break;
-        case "October": month = "10"; break;
-        case "November": month = "11"; break;
-        case "December": month = "12"; break;
-    }
+        switch (month) {
+            case "January":
+                month = "01";
+                break;
+            case "February":
+                month = "02";
+                break;
+            case "March":
+                month = "03";
+                break;
+            case "April":
+                month = "04";
+                break;
+            case "May":
+                month = "05";
+                break;
+            case "June":
+                month = "06";
+                break;
+            case "July":
+                month = "07";
+                break;
+            case "August":
+                month = "08";
+                break;
+            case "September":
+                month = "09";
+                break;
+            case "October":
+                month = "10";
+                break;
+            case "November":
+                month = "11";
+                break;
+            case "December":
+                month = "12";
+                break;
+        }
 
-        return String.format("%s-%s-%s",year, month,day);
+        return String.format("%s-%s-%s", year, month, day);
     }
 }
