@@ -44,4 +44,10 @@ class IndexPageControllerTest {
         String viewName = indexPageController.getContactPage();
         Assertions.assertEquals("/contactsPage", viewName);
     }
+
+    @Test
+    void getHowItWorksPage() {
+        String viewName = indexPageController.getHowItWorksPage();
+        Assertions.assertEquals("/howItWorksPage", viewName);
+    }
 }
