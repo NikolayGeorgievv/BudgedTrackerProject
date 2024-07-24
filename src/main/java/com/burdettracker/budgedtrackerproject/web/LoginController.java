@@ -19,13 +19,4 @@ public class LoginController {
         model.addAttribute("error", true);
         return "login";
     }
-
-    @ModelAttribute
-    @PostMapping("/users/login-error")
-    public String fail(Model model){
-
-        model.addAttribute("error", true);
-
-        return "login";
-    }
 }
