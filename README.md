@@ -26,6 +26,7 @@ Please note that there is no hard-coded data, api keys and paths due to safety r
  - schema=${https}
  - host=${://api.apilayer.com/email_verification/}
  - apiKey=${Your API Key goes here}
+ - In order to enable the api, you must set the boolean ENABLED in "RegisterUserDTO to true.
   
 2. https://eu-west-2.console.aws.amazon.com/  //AWS cloud storage:
  + AWS_ACCESS_KEY_ID as environment variable
