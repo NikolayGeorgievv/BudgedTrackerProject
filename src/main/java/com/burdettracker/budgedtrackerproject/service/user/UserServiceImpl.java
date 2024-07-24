@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(RegisterUserDTO registerUserDTO) {
 
+        //Enable email verification
         if (registerUserDTO.isENABLED()) {
             if (emailVerificationService.isEmailValid(registerUserDTO.getEmail())) {
                 throw new RuntimeException("Invalid email.");
