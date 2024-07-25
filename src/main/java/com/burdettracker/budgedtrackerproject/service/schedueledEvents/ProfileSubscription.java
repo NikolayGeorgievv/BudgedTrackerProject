@@ -50,7 +50,6 @@ public class ProfileSubscription {
                 }
             });
         } catch (NullPointerException e) {
-            //TODO: LOG THE EX
         }
     }
 }
