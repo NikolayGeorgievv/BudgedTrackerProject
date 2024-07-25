@@ -23,12 +23,15 @@ public class RolesRepositoryInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         if (this.rolesRepository.count() == 0) {
+
             UserRoleEntity userRoleEntity = new UserRoleEntity();
             UserRoleEntity adminRoleEntity = new UserRoleEntity();
 
             adminRoleEntity.setRole(ADMIN);
             userRoleEntity.setRole(UserRoleEnum.USER);
+
             rolesRepository.saveAllAndFlush(List.of(userRoleEntity, adminRoleEntity));
         }
     }

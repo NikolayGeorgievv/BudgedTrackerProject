@@ -20,14 +20,14 @@ public class CategoriesRepositoryInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (categoryRepository.count() == 0){
+        if (categoryRepository.count() == 0) {
+
             Category GENERAL = new Category("GENERAL");
             Category UTILITIES = new Category("UTILITIES");
             Category SUBSCRIPTIONS = new Category("SUBSCRIPTIONS");
             Category ENTERTAINMENT = new Category("ENTERTAINMENT");
             Category EDUCATION = new Category("EDUCATION");
             Category TRAVEL = new Category("TRAVEL");
-
 
             List<Category> basicCategories = List.of(GENERAL, UTILITIES, SUBSCRIPTIONS, ENTERTAINMENT, EDUCATION, TRAVEL);
 
