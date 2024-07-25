@@ -1,0 +1,20 @@
+#midHero{
+    margin-top:50px;
+}
+h2 {
+    color: #647585!important;
+}
+
+#firstParagraphOfIndexPage,#midParagraph, #pricingCard1, #pricingCard2, #pricingCard3{
+    color: white;
+}
+
+#pricingCard1{
+    background-image: url('/images/bg-img-1.png');
+}
+#pricingCard2{
+    background-image: url('/images/bg-img-card2.png');
+}
+#pricingCard3{
+    background-image: url('/images/bg-img-card3.png');
+}
