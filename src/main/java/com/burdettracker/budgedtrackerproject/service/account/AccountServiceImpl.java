@@ -25,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
     private final TransactionService transactionService;
     private final ExpenseService expenseService;
     private final UserRepository userRepository;
+
     public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper, TransactionService transactionService, ExpenseService expenseService, UserRepository userRepository) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
@@ -37,21 +38,22 @@ public class AccountServiceImpl implements AccountService {
     public AllAccountsInfoDTO getAllAccounts(String email) {
         List<Account> allAccountsByUserEmail = accountRepository.getAllByUser_Email(email);
         List<AccountDTO> accList = Arrays.stream(modelMapper.map(allAccountsByUserEmail, AccountDTO[].class)).toList();
-        AllAccountsInfoDTO allAccountsInfoDTO = new AllAccountsInfoDTO(accList,BigDecimal.valueOf(getTotalBalance(accList)));
+        AllAccountsInfoDTO allAccountsInfoDTO = new AllAccountsInfoDTO(accList, BigDecimal.valueOf(getTotalBalance(accList)));
         return allAccountsInfoDTO;
     }
 
     @Override
     public void updateAccountById(EditAccountInfoDTO editAccountInfoDTO, String currentUserName) {
         Long accountId = Long.parseLong(editAccountInfoDTO.getId());
-        String newName = editAccountInfoDTO.getNewAccountName();;
+        String newName = editAccountInfoDTO.getNewAccountName();
+        ;
         BigDecimal amountToAdd = editAccountInfoDTO.getAddedAmount();
 
         Account account = accountRepository.findFirstById(accountId);
-        if (!newName.equals(account.getName()) && !newName.trim().equals("")){
+        if (!newName.equals(account.getName()) && !newName.trim().equals("")) {
             account.setName(newName);
         }
-        if (amountToAdd != null){
+        if (amountToAdd != null) {
             User user = this.userRepository.getByEmail(currentUserName);
             this.transactionService.AddFundsTransaction(editAccountInfoDTO, account, user);
             account.setCurrentAmount(account.getCurrentAmount().add(amountToAdd));
@@ -69,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getByName(String name) {
-      return this.accountRepository.getByName(name);
+        return this.accountRepository.getByName(name);
     }
 
     @Override
@@ -91,11 +93,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getById(Long id) {
-       return this.accountRepository.getReferenceById(id);
+        return this.accountRepository.getReferenceById(id);
     }
 
 
-    public double getTotalBalance(List<AccountDTO> accList){
+    public double getTotalBalance(List<AccountDTO> accList) {
         double totalBalance = accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();
 
         return totalBalance;

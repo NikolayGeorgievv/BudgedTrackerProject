@@ -1,9 +1,9 @@
 package com.burdettracker.budgedtrackerproject.service.goals;
 
+import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.CompletedGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
@@ -12,7 +12,6 @@ import com.burdettracker.budgedtrackerproject.repository.GoalsRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
-import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

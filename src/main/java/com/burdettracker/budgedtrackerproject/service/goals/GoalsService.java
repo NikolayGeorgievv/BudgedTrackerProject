@@ -1,8 +1,8 @@
 package com.burdettracker.budgedtrackerproject.service.goals;
 
+import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.completed.AllCompletedGoalsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.AllUncompletedGoalsInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 
 public interface GoalsService {

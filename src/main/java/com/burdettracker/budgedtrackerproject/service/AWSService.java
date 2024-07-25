@@ -22,8 +22,6 @@ public class AWSService {
     String key;
 
 
-
-
     public void downloadLogFileFromS3() {
 
         Region region = Region.EU_WEST_2;

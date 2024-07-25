@@ -16,7 +16,6 @@ public interface UserService {
 
     UserExpensesDetailsDTO getUserExpensesDetailsByEmail(String email);
 
-
     void addAccount(String currentUserName, AccountDTO accountDTO);
 
     void addExpense(String currentUserName, ExpenseDTO expenseDTO);

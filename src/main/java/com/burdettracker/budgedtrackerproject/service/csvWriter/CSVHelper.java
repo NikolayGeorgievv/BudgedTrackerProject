@@ -10,8 +10,6 @@ import java.util.List;
 @Component
 public class CSVHelper {
 
-
-
     public static void writeDataToCSV(Writer writer, List<String[]> data) throws IOException {
         try (CSVWriter csvWriter = new CSVWriter(writer)) {
             csvWriter.writeAll(data);

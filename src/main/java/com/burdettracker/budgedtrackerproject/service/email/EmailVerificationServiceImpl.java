@@ -25,7 +25,6 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
     @Override
     public boolean isEmailValid(String email) {
 
-
         String validateEmailUrl = emailVerificationConfig.getSchema() +
                 emailVerificationConfig.getHost()
                 + email;
@@ -38,6 +37,6 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 
         EmailVerificationDTO emailVerificationDTO = gson.fromJson(response.getBody(), EmailVerificationDTO.class);
 
-        return  emailVerificationDTO.isIs_role_account();
+        return emailVerificationDTO.isIs_role_account();
     }
 }

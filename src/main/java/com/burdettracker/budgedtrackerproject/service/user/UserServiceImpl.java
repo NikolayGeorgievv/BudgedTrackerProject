@@ -7,7 +7,9 @@ import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembers
 import com.burdettracker.budgedtrackerproject.model.dto.user.*;
 import com.burdettracker.budgedtrackerproject.model.entity.*;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.repository.*;
+import com.burdettracker.budgedtrackerproject.repository.CategoryRepository;
+import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
+import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.email.EmailVerificationService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
@@ -26,7 +28,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 
-import static com.burdettracker.budgedtrackerproject.util.Utils.*;
+import static com.burdettracker.budgedtrackerproject.util.Utils.setMonthlyDateDue;
+import static com.burdettracker.budgedtrackerproject.util.Utils.setWeeklyDateDue;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -323,7 +326,7 @@ public class UserServiceImpl implements UserService {
                 userRepository.saveAndFlush(user);
 
             }
-        }else {
+        } else {
             throw new RuntimeException("User not found!");
         }
 

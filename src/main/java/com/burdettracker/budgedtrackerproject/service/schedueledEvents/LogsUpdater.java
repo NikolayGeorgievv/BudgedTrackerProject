@@ -30,11 +30,13 @@ public class LogsUpdater {
 
         System.out.println("File uploaded successfully");
     }
-//This rate is for testing purposes only.
-//    @Scheduled(fixedRate = 20000)
+
+
+    //This rate is for testing purposes only.
+    //    @Scheduled(fixedRate = 20000)
 
     //Logs are updated every hour
-    @Scheduled(cron="0 0 * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void scheduledUpload() {
         S3Client s3 = S3Client.builder().region(Region.EU_WEST_2).build();
 

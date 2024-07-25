@@ -3,8 +3,6 @@ package com.burdettracker.budgedtrackerproject.service.schedueledEvents;
 
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;
-import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
-import com.burdettracker.budgedtrackerproject.repository.ExpenseRepository;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
@@ -40,7 +38,6 @@ public class ExpenseUpdater {
 
             String period = ex.getPeriod();
             Account account = ex.getAccount();
-
 
             if (period.equals("weekly") || period.equals("monthly")) {
                 if (period.equals("weekly")) {
@@ -80,6 +77,5 @@ public class ExpenseUpdater {
                 this.expenseService.saveAndFlush(ex);
             }
         });
-
     }
 }

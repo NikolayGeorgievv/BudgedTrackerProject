@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.service.expense;
 
-import com.burdettracker.budgedtrackerproject.model.dto.expense.AddCategoryDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Expense;

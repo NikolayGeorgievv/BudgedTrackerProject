@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 public class CSVService {
 
-
     private final AccountRepository accountRepository;
     private final UserService userService;
 
@@ -25,7 +24,7 @@ public class CSVService {
         this.userService = userService;
     }
 
-    public List<Transaction> getAccountTransactions(String accountId){
+    public List<Transaction> getAccountTransactions(String accountId) {
         Account account = this.accountRepository.getReferenceById(Long.valueOf(accountId));
         return account.getExpenseTransactionHistory();
     }
