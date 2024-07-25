@@ -1,3 +1,7 @@
+body{
+    background-image: url('/images/indexPageBG-IMG.png');
+}
+
 #midHero{
     margin-top:50px;
 }
