@@ -18,6 +18,7 @@ public class CSVRestController {
     public CSVRestController(CSVService csvService) {
         this.csvService = csvService;
     }
+
     @GetMapping("/downloadCSV/{accountId}")
     public void downloadCSV(@PathVariable String accountId, HttpServletResponse response) throws IOException {
         csvService.generateCSV(response, accountId);

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class CategoryController extends BaseController{
+public class CategoryController extends BaseController {
 
     public CategoryController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
         super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
@@ -24,7 +24,7 @@ public class CategoryController extends BaseController{
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(@Valid AddCategoryDTO addCategoryDTO, BindingResult bindingResult){
+    public String addCategory(@Valid AddCategoryDTO addCategoryDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "/homePage";

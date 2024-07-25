@@ -20,12 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ExpensesController extends BaseController{
+public class ExpensesController extends BaseController {
 
     public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
         super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
-
 
 
     @GetMapping("/allExpensesPage")
@@ -72,10 +71,11 @@ public class ExpensesController extends BaseController{
 
         return "redirect:/allExpensesPage";
     }
+
     @GetMapping("/categorySort")
     public String sortByCategory(String category, Model model) {
 
-        List<ExpenseDTO> sortedExpenses =  expenseService.sortByCategory(category);
+        List<ExpenseDTO> sortedExpenses = expenseService.sortByCategory(category);
         String categoryTotalBalance = this.expenseService.getTotalValue(sortedExpenses);
 
         model.addAttribute("categoryTotalBalance", categoryTotalBalance);

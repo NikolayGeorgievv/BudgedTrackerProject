@@ -14,7 +14,6 @@ import com.burdettracker.budgedtrackerproject.model.dto.user.AllUsersInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserFullNameDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Category;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
 import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
@@ -56,22 +55,25 @@ public class BaseController {
         this.transactionService = transactionService;
         this.categoryService = categoryService;
     }
+
     @ModelAttribute("goalDTO")
-    public GoalDTO goalDTO(){
+    public GoalDTO goalDTO() {
         return new GoalDTO();
     }
+
     @ModelAttribute("addCategoryDTO")
-    public AddCategoryDTO addCategoryDTO(){
+    public AddCategoryDTO addCategoryDTO() {
         return new AddCategoryDTO();
     }
 
     @ModelAttribute("allTransactions")
-    public List<TransactionInfoDTO> allTransactionsDTO(){
+    public List<TransactionInfoDTO> allTransactionsDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         List<TransactionInfoDTO> allTransactionsInfo = transactionService.getAllTransactionsInfo(currentUserName);
         return allTransactionsInfo;
     }
+
     @ModelAttribute("expenseCategories")
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
@@ -157,7 +159,7 @@ public class BaseController {
     }
 
     @ModelAttribute("changePlanDTO")
-    public ChangeMembershipDTO changePlanDTO(){
+    public ChangeMembershipDTO changePlanDTO() {
         return new ChangeMembershipDTO();
     }
 

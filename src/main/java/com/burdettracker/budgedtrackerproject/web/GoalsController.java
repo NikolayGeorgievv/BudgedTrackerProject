@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class GoalsController extends BaseController{
+public class GoalsController extends BaseController {
 
     public GoalsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
         super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
@@ -27,14 +27,14 @@ public class GoalsController extends BaseController{
     }
 
     @GetMapping("/allGoalsPage")
-    public String allGoalsPage(){
+    public String allGoalsPage() {
 
         return "/allGoalsPage";
     }
 
 
     @PostMapping("/editGoal")
-    public String editGoal(@ModelAttribute("editGoalDTO") EditGoalDTO editGoalDTO){
+    public String editGoal(@ModelAttribute("editGoalDTO") EditGoalDTO editGoalDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
@@ -44,7 +44,7 @@ public class GoalsController extends BaseController{
     }
 
     @PostMapping("/addGoal")
-    public String addGoal( @Valid GoalDTO goalDTO, BindingResult bindingResult){
+    public String addGoal(@Valid GoalDTO goalDTO, BindingResult bindingResult) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
@@ -52,13 +52,13 @@ public class GoalsController extends BaseController{
             return "/allGoalsPage";
         }
 
-        userService.addGoal(currentUserName,goalDTO);
+        userService.addGoal(currentUserName, goalDTO);
 
         return "redirect:/allGoalsPage";
     }
 
     @DeleteMapping("/deleteGoal/{goalId}")
-    public String deleteGoal (@PathVariable String goalId){
+    public String deleteGoal(@PathVariable String goalId) {
 
         goalsService.deleteGoal(goalId);
 

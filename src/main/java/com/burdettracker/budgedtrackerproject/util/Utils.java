@@ -48,7 +48,7 @@ public class Utils {
         }
     }
 
-    public static void setMonthlyDateDue(Expense expenseToEdit, String periodDate){
+    public static void setMonthlyDateDue(Expense expenseToEdit, String periodDate) {
         String periodDateDay = periodDate;
         // 20th  => yyyy MM 20
         int todayDayOfMonth = LocalDate.now().getDayOfMonth();
@@ -79,7 +79,6 @@ public class Utils {
             expenseToEdit.setDateDue(dateToSet);
         } else {
             //month +1
-            //TODO: CHECK IF +1 MONTH WORKS CORRECTLY FOR TURNING YEAR AHEAD
             LocalDate dateToSet = LocalDate.of(
                     LocalDate.now().getYear(),
                     LocalDate.now().getMonth().plus(1),

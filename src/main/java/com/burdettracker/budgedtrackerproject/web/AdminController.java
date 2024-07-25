@@ -28,7 +28,7 @@ public class AdminController extends BaseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/adminPage")
-    public String getAdminPage(){
+    public String getAdminPage() {
 
         return "/adminPage";
     }
@@ -36,7 +36,7 @@ public class AdminController extends BaseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/filterUsers")
-    public String filterUsersByEmail(@RequestParam("emailFilter") String email, Model model){
+    public String filterUsersByEmail(@RequestParam("emailFilter") String email, Model model) {
         AllUsersInfoDTO allUsersInfoDTO = this.userService.filterAllUsersByEmail(email);
         model.addAttribute("allUsersDTO", allUsersInfoDTO);
         return "adminPage";
@@ -44,13 +44,14 @@ public class AdminController extends BaseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/allUsers/{userId}/editUser")
-    public String getUserFullInformation(@PathVariable("userId") String userId, Model model){
-        UserFullDetailsInfoDTO selectedUser =  this.userService.getUserById(userId);
+    public String getUserFullInformation(@PathVariable("userId") String userId, Model model) {
+        UserFullDetailsInfoDTO selectedUser = this.userService.getUserById(userId);
         model.addAttribute("selectedUserInfo", selectedUser);
         return "editUserPage";
     }
+
     @PostMapping("/editUser")
-    public String editUser(UserChangeInformationDTO userChangeInformationDTO){
+    public String editUser(UserChangeInformationDTO userChangeInformationDTO) {
 
         userService.updateUser(userChangeInformationDTO);
         return "redirect:/adminPage";

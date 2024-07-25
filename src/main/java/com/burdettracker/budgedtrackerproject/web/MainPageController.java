@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class MainPageController extends BaseController{
-
+public class MainPageController extends BaseController {
 
 
     public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
@@ -36,7 +35,7 @@ public class MainPageController extends BaseController{
     public String loggedIn(Model model) {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
-        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()){
+        if (userByEmail.getAccounts().size() != userByEmail.getUserAccountsAllowed()) {
             model.addAttribute("usersAccountCeil", true);
         }
 
@@ -44,11 +43,11 @@ public class MainPageController extends BaseController{
     }
 
     @PostMapping("/changePlan")
-    public String changeMembershipPlan(@ModelAttribute("changePlanDTO") @Valid ChangeMembershipDTO changePlanDTO, BindingResult bindingResult){
+    public String changeMembershipPlan(@ModelAttribute("changePlanDTO") @Valid ChangeMembershipDTO changePlanDTO, BindingResult bindingResult) {
 
         try {
             userService.changeUserPlan(changePlanDTO, getUserByEmail().getEmail());
-        }catch (RuntimeException er){
+        } catch (RuntimeException er) {
 
             bindingResult.addError(new FieldError("changePlanDTO", "membership", "Can't downgrade.Number of allowed accounts exceeded."));
             return "/homePage";
@@ -56,14 +55,13 @@ public class MainPageController extends BaseController{
         return "redirect:/homePage";
     }
 
-    public UserExpensesDetailsDTO getUserByEmail(){
+    public UserExpensesDetailsDTO getUserByEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
 
         return userService.getUserExpensesDetailsByEmail(currentUserName);
 
     }
-
 
 
 }

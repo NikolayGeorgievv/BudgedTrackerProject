@@ -1,7 +1,6 @@
 package com.burdettracker.budgedtrackerproject.web;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.account.AllAccountsInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class AccountsController extends BaseController{
+public class AccountsController extends BaseController {
 
 
     public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService, CategoryService categoryService) {
@@ -30,15 +29,16 @@ public class AccountsController extends BaseController{
 
     @PostMapping("/editAccount")
     public String editAccount(
-            @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO){
+            @ModelAttribute("editAccountInfoDTO") EditAccountInfoDTO editAccountInfoDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         accountService.updateAccountById(editAccountInfoDTO, currentUserName);
 
         return "redirect:/allAccountsPage";
     }
+
     @DeleteMapping("/deleteAccount/{accountId}")
-    public String deleteAccount (@PathVariable String accountId){
+    public String deleteAccount(@PathVariable String accountId) {
 
         accountService.deleteAccountById(accountId);
 
@@ -47,7 +47,7 @@ public class AccountsController extends BaseController{
 
     @PostMapping("/addAccount")
     public String addAccount(
-            @ModelAttribute("accountDTO") @Valid AccountDTO accountDTO,  BindingResult bindingResult) {
+            @ModelAttribute("accountDTO") @Valid AccountDTO accountDTO, BindingResult bindingResult) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
