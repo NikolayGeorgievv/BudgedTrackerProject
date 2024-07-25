@@ -1,13 +1,16 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "goals")
-public class Goal extends BaseEntity{
+public class Goal extends BaseEntity {
 
     @Column(nullable = false)
     private String name;

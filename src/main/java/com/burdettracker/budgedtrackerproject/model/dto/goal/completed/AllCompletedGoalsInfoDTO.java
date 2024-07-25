@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AllCompletedGoalsInfoDTO {
 
-   private List<CompletedGoalDTO> completedGoals;
+    private List<CompletedGoalDTO> completedGoals;
 
     public AllCompletedGoalsInfoDTO() {
     }

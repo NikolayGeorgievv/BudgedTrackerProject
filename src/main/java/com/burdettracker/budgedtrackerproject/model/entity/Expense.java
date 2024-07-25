@@ -1,6 +1,5 @@
 package com.burdettracker.budgedtrackerproject.model.entity;
 
-import com.burdettracker.budgedtrackerproject.model.entity.enums.ExpenseCategories;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "expenses")
-public class Expense extends BaseEntity{
+public class Expense extends BaseEntity {
 
     @Column(nullable = false)
     private String name;

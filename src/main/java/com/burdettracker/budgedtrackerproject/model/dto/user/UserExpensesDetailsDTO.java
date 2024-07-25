@@ -2,9 +2,8 @@ package com.burdettracker.budgedtrackerproject.model.dto.user;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.model.entity.*;
+import com.burdettracker.budgedtrackerproject.model.entity.Goal;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 
 import java.math.BigDecimal;
 import java.util.List;

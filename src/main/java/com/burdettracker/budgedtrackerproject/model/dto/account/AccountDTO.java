@@ -11,7 +11,7 @@ import java.util.List;
 public class AccountDTO {
 
     private Long id;
-    @Size(min = 2, max = 30,  message = "Account name length must be between 2 and 40 symbols.")
+    @Size(min = 2, max = 30, message = "Account name length must be between 2 and 40 symbols.")
     @NotEmpty(message = "Please provide a name for your account.")
     private String name;
     private LocalDate createdOn;

@@ -56,6 +56,7 @@ public class UserFullNameDTO {
     public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
         this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
     }
+
     @Override
     public String toString() {
         return firstName + " " + lastName;

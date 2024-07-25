@@ -22,7 +22,7 @@ public class UserFullDetailsInfoDTO {
     private List<ExpenseDTO> expenses;
     private int userAccountsAllowed;
     private String accountNameAssignedForSubscription;
-    private List<UserRoleEntity>  roles;
+    private List<UserRoleEntity> roles;
     private String registeredOnDate;
 
     public UserFullDetailsInfoDTO() {
@@ -133,9 +133,9 @@ public class UserFullDetailsInfoDTO {
         this.registeredOnDate = registeredOnDate;
     }
 
-    public String getAllRoles(){
+    public String getAllRoles() {
         StringBuilder sb = new StringBuilder();
-        this.getRoles().forEach(r ->{
+        this.getRoles().forEach(r -> {
             String role = r.getRole().name();
             sb.append(role);
             sb.append(" ");

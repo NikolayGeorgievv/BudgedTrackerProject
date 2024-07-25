@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "accounts")
-public class Account extends BaseEntity{
+public class Account extends BaseEntity {
 
     @Column
     private String name;
@@ -34,7 +34,7 @@ public class Account extends BaseEntity{
     public Account() {
     }
 
-    public Account(String name,LocalDate createdOn, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
+    public Account(String name, LocalDate createdOn, BigDecimal currentAmount, List<Transaction> transactionHistory, User user) {
         this.name = name;
         this.createdOn = createdOn;
         this.currentAmount = currentAmount;

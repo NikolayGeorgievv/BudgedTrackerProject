@@ -33,7 +33,6 @@ public class RegisterUserDTO {
     private final boolean ENABLED = false;
 
 
-
     public boolean isTermsAccepted() {
         return termsAccepted;
     }

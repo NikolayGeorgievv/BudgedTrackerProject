@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Table(name = "roles")
 @Entity
-public class UserRoleEntity extends BaseEntity{
+public class UserRoleEntity extends BaseEntity {
 
     @Column
     @Enumerated(EnumType.STRING)

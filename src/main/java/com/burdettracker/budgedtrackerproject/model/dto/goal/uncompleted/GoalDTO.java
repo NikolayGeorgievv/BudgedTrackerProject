@@ -81,7 +81,7 @@ public class GoalDTO {
         isCompleted = completed;
     }
 
-    public  int getBarProgress(){
+    public int getBarProgress() {
 
         double currentDouble = Double.parseDouble(currentAmount.toString());
         double currentTotal = Double.parseDouble(String.valueOf(amountToBeSaved));

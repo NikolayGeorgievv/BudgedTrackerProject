@@ -11,7 +11,7 @@ public class EditGoalDTO {
     private String isNewPrimary;
     private String description;
 
-    public EditGoalDTO(String id, String newGoalName, BigDecimal addedAmount, String accountToUse,  String description, String isNewPrimary) {
+    public EditGoalDTO(String id, String newGoalName, BigDecimal addedAmount, String accountToUse, String description, String isNewPrimary) {
         this.id = id;
         this.newGoalName = newGoalName;
         this.addedAmount = addedAmount;
