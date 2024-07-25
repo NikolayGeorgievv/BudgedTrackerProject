@@ -56,14 +56,12 @@ public class SecurityConfig {
                                     .logoutSuccessUrl("/index")
                                     .invalidateHttpSession(true);
                         }
-        ).rememberMe(
-                rememberMe ->
-                        rememberMe
-                                .key(rememberMeKey)
-                                .rememberMeParameter("rememberMe")
-                                .rememberMeCookieName("rememberMe")
-//        ).oauth2Login(
-//                oauth -> oauth.successHandler(oAuthSuccessHandler)
+                ).rememberMe(
+                        rememberMe ->
+                                rememberMe
+                                        .key(rememberMeKey)
+                                        .rememberMeParameter("rememberMe")
+                                        .rememberMeCookieName("rememberMe")
                 ).csrf(AbstractHttpConfigurer::disable)
                 .build();
 

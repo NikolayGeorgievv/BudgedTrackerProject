@@ -12,13 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 
 @Configuration
@@ -62,8 +60,6 @@ public class ApplicationBeanConfig {
     }
 
 
-
-
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -72,7 +68,7 @@ public class ApplicationBeanConfig {
             @Override
             public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
 
-                if(mappingContext.getSource() != null) {
+                if (mappingContext.getSource() != null) {
                     LocalDate parse = LocalDate
                             .parse(mappingContext.getSource(),
                                     DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -92,4 +88,4 @@ public class ApplicationBeanConfig {
         return modelMapper;
     }
 
-  }
+}

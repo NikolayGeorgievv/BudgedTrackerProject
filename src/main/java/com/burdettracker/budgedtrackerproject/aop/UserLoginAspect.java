@@ -15,7 +15,8 @@ public class UserLoginAspect {
     private static final Logger logger = LoggerFactory.getLogger(UserLoginAspect.class);
 
     @Pointcut("execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))")
-    public void userLogin() {}
+    public void userLogin() {
+    }
 
     @AfterReturning(pointcut = "userLogin()", returning = "result")
     public void logUserLogin(JoinPoint joinPoint, Object result) {

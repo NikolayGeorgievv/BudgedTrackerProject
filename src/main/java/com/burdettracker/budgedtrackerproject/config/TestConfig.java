@@ -28,7 +28,7 @@ public class TestConfig {
         return new BeanPostProcessor() {
             @Override
             public Object postProcessBeforeInitialization(Object bean, String beanName) {
-                if ( beanName.equals("CategoriesRepositoryInit")) {
+                if (beanName.equals("CategoriesRepositoryInit")) {
                     return null; // Exclude these beans during testing
                 }
                 return bean;
