@@ -1,13 +1,7 @@
-package com.burdettracker.budgedtrackerproject.web;
+package com.burdettracker.budgedtrackerproject.web.advisedControllers;
 
-import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.membership.ChangeMembershipDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.user.UserExpensesDetailsDTO;
-import com.burdettracker.budgedtrackerproject.service.account.AccountService;
-import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
-import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
-import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -20,14 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
 @Controller
-public class MainPageController extends BaseController {
+public class MainPageController {
 
+    private final UserService userService;
 
-    public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
-        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
+    public MainPageController(UserService userService) {
+        this.userService = userService;
     }
 
     @ModelAttribute

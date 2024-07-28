@@ -1,13 +1,8 @@
-package com.burdettracker.budgedtrackerproject.web;
+package com.burdettracker.budgedtrackerproject.web.advisedControllers;
 
-import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.EditGoalDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.goal.uncompleted.GoalDTO;
-import com.burdettracker.budgedtrackerproject.service.account.AccountService;
-import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
-import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
 import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -16,14 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-public class GoalsController extends BaseController {
+public class GoalsController {
 
-    public GoalsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, GoalsService goalsService, TransactionService transactionService) {
-        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
+    private final GoalsService goalsService;
+    private final UserService userService;
 
+    public GoalsController(GoalsService goalsService, UserService userService) {
+        this.goalsService = goalsService;
+        this.userService = userService;
     }
 
     @GetMapping("/allGoalsPage")

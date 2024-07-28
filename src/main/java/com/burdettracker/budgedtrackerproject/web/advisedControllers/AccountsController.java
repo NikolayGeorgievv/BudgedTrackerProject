@@ -1,13 +1,8 @@
-package com.burdettracker.budgedtrackerproject.web;
+package com.burdettracker.budgedtrackerproject.web.advisedControllers;
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
-import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
 import com.burdettracker.budgedtrackerproject.service.account.AccountService;
-import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
-import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
-import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -16,15 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-public class AccountsController extends BaseController {
+public class AccountsController {
 
+    private final UserService userService;
+    private final AccountService accountService;
 
-    public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService, CategoryService categoryService) {
-        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
-
+    public AccountsController(UserService userService, AccountService accountService) {
+        this.userService = userService;
+        this.accountService = accountService;
     }
 
     @PostMapping("/editAccount")

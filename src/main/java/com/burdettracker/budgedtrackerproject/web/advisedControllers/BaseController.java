@@ -1,4 +1,4 @@
-package com.burdettracker.budgedtrackerproject.web;
+package com.burdettracker.budgedtrackerproject.web.advisedControllers;
 
 
 import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
@@ -23,8 +23,7 @@ import com.burdettracker.budgedtrackerproject.service.transaction.TransactionSer
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDate;
@@ -33,7 +32,7 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
-@Controller
+@ControllerAdvice(basePackages = "com.burdettracker.budgedtrackerproject.web.advisedControllers")
 public class BaseController {
 
     protected final UserService userService;

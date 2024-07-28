@@ -1,12 +1,8 @@
-package com.burdettracker.budgedtrackerproject.web;
+package com.burdettracker.budgedtrackerproject.web.advisedControllers;
 
 import com.burdettracker.budgedtrackerproject.model.dto.expense.EditExpenseInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.expense.ExpenseDTO;
-import com.burdettracker.budgedtrackerproject.service.account.AccountService;
-import com.burdettracker.budgedtrackerproject.service.category.CategoryService;
 import com.burdettracker.budgedtrackerproject.service.expense.ExpenseService;
-import com.burdettracker.budgedtrackerproject.service.goals.GoalsService;
-import com.burdettracker.budgedtrackerproject.service.transaction.TransactionService;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
@@ -20,12 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ExpensesController extends BaseController {
+public class ExpensesController {
 
-    public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
-        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
+    private final UserService userService;
+    private final ExpenseService expenseService;
+
+    public ExpensesController(UserService userService, ExpenseService expenseService) {
+        this.userService = userService;
+        this.expenseService = expenseService;
     }
-
 
     @GetMapping("/allExpensesPage")
     public String allBillsPage(Model model) {

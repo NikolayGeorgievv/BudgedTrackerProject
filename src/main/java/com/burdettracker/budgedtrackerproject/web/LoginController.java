@@ -13,7 +13,7 @@ public class LoginController {
     }
 
     @GetMapping("/users/login-error")
-    public String loginerr(Model model) {
+    public String loginErr(Model model) {
         model.addAttribute("error", true);
         return "login";
     }

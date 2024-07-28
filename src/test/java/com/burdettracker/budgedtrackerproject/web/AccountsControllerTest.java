@@ -4,12 +4,10 @@ import com.burdettracker.budgedtrackerproject.model.dto.account.AccountDTO;
 import com.burdettracker.budgedtrackerproject.model.dto.account.EditAccountInfoDTO;
 import com.burdettracker.budgedtrackerproject.model.entity.Account;
 import com.burdettracker.budgedtrackerproject.model.entity.User;
-import com.burdettracker.budgedtrackerproject.model.entity.UserRoleEntity;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
-import com.burdettracker.budgedtrackerproject.model.entity.enums.UserRoleEnum;
 import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.web.advisedControllers.AccountsController;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.validation.BindingResult;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static com.burdettracker.budgedtrackerproject.utils.TestUtils.createDummyAccount;
 import static com.burdettracker.budgedtrackerproject.utils.TestUtils.createDummyUser;

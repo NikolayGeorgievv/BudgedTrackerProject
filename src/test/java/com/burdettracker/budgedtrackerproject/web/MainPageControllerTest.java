@@ -10,6 +10,7 @@ import com.burdettracker.budgedtrackerproject.repository.AccountRepository;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
 import com.burdettracker.budgedtrackerproject.service.user.UserServiceImpl;
+import com.burdettracker.budgedtrackerproject.web.advisedControllers.MainPageController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

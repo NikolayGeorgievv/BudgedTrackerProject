@@ -5,6 +5,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.model.entity.enums.MembershipType;
 import com.burdettracker.budgedtrackerproject.repository.RolesRepository;
 import com.burdettracker.budgedtrackerproject.repository.UserRepository;
+import com.burdettracker.budgedtrackerproject.web.advisedControllers.AdminController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import software.amazon.awssdk.services.s3.endpoints.internal.Value;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
