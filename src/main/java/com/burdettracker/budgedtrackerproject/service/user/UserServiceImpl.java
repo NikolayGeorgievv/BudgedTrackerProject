@@ -256,7 +256,7 @@ public class UserServiceImpl implements UserService {
             case "PREMIUM" -> 10;
             default -> 0;
         };
-        ;
+
         if (newPlanAccountsAllowed < user.getAccounts().size()) {
             throw new RuntimeException("Can't downgrade plan, too many accounts!");
         }
@@ -271,8 +271,7 @@ public class UserServiceImpl implements UserService {
     public AllUsersInfoDTO getAllUsersInfo() {
         List<User> allUsers = userRepository.findAll();
         List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers, UserFullDetailsInfoDTO[].class)).toList();
-        AllUsersInfoDTO allUsersInfoDTO = new AllUsersInfoDTO(mappedUsers);
-        return allUsersInfoDTO;
+        return new AllUsersInfoDTO(mappedUsers);
     }
 
     @Override
@@ -282,15 +281,13 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         List<UserFullDetailsInfoDTO> mappedUsers = Arrays.stream(modelMapper.map(allUsers.get(), UserFullDetailsInfoDTO[].class)).toList();
-        AllUsersInfoDTO allUsersInfoDTO = new AllUsersInfoDTO(mappedUsers);
-        return allUsersInfoDTO;
+        return new AllUsersInfoDTO(mappedUsers);
     }
 
     @Override
     public UserFullDetailsInfoDTO getUserById(String userId) {
         User user = this.userRepository.getReferenceById(UUID.fromString(userId));
-        UserFullDetailsInfoDTO mappedUser = modelMapper.map(user, UserFullDetailsInfoDTO.class);
-        return mappedUser;
+        return modelMapper.map(user, UserFullDetailsInfoDTO.class);
     }
 
     @Override
@@ -334,18 +331,18 @@ public class UserServiceImpl implements UserService {
 
     private void changeUserMembership(User user, String membership) {
         switch (membership) {
-            case "FREE":
+            case "FREE" -> {
                 user.setMembershipType(MembershipType.FREE);
                 user.setUserAccountsAllowed(1);
-                break;
-            case "GOLD":
+            }
+            case "GOLD" -> {
                 user.setMembershipType(MembershipType.GOLD);
                 user.setUserAccountsAllowed(2);
-                break;
-            case "PREMIUM":
+            }
+            case "PREMIUM" -> {
                 user.setMembershipType(MembershipType.PREMIUM);
                 user.setUserAccountsAllowed(10);
-                break;
+            }
         }
         //Set registeredOn, this will be used for account subscription reference
         user.setRegisteredOnDate(LocalDate.now());

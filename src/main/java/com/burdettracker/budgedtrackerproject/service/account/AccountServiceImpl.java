@@ -38,15 +38,14 @@ public class AccountServiceImpl implements AccountService {
     public AllAccountsInfoDTO getAllAccounts(String email) {
         List<Account> allAccountsByUserEmail = accountRepository.getAllByUser_Email(email);
         List<AccountDTO> accList = Arrays.stream(modelMapper.map(allAccountsByUserEmail, AccountDTO[].class)).toList();
-        AllAccountsInfoDTO allAccountsInfoDTO = new AllAccountsInfoDTO(accList, BigDecimal.valueOf(getTotalBalance(accList)));
-        return allAccountsInfoDTO;
+        return new AllAccountsInfoDTO(accList, BigDecimal.valueOf(getTotalBalance(accList)));
     }
 
     @Override
     public void updateAccountById(EditAccountInfoDTO editAccountInfoDTO, String currentUserName) {
         Long accountId = Long.parseLong(editAccountInfoDTO.getId());
         String newName = editAccountInfoDTO.getNewAccountName();
-        ;
+
         BigDecimal amountToAdd = editAccountInfoDTO.getAddedAmount();
 
         Account account = accountRepository.findFirstById(accountId);
@@ -77,8 +76,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO getAccountDTOById(String accountId) {
         Account account = this.accountRepository.getReferenceById(Long.valueOf(accountId));
-        AccountDTO accountDTO = modelMapper.map(account, AccountDTO.class);
-        return accountDTO;
+        return modelMapper.map(account, AccountDTO.class);
     }
 
     @Override
@@ -98,8 +96,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     public double getTotalBalance(List<AccountDTO> accList) {
-        double totalBalance = accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();
 
-        return totalBalance;
+        return accList.stream().mapToDouble(accountDTO -> Double.parseDouble(String.valueOf(accountDTO.getCurrentAmount()))).sum();
     }
 }

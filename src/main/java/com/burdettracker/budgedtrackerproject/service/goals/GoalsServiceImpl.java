@@ -110,8 +110,7 @@ public class GoalsServiceImpl implements GoalsService {
         //Completed goals
         List<CompletedGoalDTO> completedGoals = goalsList.stream().filter(CompletedGoalDTO::isCompleted).toList();
 
-        AllCompletedGoalsInfoDTO allCompletedGoalsInfoDTO = new AllCompletedGoalsInfoDTO(completedGoals);
-        return allCompletedGoalsInfoDTO;
+        return new AllCompletedGoalsInfoDTO(completedGoals);
     }
 
     @Override
@@ -127,7 +126,6 @@ public class GoalsServiceImpl implements GoalsService {
         //Uncompleted goals
         List<GoalDTO> uncompletedGoals = goalsList.stream().filter(goal -> !goal.isCompleted()).toList();
 
-        AllUncompletedGoalsInfoDTO allUncompletedGoalsInfoDTO = new AllUncompletedGoalsInfoDTO(uncompletedGoals);
-        return allUncompletedGoalsInfoDTO;
+        return new AllUncompletedGoalsInfoDTO(uncompletedGoals);
     }
 }

@@ -61,8 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         List<TransactionInfoDTO> transactionsList = new java.util.ArrayList<>(Arrays.stream(modelMapper.map(transactionHistory, TransactionInfoDTO[].class)).toList());
         Collections.reverse(transactionsList);
-        AccountTransactionsDTO accountTransactionsDTO = new AccountTransactionsDTO(transactionsList);
-        return accountTransactionsDTO;
+        return new AccountTransactionsDTO(transactionsList);
     }
 
     @Override

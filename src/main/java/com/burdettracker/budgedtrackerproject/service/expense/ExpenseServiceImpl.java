@@ -51,8 +51,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             if (!expenseToEdit.getPeriodDate().equals(editExpenseInfoDTO.getPeriodDate()) && !editExpenseInfoDTO.getPeriod().trim().equals("")) {
                 LocalDate todaysDate = LocalDate.now();
                 if (editExpenseInfoDTO.getPeriod().equals("weekly")) {
-                    //30th, monthly 2024-05-30
-                    //Thursday, weekly next thursday
+
                     setWeeklyDateDue(expenseToEdit, editExpenseInfoDTO.getPeriodDate());
 
                 } else if (editExpenseInfoDTO.getPeriod().equals("monthly")) {
@@ -92,10 +91,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public List<ExpenseDTO> sortByCategory(String category) {
         Optional<List<Expense>> expensesByCategory = this.expenseRepository.findAllByCategory_Category(category);
-        if (expensesByCategory.isEmpty()) {
-            return null;
-        }
-        return Arrays.stream(modelMapper.map(expensesByCategory.get(), ExpenseDTO[].class)).toList();
+        return expensesByCategory.map(expenses -> Arrays.stream(modelMapper.map(expenses, ExpenseDTO[].class)).toList()).orElse(null);
     }
 
     @Override
@@ -134,42 +130,18 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
         switch (month) {
-            case "January":
-                month = "01";
-                break;
-            case "February":
-                month = "02";
-                break;
-            case "March":
-                month = "03";
-                break;
-            case "April":
-                month = "04";
-                break;
-            case "May":
-                month = "05";
-                break;
-            case "June":
-                month = "06";
-                break;
-            case "July":
-                month = "07";
-                break;
-            case "August":
-                month = "08";
-                break;
-            case "September":
-                month = "09";
-                break;
-            case "October":
-                month = "10";
-                break;
-            case "November":
-                month = "11";
-                break;
-            case "December":
-                month = "12";
-                break;
+            case "January" -> month = "01";
+            case "February" -> month = "02";
+            case "March" -> month = "03";
+            case "April" -> month = "04";
+            case "May" -> month = "05";
+            case "June" -> month = "06";
+            case "July" -> month = "07";
+            case "August" -> month = "08";
+            case "September" -> month = "09";
+            case "October" -> month = "10";
+            case "November" -> month = "11";
+            case "December" -> month = "12";
         }
 
         return String.format("%s-%s-%s", year, month, day);
