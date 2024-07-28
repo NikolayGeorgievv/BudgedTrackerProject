@@ -23,7 +23,7 @@ public class AccountsController extends BaseController {
 
 
     public AccountsController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, TransactionService transactionService, GoalsService goalsService, CategoryService categoryService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
+        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
 
     }
 

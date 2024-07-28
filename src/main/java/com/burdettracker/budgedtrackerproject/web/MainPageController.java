@@ -27,7 +27,7 @@ public class MainPageController extends BaseController {
 
 
     public MainPageController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
+        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
     @ModelAttribute

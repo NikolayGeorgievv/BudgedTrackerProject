@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 public class AdminController extends BaseController {
     public AdminController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, CategoryService categoryService, GoalsService goalsService, TransactionService transactionService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
+        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

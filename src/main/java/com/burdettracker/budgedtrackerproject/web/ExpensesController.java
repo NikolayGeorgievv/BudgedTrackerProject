@@ -23,7 +23,7 @@ import java.util.List;
 public class ExpensesController extends BaseController {
 
     public ExpensesController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, CategoryService categoryService, AccountService accountService, TransactionService transactionService, GoalsService goalsService) {
-        super(expenses, userService, expenseService, accountService, goalsService, transactionService, categoryService);
+        super(userService, expenseService, accountService, goalsService, transactionService, categoryService);
     }
 
 

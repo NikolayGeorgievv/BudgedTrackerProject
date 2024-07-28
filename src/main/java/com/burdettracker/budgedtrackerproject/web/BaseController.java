@@ -36,18 +36,15 @@ import java.util.Locale;
 @Controller
 public class BaseController {
 
-    protected List<ExpenseDTO> expenses;
     protected final UserService userService;
     protected final ExpenseService expenseService;
     protected final AccountService accountService;
-    protected List<AccountDTO> accounts;
     protected final GoalsService goalsService;
     protected final TransactionService transactionService;
     protected final CategoryService categoryService;
 
 
-    public BaseController(List<ExpenseDTO> expenses, UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService, CategoryService categoryService) {
-        this.expenses = expenses;
+    public BaseController(UserService userService, ExpenseService expenseService, AccountService accountService, GoalsService goalsService, TransactionService transactionService, CategoryService categoryService) {
         this.userService = userService;
         this.expenseService = expenseService;
         this.accountService = accountService;
@@ -106,11 +103,9 @@ public class BaseController {
     }
 
     @ModelAttribute("userExpenses")
-    public Model userExpenses(Model model) {
+    public List<ExpenseDTO> userExpenses() {
         UserExpensesDetailsDTO userByEmail = getUserByEmail();
-        expenses = userByEmail.getExpenses();
-        model.addAttribute("userExpenses", expenses);
-        return model;
+        return userByEmail.getExpenses();
     }
 
     @ModelAttribute("userFullNameDTO")
@@ -130,13 +125,11 @@ public class BaseController {
         return new ExpenseDTO();
     }
 
-    @ModelAttribute("userAccounts")
-    public Model userAccountsModel(Model model) {
-        UserExpensesDetailsDTO userByEmail = getUserByEmail();
 
-        accounts = userByEmail.getAccounts();
-        model.addAttribute("userAccounts", accounts);
-        return model;
+    @ModelAttribute("userAccounts")
+    public List<AccountDTO> userAccounts() {
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
+        return userByEmail.getAccounts();
     }
 
     @ModelAttribute("usersAccountCeil")
@@ -166,7 +159,8 @@ public class BaseController {
 
     @ModelAttribute("totalExpensesFunds")
     public String totalExpensesFunds() {
-        String totalBalance = this.expenseService.getTotalValue(expenses);
+        UserExpensesDetailsDTO userByEmail = getUserByEmail();
+        String totalBalance = this.expenseService.getTotalValue(userByEmail.getExpenses());
         return String.valueOf(totalBalance);
     }
 
