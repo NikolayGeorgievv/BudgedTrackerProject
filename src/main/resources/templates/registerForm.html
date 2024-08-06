@@ -89,7 +89,7 @@
                     <input class="form-check-input" type="checkbox" name="termsAccepted" id="gridCheck">
                     <label class="form-check-label" for="gridCheck">
                         <span th:text="#{registerFormTermsAndConditions1}">I have read and agree</span>
-                         <a th:href="@{termsAndConditions.html}" style="color: white; " th:text="#{registerFormTermsAndConditions2}"> Terms and conditions</a>.
+                         <a th:href="@{/users/termsAndConditions}" style="color: white; " th:text="#{registerFormTermsAndConditions2}"> Terms and conditions</a>.
                     </label>
                     <p th:if="${#fields.hasErrors('termsAccepted')}" class="errors"
                        th:text="#{registerFormTermsAcceptedError}"

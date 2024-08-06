@@ -98,8 +98,8 @@ class RegisterControllerTest {
 
     @Test
     void termsAndConditions() throws Exception {
-        mockMvc.perform(get("/users/termsAndConditions.html"))
+        mockMvc.perform(get("/users/termsAndConditions"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("termsAndConditions.html"));
+                .andExpect(view().name("termsAndConditions"));
     }
 }
