@@ -49,7 +49,7 @@ class TransactionServiceImplTest {
     @Test
     void addExpenseTransaction() {
         Expense expense = new Expense();
-        Category category = new Category("test");
+        Category category = new Category("test", false);
         Account account = new Account();
         account.setName("test");
         expense.setCategory(category);
