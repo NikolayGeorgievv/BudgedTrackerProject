@@ -50,6 +50,9 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Transaction> transactions = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<Category> categories = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -181,6 +184,14 @@ public class User {
 
     public void setAccountNameAssignedForSubscription(String accountNameAssignedForSubscription) {
         this.accountNameAssignedForSubscription = accountNameAssignedForSubscription;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public List<UserRoleEntity> getRoles() {

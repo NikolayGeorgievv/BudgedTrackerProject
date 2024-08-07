@@ -66,13 +66,14 @@ public class BaseController {
     public List<TransactionInfoDTO> allTransactionsDTO() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        List<TransactionInfoDTO> allTransactionsInfo = transactionService.getAllTransactionsInfo(currentUserName);
-        return allTransactionsInfo;
+        return transactionService.getAllTransactionsInfo(currentUserName);
     }
 
     @ModelAttribute("expenseCategories")
     public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return categoryService.getAllCategories(currentUserName);
     }
 
     @ModelAttribute("allUsersDTO")

@@ -129,7 +129,12 @@ public class UserServiceImpl implements UserService {
         List<Transaction> transactions = new ArrayList<>();
         Account baseAccount = new Account("MyAccount", LocalDate.now(), BigDecimal.ZERO, transactions, user);
         user.getAccounts().add(baseAccount);
+        user.setCategories(setBasicCategories());
         return user;
+    }
+
+    private List<Category> setBasicCategories() {
+        return categoryRepository.findAllByisBasic(true);
     }
 
 

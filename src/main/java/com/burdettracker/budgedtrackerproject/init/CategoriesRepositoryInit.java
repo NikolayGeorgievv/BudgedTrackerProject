@@ -22,12 +22,12 @@ public class CategoriesRepositoryInit implements CommandLineRunner {
 
         if (categoryRepository.count() == 0) {
 
-            Category GENERAL = new Category("GENERAL");
-            Category UTILITIES = new Category("UTILITIES");
-            Category SUBSCRIPTIONS = new Category("SUBSCRIPTIONS");
-            Category ENTERTAINMENT = new Category("ENTERTAINMENT");
-            Category EDUCATION = new Category("EDUCATION");
-            Category TRAVEL = new Category("TRAVEL");
+            Category GENERAL = new Category("GENERAL", true);
+            Category UTILITIES = new Category("UTILITIES", true);
+            Category SUBSCRIPTIONS = new Category("SUBSCRIPTIONS", true);
+            Category ENTERTAINMENT = new Category("ENTERTAINMENT", true);
+            Category EDUCATION = new Category("EDUCATION", true);
+            Category TRAVEL = new Category("TRAVEL", true);
 
             List<Category> basicCategories = List.of(GENERAL, UTILITIES, SUBSCRIPTIONS, ENTERTAINMENT, EDUCATION, TRAVEL);
 
