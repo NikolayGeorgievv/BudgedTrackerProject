@@ -50,9 +50,15 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Transaction> transactions = new ArrayList<>();
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_categories",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -134,6 +134,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private List<Category> setBasicCategories() {
+
+
         return categoryRepository.findAllByisBasic(true);
     }
 
