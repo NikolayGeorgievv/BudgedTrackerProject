@@ -6,6 +6,7 @@ import com.burdettracker.budgedtrackerproject.model.entity.User;
 import com.burdettracker.budgedtrackerproject.repository.CategoryRepository;
 import com.burdettracker.budgedtrackerproject.service.user.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

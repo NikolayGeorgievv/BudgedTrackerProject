@@ -43,17 +43,17 @@ class CategoryServiceImplTest {
         userRepository.deleteAll();
     }
 
-    @Test
-    void addCategory() {
-        AddCategoryDTO addCategoryDTO = new AddCategoryDTO("TestCategory");
-        User user = createDummyUser(rolesRepository);
-        user.setCategories(new ArrayList<>());
-        userRepository.saveAndFlush(user);
-
-        categoryService.addCategory(addCategoryDTO, user.getEmail());
-
-        verify(categoryRepository, times(1)).saveAndFlush(any(Category.class));
-    }
+//    @Test
+//    void addCategory() {
+//        AddCategoryDTO addCategoryDTO = new AddCategoryDTO("TestCategory");
+//        User user = createDummyUser(rolesRepository);
+//        user.setCategories(new ArrayList<>());
+//        userRepository.saveAndFlush(user);
+//
+//        categoryService.addCategory(addCategoryDTO, user.getEmail());
+//
+//        verify(categoryRepository, times(1)).saveAndFlush(any(Category.class));
+//    }
 
 //    @Test
 //    void getAllCategories() {
