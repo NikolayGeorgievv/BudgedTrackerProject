@@ -27,7 +27,7 @@ public class ExpenseUpdater {
     }
 
     //cron = */30.. is for test purposes only
-    //    @Scheduled(cron = "*/30 * * * * *")
+//        @Scheduled(cron = "*/30 * * * * *")
     @Scheduled(cron = "0 55 23 */1 * *")
     public void updateExpense() {
         LocalDate todaysDate = LocalDate.now();

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class UserLoginAspect {
-    private static final Logger logger = LoggerFactory.getLogger(UserLoginAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginAspect.class);
 
     @Pointcut("execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))")
     public void userLogin() {
@@ -21,6 +21,6 @@ public class UserLoginAspect {
     @AfterReturning(pointcut = "userLogin()", returning = "result")
     public void logUserLogin(JoinPoint joinPoint, Object result) {
         Authentication auth = (Authentication) result;
-        logger.info("User {} logged in", auth.getName());
+        LOGGER.info("User {} logged in", auth.getName());
     }
 }
