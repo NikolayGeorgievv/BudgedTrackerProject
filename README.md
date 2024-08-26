@@ -17,7 +17,7 @@ Please check "More details" section first, as you might need to set up a few thi
 User is able to create different accounts(based on his membership plan).
 User is able to create expenses. Each expense contains different information that the user is able to set himself, like assigning an account , date, period(e.g. weekly, monthly, custom).
 User is able to create goals. You can track your goal via progress-bar and check your completed goals and the information related to them.
-The application is responsive. Any device with width<600px will experience different UI.
+The application is responsive. Any device with width<600px will experience different UI. There is I18N: English and Bulgarian for the better part of the app.
 
 ## More details
 The app has both front-end and back-end user input validation with spring security and thymeleaf security.
