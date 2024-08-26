@@ -1,3 +1,6 @@
+![budgedTrackerIMG](https://github.com/user-attachments/assets/a585cd33-5580-4676-bc58-418575ad3db6)
+
+
 # BudgedTrackerProject
 This is a Budged tracking web application.
 It uses Java/Spring Boot, MYSQL for database and Bootstrap/JS for the front end.
